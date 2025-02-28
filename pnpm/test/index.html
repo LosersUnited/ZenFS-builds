@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Test</title>
+    <script src="bundle.js"></script>
+  </head>
+  <body>
+      <script>
+        const zen = globalThis.ZenFS_Aquire();
+        const ZenFs = zen.zenfs;
+        const ZenFsDom = zen.zenfs_dom;
+        const useIndexedDB = true;
+
+        const backendConfig = useIndexedDB
+          ? { backend: ZenFsDom.IndexedDB, storeName: 'my-db' }
+          : { backend: ZenFsDom.WebStorage, storage: localStorage };
+
+        ZenFs.configureSingle(backendConfig).then(() => {
+            ZenFs.fs.writeFileSync('/test.txt', 'Hello from ZenFS!');
+            console.log(ZenFs.fs.readFileSync('/test.txt', 'utf-8'));
+        });
+      </script>
+  </body>
+</html>
