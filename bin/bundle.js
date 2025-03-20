@@ -382,13 +382,13 @@
       var base64 = require_base64_js();
       var ieee754 = require_ieee754();
       var customInspectSymbol = typeof Symbol === "function" && typeof Symbol["for"] === "function" ? Symbol["for"]("nodejs.util.inspect.custom") : null;
-      exports.Buffer = Buffer5;
+      exports.Buffer = Buffer6;
       exports.SlowBuffer = SlowBuffer;
       exports.INSPECT_MAX_BYTES = 50;
       var K_MAX_LENGTH = 2147483647;
       exports.kMaxLength = K_MAX_LENGTH;
-      Buffer5.TYPED_ARRAY_SUPPORT = typedArraySupport();
-      if (!Buffer5.TYPED_ARRAY_SUPPORT && typeof console !== "undefined" && typeof console.error === "function") {
+      Buffer6.TYPED_ARRAY_SUPPORT = typedArraySupport();
+      if (!Buffer6.TYPED_ARRAY_SUPPORT && typeof console !== "undefined" && typeof console.error === "function") {
         console.error(
           "This browser lacks typed array (Uint8Array) support which is required by `buffer` v5.x. Use `buffer` v4.x if you require old browser support."
         );
@@ -406,17 +406,17 @@
           return false;
         }
       }
-      Object.defineProperty(Buffer5.prototype, "parent", {
+      Object.defineProperty(Buffer6.prototype, "parent", {
         enumerable: true,
         get: function() {
-          if (!Buffer5.isBuffer(this)) return void 0;
+          if (!Buffer6.isBuffer(this)) return void 0;
           return this.buffer;
         }
       });
-      Object.defineProperty(Buffer5.prototype, "offset", {
+      Object.defineProperty(Buffer6.prototype, "offset", {
         enumerable: true,
         get: function() {
-          if (!Buffer5.isBuffer(this)) return void 0;
+          if (!Buffer6.isBuffer(this)) return void 0;
           return this.byteOffset;
         }
       });
@@ -425,10 +425,10 @@
           throw new RangeError('The value "' + length + '" is invalid for option "size"');
         }
         const buf = new Uint8Array(length);
-        Object.setPrototypeOf(buf, Buffer5.prototype);
+        Object.setPrototypeOf(buf, Buffer6.prototype);
         return buf;
       }
-      function Buffer5(arg, encodingOrOffset, length) {
+      function Buffer6(arg, encodingOrOffset, length) {
         if (typeof arg === "number") {
           if (typeof encodingOrOffset === "string") {
             throw new TypeError(
@@ -439,7 +439,7 @@
         }
         return from(arg, encodingOrOffset, length);
       }
-      Buffer5.poolSize = 8192;
+      Buffer6.poolSize = 8192;
       function from(value, encodingOrOffset, length) {
         if (typeof value === "string") {
           return fromString(value, encodingOrOffset);
@@ -465,22 +465,22 @@
         }
         const valueOf = value.valueOf && value.valueOf();
         if (valueOf != null && valueOf !== value) {
-          return Buffer5.from(valueOf, encodingOrOffset, length);
+          return Buffer6.from(valueOf, encodingOrOffset, length);
         }
         const b = fromObject(value);
         if (b) return b;
         if (typeof Symbol !== "undefined" && Symbol.toPrimitive != null && typeof value[Symbol.toPrimitive] === "function") {
-          return Buffer5.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
+          return Buffer6.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
         }
         throw new TypeError(
           "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value
         );
       }
-      Buffer5.from = function(value, encodingOrOffset, length) {
+      Buffer6.from = function(value, encodingOrOffset, length) {
         return from(value, encodingOrOffset, length);
       };
-      Object.setPrototypeOf(Buffer5.prototype, Uint8Array.prototype);
-      Object.setPrototypeOf(Buffer5, Uint8Array);
+      Object.setPrototypeOf(Buffer6.prototype, Uint8Array.prototype);
+      Object.setPrototypeOf(Buffer6, Uint8Array);
       function assertSize(size) {
         if (typeof size !== "number") {
           throw new TypeError('"size" argument must be of type number');
@@ -498,24 +498,24 @@
         }
         return createBuffer(size);
       }
-      Buffer5.alloc = function(size, fill, encoding) {
+      Buffer6.alloc = function(size, fill, encoding) {
         return alloc(size, fill, encoding);
       };
       function allocUnsafe(size) {
         assertSize(size);
         return createBuffer(size < 0 ? 0 : checked(size) | 0);
       }
-      Buffer5.allocUnsafe = function(size) {
+      Buffer6.allocUnsafe = function(size) {
         return allocUnsafe(size);
       };
-      Buffer5.allocUnsafeSlow = function(size) {
+      Buffer6.allocUnsafeSlow = function(size) {
         return allocUnsafe(size);
       };
       function fromString(string, encoding) {
         if (typeof encoding !== "string" || encoding === "") {
           encoding = "utf8";
         }
-        if (!Buffer5.isEncoding(encoding)) {
+        if (!Buffer6.isEncoding(encoding)) {
           throw new TypeError("Unknown encoding: " + encoding);
         }
         const length = byteLength(string, encoding) | 0;
@@ -556,11 +556,11 @@
         } else {
           buf = new Uint8Array(array, byteOffset, length);
         }
-        Object.setPrototypeOf(buf, Buffer5.prototype);
+        Object.setPrototypeOf(buf, Buffer6.prototype);
         return buf;
       }
       function fromObject(obj) {
-        if (Buffer5.isBuffer(obj)) {
+        if (Buffer6.isBuffer(obj)) {
           const len = checked(obj.length) | 0;
           const buf = createBuffer(len);
           if (buf.length === 0) {
@@ -589,15 +589,15 @@
         if (+length != length) {
           length = 0;
         }
-        return Buffer5.alloc(+length);
+        return Buffer6.alloc(+length);
       }
-      Buffer5.isBuffer = function isBuffer(b) {
-        return b != null && b._isBuffer === true && b !== Buffer5.prototype;
+      Buffer6.isBuffer = function isBuffer(b) {
+        return b != null && b._isBuffer === true && b !== Buffer6.prototype;
       };
-      Buffer5.compare = function compare(a, b) {
-        if (isInstance2(a, Uint8Array)) a = Buffer5.from(a, a.offset, a.byteLength);
-        if (isInstance2(b, Uint8Array)) b = Buffer5.from(b, b.offset, b.byteLength);
-        if (!Buffer5.isBuffer(a) || !Buffer5.isBuffer(b)) {
+      Buffer6.compare = function compare(a, b) {
+        if (isInstance2(a, Uint8Array)) a = Buffer6.from(a, a.offset, a.byteLength);
+        if (isInstance2(b, Uint8Array)) b = Buffer6.from(b, b.offset, b.byteLength);
+        if (!Buffer6.isBuffer(a) || !Buffer6.isBuffer(b)) {
           throw new TypeError(
             'The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array'
           );
@@ -616,7 +616,7 @@
         if (y < x) return 1;
         return 0;
       };
-      Buffer5.isEncoding = function isEncoding(encoding) {
+      Buffer6.isEncoding = function isEncoding(encoding) {
         switch (String(encoding).toLowerCase()) {
           case "hex":
           case "utf8":
@@ -634,27 +634,27 @@
             return false;
         }
       };
-      Buffer5.concat = function concat(list, length) {
-        if (!Array.isArray(list)) {
+      Buffer6.concat = function concat(list2, length) {
+        if (!Array.isArray(list2)) {
           throw new TypeError('"list" argument must be an Array of Buffers');
         }
-        if (list.length === 0) {
-          return Buffer5.alloc(0);
+        if (list2.length === 0) {
+          return Buffer6.alloc(0);
         }
         let i;
         if (length === void 0) {
           length = 0;
-          for (i = 0; i < list.length; ++i) {
-            length += list[i].length;
+          for (i = 0; i < list2.length; ++i) {
+            length += list2[i].length;
           }
         }
-        const buffer = Buffer5.allocUnsafe(length);
+        const buffer = Buffer6.allocUnsafe(length);
         let pos = 0;
-        for (i = 0; i < list.length; ++i) {
-          let buf = list[i];
+        for (i = 0; i < list2.length; ++i) {
+          let buf = list2[i];
           if (isInstance2(buf, Uint8Array)) {
             if (pos + buf.length > buffer.length) {
-              if (!Buffer5.isBuffer(buf)) buf = Buffer5.from(buf);
+              if (!Buffer6.isBuffer(buf)) buf = Buffer6.from(buf);
               buf.copy(buffer, pos);
             } else {
               Uint8Array.prototype.set.call(
@@ -663,7 +663,7 @@
                 pos
               );
             }
-          } else if (!Buffer5.isBuffer(buf)) {
+          } else if (!Buffer6.isBuffer(buf)) {
             throw new TypeError('"list" argument must be an Array of Buffers');
           } else {
             buf.copy(buffer, pos);
@@ -673,7 +673,7 @@
         return buffer;
       };
       function byteLength(string, encoding) {
-        if (Buffer5.isBuffer(string)) {
+        if (Buffer6.isBuffer(string)) {
           return string.length;
         }
         if (ArrayBuffer.isView(string) || isInstance2(string, ArrayBuffer)) {
@@ -715,7 +715,7 @@
           }
         }
       }
-      Buffer5.byteLength = byteLength;
+      Buffer6.byteLength = byteLength;
       function slowToString(encoding, start, end) {
         let loweredCase = false;
         if (start === void 0 || start < 0) {
@@ -762,13 +762,13 @@
           }
         }
       }
-      Buffer5.prototype._isBuffer = true;
+      Buffer6.prototype._isBuffer = true;
       function swap(b, n, m) {
         const i = b[n];
         b[n] = b[m];
         b[m] = i;
       }
-      Buffer5.prototype.swap16 = function swap16() {
+      Buffer6.prototype.swap16 = function swap16() {
         const len = this.length;
         if (len % 2 !== 0) {
           throw new RangeError("Buffer size must be a multiple of 16-bits");
@@ -778,7 +778,7 @@
         }
         return this;
       };
-      Buffer5.prototype.swap32 = function swap32() {
+      Buffer6.prototype.swap32 = function swap32() {
         const len = this.length;
         if (len % 4 !== 0) {
           throw new RangeError("Buffer size must be a multiple of 32-bits");
@@ -789,7 +789,7 @@
         }
         return this;
       };
-      Buffer5.prototype.swap64 = function swap64() {
+      Buffer6.prototype.swap64 = function swap64() {
         const len = this.length;
         if (len % 8 !== 0) {
           throw new RangeError("Buffer size must be a multiple of 64-bits");
@@ -802,19 +802,19 @@
         }
         return this;
       };
-      Buffer5.prototype.toString = function toString() {
+      Buffer6.prototype.toString = function toString() {
         const length = this.length;
         if (length === 0) return "";
         if (arguments.length === 0) return utf8Slice(this, 0, length);
         return slowToString.apply(this, arguments);
       };
-      Buffer5.prototype.toLocaleString = Buffer5.prototype.toString;
-      Buffer5.prototype.equals = function equals(b) {
-        if (!Buffer5.isBuffer(b)) throw new TypeError("Argument must be a Buffer");
+      Buffer6.prototype.toLocaleString = Buffer6.prototype.toString;
+      Buffer6.prototype.equals = function equals(b) {
+        if (!Buffer6.isBuffer(b)) throw new TypeError("Argument must be a Buffer");
         if (this === b) return true;
-        return Buffer5.compare(this, b) === 0;
+        return Buffer6.compare(this, b) === 0;
       };
-      Buffer5.prototype.inspect = function inspect() {
+      Buffer6.prototype.inspect = function inspect() {
         let str = "";
         const max = exports.INSPECT_MAX_BYTES;
         str = this.toString("hex", 0, max).replace(/(.{2})/g, "$1 ").trim();
@@ -822,13 +822,13 @@
         return "<Buffer " + str + ">";
       };
       if (customInspectSymbol) {
-        Buffer5.prototype[customInspectSymbol] = Buffer5.prototype.inspect;
+        Buffer6.prototype[customInspectSymbol] = Buffer6.prototype.inspect;
       }
-      Buffer5.prototype.compare = function compare(target, start, end, thisStart, thisEnd) {
+      Buffer6.prototype.compare = function compare(target, start, end, thisStart, thisEnd) {
         if (isInstance2(target, Uint8Array)) {
-          target = Buffer5.from(target, target.offset, target.byteLength);
+          target = Buffer6.from(target, target.offset, target.byteLength);
         }
-        if (!Buffer5.isBuffer(target)) {
+        if (!Buffer6.isBuffer(target)) {
           throw new TypeError(
             'The "target" argument must be one of type Buffer or Uint8Array. Received type ' + typeof target
           );
@@ -901,9 +901,9 @@
           else return -1;
         }
         if (typeof val === "string") {
-          val = Buffer5.from(val, encoding);
+          val = Buffer6.from(val, encoding);
         }
-        if (Buffer5.isBuffer(val)) {
+        if (Buffer6.isBuffer(val)) {
           if (val.length === 0) {
             return -1;
           }
@@ -971,13 +971,13 @@
         }
         return -1;
       }
-      Buffer5.prototype.includes = function includes(val, byteOffset, encoding) {
+      Buffer6.prototype.includes = function includes(val, byteOffset, encoding) {
         return this.indexOf(val, byteOffset, encoding) !== -1;
       };
-      Buffer5.prototype.indexOf = function indexOf(val, byteOffset, encoding) {
+      Buffer6.prototype.indexOf = function indexOf(val, byteOffset, encoding) {
         return bidirectionalIndexOf(this, val, byteOffset, encoding, true);
       };
-      Buffer5.prototype.lastIndexOf = function lastIndexOf(val, byteOffset, encoding) {
+      Buffer6.prototype.lastIndexOf = function lastIndexOf(val, byteOffset, encoding) {
         return bidirectionalIndexOf(this, val, byteOffset, encoding, false);
       };
       function hexWrite(buf, string, offset, length) {
@@ -1015,7 +1015,7 @@
       function ucs2Write(buf, string, offset, length) {
         return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length);
       }
-      Buffer5.prototype.write = function write2(string, offset, length, encoding) {
+      Buffer6.prototype.write = function write2(string, offset, length, encoding) {
         if (offset === void 0) {
           encoding = "utf8";
           length = this.length;
@@ -1070,7 +1070,7 @@
           }
         }
       };
-      Buffer5.prototype.toJSON = function toJSON() {
+      Buffer6.prototype.toJSON = function toJSON() {
         return {
           type: "Buffer",
           data: Array.prototype.slice.call(this._arr || this, 0)
@@ -1193,7 +1193,7 @@
         }
         return res;
       }
-      Buffer5.prototype.slice = function slice(start, end) {
+      Buffer6.prototype.slice = function slice(start, end) {
         const len = this.length;
         start = ~~start;
         end = end === void 0 ? len : ~~end;
@@ -1211,14 +1211,14 @@
         }
         if (end < start) end = start;
         const newBuf = this.subarray(start, end);
-        Object.setPrototypeOf(newBuf, Buffer5.prototype);
+        Object.setPrototypeOf(newBuf, Buffer6.prototype);
         return newBuf;
       };
       function checkOffset(offset, ext, length) {
         if (offset % 1 !== 0 || offset < 0) throw new RangeError("offset is not uint");
         if (offset + ext > length) throw new RangeError("Trying to access beyond buffer length");
       }
-      Buffer5.prototype.readUintLE = Buffer5.prototype.readUIntLE = function readUIntLE(offset, byteLength2, noAssert) {
+      Buffer6.prototype.readUintLE = Buffer6.prototype.readUIntLE = function readUIntLE(offset, byteLength2, noAssert) {
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
         if (!noAssert) checkOffset(offset, byteLength2, this.length);
@@ -1230,7 +1230,7 @@
         }
         return val;
       };
-      Buffer5.prototype.readUintBE = Buffer5.prototype.readUIntBE = function readUIntBE(offset, byteLength2, noAssert) {
+      Buffer6.prototype.readUintBE = Buffer6.prototype.readUIntBE = function readUIntBE(offset, byteLength2, noAssert) {
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
         if (!noAssert) {
@@ -1243,32 +1243,32 @@
         }
         return val;
       };
-      Buffer5.prototype.readUint8 = Buffer5.prototype.readUInt8 = function readUInt8(offset, noAssert) {
+      Buffer6.prototype.readUint8 = Buffer6.prototype.readUInt8 = function readUInt8(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 1, this.length);
         return this[offset];
       };
-      Buffer5.prototype.readUint16LE = Buffer5.prototype.readUInt16LE = function readUInt16LE(offset, noAssert) {
+      Buffer6.prototype.readUint16LE = Buffer6.prototype.readUInt16LE = function readUInt16LE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 2, this.length);
         return this[offset] | this[offset + 1] << 8;
       };
-      Buffer5.prototype.readUint16BE = Buffer5.prototype.readUInt16BE = function readUInt16BE(offset, noAssert) {
+      Buffer6.prototype.readUint16BE = Buffer6.prototype.readUInt16BE = function readUInt16BE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 2, this.length);
         return this[offset] << 8 | this[offset + 1];
       };
-      Buffer5.prototype.readUint32LE = Buffer5.prototype.readUInt32LE = function readUInt32LE(offset, noAssert) {
+      Buffer6.prototype.readUint32LE = Buffer6.prototype.readUInt32LE = function readUInt32LE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return (this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16) + this[offset + 3] * 16777216;
       };
-      Buffer5.prototype.readUint32BE = Buffer5.prototype.readUInt32BE = function readUInt32BE(offset, noAssert) {
+      Buffer6.prototype.readUint32BE = Buffer6.prototype.readUInt32BE = function readUInt32BE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return this[offset] * 16777216 + (this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3]);
       };
-      Buffer5.prototype.readBigUInt64LE = defineBigIntMethod(function readBigUInt64LE(offset) {
+      Buffer6.prototype.readBigUInt64LE = defineBigIntMethod(function readBigUInt64LE(offset) {
         offset = offset >>> 0;
         validateNumber(offset, "offset");
         const first = this[offset];
@@ -1280,7 +1280,7 @@
         const hi = this[++offset] + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + last * 2 ** 24;
         return BigInt(lo) + (BigInt(hi) << BigInt(32));
       });
-      Buffer5.prototype.readBigUInt64BE = defineBigIntMethod(function readBigUInt64BE(offset) {
+      Buffer6.prototype.readBigUInt64BE = defineBigIntMethod(function readBigUInt64BE(offset) {
         offset = offset >>> 0;
         validateNumber(offset, "offset");
         const first = this[offset];
@@ -1292,7 +1292,7 @@
         const lo = this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + last;
         return (BigInt(hi) << BigInt(32)) + BigInt(lo);
       });
-      Buffer5.prototype.readIntLE = function readIntLE(offset, byteLength2, noAssert) {
+      Buffer6.prototype.readIntLE = function readIntLE(offset, byteLength2, noAssert) {
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
         if (!noAssert) checkOffset(offset, byteLength2, this.length);
@@ -1306,7 +1306,7 @@
         if (val >= mul) val -= Math.pow(2, 8 * byteLength2);
         return val;
       };
-      Buffer5.prototype.readIntBE = function readIntBE(offset, byteLength2, noAssert) {
+      Buffer6.prototype.readIntBE = function readIntBE(offset, byteLength2, noAssert) {
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
         if (!noAssert) checkOffset(offset, byteLength2, this.length);
@@ -1320,35 +1320,35 @@
         if (val >= mul) val -= Math.pow(2, 8 * byteLength2);
         return val;
       };
-      Buffer5.prototype.readInt8 = function readInt8(offset, noAssert) {
+      Buffer6.prototype.readInt8 = function readInt8(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 1, this.length);
         if (!(this[offset] & 128)) return this[offset];
         return (255 - this[offset] + 1) * -1;
       };
-      Buffer5.prototype.readInt16LE = function readInt16LE(offset, noAssert) {
+      Buffer6.prototype.readInt16LE = function readInt16LE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 2, this.length);
         const val = this[offset] | this[offset + 1] << 8;
         return val & 32768 ? val | 4294901760 : val;
       };
-      Buffer5.prototype.readInt16BE = function readInt16BE(offset, noAssert) {
+      Buffer6.prototype.readInt16BE = function readInt16BE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 2, this.length);
         const val = this[offset + 1] | this[offset] << 8;
         return val & 32768 ? val | 4294901760 : val;
       };
-      Buffer5.prototype.readInt32LE = function readInt32LE(offset, noAssert) {
+      Buffer6.prototype.readInt32LE = function readInt32LE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16 | this[offset + 3] << 24;
       };
-      Buffer5.prototype.readInt32BE = function readInt32BE(offset, noAssert) {
+      Buffer6.prototype.readInt32BE = function readInt32BE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return this[offset] << 24 | this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3];
       };
-      Buffer5.prototype.readBigInt64LE = defineBigIntMethod(function readBigInt64LE(offset) {
+      Buffer6.prototype.readBigInt64LE = defineBigIntMethod(function readBigInt64LE(offset) {
         offset = offset >>> 0;
         validateNumber(offset, "offset");
         const first = this[offset];
@@ -1359,7 +1359,7 @@
         const val = this[offset + 4] + this[offset + 5] * 2 ** 8 + this[offset + 6] * 2 ** 16 + (last << 24);
         return (BigInt(val) << BigInt(32)) + BigInt(first + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 24);
       });
-      Buffer5.prototype.readBigInt64BE = defineBigIntMethod(function readBigInt64BE(offset) {
+      Buffer6.prototype.readBigInt64BE = defineBigIntMethod(function readBigInt64BE(offset) {
         offset = offset >>> 0;
         validateNumber(offset, "offset");
         const first = this[offset];
@@ -1371,32 +1371,32 @@
         this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + this[++offset];
         return (BigInt(val) << BigInt(32)) + BigInt(this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + last);
       });
-      Buffer5.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
+      Buffer6.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return ieee754.read(this, offset, true, 23, 4);
       };
-      Buffer5.prototype.readFloatBE = function readFloatBE(offset, noAssert) {
+      Buffer6.prototype.readFloatBE = function readFloatBE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return ieee754.read(this, offset, false, 23, 4);
       };
-      Buffer5.prototype.readDoubleLE = function readDoubleLE(offset, noAssert) {
+      Buffer6.prototype.readDoubleLE = function readDoubleLE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 8, this.length);
         return ieee754.read(this, offset, true, 52, 8);
       };
-      Buffer5.prototype.readDoubleBE = function readDoubleBE(offset, noAssert) {
+      Buffer6.prototype.readDoubleBE = function readDoubleBE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 8, this.length);
         return ieee754.read(this, offset, false, 52, 8);
       };
       function checkInt(buf, value, offset, ext, max, min) {
-        if (!Buffer5.isBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance');
+        if (!Buffer6.isBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance');
         if (value > max || value < min) throw new RangeError('"value" argument is out of bounds');
         if (offset + ext > buf.length) throw new RangeError("Index out of range");
       }
-      Buffer5.prototype.writeUintLE = Buffer5.prototype.writeUIntLE = function writeUIntLE(value, offset, byteLength2, noAssert) {
+      Buffer6.prototype.writeUintLE = Buffer6.prototype.writeUIntLE = function writeUIntLE(value, offset, byteLength2, noAssert) {
         value = +value;
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
@@ -1412,7 +1412,7 @@
         }
         return offset + byteLength2;
       };
-      Buffer5.prototype.writeUintBE = Buffer5.prototype.writeUIntBE = function writeUIntBE(value, offset, byteLength2, noAssert) {
+      Buffer6.prototype.writeUintBE = Buffer6.prototype.writeUIntBE = function writeUIntBE(value, offset, byteLength2, noAssert) {
         value = +value;
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
@@ -1428,14 +1428,14 @@
         }
         return offset + byteLength2;
       };
-      Buffer5.prototype.writeUint8 = Buffer5.prototype.writeUInt8 = function writeUInt8(value, offset, noAssert) {
+      Buffer6.prototype.writeUint8 = Buffer6.prototype.writeUInt8 = function writeUInt8(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 1, 255, 0);
         this[offset] = value & 255;
         return offset + 1;
       };
-      Buffer5.prototype.writeUint16LE = Buffer5.prototype.writeUInt16LE = function writeUInt16LE(value, offset, noAssert) {
+      Buffer6.prototype.writeUint16LE = Buffer6.prototype.writeUInt16LE = function writeUInt16LE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 2, 65535, 0);
@@ -1443,7 +1443,7 @@
         this[offset + 1] = value >>> 8;
         return offset + 2;
       };
-      Buffer5.prototype.writeUint16BE = Buffer5.prototype.writeUInt16BE = function writeUInt16BE(value, offset, noAssert) {
+      Buffer6.prototype.writeUint16BE = Buffer6.prototype.writeUInt16BE = function writeUInt16BE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 2, 65535, 0);
@@ -1451,7 +1451,7 @@
         this[offset + 1] = value & 255;
         return offset + 2;
       };
-      Buffer5.prototype.writeUint32LE = Buffer5.prototype.writeUInt32LE = function writeUInt32LE(value, offset, noAssert) {
+      Buffer6.prototype.writeUint32LE = Buffer6.prototype.writeUInt32LE = function writeUInt32LE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 4, 4294967295, 0);
@@ -1461,7 +1461,7 @@
         this[offset] = value & 255;
         return offset + 4;
       };
-      Buffer5.prototype.writeUint32BE = Buffer5.prototype.writeUInt32BE = function writeUInt32BE(value, offset, noAssert) {
+      Buffer6.prototype.writeUint32BE = Buffer6.prototype.writeUInt32BE = function writeUInt32BE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 4, 4294967295, 0);
@@ -1511,13 +1511,13 @@
         buf[offset] = hi;
         return offset + 8;
       }
-      Buffer5.prototype.writeBigUInt64LE = defineBigIntMethod(function writeBigUInt64LE(value, offset = 0) {
+      Buffer6.prototype.writeBigUInt64LE = defineBigIntMethod(function writeBigUInt64LE(value, offset = 0) {
         return wrtBigUInt64LE(this, value, offset, BigInt(0), BigInt("0xffffffffffffffff"));
       });
-      Buffer5.prototype.writeBigUInt64BE = defineBigIntMethod(function writeBigUInt64BE(value, offset = 0) {
+      Buffer6.prototype.writeBigUInt64BE = defineBigIntMethod(function writeBigUInt64BE(value, offset = 0) {
         return wrtBigUInt64BE(this, value, offset, BigInt(0), BigInt("0xffffffffffffffff"));
       });
-      Buffer5.prototype.writeIntLE = function writeIntLE(value, offset, byteLength2, noAssert) {
+      Buffer6.prototype.writeIntLE = function writeIntLE(value, offset, byteLength2, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) {
@@ -1536,7 +1536,7 @@
         }
         return offset + byteLength2;
       };
-      Buffer5.prototype.writeIntBE = function writeIntBE(value, offset, byteLength2, noAssert) {
+      Buffer6.prototype.writeIntBE = function writeIntBE(value, offset, byteLength2, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) {
@@ -1555,7 +1555,7 @@
         }
         return offset + byteLength2;
       };
-      Buffer5.prototype.writeInt8 = function writeInt8(value, offset, noAssert) {
+      Buffer6.prototype.writeInt8 = function writeInt8(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 1, 127, -128);
@@ -1563,7 +1563,7 @@
         this[offset] = value & 255;
         return offset + 1;
       };
-      Buffer5.prototype.writeInt16LE = function writeInt16LE(value, offset, noAssert) {
+      Buffer6.prototype.writeInt16LE = function writeInt16LE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 2, 32767, -32768);
@@ -1571,7 +1571,7 @@
         this[offset + 1] = value >>> 8;
         return offset + 2;
       };
-      Buffer5.prototype.writeInt16BE = function writeInt16BE(value, offset, noAssert) {
+      Buffer6.prototype.writeInt16BE = function writeInt16BE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 2, 32767, -32768);
@@ -1579,7 +1579,7 @@
         this[offset + 1] = value & 255;
         return offset + 2;
       };
-      Buffer5.prototype.writeInt32LE = function writeInt32LE(value, offset, noAssert) {
+      Buffer6.prototype.writeInt32LE = function writeInt32LE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 4, 2147483647, -2147483648);
@@ -1589,7 +1589,7 @@
         this[offset + 3] = value >>> 24;
         return offset + 4;
       };
-      Buffer5.prototype.writeInt32BE = function writeInt32BE(value, offset, noAssert) {
+      Buffer6.prototype.writeInt32BE = function writeInt32BE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 4, 2147483647, -2147483648);
@@ -1600,10 +1600,10 @@
         this[offset + 3] = value & 255;
         return offset + 4;
       };
-      Buffer5.prototype.writeBigInt64LE = defineBigIntMethod(function writeBigInt64LE(value, offset = 0) {
+      Buffer6.prototype.writeBigInt64LE = defineBigIntMethod(function writeBigInt64LE(value, offset = 0) {
         return wrtBigUInt64LE(this, value, offset, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
       });
-      Buffer5.prototype.writeBigInt64BE = defineBigIntMethod(function writeBigInt64BE(value, offset = 0) {
+      Buffer6.prototype.writeBigInt64BE = defineBigIntMethod(function writeBigInt64BE(value, offset = 0) {
         return wrtBigUInt64BE(this, value, offset, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
       });
       function checkIEEE754(buf, value, offset, ext, max, min) {
@@ -1619,10 +1619,10 @@
         ieee754.write(buf, value, offset, littleEndian, 23, 4);
         return offset + 4;
       }
-      Buffer5.prototype.writeFloatLE = function writeFloatLE(value, offset, noAssert) {
+      Buffer6.prototype.writeFloatLE = function writeFloatLE(value, offset, noAssert) {
         return writeFloat(this, value, offset, true, noAssert);
       };
-      Buffer5.prototype.writeFloatBE = function writeFloatBE(value, offset, noAssert) {
+      Buffer6.prototype.writeFloatBE = function writeFloatBE(value, offset, noAssert) {
         return writeFloat(this, value, offset, false, noAssert);
       };
       function writeDouble(buf, value, offset, littleEndian, noAssert) {
@@ -1634,14 +1634,14 @@
         ieee754.write(buf, value, offset, littleEndian, 52, 8);
         return offset + 8;
       }
-      Buffer5.prototype.writeDoubleLE = function writeDoubleLE(value, offset, noAssert) {
+      Buffer6.prototype.writeDoubleLE = function writeDoubleLE(value, offset, noAssert) {
         return writeDouble(this, value, offset, true, noAssert);
       };
-      Buffer5.prototype.writeDoubleBE = function writeDoubleBE(value, offset, noAssert) {
+      Buffer6.prototype.writeDoubleBE = function writeDoubleBE(value, offset, noAssert) {
         return writeDouble(this, value, offset, false, noAssert);
       };
-      Buffer5.prototype.copy = function copy(target, targetStart, start, end) {
-        if (!Buffer5.isBuffer(target)) throw new TypeError("argument should be a Buffer");
+      Buffer6.prototype.copy = function copy(target, targetStart, start, end) {
+        if (!Buffer6.isBuffer(target)) throw new TypeError("argument should be a Buffer");
         if (!start) start = 0;
         if (!end && end !== 0) end = this.length;
         if (targetStart >= target.length) targetStart = target.length;
@@ -1670,7 +1670,7 @@
         }
         return len;
       };
-      Buffer5.prototype.fill = function fill(val, start, end, encoding) {
+      Buffer6.prototype.fill = function fill(val, start, end, encoding) {
         if (typeof val === "string") {
           if (typeof start === "string") {
             encoding = start;
@@ -1683,7 +1683,7 @@
           if (encoding !== void 0 && typeof encoding !== "string") {
             throw new TypeError("encoding must be a string");
           }
-          if (typeof encoding === "string" && !Buffer5.isEncoding(encoding)) {
+          if (typeof encoding === "string" && !Buffer6.isEncoding(encoding)) {
             throw new TypeError("Unknown encoding: " + encoding);
           }
           if (val.length === 1) {
@@ -1712,7 +1712,7 @@
             this[i] = val;
           }
         } else {
-          const bytes = Buffer5.isBuffer(val) ? val : Buffer5.from(val, encoding);
+          const bytes = Buffer6.isBuffer(val) ? val : Buffer6.from(val, encoding);
           const len = bytes.length;
           if (len === 0) {
             throw new TypeError('The value "' + val + '" is invalid for argument "value"');
@@ -1997,8 +1997,8 @@
         ArrayPrototypeIndexOf(self2, el) {
           return self2.indexOf(el);
         },
-        ArrayPrototypeJoin(self2, sep) {
-          return self2.join(sep);
+        ArrayPrototypeJoin(self2, sep2) {
+          return self2.join(sep2);
         },
         ArrayPrototypeMap(self2, fn) {
           return self2.map(fn);
@@ -2093,8 +2093,8 @@
     "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
       "use strict";
       module.exports = {
-        format(format2, ...args) {
-          return format2.replace(/%([sdifj])/g, function(...[_unused, type]) {
+        format(format3, ...args) {
+          return format3.replace(/%([sdifj])/g, function(...[_unused, type]) {
             const replacement = args.shift();
             if (type === "f") {
               return replacement.toFixed(6);
@@ -2143,7 +2143,7 @@
   var require_errors = __commonJS({
     "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
       "use strict";
-      var { format: format2, inspect } = require_inspect();
+      var { format: format3, inspect } = require_inspect();
       var { AggregateError: CustomAggregateError } = require_primordials();
       var AggregateError = globalThis.AggregateError || CustomAggregateError;
       var kIsNodeError = Symbol("kIsNodeError");
@@ -2193,7 +2193,7 @@
         if (args.length === 0) {
           return msg;
         }
-        return format2(msg, ...args);
+        return format3(msg, ...args);
       }
       function E(code, message, Base) {
         if (!Base) {
@@ -2271,13 +2271,13 @@
             msg += `"${name}" ${name.includes(".") ? "property" : "argument"} `;
           }
           msg += "must be ";
-          const types3 = [];
+          const types2 = [];
           const instances = [];
           const other = [];
           for (const value of expected) {
             assert(typeof value === "string", "All expected entries have to be of type string");
             if (kTypes.includes(value)) {
-              types3.push(value.toLowerCase());
+              types2.push(value.toLowerCase());
             } else if (classRegExp.test(value)) {
               instances.push(value);
             } else {
@@ -2286,23 +2286,23 @@
             }
           }
           if (instances.length > 0) {
-            const pos = types3.indexOf("object");
+            const pos = types2.indexOf("object");
             if (pos !== -1) {
-              types3.splice(types3, pos, 1);
+              types2.splice(types2, pos, 1);
               instances.push("Object");
             }
           }
-          if (types3.length > 0) {
-            switch (types3.length) {
+          if (types2.length > 0) {
+            switch (types2.length) {
               case 1:
-                msg += `of type ${types3[0]}`;
+                msg += `of type ${types2[0]}`;
                 break;
               case 2:
-                msg += `one of type ${types3[0]} or ${types3[1]}`;
+                msg += `one of type ${types2[0]} or ${types2[1]}`;
                 break;
               default: {
-                const last = types3.pop();
-                msg += `one of type ${types3.join(", ")}, or ${last}`;
+                const last = types2.pop();
+                msg += `one of type ${types2.join(", ")}, or ${last}`;
               }
             }
             if (instances.length > 0 || other.length > 0) {
@@ -2657,27 +2657,27 @@
         return this;
       };
       EventEmitter2.prototype.removeListener = function removeListener(type, listener) {
-        var list, events, position, i, originalListener;
+        var list2, events, position, i, originalListener;
         checkListener(listener);
         events = this._events;
         if (events === void 0)
           return this;
-        list = events[type];
-        if (list === void 0)
+        list2 = events[type];
+        if (list2 === void 0)
           return this;
-        if (list === listener || list.listener === listener) {
+        if (list2 === listener || list2.listener === listener) {
           if (--this._eventsCount === 0)
             this._events = /* @__PURE__ */ Object.create(null);
           else {
             delete events[type];
             if (events.removeListener)
-              this.emit("removeListener", type, list.listener || listener);
+              this.emit("removeListener", type, list2.listener || listener);
           }
-        } else if (typeof list !== "function") {
+        } else if (typeof list2 !== "function") {
           position = -1;
-          for (i = list.length - 1; i >= 0; i--) {
-            if (list[i] === listener || list[i].listener === listener) {
-              originalListener = list[i].listener;
+          for (i = list2.length - 1; i >= 0; i--) {
+            if (list2[i] === listener || list2[i].listener === listener) {
+              originalListener = list2[i].listener;
               position = i;
               break;
             }
@@ -2685,12 +2685,12 @@
           if (position < 0)
             return this;
           if (position === 0)
-            list.shift();
+            list2.shift();
           else {
-            spliceOne(list, position);
+            spliceOne(list2, position);
           }
-          if (list.length === 1)
-            events[type] = list[0];
+          if (list2.length === 1)
+            events[type] = list2[0];
           if (events.removeListener !== void 0)
             this.emit("removeListener", type, originalListener || listener);
         }
@@ -2783,10 +2783,10 @@
           copy[i] = arr[i];
         return copy;
       }
-      function spliceOne(list, index) {
-        for (; index + 1 < list.length; index++)
-          list[index] = list[index + 1];
-        list.pop();
+      function spliceOne(list2, index) {
+        for (; index + 1 < list2.length; index++)
+          list2[index] = list2[index + 1];
+        list2.pop();
       }
       function unwrapListeners(arr) {
         var ret = new Array(arr.length);
@@ -2845,7 +2845,7 @@
     "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
       "use strict";
       var bufferModule = require_buffer();
-      var { format: format2, inspect } = require_inspect();
+      var { format: format3, inspect } = require_inspect();
       var {
         codes: { ERR_INVALID_ARG_TYPE }
       } = require_errors();
@@ -2910,7 +2910,7 @@
           return function() {
           };
         },
-        format: format2,
+        format: format3,
         inspect,
         types: {
           isAsyncFunction(fn) {
@@ -3085,7 +3085,7 @@
       function getOwnPropertyValueOrDefault(options, key, defaultValue) {
         return options == null || !ObjectPrototypeHasOwnProperty(options, key) ? defaultValue : options[key];
       }
-      var validateObject = hideStackFrames((value, name, options = null) => {
+      var validateObject2 = hideStackFrames((value, name, options = null) => {
         const allowArray = getOwnPropertyValueOrDefault(options, "allowArray", false);
         const allowFunction = getOwnPropertyValueOrDefault(options, "allowFunction", false);
         const nullable = getOwnPropertyValueOrDefault(options, "nullable", false);
@@ -3228,7 +3228,7 @@
         validateInt32,
         validateInteger,
         validateNumber,
-        validateObject,
+        validateObject: validateObject2,
         validateOneOf,
         validatePlainFunction,
         validatePort,
@@ -3488,7 +3488,7 @@
         if (typeof (rState === null || rState === void 0 ? void 0 : rState.endEmitted) !== "boolean") return null;
         return !!(rState.endEmitted || strict === false && rState.ended === true && rState.length === 0);
       }
-      function isReadable2(stream) {
+      function isReadable(stream) {
         if (stream && stream[kIsReadable] != null) return stream[kIsReadable];
         if (typeof (stream === null || stream === void 0 ? void 0 : stream.readable) !== "boolean") return null;
         if (isDestroyed(stream)) return false;
@@ -3507,7 +3507,7 @@
         if (isDestroyed(stream)) {
           return true;
         }
-        if ((opts === null || opts === void 0 ? void 0 : opts.readable) !== false && isReadable2(stream)) {
+        if ((opts === null || opts === void 0 ? void 0 : opts.readable) !== false && isReadable(stream)) {
           return false;
         }
         if ((opts === null || opts === void 0 ? void 0 : opts.writable) !== false && isWritable(stream)) {
@@ -3584,7 +3584,7 @@
         kIsDisturbed,
         isErrored,
         kIsErrored,
-        isReadable: isReadable2,
+        isReadable,
         kIsReadable,
         kIsClosedPromise,
         kControllerErrorFunction,
@@ -3622,11 +3622,11 @@
       var { AbortError, codes } = require_errors();
       var { ERR_INVALID_ARG_TYPE, ERR_STREAM_PREMATURE_CLOSE } = codes;
       var { kEmptyObject, once } = require_util();
-      var { validateAbortSignal, validateFunction, validateObject, validateBoolean } = require_validators();
+      var { validateAbortSignal, validateFunction, validateObject: validateObject2, validateBoolean } = require_validators();
       var { Promise: Promise2, PromisePrototypeThen, SymbolDispose } = require_primordials();
       var {
         isClosed,
-        isReadable: isReadable2,
+        isReadable,
         isReadableNodeStream,
         isReadableStream,
         isReadableFinished,
@@ -3654,7 +3654,7 @@
         } else if (options == null) {
           options = kEmptyObject;
         } else {
-          validateObject(options, "options");
+          validateObject2(options, "options");
         }
         validateFunction(callback, "callback");
         validateAbortSignal(options.signal, "options.signal");
@@ -3759,9 +3759,9 @@
           if (!willEmitClose) {
             process.nextTick(onclosed);
           }
-        } else if (!readable && (!willEmitClose || isReadable2(stream)) && (writableFinished || isWritable(stream) === false)) {
+        } else if (!readable && (!willEmitClose || isReadable(stream)) && (writableFinished || isWritable(stream) === false)) {
           process.nextTick(onclosed);
-        } else if (!writable && (!willEmitClose || isWritable(stream)) && (readableFinished || isReadable2(stream) === false)) {
+        } else if (!writable && (!willEmitClose || isWritable(stream)) && (readableFinished || isReadable(stream) === false)) {
           process.nextTick(onclosed);
         } else if (rState && stream.req && stream.aborted) {
           process.nextTick(onclosed);
@@ -4265,7 +4265,7 @@
     "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
       "use strict";
       var { StringPrototypeSlice, SymbolIterator, TypedArrayPrototypeSet, Uint8Array: Uint8Array2 } = require_primordials();
-      var { Buffer: Buffer5 } = require_buffer();
+      var { Buffer: Buffer6 } = require_buffer();
       var { inspect } = require_util();
       module.exports = class BufferList {
         constructor() {
@@ -4312,8 +4312,8 @@
           return ret;
         }
         concat(n) {
-          if (this.length === 0) return Buffer5.alloc(0);
-          const ret = Buffer5.allocUnsafe(n >>> 0);
+          if (this.length === 0) return Buffer6.alloc(0);
+          const ret = Buffer6.allocUnsafe(n >>> 0);
           let p = this.head;
           let i = 0;
           while (p) {
@@ -4374,7 +4374,7 @@
         }
         // Consumes a specified amount of bytes from the buffered data.
         _getBuffer(n) {
-          const ret = Buffer5.allocUnsafe(n);
+          const ret = Buffer6.allocUnsafe(n);
           const retLen = n;
           let p = this.head;
           let c = 0;
@@ -4461,34 +4461,34 @@
   var require_safe_buffer = __commonJS({
     "node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
       var buffer = require_buffer();
-      var Buffer5 = buffer.Buffer;
+      var Buffer6 = buffer.Buffer;
       function copyProps(src, dst) {
         for (var key in src) {
           dst[key] = src[key];
         }
       }
-      if (Buffer5.from && Buffer5.alloc && Buffer5.allocUnsafe && Buffer5.allocUnsafeSlow) {
+      if (Buffer6.from && Buffer6.alloc && Buffer6.allocUnsafe && Buffer6.allocUnsafeSlow) {
         module.exports = buffer;
       } else {
         copyProps(buffer, exports);
         exports.Buffer = SafeBuffer;
       }
       function SafeBuffer(arg, encodingOrOffset, length) {
-        return Buffer5(arg, encodingOrOffset, length);
+        return Buffer6(arg, encodingOrOffset, length);
       }
-      SafeBuffer.prototype = Object.create(Buffer5.prototype);
-      copyProps(Buffer5, SafeBuffer);
+      SafeBuffer.prototype = Object.create(Buffer6.prototype);
+      copyProps(Buffer6, SafeBuffer);
       SafeBuffer.from = function(arg, encodingOrOffset, length) {
         if (typeof arg === "number") {
           throw new TypeError("Argument must not be a number");
         }
-        return Buffer5(arg, encodingOrOffset, length);
+        return Buffer6(arg, encodingOrOffset, length);
       };
       SafeBuffer.alloc = function(size, fill, encoding) {
         if (typeof size !== "number") {
           throw new TypeError("Argument must be a number");
         }
-        var buf = Buffer5(size);
+        var buf = Buffer6(size);
         if (fill !== void 0) {
           if (typeof encoding === "string") {
             buf.fill(fill, encoding);
@@ -4504,7 +4504,7 @@
         if (typeof size !== "number") {
           throw new TypeError("Argument must be a number");
         }
-        return Buffer5(size);
+        return Buffer6(size);
       };
       SafeBuffer.allocUnsafeSlow = function(size) {
         if (typeof size !== "number") {
@@ -4519,8 +4519,8 @@
   var require_string_decoder = __commonJS({
     "node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
       "use strict";
-      var Buffer5 = require_safe_buffer().Buffer;
-      var isEncoding = Buffer5.isEncoding || function(encoding) {
+      var Buffer6 = require_safe_buffer().Buffer;
+      var isEncoding = Buffer6.isEncoding || function(encoding) {
         encoding = "" + encoding;
         switch (encoding && encoding.toLowerCase()) {
           case "hex":
@@ -4568,7 +4568,7 @@
       }
       function normalizeEncoding(enc) {
         var nenc = _normalizeEncoding(enc);
-        if (typeof nenc !== "string" && (Buffer5.isEncoding === isEncoding || !isEncoding(enc))) throw new Error("Unknown encoding: " + enc);
+        if (typeof nenc !== "string" && (Buffer6.isEncoding === isEncoding || !isEncoding(enc))) throw new Error("Unknown encoding: " + enc);
         return nenc || enc;
       }
       exports.StringDecoder = StringDecoder;
@@ -4597,7 +4597,7 @@
         }
         this.lastNeed = 0;
         this.lastTotal = 0;
-        this.lastChar = Buffer5.allocUnsafe(nb);
+        this.lastChar = Buffer6.allocUnsafe(nb);
       }
       StringDecoder.prototype.write = function(buf) {
         if (buf.length === 0) return "";
@@ -4759,11 +4759,11 @@
       "use strict";
       var process = require_browser2();
       var { PromisePrototypeThen, SymbolAsyncIterator, SymbolIterator } = require_primordials();
-      var { Buffer: Buffer5 } = require_buffer();
+      var { Buffer: Buffer6 } = require_buffer();
       var { ERR_INVALID_ARG_TYPE, ERR_STREAM_NULL_VALUES } = require_errors().codes;
       function from(Readable2, iterable, opts) {
         let iterator;
-        if (typeof iterable === "string" || iterable instanceof Buffer5) {
+        if (typeof iterable === "string" || iterable instanceof Buffer6) {
           return new Readable2({
             objectMode: true,
             ...opts,
@@ -4871,7 +4871,7 @@
       Readable2.ReadableState = ReadableState;
       var { EventEmitter: EE } = require_events();
       var { Stream, prependListener } = require_legacy();
-      var { Buffer: Buffer5 } = require_buffer();
+      var { Buffer: Buffer6 } = require_buffer();
       var { addAbortSignal } = require_add_abort_signal();
       var eos = require_end_of_stream();
       var debug2 = require_util().debuglog("stream", (fn) => {
@@ -4891,7 +4891,7 @@
         },
         AbortError
       } = require_errors();
-      var { validateObject } = require_validators();
+      var { validateObject: validateObject2 } = require_validators();
       var kPaused = Symbol2("kPaused");
       var { StringDecoder } = require_string_decoder();
       var from = require_from();
@@ -5039,13 +5039,13 @@
             encoding = encoding || state.defaultEncoding;
             if (state.encoding !== encoding) {
               if (addToFront && state.encoding) {
-                chunk = Buffer5.from(chunk, encoding).toString(state.encoding);
+                chunk = Buffer6.from(chunk, encoding).toString(state.encoding);
               } else {
-                chunk = Buffer5.from(chunk, encoding);
+                chunk = Buffer6.from(chunk, encoding);
                 encoding = "";
               }
             }
-          } else if (chunk instanceof Buffer5) {
+          } else if (chunk instanceof Buffer6) {
             encoding = "";
           } else if (Stream._isUint8Array(chunk)) {
             chunk = Stream._uint8ArrayToBuffer(chunk);
@@ -5550,7 +5550,7 @@
       };
       Readable2.prototype.iterator = function(options) {
         if (options !== void 0) {
-          validateObject(options, "options");
+          validateObject2(options, "options");
         }
         return streamToAsyncIterator(this, options);
       };
@@ -5834,7 +5834,7 @@
       Writable2.WritableState = WritableState;
       var { EventEmitter: EE } = require_events();
       var Stream = require_legacy().Stream;
-      var { Buffer: Buffer5 } = require_buffer();
+      var { Buffer: Buffer6 } = require_buffer();
       var destroyImpl = require_destroy();
       var { addAbortSignal } = require_add_abort_signal();
       var { getHighWaterMark, getDefaultHighWaterMark } = require_state();
@@ -5944,7 +5944,7 @@
           encoding = state.defaultEncoding;
         } else {
           if (!encoding) encoding = state.defaultEncoding;
-          else if (encoding !== "buffer" && !Buffer5.isEncoding(encoding)) throw new ERR_UNKNOWN_ENCODING(encoding);
+          else if (encoding !== "buffer" && !Buffer6.isEncoding(encoding)) throw new ERR_UNKNOWN_ENCODING(encoding);
           if (typeof cb !== "function") cb = nop2;
         }
         if (chunk === null) {
@@ -5952,10 +5952,10 @@
         } else if (!state.objectMode) {
           if (typeof chunk === "string") {
             if (state.decodeStrings !== false) {
-              chunk = Buffer5.from(chunk, encoding);
+              chunk = Buffer6.from(chunk, encoding);
               encoding = "buffer";
             }
-          } else if (chunk instanceof Buffer5) {
+          } else if (chunk instanceof Buffer6) {
             encoding = "buffer";
           } else if (Stream._isUint8Array(chunk)) {
             chunk = Stream._uint8ArrayToBuffer(chunk);
@@ -5993,7 +5993,7 @@
       };
       Writable2.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
         if (typeof encoding === "string") encoding = StringPrototypeToLowerCase(encoding);
-        if (!Buffer5.isEncoding(encoding)) throw new ERR_UNKNOWN_ENCODING(encoding);
+        if (!Buffer6.isEncoding(encoding)) throw new ERR_UNKNOWN_ENCODING(encoding);
         this._writableState.defaultEncoding = encoding;
         return this;
       };
@@ -6441,7 +6441,7 @@
       var process = require_browser2();
       var bufferModule = require_buffer();
       var {
-        isReadable: isReadable2,
+        isReadable,
         isWritable,
         isIterable,
         isNodeStream,
@@ -6674,7 +6674,7 @@
       function _duplexify(pair) {
         const r = pair.readable && typeof pair.readable.read !== "function" ? Readable2.wrap(pair.readable) : pair.readable;
         const w = pair.writable;
-        let readable = !!isReadable2(r);
+        let readable = !!isReadable(r);
         let writable = !!isWritable(w);
         let ondrain;
         let onfinish;
@@ -7043,7 +7043,7 @@
       var { validateFunction, validateAbortSignal } = require_validators();
       var {
         isIterable,
-        isReadable: isReadable2,
+        isReadable,
         isReadableNodeStream,
         isNodeStream,
         isTransformStream,
@@ -7245,12 +7245,12 @@
             if (end) {
               const { destroy, cleanup } = destroyer(stream, reading, writing);
               destroys.push(destroy);
-              if (isReadable2(stream) && isLastStream) {
+              if (isReadable(stream) && isLastStream) {
                 lastStreamCleanup.push(cleanup);
               }
             }
             stream.on("error", onError2);
-            if (isReadable2(stream) && isLastStream) {
+            if (isReadable(stream) && isLastStream) {
               lastStreamCleanup.push(() => {
                 stream.removeListener("error", onError2);
               });
@@ -7338,7 +7338,7 @@
               const cleanup = pipe(ret, stream, finish, {
                 end
               });
-              if (isReadable2(stream) && isLastStream) {
+              if (isReadable(stream) && isLastStream) {
                 lastStreamCleanup.push(cleanup);
               }
             } else if (isTransformStream(ret) || isReadableStream(ret)) {
@@ -7457,7 +7457,7 @@
       var { destroyer } = require_destroy();
       var {
         isNodeStream,
-        isReadable: isReadable2,
+        isReadable,
         isWritable,
         isWebStream,
         isTransformStream,
@@ -7488,7 +7488,7 @@
           if (!isNodeStream(streams[n]) && !isWebStream(streams[n])) {
             continue;
           }
-          if (n < streams.length - 1 && !(isReadable2(streams[n]) || isReadableStream(streams[n]) || isTransformStream(streams[n]))) {
+          if (n < streams.length - 1 && !(isReadable(streams[n]) || isReadableStream(streams[n]) || isTransformStream(streams[n]))) {
             throw new ERR_INVALID_ARG_VALUE(`streams[${n}]`, orgStreams[n], "must be readable");
           }
           if (n > 0 && !(isWritable(streams[n]) || isWritableStream(streams[n]) || isTransformStream(streams[n]))) {
@@ -7514,7 +7514,7 @@
         const head = streams[0];
         const tail = pipeline(streams, onfinished);
         const writable = !!(isWritable(head) || isWritableStream(head) || isTransformStream(head));
-        const readable = !!(isReadable2(tail) || isReadableStream(tail) || isTransformStream(tail));
+        const readable = !!(isReadable(tail) || isReadableStream(tail) || isTransformStream(tail));
         d = new Duplex({
           // TODO (ronag): highWaterMark?
           writableObjectMode: !!(head !== null && head !== void 0 && head.writableObjectMode),
@@ -7650,7 +7650,7 @@
         codes: { ERR_INVALID_ARG_VALUE, ERR_INVALID_ARG_TYPE, ERR_MISSING_ARGS, ERR_OUT_OF_RANGE },
         AbortError
       } = require_errors();
-      var { validateAbortSignal, validateInteger, validateObject } = require_validators();
+      var { validateAbortSignal, validateInteger, validateObject: validateObject2 } = require_validators();
       var kWeakHandler = require_primordials().Symbol("kWeak");
       var kResistStopPropagation = require_primordials().Symbol("kResistStopPropagation");
       var { finished } = require_end_of_stream();
@@ -7674,7 +7674,7 @@
       var kEof = Symbol2("kEof");
       function compose(stream, options) {
         if (options != null) {
-          validateObject(options, "options");
+          validateObject2(options, "options");
         }
         if ((options === null || options === void 0 ? void 0 : options.signal) != null) {
           validateAbortSignal(options.signal, "options.signal");
@@ -7693,7 +7693,7 @@
           throw new ERR_INVALID_ARG_TYPE("fn", ["Function", "AsyncFunction"], fn);
         }
         if (options != null) {
-          validateObject(options, "options");
+          validateObject2(options, "options");
         }
         if ((options === null || options === void 0 ? void 0 : options.signal) != null) {
           validateAbortSignal(options.signal, "options.signal");
@@ -7812,7 +7812,7 @@
       }
       function asIndexedPairs(options = void 0) {
         if (options != null) {
-          validateObject(options, "options");
+          validateObject2(options, "options");
         }
         if ((options === null || options === void 0 ? void 0 : options.signal) != null) {
           validateAbortSignal(options.signal, "options.signal");
@@ -7888,7 +7888,7 @@
           throw new ERR_INVALID_ARG_TYPE("reducer", ["Function", "AsyncFunction"], reducer);
         }
         if (options != null) {
-          validateObject(options, "options");
+          validateObject2(options, "options");
         }
         if ((options === null || options === void 0 ? void 0 : options.signal) != null) {
           validateAbortSignal(options.signal, "options.signal");
@@ -7940,7 +7940,7 @@
       }
       async function toArray(options) {
         if (options != null) {
-          validateObject(options, "options");
+          validateObject2(options, "options");
         }
         if ((options === null || options === void 0 ? void 0 : options.signal) != null) {
           validateAbortSignal(options.signal, "options.signal");
@@ -7977,7 +7977,7 @@
       }
       function drop(number, options = void 0) {
         if (options != null) {
-          validateObject(options, "options");
+          validateObject2(options, "options");
         }
         if ((options === null || options === void 0 ? void 0 : options.signal) != null) {
           validateAbortSignal(options.signal, "options.signal");
@@ -8001,7 +8001,7 @@
       }
       function take(number, options = void 0) {
         if (options != null) {
-          validateObject(options, "options");
+          validateObject2(options, "options");
         }
         if ((options === null || options === void 0 ? void 0 : options.signal) != null) {
           validateAbortSignal(options.signal, "options.signal");
@@ -8092,7 +8092,7 @@
   var require_stream = __commonJS({
     "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
       "use strict";
-      var { Buffer: Buffer5 } = require_buffer();
+      var { Buffer: Buffer6 } = require_buffer();
       var { ObjectDefineProperty, ObjectKeys, ReflectApply } = require_primordials();
       var {
         promisify: { custom: customPromisify }
@@ -8202,7 +8202,7 @@
         return value instanceof Uint8Array;
       };
       Stream._uint8ArrayToBuffer = function _uint8ArrayToBuffer(chunk) {
-        return Buffer5.from(chunk.buffer, chunk.byteOffset, chunk.byteLength);
+        return Buffer6.from(chunk.buffer, chunk.byteOffset, chunk.byteLength);
       };
     }
   });
@@ -8243,43 +8243,40 @@
     }
   });
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/index.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/index.js
   var dist_exports = {};
   __export(dist_exports, {
     Async: () => Async,
     AsyncMapTransaction: () => AsyncMapTransaction,
     AsyncTransaction: () => AsyncTransaction,
+    Attributes: () => Attributes,
     BigIntStats: () => BigIntStats,
     BigIntStatsFs: () => BigIntStatsFs,
     CopyOnWrite: () => CopyOnWrite,
     CopyOnWriteFS: () => CopyOnWriteFS,
     DeviceFS: () => DeviceFS,
-    DeviceFile: () => DeviceFile,
     Dir: () => Dir,
     Dirent: () => Dirent,
     Errno: () => Errno,
     ErrnoError: () => ErrnoError,
     Fetch: () => Fetch,
     FetchFS: () => FetchFS,
-    File: () => File,
     FileSystem: () => FileSystem,
+    IOC: () => IOC,
+    IOC32: () => IOC32,
     InMemory: () => InMemory,
     InMemoryStore: () => InMemoryStore,
     Index: () => Index,
     IndexFS: () => IndexFS,
     Inode: () => Inode,
+    InodeFlags: () => InodeFlags,
     Journal: () => Journal,
-    LazyFile: () => LazyFile,
     MutexLock: () => MutexLock,
     Mutexed: () => Mutexed,
-    NoSyncFile: () => NoSyncFile,
-    Overlay: () => Overlay,
-    OverlayFS: () => OverlayFS,
     Passthrough: () => Passthrough,
     PassthroughFS: () => PassthroughFS,
     Port: () => Port,
     PortFS: () => PortFS,
-    PreloadFile: () => PreloadFile,
     ReadStream: () => ReadStream,
     Readonly: () => Readonly,
     SingleBuffer: () => SingleBuffer,
@@ -8296,8 +8293,8 @@
     WriteStream: () => WriteStream,
     ZenFsType: () => ZenFsType,
     _MutexedFS: () => _MutexedFS,
-    __inode_sz: () => __inode_sz,
     _chown: () => _chown,
+    _fnOpt: () => _fnOpt,
     _inode_fields: () => _inode_fields,
     _inode_version: () => _inode_version,
     access: () => access2,
@@ -8305,9 +8302,11 @@
     addDevice: () => addDevice,
     appendFile: () => appendFile2,
     appendFileSync: () => appendFileSync,
+    attach: () => attach,
     attachFS: () => attachFS,
     bindContext: () => bindContext,
-    canary: () => canary2,
+    boundContexts: () => boundContexts,
+    catchMessages: () => catchMessages,
     checkOptions: () => checkOptions,
     chmod: () => chmod2,
     chmodSync: () => chmodSync,
@@ -8326,18 +8325,12 @@
     createCredentials: () => createCredentials,
     createReadStream: () => createReadStream,
     createWriteStream: () => createWriteStream,
-    credentials: () => credentials,
-    decode: () => decodeUTF8,
     decodeDirListing: () => decodeDirListing,
-    decodeRaw: () => decodeRaw,
-    decodeUTF8: () => decodeUTF8,
     default: () => dist_default,
+    detach: () => detach,
     detachFS: () => detachFS,
     devices: () => devices,
-    encode: () => encodeUTF8,
     encodeDirListing: () => encodeDirListing,
-    encodeRaw: () => encodeRaw,
-    encodeUTF8: () => encodeUTF8,
     errorMessages: () => errorMessages,
     exists: () => exists2,
     existsSync: () => existsSync,
@@ -8347,9 +8340,6 @@
     fchownSync: () => fchownSync,
     fdatasync: () => fdatasync,
     fdatasyncSync: () => fdatasyncSync,
-    flagToMode: () => flagToMode,
-    flagToNumber: () => flagToNumber,
-    flagToString: () => flagToString,
     fs: () => vfs_exports,
     fstat: () => fstat,
     fstatSync: () => fstatSync,
@@ -8363,15 +8353,19 @@
     glob: () => glob2,
     globSync: () => globSync,
     handleRequest: () => handleRequest,
-    isAppendable: () => isAppendable,
+    hasAccess: () => hasAccess,
+    ioctl: () => ioctl,
+    ioctlSync: () => ioctlSync,
     isBackend: () => isBackend,
     isBackendConfig: () => isBackendConfig,
-    isExclusive: () => isExclusive,
-    isReadable: () => isReadable,
+    isBlockDevice: () => isBlockDevice,
+    isCharacterDevice: () => isCharacterDevice,
+    isDirectory: () => isDirectory,
+    isFIFO: () => isFIFO,
+    isFile: () => isFile,
+    isSocket: () => isSocket,
     isStatsEqual: () => isStatsEqual,
-    isSynchronous: () => isSynchronous,
-    isTruncating: () => isTruncating,
-    isWriteable: () => isWriteable,
+    isSymbolicLink: () => isSymbolicLink,
     lchmod: () => lchmod2,
     lchmodSync: () => lchmodSync,
     lchown: () => lchown2,
@@ -8389,7 +8383,6 @@
     mkdtemp: () => mkdtemp2,
     mkdtempSync: () => mkdtempSync,
     mount: () => mount,
-    mountObject: () => mountObject,
     mounts: () => mounts,
     normalizeMode: () => normalizeMode,
     normalizeOptions: () => normalizeOptions,
@@ -8401,9 +8394,8 @@
     openSync: () => openSync,
     opendir: () => opendir2,
     opendirSync: () => opendirSync,
-    parseFlag: () => parseFlag,
+    parseUUID: () => parseUUID,
     promises: () => promises_exports,
-    randomBigInt: () => randomBigInt,
     randomDevice: () => randomDevice,
     read: () => read,
     readFile: () => readFile2,
@@ -8430,6 +8422,7 @@
     statSync: () => statSync,
     statfs: () => statfs2,
     statfsSync: () => statfsSync,
+    stringifyUUID: () => stringifyUUID,
     symlink: () => symlink2,
     symlinkSync: () => symlinkSync,
     truncate: () => truncate2,
@@ -8438,10 +8431,12 @@
     unlink: () => unlink2,
     unlinkSync: () => unlinkSync,
     unwatchFile: () => unwatchFile,
-    useCredentials: () => useCredentials,
+    userModifiableFlags: () => userModifiableFlags,
+    userVisibleFlags: () => userVisibleFlags,
     utimes: () => utimes2,
     utimesSync: () => utimesSync,
     version: () => version,
+    waitOnline: () => waitOnline,
     watch: () => watch2,
     watchFile: () => watchFile,
     write: () => write,
@@ -8450,10 +8445,11 @@
     writeSync: () => writeSync,
     writev: () => writev,
     writevSync: () => writevSync,
+    xattr: () => xattr_exports,
     zeroDevice: () => zeroDevice
   });
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/internal/error.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/error.js
   var Errno;
   (function(Errno2) {
     Errno2[Errno2["EPERM"] = 1] = "EPERM";
@@ -8649,7 +8645,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/internal/log.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/log.js
   var log_exports = {};
   __export(log_exports, {
     Level: () => Level,
@@ -8660,8 +8656,8 @@
     emerg: () => emerg,
     entries: () => entries,
     err: () => err,
-    format: () => format,
-    formats: () => formats,
+    fancy: () => fancy,
+    format: () => format2,
     info: () => info,
     isEnabled: () => isEnabled,
     levelOf: () => levelOf,
@@ -8675,7 +8671,7 @@
   // node_modules/.pnpm/eventemitter3@5.0.1/node_modules/eventemitter3/index.mjs
   var import_index = __toESM(require_eventemitter3(), 1);
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/list.js
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/list.js
   var List = class extends import_index.default {
     [Symbol.toStringTag] = "List";
     constructor(values) {
@@ -8788,7 +8784,7 @@
     }
   };
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/misc.js
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/misc.js
   function canary(error = new Error()) {
     const timeout = setTimeout(() => {
       throw error;
@@ -8799,17 +8795,24 @@
     throw e;
   }
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/numbers.js
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/numbers.js
   var __formatter = Intl.NumberFormat("en", { notation: "compact" });
   var formatCompact = __formatter.format.bind(__formatter);
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/objects.js
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/objects.js
+  function filterObject(object, predicate) {
+    const entries2 = Object.entries(object);
+    return Object.fromEntries(entries2.filter(([key, value]) => predicate(key, value)));
+  }
   function pick(object, ...keys) {
     const picked = {};
     for (const key of keys.flat()) {
       picked[key] = object[key];
     }
     return picked;
+  }
+  function omit(object, ...keys) {
+    return filterObject(object, (key) => !keys.flat().includes(key));
   }
   function isJSON(str) {
     try {
@@ -8824,26 +8827,91 @@
       yield prototype;
     }
   }
-
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/random.js
-  function randomHex(length = 1) {
-    let s = "";
-    for (let i = 0; i < length; i++) {
-      s += Math.floor(Math.random() * 16).toString(16);
-    }
-    return s;
+  function bindFunctions(fns, thisValue) {
+    return Object.fromEntries(Object.entries(fns).map(([k, v]) => [k, typeof v == "function" ? v.bind(thisValue) : v]));
   }
+
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/random.js
   function randomInt(min = 0, max = 1) {
     return Math.round(Math.random() * (max - min) + min);
   }
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/string.js
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/string.js
   function capitalize(value) {
     return value.at(0).toUpperCase() + value.slice(1);
   }
+  var encoder = new TextEncoder();
+  function encodeUTF8(input) {
+    return encoder.encode(input);
+  }
+  var decoder = new TextDecoder();
+  function decodeUTF8(input) {
+    if (!input)
+      return "";
+    if (input.buffer instanceof ArrayBuffer && !input.buffer.resizable)
+      return decoder.decode(input);
+    const buffer = new Uint8Array(input.byteLength);
+    buffer.set(input);
+    return decoder.decode(buffer);
+  }
+  function encodeASCII(input) {
+    const data = new Uint8Array(input.length);
+    for (let i = 0; i < input.length; i++) {
+      data[i] = input.charCodeAt(i);
+    }
+    return data;
+  }
+  function decodeASCII(input) {
+    let output2 = "";
+    for (let i = 0; i < input.length; i++) {
+      output2 += String.fromCharCode(input[i]);
+    }
+    return output2;
+  }
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/internal/primitives.js
-  var types = [
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/buffer.js
+  function extendBuffer(buffer, newByteLength) {
+    if (buffer.byteLength >= newByteLength)
+      return buffer;
+    if (ArrayBuffer.isView(buffer)) {
+      const newBuffer = extendBuffer(buffer.buffer, newByteLength);
+      return new buffer.constructor(newBuffer, buffer.byteOffset, newByteLength);
+    }
+    const isShared = typeof SharedArrayBuffer !== "undefined" && buffer instanceof SharedArrayBuffer;
+    if (buffer.maxByteLength > newByteLength) {
+      isShared ? buffer.grow(newByteLength) : buffer.resize(newByteLength);
+      return buffer;
+    }
+    if (isShared) {
+      const newBuffer = new SharedArrayBuffer(newByteLength);
+      new Uint8Array(newBuffer).set(new Uint8Array(buffer));
+      return newBuffer;
+    }
+    try {
+      return buffer.transfer(newByteLength);
+    } catch {
+      const newBuffer = new ArrayBuffer(newByteLength);
+      new Uint8Array(newBuffer).set(new Uint8Array(buffer));
+      return newBuffer;
+    }
+  }
+  function toUint8Array(buffer) {
+    if (buffer instanceof Uint8Array)
+      return buffer;
+    if (!ArrayBuffer.isView(buffer))
+      return new Uint8Array(buffer);
+    return new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+  }
+
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/debugging.js
+  var U_DEBUG = "process" in globalThis && "env" in globalThis.process && globalThis.process.env.U_DEBUG == "true";
+  function _debugLog(...text) {
+    if (U_DEBUG)
+      console.debug("[U]", ...text);
+  }
+
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/internal/primitives.js
+  var typeNames = [
     "int8",
     "uint8",
     "int16",
@@ -8858,7 +8926,7 @@
     "float64",
     "float128"
   ];
-  var valids = [...types, ...types.map((t) => capitalize(t)), "char"];
+  var validNames = [...typeNames, ...typeNames.map((t) => capitalize(t)), "char"];
   var regex = /^(u?int|float)(8|16|32|64|128)$/i;
   function normalize(type) {
     return type == "char" ? "uint8" : type.toLowerCase();
@@ -8876,22 +8944,24 @@
   }
   var mask64 = BigInt("0xffffffffffffffff");
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/internal/struct.js
-  Symbol.struct_init ||= Symbol("struct_init");
-  Symbol.struct_metadata ||= Symbol("struct_metadata");
-  var init = Symbol.struct_init;
-  var metadata = Symbol.struct_metadata;
-  function isValidMetadata(arg) {
-    return arg != null && typeof arg == "object" && Symbol.struct_metadata in arg;
-  }
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/internal/struct.js
   Symbol.metadata ??= Symbol.for("Symbol.metadata");
-  function _polyfill_contextMetadata(target) {
-    if (!Symbol?.metadata) {
+  Object.assign(Symbol, {
+    size: Symbol("uSize"),
+    serialize: Symbol("uSerialize"),
+    deserialize: Symbol("uDeserialize")
+  });
+  function initMetadata(context) {
+    context.metadata ??= {};
+    context.metadata.structInit = [...context.metadata.structInit ?? []];
+    return context.metadata.structInit;
+  }
+  function isValidMetadata(arg) {
+    return arg != null && typeof arg == "object" && "struct" in arg;
+  }
+  function _polyfill_metadata(target) {
+    if (Symbol.metadata in target)
       return;
-    }
-    if (Symbol.metadata in target) {
-      return;
-    }
     Object.defineProperty(target, Symbol.metadata, {
       enumerable: true,
       configurable: true,
@@ -8899,77 +8969,132 @@
       value: /* @__PURE__ */ Object.create(null)
     });
   }
-  function symbol_metadata(arg) {
-    const symbol_metadata2 = Symbol.metadata || Object.getOwnPropertySymbols(arg).find((s) => s.description == "Symbol.metadata");
-    _polyfill_contextMetadata(arg);
-    if (!symbol_metadata2) {
-      throw new ReferenceError("Could not get a reference to Symbol.metadata");
-    }
-    return symbol_metadata2;
-  }
   function isStatic(arg) {
-    return typeof arg == "function" && symbol_metadata(arg) in arg && isValidMetadata(arg[symbol_metadata(arg)]);
+    return typeof arg == "function" && Symbol.metadata in arg && isValidMetadata(arg[Symbol.metadata]);
   }
   function isInstance(arg) {
     return arg != null && typeof arg == "object" && isStatic(arg.constructor);
   }
   function checkInstance(arg) {
-    if (!isInstance(arg)) {
-      throw new TypeError((typeof arg == "function" ? arg.name : typeof arg == "object" && arg ? arg.constructor.name : arg) + " is not a struct instance");
-    }
+    if (isInstance(arg))
+      return;
+    throw new TypeError((typeof arg == "function" ? arg.name : typeof arg == "object" && arg ? arg.constructor.name : arg) + " is not a struct instance");
   }
   function isStruct(arg) {
     return isInstance(arg) || isStatic(arg);
   }
   function checkStruct(arg) {
-    if (!isStruct(arg)) {
-      throw new TypeError((typeof arg == "function" ? arg.name : typeof arg == "object" && arg ? arg.constructor.name : arg) + " is not a struct");
-    }
+    if (isStruct(arg))
+      return;
+    throw new TypeError((typeof arg == "function" ? arg.name : typeof arg == "object" && arg ? arg.constructor.name : arg) + " is not a struct");
+  }
+  function isCustom(arg) {
+    return typeof arg == "object" && arg != null && Symbol.size in arg;
   }
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/struct.js
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/struct.js
   function sizeof(type) {
+    if (type === void 0 || type === null)
+      return 0;
+    if (Array.isArray(type)) {
+      let size2 = 0;
+      for (let i = 0; i < type.length; i++) {
+        size2 += sizeof(type[i]);
+      }
+      return size2;
+    }
     if (typeof type == "string") {
       checkValid(type);
       return +normalize(type).match(regex)[2] / 8;
     }
+    if (isCustom(type))
+      return type[Symbol.size];
     checkStruct(type);
-    const struct2 = isStatic(type) ? type : type.constructor;
-    return struct2[symbol_metadata(struct2)][Symbol.struct_metadata].size;
+    const constructor = isStatic(type) ? type : type.constructor;
+    _polyfill_metadata(constructor);
+    const { struct: struct2 } = constructor[Symbol.metadata];
+    let size = struct2.staticSize;
+    if (isStatic(type))
+      return size;
+    for (const member2 of struct2.members.values()) {
+      const value = type[member2.name];
+      if (isInstance(value) && value.constructor[Symbol.metadata].struct.isDynamic) {
+        if (struct2.isUnion)
+          size = Math.max(size, sizeof(value));
+        else
+          size += sizeof(value);
+        continue;
+      }
+      if (typeof member2.length != "string")
+        continue;
+      let subSize = 0;
+      for (let i = 0; i < type[member2.length]; i++) {
+        subSize += sizeof(isStruct(value[i]) ? value[i] : member2.type);
+      }
+      if (struct2.isUnion)
+        size = Math.max(size, subSize);
+      else
+        size += subSize;
+    }
+    return size;
   }
   function offsetof(type, memberName) {
     checkStruct(type);
-    const struct2 = isStatic(type) ? type : type.constructor;
-    const metadata2 = struct2[symbol_metadata(struct2)][Symbol.struct_metadata];
-    const member2 = metadata2.members.get(memberName);
-    if (!member2)
-      throw new Error("Struct does not have member: " + memberName);
-    return member2.offset;
+    const constructor = isStatic(type) ? type : type.constructor;
+    _polyfill_metadata(constructor);
+    const { struct: struct2 } = constructor[Symbol.metadata];
+    if (isStatic(type) || !struct2.isDynamic) {
+      return struct2.members.get(memberName)?.staticOffset ?? _throw(new Error("Struct does not have member: " + memberName));
+    }
+    let offset = 0;
+    for (const member2 of struct2.members.values()) {
+      if (member2.name == memberName)
+        return offset;
+      const value = type[member2.name];
+      offset += sizeof(isStruct(value) ? value : member2.type);
+    }
+    throw new Error("Struct does not have member: " + memberName);
   }
   function align(value, alignment) {
     return Math.ceil(value / alignment) * alignment;
   }
   function struct(options = {}) {
     return function _decorateStruct(target, context) {
-      context.metadata ??= {};
-      context.metadata[Symbol.struct_init] ||= [];
-      let size = 0;
       const members = /* @__PURE__ */ new Map();
-      for (const _ of context.metadata[Symbol.struct_init]) {
-        const { name, type, length } = _;
-        if (!isValid(type) && !isStatic(type)) {
+      let staticSize = 0, isDynamic = false;
+      for (const { name, type, length } of initMetadata(context)) {
+        if (!isValid(type) && !isStatic(type))
           throw new TypeError("Not a valid type: " + type);
+        if (typeof length == "string") {
+          const countedBy = members.get(length);
+          if (!countedBy)
+            throw new Error(`"${length}" is undefined or declared after "${name}"`);
+          if (!isType(countedBy.type))
+            throw new Error(`"${length}" is not a number and cannot be used to count "${name}"`);
         }
+        let decl = `${typeof type == "string" ? type : type.name} ${name}`;
+        if (length !== void 0)
+          decl += `[${length}]`;
         members.set(name, {
-          offset: options.isUnion ? 0 : size,
+          name,
+          staticOffset: options.isUnion ? 0 : staticSize,
           type: isValid(type) ? normalize(type) : type,
-          length
+          length,
+          decl
         });
-        const memberSize = sizeof(type) * (length || 1);
-        size = options.isUnion ? Math.max(size, memberSize) : size + memberSize;
-        size = align(size, options.align || 1);
+        const memberSize = typeof length == "string" || isStatic(type) && type[Symbol.metadata].struct.isDynamic ? 0 : sizeof(type) * (length || 1);
+        isDynamic ||= isStatic(type) ? type[Symbol.metadata].struct.isDynamic : typeof length == "string";
+        staticSize = options.isUnion ? Math.max(staticSize, memberSize) : staticSize + memberSize;
+        staticSize = align(staticSize, options.align || 1);
+        _debugLog("define", target.name + "." + name);
       }
-      context.metadata[Symbol.struct_metadata] = { options, members, size };
+      context.metadata.struct = {
+        options,
+        members,
+        staticSize,
+        isDynamic,
+        isUnion: options.isUnion ?? false
+      };
       return target;
     };
   }
@@ -8980,121 +9105,193 @@
         console.warn("Symbol used for struct member name will be coerced to string: " + name.toString());
         name = name.toString();
       }
-      if (!name) {
+      if (!name)
         throw new ReferenceError("Invalid name for struct member");
-      }
-      context.metadata ??= {};
-      context.metadata[Symbol.struct_init] ||= [];
-      context.metadata[Symbol.struct_init].push({ name, type, length });
+      initMetadata(context).push({ name, type, length });
       return value;
     };
   }
+  function _memberLength(instance, member2) {
+    if (member2.length === void 0)
+      return -1;
+    if (typeof member2.length == "string")
+      return instance[member2.length];
+    return Number.isSafeInteger(member2.length) && member2.length >= 0 ? member2.length : _throw(new Error("Array lengths must be natural numbers"));
+  }
   function serialize(instance) {
+    if (isCustom(instance) && typeof instance[Symbol.serialize] == "function")
+      return instance[Symbol.serialize]();
     checkInstance(instance);
-    const { options, members } = instance.constructor[symbol_metadata(instance.constructor)][Symbol.struct_metadata];
-    const buffer = new Uint8Array(sizeof(instance));
+    _polyfill_metadata(instance.constructor);
+    const { options, members } = instance.constructor[Symbol.metadata].struct;
+    const size = sizeof(instance);
+    const buffer = new Uint8Array(size);
     const view = new DataView(buffer.buffer);
-    for (const [name, { type, length, offset }] of members) {
-      for (let i = 0; i < (length || 1); i++) {
-        const iOff = offset + sizeof(type) * i;
-        let value = length > 0 ? instance[name][i] : instance[name];
+    _debugLog("serialize", instance.constructor.name);
+    let offset = 0, nextOffset = 0;
+    for (const member2 of members.values()) {
+      const length = _memberLength(instance, member2);
+      _debugLog("	", member2.decl);
+      for (let i = 0; i < Math.abs(length); i++) {
+        let value = length != -1 ? instance[member2.name][i] : instance[member2.name];
         if (typeof value == "string") {
           value = value.charCodeAt(0);
         }
-        if (!isType(type)) {
-          buffer.set(value ? serialize(value) : new Uint8Array(sizeof(type)), iOff);
+        offset = nextOffset;
+        nextOffset += isInstance(value) ? sizeof(value) : sizeof(member2.type);
+        if (!isType(member2.type)) {
+          buffer.set(value ? serialize(value) : new Uint8Array(sizeof(member2.type)), offset);
           continue;
         }
-        const fn = `set${capitalize(type)}`;
+        const fn = `set${capitalize(member2.type)}`;
         if (fn == "setInt64") {
-          view.setBigInt64(iOff, BigInt(value), !options.bigEndian);
+          view.setBigInt64(offset, BigInt(value), !options.bigEndian);
           continue;
         }
         if (fn == "setUint64") {
-          view.setBigUint64(iOff, BigInt(value), !options.bigEndian);
+          view.setBigUint64(offset, BigInt(value), !options.bigEndian);
           continue;
         }
         if (fn == "setInt128") {
-          view.setBigUint64(iOff + (!options.bigEndian ? 0 : 8), value & mask64, !options.bigEndian);
-          view.setBigInt64(iOff + (!options.bigEndian ? 8 : 0), value >> BigInt(64), !options.bigEndian);
+          view.setBigUint64(offset + (!options.bigEndian ? 0 : 8), value & mask64, !options.bigEndian);
+          view.setBigInt64(offset + (!options.bigEndian ? 8 : 0), value >> BigInt(64), !options.bigEndian);
           continue;
         }
         if (fn == "setUint128") {
-          view.setBigUint64(iOff + (!options.bigEndian ? 0 : 8), value & mask64, !options.bigEndian);
-          view.setBigUint64(iOff + (!options.bigEndian ? 8 : 0), value >> BigInt(64), !options.bigEndian);
+          view.setBigUint64(offset + (!options.bigEndian ? 0 : 8), value & mask64, !options.bigEndian);
+          view.setBigUint64(offset + (!options.bigEndian ? 8 : 0), value >> BigInt(64), !options.bigEndian);
           continue;
         }
         if (fn == "setFloat128") {
-          view.setFloat64(iOff + (!options.bigEndian ? 0 : 8), Number(value), !options.bigEndian);
-          view.setBigUint64(iOff + (!options.bigEndian ? 8 : 0), BigInt(0), !options.bigEndian);
+          view.setFloat64(offset + (!options.bigEndian ? 0 : 8), Number(value), !options.bigEndian);
+          view.setBigUint64(offset + (!options.bigEndian ? 8 : 0), BigInt(0), !options.bigEndian);
           continue;
         }
-        view[fn](iOff, Number(value), !options.bigEndian);
+        view[fn](offset, Number(value), !options.bigEndian);
       }
     }
     return buffer;
   }
   function deserialize(instance, _buffer) {
+    const buffer = toUint8Array(_buffer);
+    if (isCustom(instance) && typeof instance[Symbol.deserialize] == "function")
+      return instance[Symbol.deserialize](buffer);
     checkInstance(instance);
-    const { options, members } = instance.constructor[symbol_metadata(instance.constructor)][Symbol.struct_metadata];
-    const buffer = _buffer instanceof Uint8Array ? _buffer : new Uint8Array("buffer" in _buffer ? _buffer.buffer : _buffer);
+    _polyfill_metadata(instance.constructor);
+    const { options, members } = instance.constructor[Symbol.metadata].struct;
     const view = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-    for (const [name, { type, offset, length }] of members) {
-      for (let i = 0; i < (length || 1); i++) {
-        let object = length > 0 ? instance[name] : instance;
-        const key = length > 0 ? i : name, iOff = offset + sizeof(type) * i;
-        if (typeof instance[name] == "string") {
-          instance[name] = instance[name].slice(0, i) + String.fromCharCode(view.getUint8(iOff)) + instance[name].slice(i + 1);
+    _debugLog("deserialize", instance.constructor.name);
+    let offset = 0, nextOffset = 0;
+    for (const member2 of members.values()) {
+      const length = _memberLength(instance, member2);
+      _debugLog("	", member2.decl);
+      for (let i = 0; i < Math.abs(length); i++) {
+        let object = length != -1 ? instance[member2.name] : instance;
+        const key = length != -1 ? i : member2.name;
+        const isNullish = object[key] === null || object[key] === void 0;
+        const needsAllocation = isNullish && isStatic(member2.type) && member2.type[Symbol.metadata].struct.isDynamic;
+        offset = nextOffset;
+        if (!isInstance(object[key]) && !needsAllocation)
+          nextOffset += sizeof(member2.type);
+        if (typeof instance[member2.name] == "string") {
+          instance[member2.name] = instance[member2.name].slice(0, i) + String.fromCharCode(view.getUint8(offset)) + instance[member2.name].slice(i + 1);
           continue;
         }
-        if (!isType(type)) {
-          if (object[key] === null || object[key] === void 0) {
+        if (!isType(member2.type)) {
+          if (needsAllocation && isStatic(member2.type))
+            object[key] ??= new member2.type();
+          else if (isNullish)
             continue;
-          }
-          deserialize(object[key], new Uint8Array(buffer.slice(iOff, iOff + sizeof(type))));
+          deserialize(object[key], new Uint8Array(buffer.subarray(offset)));
+          nextOffset += sizeof(object[key]);
           continue;
         }
-        if (length > 0) {
+        if (length && length != -1)
           object ||= [];
-        }
-        const fn = `get${capitalize(type)}`;
+        const fn = `get${capitalize(member2.type)}`;
         if (fn == "getInt64") {
-          object[key] = view.getBigInt64(iOff, !options.bigEndian);
+          object[key] = view.getBigInt64(offset, !options.bigEndian);
           continue;
         }
         if (fn == "getUint64") {
-          object[key] = view.getBigUint64(iOff, !options.bigEndian);
+          object[key] = view.getBigUint64(offset, !options.bigEndian);
           continue;
         }
         if (fn == "getInt128") {
-          object[key] = view.getBigInt64(iOff + (!options.bigEndian ? 8 : 0), !options.bigEndian) << BigInt(64) | view.getBigUint64(iOff + (!options.bigEndian ? 0 : 8), !options.bigEndian);
+          object[key] = view.getBigInt64(offset + (!options.bigEndian ? 8 : 0), !options.bigEndian) << BigInt(64) | view.getBigUint64(offset + (!options.bigEndian ? 0 : 8), !options.bigEndian);
           continue;
         }
         if (fn == "getUint128") {
-          object[key] = view.getBigUint64(iOff + (!options.bigEndian ? 8 : 0), !options.bigEndian) << BigInt(64) | view.getBigUint64(iOff + (!options.bigEndian ? 0 : 8), !options.bigEndian);
+          object[key] = view.getBigUint64(offset + (!options.bigEndian ? 8 : 0), !options.bigEndian) << BigInt(64) | view.getBigUint64(offset + (!options.bigEndian ? 0 : 8), !options.bigEndian);
           continue;
         }
         if (fn == "getFloat128") {
-          object[key] = view.getFloat64(iOff + (!options.bigEndian ? 0 : 8), !options.bigEndian);
+          object[key] = view.getFloat64(offset + (!options.bigEndian ? 0 : 8), !options.bigEndian);
           continue;
         }
-        object[key] = view[fn](iOff, !options.bigEndian);
+        object[key] = view[fn](offset, !options.bigEndian);
       }
     }
   }
   function _member(type) {
     function _structMemberDecorator(valueOrLength, context) {
-      if (typeof valueOrLength == "number") {
+      if (typeof valueOrLength == "number" || typeof valueOrLength == "string") {
         return member(type, valueOrLength);
       }
       return member(type)(valueOrLength, context);
     }
     return _structMemberDecorator;
   }
-  var types2 = Object.fromEntries(valids.map((t) => [t, _member(t)]));
+  var types = Object.fromEntries(validNames.map((t) => [t, _member(t)]));
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/path.js
-  var cwd = "/";
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/path.js
+  var path_exports = {};
+  __export(path_exports, {
+    basename: () => basename,
+    dirname: () => dirname,
+    extname: () => extname,
+    format: () => format,
+    formatExt: () => formatExt,
+    isAbsolute: () => isAbsolute,
+    join: () => join,
+    normalize: () => normalize2,
+    normalizeString: () => normalizeString,
+    parse: () => parse,
+    relative: () => relative,
+    resolve: () => resolve,
+    sep: () => sep
+  });
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/credentials.js
+  function createCredentials(source) {
+    return {
+      suid: source.uid,
+      sgid: source.gid,
+      euid: source.uid,
+      egid: source.gid,
+      groups: [],
+      ...source
+    };
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/contexts.js
+  var defaultContext = {
+    id: 0,
+    root: "/",
+    pwd: "/",
+    credentials: createCredentials({ uid: 0, gid: 0 }),
+    descriptors: /* @__PURE__ */ new Map(),
+    parent: null,
+    children: []
+  };
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/path.js
+  var sep = "/";
+  function validateObject(str, name) {
+    if (typeof str != "object") {
+      throw new TypeError(`"${name}" is not an object`);
+    }
+  }
   function normalizeString(path, allowAboveRoot) {
     let res = "";
     let lastSegmentLength = 0;
@@ -9154,12 +9351,15 @@
     }
     return res;
   }
+  function formatExt(ext) {
+    return ext ? `${ext[0] === "." ? "" : "."}${ext}` : "";
+  }
   function resolve(...parts) {
+    var _a2;
     let resolved = "";
-    for (const part of [...parts.reverse(), cwd]) {
-      if (!part.length) {
+    for (const part of [...parts.reverse(), (_a2 = this === null || this === void 0 ? void 0 : this.pwd) !== null && _a2 !== void 0 ? _a2 : defaultContext.pwd]) {
+      if (!(part === null || part === void 0 ? void 0 : part.length))
         continue;
-      }
       resolved = `${part}/${resolved}`;
       if (part.startsWith("/")) {
         break;
@@ -9175,17 +9375,20 @@
   function normalize2(path) {
     if (!path.length)
       return ".";
-    const isAbsolute = path.startsWith("/");
+    const isAbsolute2 = path.startsWith("/");
     const trailingSeparator = path.endsWith("/");
-    path = normalizeString(path, !isAbsolute);
+    path = normalizeString(path, !isAbsolute2);
     if (!path.length) {
-      if (isAbsolute)
+      if (isAbsolute2)
         return "/";
       return trailingSeparator ? "./" : ".";
     }
     if (trailingSeparator)
       path += "/";
-    return isAbsolute ? `/${path}` : path;
+    return isAbsolute2 ? `/${path}` : path;
+  }
+  function isAbsolute(path) {
+    return path.startsWith("/");
   }
   function join(...parts) {
     if (!parts.length)
@@ -9198,8 +9401,8 @@
   function relative(from, to) {
     if (from === to)
       return "";
-    from = resolve(from);
-    to = resolve(to);
+    from = resolve.call(this, from);
+    to = resolve.call(this, to);
     if (from === to)
       return "";
     const fromStart = 1;
@@ -9316,12 +9519,53 @@
       return "";
     return path.slice(start, end);
   }
+  function extname(path) {
+    let startDot = -1;
+    let startPart = 0;
+    let end = -1;
+    let matchedSlash = true;
+    let preDotState = 0;
+    for (let i = path.length - 1; i >= 0; --i) {
+      if (path[i] === "/") {
+        if (!matchedSlash) {
+          startPart = i + 1;
+          break;
+        }
+        continue;
+      }
+      if (end === -1) {
+        matchedSlash = false;
+        end = i + 1;
+      }
+      if (path[i] === ".") {
+        if (startDot === -1)
+          startDot = i;
+        else if (preDotState !== 1)
+          preDotState = 1;
+      } else if (startDot !== -1) {
+        preDotState = -1;
+      }
+    }
+    if (startDot === -1 || end === -1 || preDotState === 0 || preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+      return "";
+    }
+    return path.slice(startDot, end);
+  }
+  function format(pathObject) {
+    validateObject(pathObject, "pathObject");
+    const dir = pathObject.dir || pathObject.root;
+    const base = pathObject.base || `${pathObject.name || ""}${formatExt(pathObject.ext)}`;
+    if (!dir) {
+      return base;
+    }
+    return dir === pathObject.root ? `${dir}${base}` : `${dir}/${base}`;
+  }
   function parse(path) {
-    const isAbsolute = path.startsWith("/");
-    const ret = { root: isAbsolute ? "/" : "", dir: "", base: "", ext: "", name: "" };
+    const isAbsolute2 = path.startsWith("/");
+    const ret = { root: isAbsolute2 ? "/" : "", dir: "", base: "", ext: "", name: "" };
     if (path.length === 0)
       return ret;
-    const start = isAbsolute ? 1 : 0;
+    const start = isAbsolute2 ? 1 : 0;
     let startDot = -1;
     let startPart = 0;
     let end = -1;
@@ -9350,7 +9594,7 @@
       }
     }
     if (end !== -1) {
-      const start2 = startPart === 0 && isAbsolute ? 1 : startPart;
+      const start2 = startPart === 0 && isAbsolute2 ? 1 : startPart;
       if (startDot === -1 || preDotState === 0 || preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
         ret.base = ret.name = path.slice(start2, end);
       } else {
@@ -9361,12 +9605,12 @@
     }
     if (startPart > 0)
       ret.dir = path.slice(0, startPart - 1);
-    else if (isAbsolute)
+    else if (isAbsolute2)
       ret.dir = "/";
     return ret;
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/internal/log.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/log.js
   var Level;
   (function(Level2) {
     Level2[Level2["EMERG"] = 0] = "EMERG";
@@ -9412,7 +9656,7 @@
     if (!msg.path)
       return beforePath;
     const mountPoint = typeof options.fs == "string" ? options.fs : (_b2 = (_a2 = options.fs) === null || _a2 === void 0 ? void 0 : _a2._mountPoint) !== null && _b2 !== void 0 ? _b2 : "<unknown>";
-    return beforePath + ": " + join(mountPoint, msg.path);
+    return beforePath + ": " + join(mountPoint, msg.path) + (includeStack ? "\n" + msg.stack.split("\n").map((line) => "	" + line).slice(1).join("\n") : "");
   }
   function _shortcut(level) {
     return function(message, options = {}) {
@@ -9431,115 +9675,104 @@
   function log_deprecated(symbol) {
     log(Level.WARN, symbol + " is deprecated and should not be used.");
   }
-  function ansi(text, format2) {
-    return `\x1B[${format2}m${text}\x1B[0m`;
+  function ansi(text, format3) {
+    return `\x1B[${format3}m${text}\x1B[0m`;
   }
   function _prettyMs(entry, style) {
     const text = "[" + (entry.elapsedMs / 1e3).toFixed(3).padStart(10) + "] ";
     switch (style) {
       case "ansi":
-        return ansi(text, "2;37");
+        return [ansi(text, "2;37")];
       case "css":
         return ["%c" + text, "opacity: 0.8; color: white;"];
       default:
-        return text;
+        return [text];
     }
   }
-  var _ansiLevelColor = {
-    [Level.EMERG]: "1;4;37;41",
-    [Level.ALERT]: "1;37;41",
-    [Level.CRIT]: "1;35",
-    [Level.ERR]: "1;31",
-    [Level.WARN]: "1;33",
-    [Level.NOTICE]: "1;36",
-    [Level.INFO]: "1;37",
-    [Level.DEBUG]: "0;2;37"
-  };
-  var _ansiMessageColor = {
-    [Level.EMERG]: "1;31",
-    [Level.ALERT]: "1;31",
-    [Level.CRIT]: "1;31",
-    [Level.ERR]: "31",
-    [Level.WARN]: "33",
-    [Level.NOTICE]: "1;37",
-    [Level.INFO]: "37",
-    [Level.DEBUG]: "2;37"
-  };
-  var _cssLevelColor = {
-    [Level.EMERG]: "font-weight: bold; text-decoration: underline; color: white; background-color: red;",
-    [Level.ALERT]: "font-weight: bold; color: white; background-color: red;",
-    [Level.CRIT]: "font-weight: bold; color: magenta;",
-    [Level.ERR]: "font-weight: bold; color: red;",
-    [Level.WARN]: "font-weight: bold; color: yellow;",
-    [Level.NOTICE]: "font-weight: bold; color: cyan;",
-    [Level.INFO]: "font-weight: bold; color: white;",
-    [Level.DEBUG]: "opacity: 0.8; color: white;"
-  };
-  var _cssMessageColor = {
-    [Level.EMERG]: "font-weight: bold; color: red;",
-    [Level.ALERT]: "font-weight: bold; color: red;",
-    [Level.CRIT]: "font-weight: bold; color: red;",
-    [Level.ERR]: "color: red;",
-    [Level.WARN]: "color: yellow;",
-    [Level.NOTICE]: "font-weight: bold; color: white;",
-    [Level.INFO]: "color: white;",
-    [Level.DEBUG]: "opacity: 0.8; color: white;"
-  };
-  var formats = {
-    /** Format with a timestamp and the level, colorized with ANSI escape codes */
-    ansi_level(entry) {
-      const levelText = ansi(levels[entry.level].toUpperCase(), _ansiLevelColor[entry.level]);
-      return [_prettyMs(entry, "ansi"), levelText, entry.message];
+  var levelColor = {
+    ansi: {
+      [Level.EMERG]: "1;4;37;41",
+      [Level.ALERT]: "1;37;41",
+      [Level.CRIT]: "1;35",
+      [Level.ERR]: "1;31",
+      [Level.WARN]: "1;33",
+      [Level.NOTICE]: "1;36",
+      [Level.INFO]: "1;37",
+      [Level.DEBUG]: "0;2;37"
     },
-    /**
-     * Format with a timestamp and colorize the message with ANSI escape codes.
-     * For EMERG and ALERT, the levels are included
-     */
-    ansi_message(entry) {
-      let msg = _prettyMs(entry, "ansi");
-      const isImportant = entry.level < Level.CRIT;
-      if (isImportant)
-        msg += ansi(levels[entry.level].toUpperCase(), _ansiLevelColor[entry.level]) + ": ";
-      msg += ansi(entry.message, _ansiMessageColor[entry.level]);
-      return msg;
-    },
-    css_level(entry) {
-      const levelLabel = levels[entry.level].toUpperCase();
-      return [..._prettyMs(entry, "css"), "%c" + levelLabel, _cssLevelColor[entry.level], entry.message];
-    },
-    css_message(entry) {
-      const text = _prettyMs(entry, "css");
-      const isImportant = entry.level < Level.CRIT;
-      if (isImportant) {
-        const levelLabel = levels[entry.level].toUpperCase();
-        text.push("%c" + levelLabel, _cssLevelColor[entry.level]);
-      }
-      text.push("%c" + entry.message, _cssMessageColor[entry.level]);
-      return text;
-    },
-    default(entry) {
-      return [_prettyMs(entry), entry.message];
+    css: {
+      [Level.EMERG]: "font-weight: bold; text-decoration: underline; color: white; background-color: red;",
+      [Level.ALERT]: "font-weight: bold; color: white; background-color: red;",
+      [Level.CRIT]: "font-weight: bold; color: magenta;",
+      [Level.ERR]: "font-weight: bold; color: red;",
+      [Level.WARN]: "font-weight: bold; color: yellow;",
+      [Level.NOTICE]: "font-weight: bold; color: cyan;",
+      [Level.INFO]: "font-weight: bold; color: white;",
+      [Level.DEBUG]: "opacity: 0.8; color: white;"
     }
   };
-  var _format = formats.default;
-  function format(entry) {
+  var messageColor = {
+    ansi: {
+      [Level.EMERG]: "1;31",
+      [Level.ALERT]: "1;31",
+      [Level.CRIT]: "1;31",
+      [Level.ERR]: "31",
+      [Level.WARN]: "33",
+      [Level.NOTICE]: "1;37",
+      [Level.INFO]: "37",
+      [Level.DEBUG]: "2;37"
+    },
+    css: {
+      [Level.EMERG]: "font-weight: bold; color: red;",
+      [Level.ALERT]: "font-weight: bold; color: red;",
+      [Level.CRIT]: "font-weight: bold; color: red;",
+      [Level.ERR]: "color: red;",
+      [Level.WARN]: "color: yellow;",
+      [Level.NOTICE]: "font-weight: bold; color: white;",
+      [Level.INFO]: "color: white;",
+      [Level.DEBUG]: "opacity: 0.8; color: white;"
+    }
+  };
+  function fancy({ style, colorize }) {
+    return function* (entry) {
+      yield* _prettyMs(entry, style);
+      const levelText = style == "ansi" ? [ansi(levels[entry.level].toUpperCase(), levelColor.ansi[entry.level])] : ["%c" + levels[entry.level].toUpperCase(), levelColor.css[entry.level]];
+      if (colorize == "level") {
+        yield* levelText;
+        yield entry.message;
+        return;
+      }
+      if (entry.level < Level.CRIT) {
+        yield* levelText;
+        yield ": ";
+      }
+      if (colorize == "message")
+        yield ansi(entry.message, messageColor.ansi[entry.level]);
+      else
+        yield* ["%c" + entry.message, messageColor.css[entry.level]];
+    };
+  }
+  var _format = (entry) => [..._prettyMs(entry), entry.message];
+  function format2(entry) {
     const formatted = _format(entry);
-    return Array.isArray(formatted) ? formatted : [formatted];
+    return typeof formatted == "string" ? [formatted] : Array.from(formatted);
   }
   var _output = console.error;
   function output(entry) {
     if (entry.level > minLevel)
       return;
-    _output(...format(entry));
+    _output(...format2(entry));
   }
   var minLevel = Level.ALERT;
+  var includeStack = false;
   var isEnabled = true;
   function configure(options) {
-    var _a2, _b2, _c2, _d;
+    var _a2, _b2, _c2, _d, _e;
     _format = (_a2 = options.format) !== null && _a2 !== void 0 ? _a2 : _format;
     _output = (_b2 = options.output) !== null && _b2 !== void 0 ? _b2 : _output;
     minLevel = typeof options.level == "string" ? levelOf(options.level) : (_c2 = options.level) !== null && _c2 !== void 0 ? _c2 : minLevel;
     isEnabled = (_d = options.enabled) !== null && _d !== void 0 ? _d : isEnabled;
+    includeStack = (_e = options.stack) !== null && _e !== void 0 ? _e : includeStack;
     if (!options.dumpBacklog)
       return;
     for (const entry of entries) {
@@ -9547,11 +9780,17 @@
     }
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/backends/backend.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/backend.js
   function isBackend(arg) {
     return arg != null && typeof arg == "object" && "create" in arg && typeof arg.create == "function";
   }
-  async function checkOptions(backend, options) {
+  function _fnOpt(name, fn) {
+    Object.defineProperty(fn, "prototype", { value: void 0 });
+    if (name)
+      Object.defineProperty(fn, "name", { value: name });
+    return fn;
+  }
+  function checkOptions(backend, options) {
     if (typeof options != "object" || options === null) {
       throw err(new ErrnoError(Errno.EINVAL, "Invalid options"));
     }
@@ -9559,79 +9798,28 @@
       const value = options === null || options === void 0 ? void 0 : options[optName];
       if (value === void 0 || value === null) {
         if (!opt.required) {
-          debug("Missing non-required option: " + optName);
+          debug("Using default for option: " + optName);
           continue;
         }
         throw err(new ErrnoError(Errno.EINVAL, "Missing required option: " + optName));
       }
-      const isType2 = (type, _ = value) => typeof type == "function" ? value instanceof type : typeof value === type;
-      if (Array.isArray(opt.type) ? !opt.type.some((v) => isType2(v)) : !isType2(opt.type)) {
-        const type = typeof value == "object" && "constructor" in value ? value.constructor.name : typeof value;
-        const name = (type2) => typeof type2 == "function" ? type2.name : type2;
-        const expected = Array.isArray(opt.type) ? `one of ${opt.type.map(name).join(", ")}` : name(opt.type);
-        throw err(new ErrnoError(Errno.EINVAL, `Incorrect type for "${optName}": ${type} (expected ${expected})`));
-      }
-      debug("Using custom validator for option: " + optName);
-      if (opt.validator)
-        await opt.validator(value);
+      const isType2 = (type2, _ = value) => {
+        var _a2;
+        return typeof type2 == "function" ? Symbol.hasInstance in type2 && type2.prototype ? value instanceof type2 : type2(value) : typeof value === type2 || ((_a2 = value === null || value === void 0 ? void 0 : value.constructor) === null || _a2 === void 0 ? void 0 : _a2.name) === type2;
+      };
+      if (Array.isArray(opt.type) ? opt.type.some((v) => isType2(v)) : isType2(opt.type))
+        continue;
+      const type = typeof value == "object" && "constructor" in value ? value.constructor.name : typeof value;
+      const name = (type2) => typeof type2 == "function" ? type2.name != "type" ? type2.name : type2.toString() : type2;
+      const expected = Array.isArray(opt.type) ? `one of ${opt.type.map(name).join(", ")}` : name(opt.type);
+      throw err(new ErrnoError(Errno.EINVAL, `Incorrect type for "${optName}": ${type} (expected ${expected})`));
     }
   }
   function isBackendConfig(arg) {
     return arg != null && typeof arg == "object" && "backend" in arg && isBackend(arg.backend);
   }
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/buffer.js
-  function extendBuffer(buffer, newByteLength) {
-    if (buffer.byteLength >= newByteLength)
-      return buffer;
-    if (ArrayBuffer.isView(buffer)) {
-      const newBuffer = extendBuffer(buffer.buffer, newByteLength);
-      return new buffer.constructor(newBuffer, buffer.byteOffset, newByteLength);
-    }
-    const isShared = typeof SharedArrayBuffer !== "undefined" && buffer instanceof SharedArrayBuffer;
-    if (buffer.maxByteLength > newByteLength) {
-      isShared ? buffer.grow(newByteLength) : buffer.resize(newByteLength);
-      return buffer;
-    }
-    if (isShared) {
-      const newBuffer = new SharedArrayBuffer(newByteLength);
-      new Uint8Array(newBuffer).set(new Uint8Array(buffer));
-      return newBuffer;
-    }
-    try {
-      return buffer.transfer(newByteLength);
-    } catch {
-      const newBuffer = new ArrayBuffer(newByteLength);
-      new Uint8Array(newBuffer).set(new Uint8Array(buffer));
-      return newBuffer;
-    }
-  }
-
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/internal/credentials.js
-  var credentials = {
-    uid: 0,
-    gid: 0,
-    suid: 0,
-    sgid: 0,
-    euid: 0,
-    egid: 0,
-    groups: []
-  };
-  function createCredentials(source) {
-    return {
-      suid: source.uid,
-      sgid: source.gid,
-      euid: source.uid,
-      egid: source.gid,
-      groups: [],
-      ...source
-    };
-  }
-  function useCredentials(source) {
-    Object.assign(credentials, createCredentials(source));
-  }
-
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/constants.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/constants.js
   var constants_exports = {};
   __export(constants_exports, {
     COPYFILE_EXCL: () => COPYFILE_EXCL,
@@ -9732,252 +9920,7 @@
   var UV_FS_O_FILEMAP = 0;
   var size_max = 4294967295;
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/internal/inode.js
-  var __esDecorate = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
-    function accept(f) {
-      if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
-      return f;
-    }
-    var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
-    var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
-    var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
-    var _, done = false;
-    for (var i = decorators.length - 1; i >= 0; i--) {
-      var context = {};
-      for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
-      for (var p in contextIn.access) context.access[p] = contextIn.access[p];
-      context.addInitializer = function(f) {
-        if (done) throw new TypeError("Cannot add initializers after decoration has completed");
-        extraInitializers.push(accept(f || null));
-      };
-      var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
-      if (kind === "accessor") {
-        if (result === void 0) continue;
-        if (result === null || typeof result !== "object") throw new TypeError("Object expected");
-        if (_ = accept(result.get)) descriptor.get = _;
-        if (_ = accept(result.set)) descriptor.set = _;
-        if (_ = accept(result.init)) initializers.unshift(_);
-      } else if (_ = accept(result)) {
-        if (kind === "field") initializers.unshift(_);
-        else descriptor[key] = _;
-      }
-    }
-    if (target) Object.defineProperty(target, contextIn.name, descriptor);
-    done = true;
-  };
-  var __runInitializers = function(thisArg, initializers, value) {
-    var useValue = arguments.length > 2;
-    for (var i = 0; i < initializers.length; i++) {
-      value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
-    }
-    return useValue ? value : void 0;
-  };
-  var __setFunctionName = function(f, name, prefix) {
-    if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
-    return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
-  };
-  var rootIno = 0;
-  var _inode_fields = ["ino", "data", "size", "mode", "flags", "nlink", "uid", "gid", "atimeMs", "birthtimeMs", "mtimeMs", "ctimeMs"];
-  var _inode_version = 3;
-  var Inode = (() => {
-    var _a2, _b2, _c2, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
-    let _classDecorators = [struct()];
-    let _classDescriptor;
-    let _classExtraInitializers = [];
-    let _classThis;
-    let _data_decorators;
-    let _data_initializers = [];
-    let _data_extraInitializers = [];
-    let ___data_old_decorators;
-    let ___data_old_initializers = [];
-    let ___data_old_extraInitializers = [];
-    let _size_decorators;
-    let _size_initializers = [];
-    let _size_extraInitializers = [];
-    let _mode_decorators;
-    let _mode_initializers = [];
-    let _mode_extraInitializers = [];
-    let _nlink_decorators;
-    let _nlink_initializers = [];
-    let _nlink_extraInitializers = [];
-    let _uid_decorators;
-    let _uid_initializers = [];
-    let _uid_extraInitializers = [];
-    let _gid_decorators;
-    let _gid_initializers = [];
-    let _gid_extraInitializers = [];
-    let _atimeMs_decorators;
-    let _atimeMs_initializers = [];
-    let _atimeMs_extraInitializers = [];
-    let _birthtimeMs_decorators;
-    let _birthtimeMs_initializers = [];
-    let _birthtimeMs_extraInitializers = [];
-    let _mtimeMs_decorators;
-    let _mtimeMs_initializers = [];
-    let _mtimeMs_extraInitializers = [];
-    let _ctimeMs_decorators;
-    let _ctimeMs_initializers = [];
-    let _ctimeMs_extraInitializers = [];
-    let _ino_decorators;
-    let _ino_initializers = [];
-    let _ino_extraInitializers = [];
-    let ___ino_old_decorators;
-    let ___ino_old_initializers = [];
-    let ___ino_old_extraInitializers = [];
-    let _flags_decorators;
-    let _flags_initializers = [];
-    let _flags_extraInitializers = [];
-    let ___padding_decorators;
-    let ___padding_initializers = [];
-    let ___padding_extraInitializers = [];
-    var Inode2 = _classThis = class {
-      constructor(data) {
-        this.data = __runInitializers(this, _data_initializers, randomInt(0, size_max));
-        this.__data_old = (__runInitializers(this, _data_extraInitializers), __runInitializers(this, ___data_old_initializers, 0));
-        this.size = (__runInitializers(this, ___data_old_extraInitializers), __runInitializers(this, _size_initializers, 0));
-        this.mode = (__runInitializers(this, _size_extraInitializers), __runInitializers(this, _mode_initializers, 0));
-        this.nlink = (__runInitializers(this, _mode_extraInitializers), __runInitializers(this, _nlink_initializers, 1));
-        this.uid = (__runInitializers(this, _nlink_extraInitializers), __runInitializers(this, _uid_initializers, 0));
-        this.gid = (__runInitializers(this, _uid_extraInitializers), __runInitializers(this, _gid_initializers, 0));
-        this.atimeMs = (__runInitializers(this, _gid_extraInitializers), __runInitializers(this, _atimeMs_initializers, Date.now()));
-        this.birthtimeMs = (__runInitializers(this, _atimeMs_extraInitializers), __runInitializers(this, _birthtimeMs_initializers, Date.now()));
-        this.mtimeMs = (__runInitializers(this, _birthtimeMs_extraInitializers), __runInitializers(this, _mtimeMs_initializers, Date.now()));
-        this.ctimeMs = (__runInitializers(this, _mtimeMs_extraInitializers), __runInitializers(this, _ctimeMs_initializers, Date.now()));
-        this.ino = (__runInitializers(this, _ctimeMs_extraInitializers), __runInitializers(this, _ino_initializers, randomInt(0, size_max)));
-        this.__ino_old = (__runInitializers(this, _ino_extraInitializers), __runInitializers(this, ___ino_old_initializers, 0));
-        this.flags = (__runInitializers(this, ___ino_old_extraInitializers), __runInitializers(this, _flags_initializers, 0));
-        this.__padding = (__runInitializers(this, _flags_extraInitializers), __runInitializers(this, ___padding_initializers, 0));
-        __runInitializers(this, ___padding_extraInitializers);
-        if (!data)
-          return;
-        if (!("byteLength" in data)) {
-          Object.assign(this, data);
-          return;
-        }
-        if (data.byteLength < 58) {
-          throw crit(new RangeError("Can not create an inode from a buffer less than 58 bytes"));
-        }
-        if (data.byteLength < __inode_sz) {
-          const buf = ArrayBuffer.isView(data) ? data.buffer : data;
-          const newBuffer = new Uint8Array(__inode_sz);
-          newBuffer.set(new Uint8Array(buf));
-          debug("Extending undersized buffer for inode");
-          data = newBuffer;
-        }
-        deserialize(this, data);
-      }
-      toString() {
-        return `<Inode ${this.ino}>`;
-      }
-      toJSON() {
-        return pick(this, _inode_fields);
-      }
-      /**
-       * Handy function that converts the Inode to a Node Stats object.
-       */
-      toStats() {
-        return new Stats(this);
-      }
-      /**
-       * Updates the Inode using information from the stats object. Used by file
-       * systems at sync time, e.g.:
-       * - Program opens file and gets a File object.
-       * - Program mutates file. File object is responsible for maintaining
-       *   metadata changes locally -- typically in a Stats object.
-       * - Program closes file. File object's metadata changes are synced with the
-       *   file system.
-       * @returns whether any changes have occurred.
-       */
-      update(data) {
-        if (!data)
-          return false;
-        let hasChanged = false;
-        for (const key of _inode_fields) {
-          if (data[key] === void 0)
-            continue;
-          if (key == "ino" || key == "data")
-            continue;
-          if (this[key] === data[key])
-            continue;
-          this[key] = data[key];
-          hasChanged = true;
-        }
-        return hasChanged;
-      }
-    };
-    __setFunctionName(_classThis, "Inode");
-    (() => {
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-      _data_decorators = [(_a2 = types2).uint32.bind(_a2)];
-      ___data_old_decorators = [(_b2 = types2).uint32.bind(_b2)];
-      _size_decorators = [(_c2 = types2).uint32.bind(_c2)];
-      _mode_decorators = [(_d = types2).uint16.bind(_d)];
-      _nlink_decorators = [(_e = types2).uint32.bind(_e)];
-      _uid_decorators = [(_f = types2).uint32.bind(_f)];
-      _gid_decorators = [(_g = types2).uint32.bind(_g)];
-      _atimeMs_decorators = [(_h = types2).float64.bind(_h)];
-      _birthtimeMs_decorators = [(_j = types2).float64.bind(_j)];
-      _mtimeMs_decorators = [(_k = types2).float64.bind(_k)];
-      _ctimeMs_decorators = [(_l = types2).float64.bind(_l)];
-      _ino_decorators = [(_m = types2).uint32.bind(_m)];
-      ___ino_old_decorators = [(_o = types2).uint32.bind(_o)];
-      _flags_decorators = [(_p = types2).uint32.bind(_p)];
-      ___padding_decorators = [(_q = types2).uint16.bind(_q)];
-      __esDecorate(null, null, _data_decorators, { kind: "field", name: "data", static: false, private: false, access: { has: (obj) => "data" in obj, get: (obj) => obj.data, set: (obj, value) => {
-        obj.data = value;
-      } }, metadata: _metadata }, _data_initializers, _data_extraInitializers);
-      __esDecorate(null, null, ___data_old_decorators, { kind: "field", name: "__data_old", static: false, private: false, access: { has: (obj) => "__data_old" in obj, get: (obj) => obj.__data_old, set: (obj, value) => {
-        obj.__data_old = value;
-      } }, metadata: _metadata }, ___data_old_initializers, ___data_old_extraInitializers);
-      __esDecorate(null, null, _size_decorators, { kind: "field", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
-        obj.size = value;
-      } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
-      __esDecorate(null, null, _mode_decorators, { kind: "field", name: "mode", static: false, private: false, access: { has: (obj) => "mode" in obj, get: (obj) => obj.mode, set: (obj, value) => {
-        obj.mode = value;
-      } }, metadata: _metadata }, _mode_initializers, _mode_extraInitializers);
-      __esDecorate(null, null, _nlink_decorators, { kind: "field", name: "nlink", static: false, private: false, access: { has: (obj) => "nlink" in obj, get: (obj) => obj.nlink, set: (obj, value) => {
-        obj.nlink = value;
-      } }, metadata: _metadata }, _nlink_initializers, _nlink_extraInitializers);
-      __esDecorate(null, null, _uid_decorators, { kind: "field", name: "uid", static: false, private: false, access: { has: (obj) => "uid" in obj, get: (obj) => obj.uid, set: (obj, value) => {
-        obj.uid = value;
-      } }, metadata: _metadata }, _uid_initializers, _uid_extraInitializers);
-      __esDecorate(null, null, _gid_decorators, { kind: "field", name: "gid", static: false, private: false, access: { has: (obj) => "gid" in obj, get: (obj) => obj.gid, set: (obj, value) => {
-        obj.gid = value;
-      } }, metadata: _metadata }, _gid_initializers, _gid_extraInitializers);
-      __esDecorate(null, null, _atimeMs_decorators, { kind: "field", name: "atimeMs", static: false, private: false, access: { has: (obj) => "atimeMs" in obj, get: (obj) => obj.atimeMs, set: (obj, value) => {
-        obj.atimeMs = value;
-      } }, metadata: _metadata }, _atimeMs_initializers, _atimeMs_extraInitializers);
-      __esDecorate(null, null, _birthtimeMs_decorators, { kind: "field", name: "birthtimeMs", static: false, private: false, access: { has: (obj) => "birthtimeMs" in obj, get: (obj) => obj.birthtimeMs, set: (obj, value) => {
-        obj.birthtimeMs = value;
-      } }, metadata: _metadata }, _birthtimeMs_initializers, _birthtimeMs_extraInitializers);
-      __esDecorate(null, null, _mtimeMs_decorators, { kind: "field", name: "mtimeMs", static: false, private: false, access: { has: (obj) => "mtimeMs" in obj, get: (obj) => obj.mtimeMs, set: (obj, value) => {
-        obj.mtimeMs = value;
-      } }, metadata: _metadata }, _mtimeMs_initializers, _mtimeMs_extraInitializers);
-      __esDecorate(null, null, _ctimeMs_decorators, { kind: "field", name: "ctimeMs", static: false, private: false, access: { has: (obj) => "ctimeMs" in obj, get: (obj) => obj.ctimeMs, set: (obj, value) => {
-        obj.ctimeMs = value;
-      } }, metadata: _metadata }, _ctimeMs_initializers, _ctimeMs_extraInitializers);
-      __esDecorate(null, null, _ino_decorators, { kind: "field", name: "ino", static: false, private: false, access: { has: (obj) => "ino" in obj, get: (obj) => obj.ino, set: (obj, value) => {
-        obj.ino = value;
-      } }, metadata: _metadata }, _ino_initializers, _ino_extraInitializers);
-      __esDecorate(null, null, ___ino_old_decorators, { kind: "field", name: "__ino_old", static: false, private: false, access: { has: (obj) => "__ino_old" in obj, get: (obj) => obj.__ino_old, set: (obj, value) => {
-        obj.__ino_old = value;
-      } }, metadata: _metadata }, ___ino_old_initializers, ___ino_old_extraInitializers);
-      __esDecorate(null, null, _flags_decorators, { kind: "field", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
-        obj.flags = value;
-      } }, metadata: _metadata }, _flags_initializers, _flags_extraInitializers);
-      __esDecorate(null, null, ___padding_decorators, { kind: "field", name: "__padding", static: false, private: false, access: { has: (obj) => "__padding" in obj, get: (obj) => obj.__padding, set: (obj, value) => {
-        obj.__padding = value;
-      } }, metadata: _metadata }, ___padding_initializers, ___padding_extraInitializers);
-      __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-      Inode2 = _classThis = _classDescriptor.value;
-      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-      __runInitializers(_classThis, _classExtraInitializers);
-    })();
-    return Inode2 = _classThis;
-  })();
-  var __inode_sz = sizeof(Inode);
-
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/stats.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/stats.js
   var n1000 = BigInt(1e3);
   var StatsCommon = class {
     _convert(arg) {
@@ -10069,61 +10012,8 @@
      * @internal
      */
     hasAccess(mode, context) {
-      const creds = (context === null || context === void 0 ? void 0 : context.credentials) || credentials;
-      if (this.isSymbolicLink() || creds.euid === 0 || creds.egid === 0)
-        return true;
-      let perm = 0;
-      if (creds.uid === this.uid) {
-        if (this.mode & S_IRUSR)
-          perm |= R_OK;
-        if (this.mode & S_IWUSR)
-          perm |= W_OK;
-        if (this.mode & S_IXUSR)
-          perm |= X_OK;
-      }
-      if (creds.gid === this.gid || creds.groups.includes(Number(this.gid))) {
-        if (this.mode & S_IRGRP)
-          perm |= R_OK;
-        if (this.mode & S_IWGRP)
-          perm |= W_OK;
-        if (this.mode & S_IXGRP)
-          perm |= X_OK;
-      }
-      if (this.mode & S_IROTH)
-        perm |= R_OK;
-      if (this.mode & S_IWOTH)
-        perm |= W_OK;
-      if (this.mode & S_IXOTH)
-        perm |= X_OK;
-      return (perm & mode) === mode;
+      return hasAccess(context, this._isBigint ? new Stats(this) : this, mode);
     }
-    /* node:coverage disable */
-    /**
-     * Change the mode of the file.
-     * We use this helper function to prevent messing up the type of the file.
-     * @internal @deprecated
-     */
-    chmod(mode) {
-      log_deprecated("StatsCommon#chmod");
-      this.mode = this._convert(this.mode & S_IFMT | mode);
-    }
-    /**
-     * Change the owner user/group of the file.
-     * This function makes sure it is a valid UID/GID (that is, a 32 unsigned int)
-     * @internal @deprecated
-     */
-    chown(uid, gid) {
-      log_deprecated("StatsCommon#chown");
-      uid = Number(uid);
-      gid = Number(gid);
-      if (!isNaN(uid) && 0 <= uid && uid < 2 ** 32) {
-        this.uid = this._convert(uid);
-      }
-      if (!isNaN(gid) && 0 <= gid && gid < 2 ** 32) {
-        this.gid = this._convert(gid);
-      }
-    }
-    /* node:coverage enable */
     get atimeNs() {
       return BigInt(this.atimeMs) * n1000;
     }
@@ -10138,12 +10028,16 @@
     }
   };
   function _chown(stats, uid, gid) {
-    if (!isNaN(uid) && 0 <= uid && uid < size_max) {
+    let valid = true;
+    if (!isNaN(uid) && uid >= 0 && uid < size_max)
       stats.uid = uid;
-    }
-    if (!isNaN(gid) && 0 <= gid && gid < 2 ** 32) {
+    else
+      valid = false;
+    if (!isNaN(gid) && gid >= 0 && gid < size_max)
       stats.gid = gid;
-    }
+    else
+      valid = false;
+    return valid;
   }
   var Stats = class extends StatsCommon {
     constructor() {
@@ -10184,820 +10078,518 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/config.js
-  var config = {
-    /**
-     * Whether to perform access checks
-     */
-    checkAccess: true,
-    /**
-     * Whether to mark a file as dirty after updating its `atime` when read from
-     */
-    updateOnRead: true,
-    /**
-     * Whether to immediately sync when files are changed
-     */
-    syncImmediately: true,
-    /**
-     * If a file's buffer is not large enough to store content when writing and the buffer can't be resized, reuse the buffer passed to write()
-     */
-    unsafeBufferReplace: false
-  };
-
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/polyfills.js
-  var _a;
-  var _b;
-  var _c;
-  (_a = Promise.withResolvers) !== null && _a !== void 0 ? _a : Promise.withResolvers = (warn("Using a polyfill of Promise.withResolvers"), function() {
-    let _resolve2, _reject;
-    const promise = new Promise((resolve2, reject) => {
-      _resolve2 = resolve2;
-      _reject = reject;
-    });
-    return { promise, resolve: _resolve2, reject: _reject };
-  });
-  (_b = Symbol["dispose"]) !== null && _b !== void 0 ? _b : Symbol["dispose"] = (warn("Using a polyfill of Symbol.dispose"), Symbol("Symbol.dispose"));
-  (_c = Symbol["asyncDispose"]) !== null && _c !== void 0 ? _c : Symbol["asyncDispose"] = (warn("Using a polyfill of Symbol.asyncDispose"), Symbol("Symbol.asyncDispose"));
-
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/internal/file.js
-  var maxByteLength = 65535;
-  var validFlags = ["r", "r+", "rs", "rs+", "w", "wx", "w+", "wx+", "a", "ax", "a+", "ax+"];
-  function parseFlag(flag) {
-    if (typeof flag === "number") {
-      return flagToString(flag);
-    }
-    if (!validFlags.includes(flag)) {
-      throw new Error("Invalid flag string: " + flag);
-    }
-    return flag;
-  }
-  function flagToString(flag) {
-    switch (flag) {
-      case O_RDONLY:
-        return "r";
-      case O_RDONLY | O_SYNC:
-        return "rs";
-      case O_RDWR:
-        return "r+";
-      case O_RDWR | O_SYNC:
-        return "rs+";
-      case O_TRUNC | O_CREAT | O_WRONLY:
-        return "w";
-      case O_TRUNC | O_CREAT | O_WRONLY | O_EXCL:
-        return "wx";
-      case O_TRUNC | O_CREAT | O_RDWR:
-        return "w+";
-      case O_TRUNC | O_CREAT | O_RDWR | O_EXCL:
-        return "wx+";
-      case O_APPEND | O_CREAT | O_WRONLY:
-        return "a";
-      case O_APPEND | O_CREAT | O_WRONLY | O_EXCL:
-        return "ax";
-      case O_APPEND | O_CREAT | O_RDWR:
-        return "a+";
-      case O_APPEND | O_CREAT | O_RDWR | O_EXCL:
-        return "ax+";
-      default:
-        throw new Error("Invalid flag number: " + flag);
-    }
-  }
-  function flagToNumber(flag) {
-    switch (flag) {
-      case "r":
-        return O_RDONLY;
-      case "rs":
-        return O_RDONLY | O_SYNC;
-      case "r+":
-        return O_RDWR;
-      case "rs+":
-        return O_RDWR | O_SYNC;
-      case "w":
-        return O_TRUNC | O_CREAT | O_WRONLY;
-      case "wx":
-        return O_TRUNC | O_CREAT | O_WRONLY | O_EXCL;
-      case "w+":
-        return O_TRUNC | O_CREAT | O_RDWR;
-      case "wx+":
-        return O_TRUNC | O_CREAT | O_RDWR | O_EXCL;
-      case "a":
-        return O_APPEND | O_CREAT | O_WRONLY;
-      case "ax":
-        return O_APPEND | O_CREAT | O_WRONLY | O_EXCL;
-      case "a+":
-        return O_APPEND | O_CREAT | O_RDWR;
-      case "ax+":
-        return O_APPEND | O_CREAT | O_RDWR | O_EXCL;
-      default:
-        throw new Error("Invalid flag string: " + flag);
-    }
-  }
-  function flagToMode(flag) {
-    let mode = 0;
-    mode <<= 1;
-    mode += +isReadable(flag);
-    mode <<= 1;
-    mode += +isWriteable(flag);
-    mode <<= 1;
-    return mode;
-  }
-  function isReadable(flag) {
-    return flag.indexOf("r") !== -1 || flag.indexOf("+") !== -1;
-  }
-  function isWriteable(flag) {
-    return flag.indexOf("w") !== -1 || flag.indexOf("a") !== -1 || flag.indexOf("+") !== -1;
-  }
-  function isTruncating(flag) {
-    return flag.indexOf("w") !== -1;
-  }
-  function isAppendable(flag) {
-    return flag.indexOf("a") !== -1;
-  }
-  function isSynchronous(flag) {
-    return flag.indexOf("s") !== -1;
-  }
-  function isExclusive(flag) {
-    return flag.indexOf("x") !== -1;
-  }
-  var File = class {
-    constructor(fs, path) {
-      this.fs = fs;
-      this.path = path;
-    }
-    async [Symbol.asyncDispose]() {
-      await this.close();
-    }
-    [Symbol.dispose]() {
-      this.closeSync();
-    }
-    /**
-     * Default implementation maps to `sync`.
-     */
-    datasync() {
-      return this.sync();
-    }
-    /**
-     * Default implementation maps to `syncSync`.
-     */
-    datasyncSync() {
-      return this.syncSync();
-    }
-    /**
-     * Create a stream for reading the file.
-     */
-    streamRead(options) {
-      return this.fs.streamRead(this.path, options);
-    }
-    /**
-     * Create a stream for writing the file.
-     */
-    streamWrite(options) {
-      return this.fs.streamWrite(this.path, options);
-    }
-  };
-  var PreloadFile = class extends File {
-    /**
-     * Creates a file with `path` and, optionally, the given contents.
-     * Note that, if contents is specified, it will be mutated by the file.
-     */
-    constructor(fs, path, flag, stats, _buffer = new Uint8Array(new ArrayBuffer(0, fs.attributes.has("no_buffer_resize") ? {} : { maxByteLength }))) {
-      super(fs, path);
-      this.flag = flag;
-      this.stats = stats;
-      this._buffer = _buffer;
-      this._position = 0;
-      this.dirty = false;
-      this.closed = false;
-      if (this.stats.size == _buffer.byteLength)
-        return;
-      if (!isWriteable(this.flag)) {
-        throw err(new ErrnoError(Errno.EIO, `Size mismatch: buffer length ${_buffer.byteLength}, stats size ${this.stats.size}`, path));
-      }
-      this.stats.size = _buffer.byteLength;
-      this.dirty = true;
-    }
-    /**
-     * Get the underlying buffer for this file. Mutating not recommended and will mess up dirty tracking.
-     */
-    get buffer() {
-      return this._buffer;
-    }
-    /**
-     * Get the current file position.
-     *
-     * We emulate the following bug mentioned in the Node documentation:
-     *
-     * On Linux, positional writes don't work when the file is opened in append mode.
-     * The kernel ignores the position argument and always appends the data to the end of the file.
-     * @returns The current file position.
-     */
-    get position() {
-      if (isAppendable(this.flag)) {
-        return this.stats.size;
-      }
-      return this._position;
-    }
-    set position(value) {
-      this._position = value;
-    }
-    async sync() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "sync");
-      if (!this.dirty)
-        return;
-      if (!this.fs.attributes.has("no_write"))
-        await this.fs.sync(this.path, this._buffer, this.stats);
-      this.dirty = false;
-    }
-    syncSync() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "sync");
-      if (!this.dirty)
-        return;
-      if (!this.fs.attributes.has("no_write"))
-        this.fs.syncSync(this.path, this._buffer, this.stats);
-      this.dirty = false;
-    }
-    async close() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "close");
-      await this.sync();
-      this.dispose();
-    }
-    closeSync() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "close");
-      this.syncSync();
-      this.dispose();
-    }
-    /**
-     * Cleans up. This will *not* sync the file data to the FS
-     */
-    dispose(force) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "dispose");
-      if (this.dirty && !force) {
-        throw ErrnoError.With("EBUSY", this.path, "dispose");
-      }
-      this.closed = true;
-    }
-    stat() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "stat");
-      return Promise.resolve(new Stats(this.stats));
-    }
-    statSync() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "stat");
-      return new Stats(this.stats);
-    }
-    _truncate(length) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "truncate");
-      this.dirty = true;
-      if (!isWriteable(this.flag)) {
-        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode");
-      }
-      this.stats.mtimeMs = Date.now();
-      if (length > this._buffer.length) {
-        const data = new Uint8Array(length - this._buffer.length);
-        this._write(data, 0, data.length, this._buffer.length);
-        return;
-      }
-      this.stats.size = length;
-      this._buffer = length ? this._buffer.subarray(0, length) : new Uint8Array();
-    }
-    async truncate(length) {
-      this._truncate(length);
-      if (config.syncImmediately)
-        await this.sync();
-    }
-    truncateSync(length) {
-      this._truncate(length);
-      if (config.syncImmediately)
-        this.syncSync();
-    }
-    _write(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "write");
-      if (!isWriteable(this.flag)) {
-        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode");
-      }
-      this.dirty = true;
-      const end = position + length;
-      const slice = buffer.subarray(offset, offset + length);
-      this._buffer = extendBuffer(this._buffer, end);
-      if (end > this.stats.size)
-        this.stats.size = end;
-      this._buffer.set(slice, position);
-      this.stats.mtimeMs = Date.now();
-      this.position = position + slice.byteLength;
-      return slice.byteLength;
-    }
-    /**
-     * Write buffer to the file.
-     * @param buffer Uint8Array containing the data to write to the file.
-     * @param offset Offset in the buffer to start reading data from.
-     * @param length The amount of bytes to write to the file.
-     * @param position Offset from the beginning of the file where this data should be written.
-     * If position is null, the data will be written at  the current position.
-     */
-    async write(buffer, offset, length, position) {
-      const bytesWritten = this._write(buffer, offset, length, position);
-      if (config.syncImmediately)
-        await this.sync();
-      return bytesWritten;
-    }
-    /**
-     * Write buffer to the file.
-     * @param buffer Uint8Array containing the data to write to the file.
-     * @param offset Offset in the buffer to start reading data from.
-     * @param length The amount of bytes to write to the file.
-     * @param position Offset from the beginning of the file where this data should be written.
-     * If position is null, the data will be written at  the current position.
-     * @returns bytes written
-     */
-    writeSync(buffer, offset, length, position) {
-      const bytesWritten = this._write(buffer, offset, length, position);
-      if (config.syncImmediately)
-        this.syncSync();
-      return bytesWritten;
-    }
-    _read(buffer, offset = 0, length = buffer.byteLength - offset, position) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "read");
-      if (!isReadable(this.flag)) {
-        throw new ErrnoError(Errno.EPERM, "File not opened with a readable mode");
-      }
-      if (config.updateOnRead) {
-        this.dirty = true;
-      }
-      this.stats.atimeMs = Date.now();
-      position !== null && position !== void 0 ? position : position = this.position;
-      let end = position + length;
-      if (end > this.stats.size) {
-        end = position + Math.max(this.stats.size - position, 0);
-      }
-      this._position = end;
-      const bytesRead = end - position;
-      if (bytesRead == 0) {
-        return bytesRead;
-      }
-      const slice = this._buffer.subarray(position, end);
-      new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength).set(slice, offset);
-      return bytesRead;
-    }
-    /**
-     * Read data from the file.
-     * @param buffer The buffer that the data will be written to.
-     * @param offset The offset within the buffer where writing will start.
-     * @param length An integer specifying the number of bytes to read.
-     * @param position An integer specifying where to begin reading from in the file.
-     * If position is null, data will be read from the current file position.
-     */
-    async read(buffer, offset, length, position) {
-      const bytesRead = this._read(buffer, offset, length, position);
-      if (config.syncImmediately)
-        await this.sync();
-      return { bytesRead, buffer };
-    }
-    /**
-     * Read data from the file.
-     * @param buffer The buffer that the data will be written to.
-     * @param offset The offset within the buffer where writing will start.
-     * @param length An integer specifying the number of bytes to read.
-     * @param position An integer specifying where to begin reading from in the file.
-     * If position is null, data will be read from the current file position.
-     * @returns number of bytes written
-     */
-    readSync(buffer, offset, length, position) {
-      const bytesRead = this._read(buffer, offset, length, position);
-      if (config.syncImmediately)
-        this.syncSync();
-      return bytesRead;
-    }
-    async chmod(mode) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chmod");
-      this.dirty = true;
-      this.stats.mode = this.stats.mode & (mode > S_IFMT ? ~S_IFMT : S_IFMT) | mode;
-      if (config.syncImmediately || mode > S_IFMT)
-        await this.sync();
-    }
-    chmodSync(mode) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chmod");
-      this.dirty = true;
-      this.stats.mode = this.stats.mode & (mode > S_IFMT ? ~S_IFMT : S_IFMT) | mode;
-      if (config.syncImmediately || mode > S_IFMT)
-        this.syncSync();
-    }
-    async chown(uid, gid) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chown");
-      this.dirty = true;
-      _chown(this.stats, uid, gid);
-      if (config.syncImmediately)
-        await this.sync();
-    }
-    chownSync(uid, gid) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chown");
-      this.dirty = true;
-      _chown(this.stats, uid, gid);
-      if (config.syncImmediately)
-        this.syncSync();
-    }
-    async utimes(atime, mtime) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "utimes");
-      this.dirty = true;
-      this.stats.atimeMs = atime;
-      this.stats.mtimeMs = mtime;
-      if (config.syncImmediately)
-        await this.sync();
-    }
-    utimesSync(atime, mtime) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "utimes");
-      this.dirty = true;
-      this.stats.atimeMs = atime;
-      this.stats.mtimeMs = mtime;
-      if (config.syncImmediately)
-        this.syncSync();
-    }
-  };
-  var NoSyncFile = class extends PreloadFile {
-    constructor(...args) {
-      log_deprecated("NoSyncFile");
-      super(...args);
-    }
-    sync() {
-      return Promise.resolve();
-    }
-    syncSync() {
-    }
-    close() {
-      return Promise.resolve();
-    }
-    closeSync() {
-    }
-  };
-  var LazyFile = class extends File {
-    /**
-     * Get the current file position.
-     *
-     * We emulate the following bug mentioned in the Node documentation:
-     *
-     * On Linux, positional writes don't work when the file is opened in append mode.
-     * The kernel ignores the position argument and always appends the data to the end of the file.
-     * @returns The current file position.
-     */
-    get position() {
-      return isAppendable(this.flag) ? this.stats.size : this._position;
-    }
-    set position(value) {
-      this._position = value;
-    }
-    /**
-     * Creates a file with `path` and, optionally, the given contents.
-     * Note that, if contents is specified, it will be mutated by the file.
-     */
-    constructor(fs, path, flag, stats) {
-      super(fs, path);
-      this.flag = flag;
-      this.stats = stats;
-      this._position = 0;
-      this.dirty = false;
-      this.closed = false;
-    }
-    async sync() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "sync");
-      if (!this.dirty)
-        return;
-      if (!this.fs.attributes.has("no_write"))
-        await this.fs.sync(this.path, void 0, this.stats);
-      this.dirty = false;
-    }
-    syncSync() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "sync");
-      if (!this.dirty)
-        return;
-      if (!this.fs.attributes.has("no_write"))
-        this.fs.syncSync(this.path, void 0, this.stats);
-      this.dirty = false;
-    }
-    async close() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "close");
-      await this.sync();
-      this.dispose();
-    }
-    closeSync() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "close");
-      this.syncSync();
-      this.dispose();
-    }
-    /**
-     * Cleans up. This will *not* sync the file data to the FS
-     */
-    dispose(force) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "dispose");
-      if (this.dirty && !force)
-        throw ErrnoError.With("EBUSY", this.path, "dispose");
-      this.closed = true;
-    }
-    stat() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "stat");
-      return Promise.resolve(new Stats(this.stats));
-    }
-    statSync() {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "stat");
-      return new Stats(this.stats);
-    }
-    async truncate(length) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "truncate");
-      this.dirty = true;
-      if (!isWriteable(this.flag)) {
-        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode");
-      }
-      this.stats.mtimeMs = Date.now();
-      this.stats.size = length;
-      if (config.syncImmediately)
-        await this.sync();
-    }
-    truncateSync(length) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "truncate");
-      this.dirty = true;
-      if (!isWriteable(this.flag)) {
-        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode");
-      }
-      this.stats.mtimeMs = Date.now();
-      this.stats.size = length;
-      if (config.syncImmediately)
-        this.syncSync();
-    }
-    prepareWrite(buffer, offset, length, position) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "write");
-      if (!isWriteable(this.flag)) {
-        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode");
-      }
-      this.dirty = true;
-      const end = position + length;
-      const slice = buffer.subarray(offset, offset + length);
-      if (end > this.stats.size)
-        this.stats.size = end;
-      this.stats.mtimeMs = Date.now();
-      this._position = position + slice.byteLength;
-      return slice;
-    }
-    /**
-     * Write buffer to the file.
-     * @param buffer Uint8Array containing the data to write to the file.
-     * @param offset Offset in the buffer to start reading data from.
-     * @param length The amount of bytes to write to the file.
-     * @param position Offset from the beginning of the file where this data should be written.
-     * If position is null, the data will be written at  the current position.
-     */
-    async write(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
-      const slice = this.prepareWrite(buffer, offset, length, position);
-      await this.fs.write(this.path, slice, position);
-      if (config.syncImmediately)
-        await this.sync();
-      return slice.byteLength;
-    }
-    /**
-     * Write buffer to the file.
-     * @param buffer Uint8Array containing the data to write to the file.
-     * @param offset Offset in the buffer to start reading data from.
-     * @param length The amount of bytes to write to the file.
-     * @param position Offset from the beginning of the file where this data should be written.
-     * If position is null, the data will be written at  the current position.
-     * @returns bytes written
-     */
-    writeSync(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
-      const slice = this.prepareWrite(buffer, offset, length, position);
-      this.fs.writeSync(this.path, slice, position);
-      if (config.syncImmediately)
-        this.syncSync();
-      return slice.byteLength;
-    }
-    /**
-     * Computes position information for reading
-     */
-    prepareRead(length, position) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "read");
-      if (!isReadable(this.flag))
-        throw new ErrnoError(Errno.EPERM, "File not opened with a readable mode");
-      if (config.updateOnRead)
-        this.dirty = true;
-      this.stats.atimeMs = Date.now();
-      let end = position + length;
-      if (end > this.stats.size) {
-        end = position + Math.max(this.stats.size - position, 0);
-      }
-      this._position = end;
-      return end;
-    }
-    /**
-     * Read data from the file.
-     * @param buffer The buffer that the data will be written to.
-     * @param offset The offset within the buffer where writing will start.
-     * @param length An integer specifying the number of bytes to read.
-     * @param position An integer specifying where to begin reading from in the file.
-     * If position is unset, data will be read from the current file position.
-     */
-    async read(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
-      const end = this.prepareRead(length, position);
-      const uint8 = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-      await this.fs.read(this.path, uint8.subarray(offset, offset + length), position, end);
-      if (config.syncImmediately)
-        await this.sync();
-      return { bytesRead: end - position, buffer };
-    }
-    /**
-     * Read data from the file.
-     * @param buffer The buffer that the data will be written to.
-     * @param offset The offset within the buffer where writing will start.
-     * @param length An integer specifying the number of bytes to read.
-     * @param position An integer specifying where to begin reading from in the file.
-     * If position is null, data will be read from the current file position.
-     * @returns number of bytes written
-     */
-    readSync(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
-      const end = this.prepareRead(length, position);
-      const uint8 = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-      this.fs.readSync(this.path, uint8.subarray(offset, offset + length), position, end);
-      if (config.syncImmediately)
-        this.syncSync();
-      return end - position;
-    }
-    async chmod(mode) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chmod");
-      this.dirty = true;
-      this.stats.mode = this.stats.mode & (mode > S_IFMT ? ~S_IFMT : S_IFMT) | mode;
-      if (config.syncImmediately || mode > S_IFMT)
-        await this.sync();
-    }
-    chmodSync(mode) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chmod");
-      this.dirty = true;
-      this.stats.mode = this.stats.mode & (mode > S_IFMT ? ~S_IFMT : S_IFMT) | mode;
-      if (config.syncImmediately || mode > S_IFMT)
-        this.syncSync();
-    }
-    async chown(uid, gid) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chown");
-      this.dirty = true;
-      _chown(this.stats, uid, gid);
-      if (config.syncImmediately)
-        await this.sync();
-    }
-    chownSync(uid, gid) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chown");
-      this.dirty = true;
-      _chown(this.stats, uid, gid);
-      if (config.syncImmediately)
-        this.syncSync();
-    }
-    async utimes(atime, mtime) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "utimes");
-      this.dirty = true;
-      this.stats.atimeMs = atime;
-      this.stats.mtimeMs = mtime;
-      if (config.syncImmediately)
-        await this.sync();
-    }
-    utimesSync(atime, mtime) {
-      if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "utimes");
-      this.dirty = true;
-      this.stats.atimeMs = atime;
-      this.stats.mtimeMs = mtime;
-      if (config.syncImmediately)
-        this.syncSync();
-    }
-  };
-
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/internal/filesystem.js
-  var _chunkSize = 4096;
-  var FileSystem = class _FileSystem {
-    constructor(id, name) {
-      this.id = id;
-      this.name = name;
-      this.attributes = /* @__PURE__ */ new Map();
-      if (this.streamRead === _FileSystem.prototype.streamRead)
-        this.attributes.set("default_stream_read");
-      if (this.streamWrite === _FileSystem.prototype.streamWrite)
-        this.attributes.set("default_stream_write");
-    }
-    toString() {
-      var _a2;
-      return `${this.name} ${(_a2 = this.label) !== null && _a2 !== void 0 ? _a2 : ""} (${this._mountPoint ? "mounted on " + this._mountPoint : "unmounted"})`;
-    }
-    /**
-     * Default implementation.
-     * @todo Implement
-     * @experimental
-     */
-    usage() {
-      return {
-        totalSpace: 0,
-        freeSpace: 0
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/inode.js
+  var __esDecorate = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    function accept(f) {
+      if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
+      return f;
+    }
+    var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+    var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+    var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+    var _, done = false;
+    for (var i = decorators.length - 1; i >= 0; i--) {
+      var context = {};
+      for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
+      for (var p in contextIn.access) context.access[p] = contextIn.access[p];
+      context.addInitializer = function(f) {
+        if (done) throw new TypeError("Cannot add initializers after decoration has completed");
+        extraInitializers.push(accept(f || null));
       };
-    }
-    /* node:coverage disable */
-    /**
-     * Get metadata about the current file system
-     * @deprecated
-     */
-    metadata() {
-      return {
-        ...this.usage(),
-        name: this.name,
-        readonly: this.attributes.has("no_write"),
-        noResizableBuffers: this.attributes.has("no_buffer_resize"),
-        noAsyncCache: this.attributes.has("no_async"),
-        features: Array.from(this.attributes.keys()),
-        type: this.id
-      };
-    }
-    /* node:coverage enable */
-    async ready() {
-    }
-    /**
-     * Test whether or not `path` exists.
-     */
-    async exists(path) {
-      try {
-        await this.stat(path);
-        return true;
-      } catch (e) {
-        return e.code != "ENOENT";
+      var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+      if (kind === "accessor") {
+        if (result === void 0) continue;
+        if (result === null || typeof result !== "object") throw new TypeError("Object expected");
+        if (_ = accept(result.get)) descriptor.get = _;
+        if (_ = accept(result.set)) descriptor.set = _;
+        if (_ = accept(result.init)) initializers.unshift(_);
+      } else if (_ = accept(result)) {
+        if (kind === "field") initializers.unshift(_);
+        else descriptor[key] = _;
       }
     }
-    /**
-     * Test whether or not `path` exists.
-     */
-    existsSync(path) {
-      try {
-        this.statSync(path);
-        return true;
-      } catch (e) {
-        return e.code != "ENOENT";
+    if (target) Object.defineProperty(target, contextIn.name, descriptor);
+    done = true;
+  };
+  var __runInitializers = function(thisArg, initializers, value) {
+    var useValue = arguments.length > 2;
+    for (var i = 0; i < initializers.length; i++) {
+      value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+    }
+    return useValue ? value : void 0;
+  };
+  var __setFunctionName = function(f, name, prefix) {
+    if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
+    return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
+  };
+  var rootIno = 0;
+  var maxAttributeValueSize = 1024;
+  var Attribute = (() => {
+    var _a2, _b2;
+    let _classDecorators = [struct()];
+    let _classDescriptor;
+    let _classExtraInitializers = [];
+    let _classThis;
+    let _keySize_decorators;
+    let _keySize_initializers = [];
+    let _keySize_extraInitializers = [];
+    let _valueSize_decorators;
+    let _valueSize_initializers = [];
+    let _valueSize_extraInitializers = [];
+    let __key_decorators;
+    let __key_initializers = [];
+    let __key_extraInitializers = [];
+    let __value_decorators;
+    let __value_initializers = [];
+    let __value_extraInitializers = [];
+    var Attribute2 = _classThis = class {
+      get key() {
+        return this._key;
       }
-    }
-    /**
-     * Read a file using a stream.
-     * @privateRemarks The default implementation of `streamRead` uses "chunked" `read`s
-     */
-    streamRead(path, options) {
-      return new ReadableStream({
-        start: async (controller) => {
-          const { size } = await this.stat(path);
-          const { start = 0, end = size } = options;
-          for (let offset = start; offset < end; offset += _chunkSize) {
-            const bytesRead = offset + _chunkSize > end ? end - offset : _chunkSize;
-            const buffer = new Uint8Array(bytesRead);
-            await this.read(path, buffer, offset, offset + bytesRead).catch(controller.error.bind(controller));
-            controller.enqueue(buffer);
-          }
-          controller.close();
-        },
-        type: "bytes"
-      });
-    }
-    /**
-     * Write a file using stream.
-     * @privateRemarks The default implementation of `streamWrite` uses "chunked" `write`s
-     */
-    streamWrite(path, options) {
-      var _a2;
-      let position = (_a2 = options.start) !== null && _a2 !== void 0 ? _a2 : 0;
-      return new WritableStream({
-        write: async (chunk, controller) => {
-          await this.write(path, chunk, position).catch(controller.error.bind(controller));
-          position += chunk.byteLength;
+      set key(value) {
+        this._key = value;
+        this.keySize = value.length;
+      }
+      get value() {
+        return this._value.subarray(0, this.valueSize);
+      }
+      set value(value) {
+        this._value = value;
+        this.valueSize = value.length;
+      }
+      constructor(key, value) {
+        this.keySize = __runInitializers(this, _keySize_initializers, 0);
+        this.valueSize = (__runInitializers(this, _keySize_extraInitializers), __runInitializers(this, _valueSize_initializers, 0));
+        this._key = (__runInitializers(this, _valueSize_extraInitializers), __runInitializers(this, __key_initializers, ""));
+        this._value = (__runInitializers(this, __key_extraInitializers), __runInitializers(this, __value_initializers, new Uint8Array(maxAttributeValueSize)));
+        __runInitializers(this, __value_extraInitializers);
+        if (key)
+          this.key = key;
+        if (value)
+          this.value = value;
+      }
+    };
+    __setFunctionName(_classThis, "Attribute");
+    (() => {
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
+      _keySize_decorators = [(_a2 = types).uint32.bind(_a2)];
+      _valueSize_decorators = [(_b2 = types).uint32.bind(_b2)];
+      __key_decorators = [types.char("keySize")];
+      __value_decorators = [types.uint8("valueSize")];
+      __esDecorate(null, null, _keySize_decorators, { kind: "field", name: "keySize", static: false, private: false, access: { has: (obj) => "keySize" in obj, get: (obj) => obj.keySize, set: (obj, value) => {
+        obj.keySize = value;
+      } }, metadata: _metadata }, _keySize_initializers, _keySize_extraInitializers);
+      __esDecorate(null, null, _valueSize_decorators, { kind: "field", name: "valueSize", static: false, private: false, access: { has: (obj) => "valueSize" in obj, get: (obj) => obj.valueSize, set: (obj, value) => {
+        obj.valueSize = value;
+      } }, metadata: _metadata }, _valueSize_initializers, _valueSize_extraInitializers);
+      __esDecorate(null, null, __key_decorators, { kind: "field", name: "_key", static: false, private: false, access: { has: (obj) => "_key" in obj, get: (obj) => obj._key, set: (obj, value) => {
+        obj._key = value;
+      } }, metadata: _metadata }, __key_initializers, __key_extraInitializers);
+      __esDecorate(null, null, __value_decorators, { kind: "field", name: "_value", static: false, private: false, access: { has: (obj) => "_value" in obj, get: (obj) => obj._value, set: (obj, value) => {
+        obj._value = value;
+      } }, metadata: _metadata }, __value_initializers, __value_extraInitializers);
+      __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+      Attribute2 = _classThis = _classDescriptor.value;
+      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+      __runInitializers(_classThis, _classExtraInitializers);
+    })();
+    return Attribute2 = _classThis;
+  })();
+  var Attributes = (() => {
+    var _a2;
+    let _classDecorators = [struct()];
+    let _classDescriptor;
+    let _classExtraInitializers = [];
+    let _classThis;
+    let _size_decorators;
+    let _size_initializers = [];
+    let _size_extraInitializers = [];
+    let _data_decorators;
+    let _data_initializers = [];
+    let _data_extraInitializers = [];
+    var Attributes2 = _classThis = class {
+      has(name) {
+        return this.data.some((entry) => entry.key == name);
+      }
+      get(name) {
+        return this.data.find((entry) => entry.key == name);
+      }
+      set(name, value) {
+        const attr = this.get(name);
+        if (attr) {
+          attr.value = value;
+          return;
         }
-      });
+        this.data.push(new Attribute(name, value));
+        this.size++;
+      }
+      remove(name) {
+        const index = this.data.findIndex((entry) => entry.key == name);
+        if (index === -1)
+          return false;
+        this.data.splice(index, 1);
+        this.size--;
+        return true;
+      }
+      keys() {
+        return this.data.map((entry) => entry.key);
+      }
+      values() {
+        return this.data.map((entry) => entry.value);
+      }
+      entries() {
+        return this.data.map((entry) => [entry.key, entry.value]);
+      }
+      constructor() {
+        this.size = __runInitializers(this, _size_initializers, 0);
+        this.data = (__runInitializers(this, _size_extraInitializers), __runInitializers(this, _data_initializers, []));
+        __runInitializers(this, _data_extraInitializers);
+      }
+    };
+    __setFunctionName(_classThis, "Attributes");
+    (() => {
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
+      _size_decorators = [(_a2 = types).uint32.bind(_a2)];
+      _data_decorators = [member(Attribute, "size")];
+      __esDecorate(null, null, _size_decorators, { kind: "field", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
+        obj.size = value;
+      } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
+      __esDecorate(null, null, _data_decorators, { kind: "field", name: "data", static: false, private: false, access: { has: (obj) => "data" in obj, get: (obj) => obj.data, set: (obj, value) => {
+        obj.data = value;
+      } }, metadata: _metadata }, _data_initializers, _data_extraInitializers);
+      __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+      Attributes2 = _classThis = _classDescriptor.value;
+      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+      __runInitializers(_classThis, _classExtraInitializers);
+    })();
+    return Attributes2 = _classThis;
+  })();
+  var _inode_fields = [
+    "ino",
+    "data",
+    "size",
+    "mode",
+    "flags",
+    "nlink",
+    "uid",
+    "gid",
+    "atimeMs",
+    "birthtimeMs",
+    "mtimeMs",
+    "ctimeMs",
+    "version"
+  ];
+  var _inode_version = 4;
+  var InodeFlags;
+  (function(InodeFlags2) {
+    InodeFlags2[InodeFlags2["SecureRm"] = 1] = "SecureRm";
+    InodeFlags2[InodeFlags2["Undelete"] = 2] = "Undelete";
+    InodeFlags2[InodeFlags2["Compress"] = 4] = "Compress";
+    InodeFlags2[InodeFlags2["Sync"] = 8] = "Sync";
+    InodeFlags2[InodeFlags2["Immutable"] = 16] = "Immutable";
+    InodeFlags2[InodeFlags2["Append"] = 32] = "Append";
+    InodeFlags2[InodeFlags2["NoDump"] = 64] = "NoDump";
+    InodeFlags2[InodeFlags2["NoAtime"] = 128] = "NoAtime";
+    InodeFlags2[InodeFlags2["Dirty"] = 256] = "Dirty";
+    InodeFlags2[InodeFlags2["CompressBlk"] = 512] = "CompressBlk";
+    InodeFlags2[InodeFlags2["NoCompress"] = 1024] = "NoCompress";
+    InodeFlags2[InodeFlags2["Encrypt"] = 2048] = "Encrypt";
+    InodeFlags2[InodeFlags2["Btree"] = 4096] = "Btree";
+    InodeFlags2[InodeFlags2["Index"] = 4096] = "Index";
+    InodeFlags2[InodeFlags2["IMagic"] = 8192] = "IMagic";
+    InodeFlags2[InodeFlags2["JournalData"] = 16384] = "JournalData";
+    InodeFlags2[InodeFlags2["NoTail"] = 32768] = "NoTail";
+    InodeFlags2[InodeFlags2["DirSync"] = 65536] = "DirSync";
+    InodeFlags2[InodeFlags2["TopDir"] = 131072] = "TopDir";
+    InodeFlags2[InodeFlags2["HugeFile"] = 262144] = "HugeFile";
+    InodeFlags2[InodeFlags2["Extent"] = 524288] = "Extent";
+    InodeFlags2[InodeFlags2["Verity"] = 1048576] = "Verity";
+    InodeFlags2[InodeFlags2["EaInode"] = 2097152] = "EaInode";
+    InodeFlags2[InodeFlags2["EofBlocks"] = 4194304] = "EofBlocks";
+    InodeFlags2[InodeFlags2["NoCow"] = 8388608] = "NoCow";
+    InodeFlags2[InodeFlags2["Dax"] = 33554432] = "Dax";
+    InodeFlags2[InodeFlags2["InlineData"] = 268435456] = "InlineData";
+    InodeFlags2[InodeFlags2["ProjInherit"] = 536870912] = "ProjInherit";
+    InodeFlags2[InodeFlags2["CaseFold"] = 1073741824] = "CaseFold";
+    InodeFlags2[InodeFlags2["Reserved"] = 2147483648] = "Reserved";
+  })(InodeFlags || (InodeFlags = {}));
+  var userVisibleFlags = 253951;
+  var userModifiableFlags = 229631;
+  var Inode = (() => {
+    var _a2, _b2, _c2, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
+    let _classDecorators = [struct()];
+    let _classDescriptor;
+    let _classExtraInitializers = [];
+    let _classThis;
+    let _data_decorators;
+    let _data_initializers = [];
+    let _data_extraInitializers = [];
+    let ___data_old_decorators;
+    let ___data_old_initializers = [];
+    let ___data_old_extraInitializers = [];
+    let _size_decorators;
+    let _size_initializers = [];
+    let _size_extraInitializers = [];
+    let _mode_decorators;
+    let _mode_initializers = [];
+    let _mode_extraInitializers = [];
+    let _nlink_decorators;
+    let _nlink_initializers = [];
+    let _nlink_extraInitializers = [];
+    let _uid_decorators;
+    let _uid_initializers = [];
+    let _uid_extraInitializers = [];
+    let _gid_decorators;
+    let _gid_initializers = [];
+    let _gid_extraInitializers = [];
+    let _atimeMs_decorators;
+    let _atimeMs_initializers = [];
+    let _atimeMs_extraInitializers = [];
+    let _birthtimeMs_decorators;
+    let _birthtimeMs_initializers = [];
+    let _birthtimeMs_extraInitializers = [];
+    let _mtimeMs_decorators;
+    let _mtimeMs_initializers = [];
+    let _mtimeMs_extraInitializers = [];
+    let _ctimeMs_decorators;
+    let _ctimeMs_initializers = [];
+    let _ctimeMs_extraInitializers = [];
+    let _ino_decorators;
+    let _ino_initializers = [];
+    let _ino_extraInitializers = [];
+    let ___ino_old_decorators;
+    let ___ino_old_initializers = [];
+    let ___ino_old_extraInitializers = [];
+    let _flags_decorators;
+    let _flags_initializers = [];
+    let _flags_extraInitializers = [];
+    let ___after_flags_decorators;
+    let ___after_flags_initializers = [];
+    let ___after_flags_extraInitializers = [];
+    let _version_decorators;
+    let _version_initializers = [];
+    let _version_extraInitializers = [];
+    let ___padding_decorators;
+    let ___padding_initializers = [];
+    let ___padding_extraInitializers = [];
+    let _attributes_decorators;
+    let _attributes_initializers = [];
+    let _attributes_extraInitializers = [];
+    var Inode2 = _classThis = class {
+      constructor(data) {
+        this.data = __runInitializers(this, _data_initializers, randomInt(0, size_max));
+        this.__data_old = (__runInitializers(this, _data_extraInitializers), __runInitializers(this, ___data_old_initializers, 0));
+        this.size = (__runInitializers(this, ___data_old_extraInitializers), __runInitializers(this, _size_initializers, 0));
+        this.mode = (__runInitializers(this, _size_extraInitializers), __runInitializers(this, _mode_initializers, 0));
+        this.nlink = (__runInitializers(this, _mode_extraInitializers), __runInitializers(this, _nlink_initializers, 1));
+        this.uid = (__runInitializers(this, _nlink_extraInitializers), __runInitializers(this, _uid_initializers, 0));
+        this.gid = (__runInitializers(this, _uid_extraInitializers), __runInitializers(this, _gid_initializers, 0));
+        this.atimeMs = (__runInitializers(this, _gid_extraInitializers), __runInitializers(this, _atimeMs_initializers, Date.now()));
+        this.birthtimeMs = (__runInitializers(this, _atimeMs_extraInitializers), __runInitializers(this, _birthtimeMs_initializers, Date.now()));
+        this.mtimeMs = (__runInitializers(this, _birthtimeMs_extraInitializers), __runInitializers(this, _mtimeMs_initializers, Date.now()));
+        this.ctimeMs = (__runInitializers(this, _mtimeMs_extraInitializers), __runInitializers(this, _ctimeMs_initializers, Date.now()));
+        this.ino = (__runInitializers(this, _ctimeMs_extraInitializers), __runInitializers(this, _ino_initializers, randomInt(0, size_max)));
+        this.__ino_old = (__runInitializers(this, _ino_extraInitializers), __runInitializers(this, ___ino_old_initializers, 0));
+        this.flags = (__runInitializers(this, ___ino_old_extraInitializers), __runInitializers(this, _flags_initializers, 0));
+        this.__after_flags = (__runInitializers(this, _flags_extraInitializers), __runInitializers(this, ___after_flags_initializers, 0));
+        this.version = (__runInitializers(this, ___after_flags_extraInitializers), __runInitializers(this, _version_initializers, 0));
+        this.__padding = (__runInitializers(this, _version_extraInitializers), __runInitializers(this, ___padding_initializers, []));
+        this.attributes = (__runInitializers(this, ___padding_extraInitializers), __runInitializers(this, _attributes_initializers, new Attributes()));
+        __runInitializers(this, _attributes_extraInitializers);
+        if (!data)
+          return;
+        if (!("byteLength" in data)) {
+          Object.assign(this, data);
+          return;
+        }
+        if (data.byteLength < sizeof(Inode2))
+          throw crit(new ErrnoError(Errno.EIO, "Buffer is too small to create an inode"));
+        deserialize(this, data);
+      }
+      toString() {
+        return `<Inode ${this.ino}>`;
+      }
+      toJSON() {
+        return {
+          ...pick(this, _inode_fields),
+          attributes: this.attributes
+        };
+      }
+      /**
+       * Handy function that converts the Inode to a Node Stats object.
+       */
+      toStats() {
+        return new Stats(this);
+      }
+      /**
+       * Updates the Inode using information from the stats object. Used by file
+       * systems at sync time, e.g.:
+       * - Program opens file and gets a File object.
+       * - Program mutates file. File object is responsible for maintaining
+       *   metadata changes locally -- typically in a Stats object.
+       * - Program closes file. File object's metadata changes are synced with the
+       *   file system.
+       * @returns whether any changes have occurred.
+       */
+      update(data) {
+        if (!data)
+          return false;
+        let hasChanged = false;
+        for (const key of _inode_fields) {
+          if (data[key] === void 0)
+            continue;
+          if (key == "ino" || key == "data")
+            continue;
+          if (this[key] === data[key])
+            continue;
+          if (key == "atimeMs" && this.flags & InodeFlags.NoAtime)
+            continue;
+          this[key] = data[key];
+          hasChanged = true;
+        }
+        if (data.attributes) {
+          this.attributes = data.attributes;
+          hasChanged = true;
+        }
+        if (hasChanged)
+          this.ctimeMs = Date.now();
+        return hasChanged;
+      }
+    };
+    __setFunctionName(_classThis, "Inode");
+    (() => {
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
+      _data_decorators = [(_a2 = types).uint32.bind(_a2)];
+      ___data_old_decorators = [(_b2 = types).uint32.bind(_b2)];
+      _size_decorators = [(_c2 = types).uint32.bind(_c2)];
+      _mode_decorators = [(_d = types).uint16.bind(_d)];
+      _nlink_decorators = [(_e = types).uint32.bind(_e)];
+      _uid_decorators = [(_f = types).uint32.bind(_f)];
+      _gid_decorators = [(_g = types).uint32.bind(_g)];
+      _atimeMs_decorators = [(_h = types).float64.bind(_h)];
+      _birthtimeMs_decorators = [(_j = types).float64.bind(_j)];
+      _mtimeMs_decorators = [(_k = types).float64.bind(_k)];
+      _ctimeMs_decorators = [(_l = types).float64.bind(_l)];
+      _ino_decorators = [(_m = types).uint32.bind(_m)];
+      ___ino_old_decorators = [(_o = types).uint32.bind(_o)];
+      _flags_decorators = [(_p = types).uint32.bind(_p)];
+      ___after_flags_decorators = [(_q = types).uint16.bind(_q)];
+      _version_decorators = [(_r = types).uint32.bind(_r)];
+      ___padding_decorators = [types.uint8(48)];
+      _attributes_decorators = [member(Attributes)];
+      __esDecorate(null, null, _data_decorators, { kind: "field", name: "data", static: false, private: false, access: { has: (obj) => "data" in obj, get: (obj) => obj.data, set: (obj, value) => {
+        obj.data = value;
+      } }, metadata: _metadata }, _data_initializers, _data_extraInitializers);
+      __esDecorate(null, null, ___data_old_decorators, { kind: "field", name: "__data_old", static: false, private: false, access: { has: (obj) => "__data_old" in obj, get: (obj) => obj.__data_old, set: (obj, value) => {
+        obj.__data_old = value;
+      } }, metadata: _metadata }, ___data_old_initializers, ___data_old_extraInitializers);
+      __esDecorate(null, null, _size_decorators, { kind: "field", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
+        obj.size = value;
+      } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
+      __esDecorate(null, null, _mode_decorators, { kind: "field", name: "mode", static: false, private: false, access: { has: (obj) => "mode" in obj, get: (obj) => obj.mode, set: (obj, value) => {
+        obj.mode = value;
+      } }, metadata: _metadata }, _mode_initializers, _mode_extraInitializers);
+      __esDecorate(null, null, _nlink_decorators, { kind: "field", name: "nlink", static: false, private: false, access: { has: (obj) => "nlink" in obj, get: (obj) => obj.nlink, set: (obj, value) => {
+        obj.nlink = value;
+      } }, metadata: _metadata }, _nlink_initializers, _nlink_extraInitializers);
+      __esDecorate(null, null, _uid_decorators, { kind: "field", name: "uid", static: false, private: false, access: { has: (obj) => "uid" in obj, get: (obj) => obj.uid, set: (obj, value) => {
+        obj.uid = value;
+      } }, metadata: _metadata }, _uid_initializers, _uid_extraInitializers);
+      __esDecorate(null, null, _gid_decorators, { kind: "field", name: "gid", static: false, private: false, access: { has: (obj) => "gid" in obj, get: (obj) => obj.gid, set: (obj, value) => {
+        obj.gid = value;
+      } }, metadata: _metadata }, _gid_initializers, _gid_extraInitializers);
+      __esDecorate(null, null, _atimeMs_decorators, { kind: "field", name: "atimeMs", static: false, private: false, access: { has: (obj) => "atimeMs" in obj, get: (obj) => obj.atimeMs, set: (obj, value) => {
+        obj.atimeMs = value;
+      } }, metadata: _metadata }, _atimeMs_initializers, _atimeMs_extraInitializers);
+      __esDecorate(null, null, _birthtimeMs_decorators, { kind: "field", name: "birthtimeMs", static: false, private: false, access: { has: (obj) => "birthtimeMs" in obj, get: (obj) => obj.birthtimeMs, set: (obj, value) => {
+        obj.birthtimeMs = value;
+      } }, metadata: _metadata }, _birthtimeMs_initializers, _birthtimeMs_extraInitializers);
+      __esDecorate(null, null, _mtimeMs_decorators, { kind: "field", name: "mtimeMs", static: false, private: false, access: { has: (obj) => "mtimeMs" in obj, get: (obj) => obj.mtimeMs, set: (obj, value) => {
+        obj.mtimeMs = value;
+      } }, metadata: _metadata }, _mtimeMs_initializers, _mtimeMs_extraInitializers);
+      __esDecorate(null, null, _ctimeMs_decorators, { kind: "field", name: "ctimeMs", static: false, private: false, access: { has: (obj) => "ctimeMs" in obj, get: (obj) => obj.ctimeMs, set: (obj, value) => {
+        obj.ctimeMs = value;
+      } }, metadata: _metadata }, _ctimeMs_initializers, _ctimeMs_extraInitializers);
+      __esDecorate(null, null, _ino_decorators, { kind: "field", name: "ino", static: false, private: false, access: { has: (obj) => "ino" in obj, get: (obj) => obj.ino, set: (obj, value) => {
+        obj.ino = value;
+      } }, metadata: _metadata }, _ino_initializers, _ino_extraInitializers);
+      __esDecorate(null, null, ___ino_old_decorators, { kind: "field", name: "__ino_old", static: false, private: false, access: { has: (obj) => "__ino_old" in obj, get: (obj) => obj.__ino_old, set: (obj, value) => {
+        obj.__ino_old = value;
+      } }, metadata: _metadata }, ___ino_old_initializers, ___ino_old_extraInitializers);
+      __esDecorate(null, null, _flags_decorators, { kind: "field", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
+        obj.flags = value;
+      } }, metadata: _metadata }, _flags_initializers, _flags_extraInitializers);
+      __esDecorate(null, null, ___after_flags_decorators, { kind: "field", name: "__after_flags", static: false, private: false, access: { has: (obj) => "__after_flags" in obj, get: (obj) => obj.__after_flags, set: (obj, value) => {
+        obj.__after_flags = value;
+      } }, metadata: _metadata }, ___after_flags_initializers, ___after_flags_extraInitializers);
+      __esDecorate(null, null, _version_decorators, { kind: "field", name: "version", static: false, private: false, access: { has: (obj) => "version" in obj, get: (obj) => obj.version, set: (obj, value) => {
+        obj.version = value;
+      } }, metadata: _metadata }, _version_initializers, _version_extraInitializers);
+      __esDecorate(null, null, ___padding_decorators, { kind: "field", name: "__padding", static: false, private: false, access: { has: (obj) => "__padding" in obj, get: (obj) => obj.__padding, set: (obj, value) => {
+        obj.__padding = value;
+      } }, metadata: _metadata }, ___padding_initializers, ___padding_extraInitializers);
+      __esDecorate(null, null, _attributes_decorators, { kind: "field", name: "attributes", static: false, private: false, access: { has: (obj) => "attributes" in obj, get: (obj) => obj.attributes, set: (obj, value) => {
+        obj.attributes = value;
+      } }, metadata: _metadata }, _attributes_initializers, _attributes_extraInitializers);
+      __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+      Inode2 = _classThis = _classDescriptor.value;
+      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+      __runInitializers(_classThis, _classExtraInitializers);
+    })();
+    return Inode2 = _classThis;
+  })();
+  function isFile(metadata) {
+    return (metadata.mode & S_IFMT) === S_IFREG;
+  }
+  function isDirectory(metadata) {
+    return (metadata.mode & S_IFMT) === S_IFDIR;
+  }
+  function isSymbolicLink(metadata) {
+    return (metadata.mode & S_IFMT) === S_IFLNK;
+  }
+  function isSocket(metadata) {
+    return (metadata.mode & S_IFMT) === S_IFSOCK;
+  }
+  function isBlockDevice(metadata) {
+    return (metadata.mode & S_IFMT) === S_IFBLK;
+  }
+  function isCharacterDevice(metadata) {
+    return (metadata.mode & S_IFMT) === S_IFCHR;
+  }
+  function isFIFO(metadata) {
+    return (metadata.mode & S_IFMT) === S_IFIFO;
+  }
+  function hasAccess($, inode, access3) {
+    const credentials = ($ === null || $ === void 0 ? void 0 : $.credentials) || defaultContext.credentials;
+    if (isSymbolicLink(inode) || credentials.euid === 0 || credentials.egid === 0)
+      return true;
+    let perm = 0;
+    if (credentials.uid === inode.uid) {
+      if (inode.mode & S_IRUSR)
+        perm |= R_OK;
+      if (inode.mode & S_IWUSR)
+        perm |= W_OK;
+      if (inode.mode & S_IXUSR)
+        perm |= X_OK;
     }
-  };
+    if (credentials.gid === inode.gid || credentials.groups.includes(Number(inode.gid))) {
+      if (inode.mode & S_IRGRP)
+        perm |= R_OK;
+      if (inode.mode & S_IWGRP)
+        perm |= W_OK;
+      if (inode.mode & S_IXGRP)
+        perm |= X_OK;
+    }
+    if (inode.mode & S_IROTH)
+      perm |= R_OK;
+    if (inode.mode & S_IWOTH)
+      perm |= W_OK;
+    if (inode.mode & S_IXOTH)
+      perm |= X_OK;
+    return (perm & access3) === access3;
+  }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/internal/file_index.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/file_index.js
   var version = 1;
   var Index = class _Index extends Map {
     constructor() {
@@ -11024,7 +10616,7 @@
      * Get the size in bytes of the index (including the size reported for each entry)
      */
     get byteSize() {
-      let size = this.size * __inode_sz;
+      let size = this.size * sizeof(Inode);
       for (const entry of this.values())
         size += entry.size;
       return size;
@@ -11120,33 +10712,107 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/utils.js
-  function encodeRaw(input) {
-    if (typeof input != "string") {
-      throw new ErrnoError(Errno.EINVAL, "Can not encode a non-string");
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/filesystem.js
+  var _chunkSize = 4096;
+  var FileSystem = class _FileSystem {
+    get uuid() {
+      return this._uuid;
     }
-    return new Uint8Array(Array.from(input).map((char) => char.charCodeAt(0)));
-  }
-  function decodeRaw(input) {
-    if (!(input instanceof Uint8Array)) {
-      throw new ErrnoError(Errno.EINVAL, "Can not decode a non-Uint8Array");
+    constructor(type, name) {
+      this.type = type;
+      this.name = name;
+      this._uuid = crypto.randomUUID();
+      this.attributes = /* @__PURE__ */ new Map();
+      if (this.streamRead === _FileSystem.prototype.streamRead)
+        this.attributes.set("default_stream_read");
+      if (this.streamWrite === _FileSystem.prototype.streamWrite)
+        this.attributes.set("default_stream_write");
     }
-    return Array.from(input).map((char) => String.fromCharCode(char)).join("");
-  }
-  var encoder = new TextEncoder();
-  function encodeUTF8(input) {
-    if (typeof input != "string") {
-      throw new ErrnoError(Errno.EINVAL, "Can not encode a non-string");
+    toString() {
+      var _a2;
+      return `${this.name} ${(_a2 = this.label) !== null && _a2 !== void 0 ? _a2 : ""} (${this._mountPoint ? "mounted on " + this._mountPoint : "unmounted"})`;
     }
-    return encoder.encode(input);
-  }
-  var decoder = new TextDecoder();
-  function decodeUTF8(input) {
-    if (!(input instanceof Uint8Array)) {
-      throw new ErrnoError(Errno.EINVAL, "Can not decode a non-Uint8Array");
+    /**
+     * Default implementation.
+     * @todo Implement
+     * @experimental
+     */
+    usage() {
+      return {
+        totalSpace: 0,
+        freeSpace: 0
+      };
     }
-    return decoder.decode(input);
-  }
+    async ready() {
+    }
+    /**
+     * Test whether or not `path` exists.
+     */
+    async exists(path) {
+      try {
+        await this.stat(path);
+        return true;
+      } catch (e) {
+        return e.code != "ENOENT";
+      }
+    }
+    /**
+     * Test whether or not `path` exists.
+     */
+    existsSync(path) {
+      try {
+        this.statSync(path);
+        return true;
+      } catch (e) {
+        return e.code != "ENOENT";
+      }
+    }
+    /**
+     * Read a file using a stream.
+     * @privateRemarks The default implementation of `streamRead` uses "chunked" `read`s
+     */
+    streamRead(path, options) {
+      return new ReadableStream({
+        start: async (controller) => {
+          const { size } = await this.stat(path);
+          const { start = 0, end = size } = options;
+          for (let offset = start; offset < end; offset += _chunkSize) {
+            const bytesRead = offset + _chunkSize > end ? end - offset : _chunkSize;
+            const buffer = new Uint8Array(bytesRead);
+            await this.read(path, buffer, offset, offset + bytesRead).catch(controller.error.bind(controller));
+            controller.enqueue(buffer);
+          }
+          controller.close();
+        },
+        type: "bytes"
+      });
+    }
+    /**
+     * Write a file using stream.
+     * @privateRemarks The default implementation of `streamWrite` uses "chunked" `write`s
+     */
+    streamWrite(path, options) {
+      var _a2;
+      let position = (_a2 = options.start) !== null && _a2 !== void 0 ? _a2 : 0;
+      return new WritableStream({
+        write: async (chunk, controller) => {
+          let err2 = false;
+          const _err = (ex) => {
+            err2 = true;
+            controller.error(ex);
+          };
+          const { size } = await this.stat(path);
+          await this.write(path, chunk, position).catch(_err);
+          if (err2)
+            return;
+          position += chunk.byteLength;
+          await this.touch(path, { mtimeMs: Date.now(), size: Math.max(size, position) }).catch(_err);
+        }
+      });
+    }
+  };
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/utils.js
   function decodeDirListing(data) {
     return JSON.parse(decodeUTF8(data), (k, v) => k == "" ? v : typeof v == "string" ? BigInt(v).toString(16).slice(0, Math.min(v.length, 8)) : v);
   }
@@ -11207,19 +10873,15 @@
       mode: normalizeMode("mode" in options ? options === null || options === void 0 ? void 0 : options.mode : null, mode)
     };
   }
-  function randomBigInt() {
-    log_deprecated("randomBigInt");
-    return BigInt("0x" + randomHex(8));
+  function stringifyUUID(uuid) {
+    const hex = uuid.toString(16).padStart(32, "0");
+    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
   }
-  function canary2(path, syscall) {
-    log_deprecated("canary");
-    const timeout = setTimeout(() => {
-      throw ErrnoError.With("EDEADLK", path, syscall);
-    }, 5e3);
-    return () => clearTimeout(timeout);
+  function parseUUID(uuid) {
+    return BigInt(`0x${uuid.replace(/-/g, "")}`);
   }
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/cache.js
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/cache.js
   var Resource = class {
     id;
     _size;
@@ -11383,7 +11045,22 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/backends/store/store.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/polyfills.js
+  var _a;
+  var _b;
+  var _c;
+  (_a = Promise.withResolvers) !== null && _a !== void 0 ? _a : Promise.withResolvers = (warn("Using a polyfill of Promise.withResolvers"), function() {
+    let _resolve2, _reject;
+    const promise = new Promise((resolve2, reject) => {
+      _resolve2 = resolve2;
+      _reject = reject;
+    });
+    return { promise, resolve: _resolve2, reject: _reject };
+  });
+  (_b = Symbol["dispose"]) !== null && _b !== void 0 ? _b : Symbol["dispose"] = (warn("Using a polyfill of Symbol.dispose"), Symbol("Symbol.dispose"));
+  (_c = Symbol["asyncDispose"]) !== null && _c !== void 0 ? _c : Symbol["asyncDispose"] = (warn("Using a polyfill of Symbol.asyncDispose"), Symbol("Symbol.asyncDispose"));
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/store/store.js
   var Transaction = class {
     constructor(store) {
       this.store = store;
@@ -11602,7 +11279,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/backends/store/fs.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/store/fs.js
   var __addDisposableResource = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -11724,15 +11401,15 @@
       this._initialized = true;
     }
     constructor(store) {
-      var _a2, _b2;
-      super((_a2 = store.id) !== null && _a2 !== void 0 ? _a2 : 1802921587, store.name);
+      var _a2, _b2, _c2;
+      super((_a2 = store.type) !== null && _a2 !== void 0 ? _a2 : 1802921587, store.name);
       this.store = store;
       this._ids = /* @__PURE__ */ new Map([["/", 0]]);
       this._paths = /* @__PURE__ */ new Map([[0, new Set("/")]]);
       this._initialized = false;
-      this.attributes.set("setid");
       store._fs = this;
-      debug(this.name + ": supports features: " + ((_b2 = this.store.flags) === null || _b2 === void 0 ? void 0 : _b2.join(", ")));
+      this._uuid = (_b2 = store.uuid) !== null && _b2 !== void 0 ? _b2 : this.uuid;
+      debug(this.name + ": supports features: " + ((_c2 = this.store.flags) === null || _c2 === void 0 ? void 0 : _c2.join(", ")));
     }
     /**
      * @experimental
@@ -11744,24 +11421,6 @@
         freeSpace: 0
       };
     }
-    /* node:coverage disable */
-    /**
-     * Delete all contents stored in the file system.
-     * @deprecated
-     */
-    async empty() {
-      log_deprecated("StoreFS#empty");
-      await this.checkRoot();
-    }
-    /**
-     * Delete all contents stored in the file system.
-     * @deprecated
-     */
-    emptySync() {
-      log_deprecated("StoreFS#emptySync");
-      this.checkRootSync();
-    }
-    /* node:coverage enable */
     /**
      * Load an index into the StoreFS.
      * You *must* manually add non-directory files
@@ -11949,7 +11608,7 @@
       const env_7 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_7, this.transaction(), true);
-        return (await this.findInode(tx, path, "stat")).toStats();
+        return await this.findInode(tx, path, "stat");
       } catch (e_7) {
         env_7.error = e_7;
         env_7.hasError = true;
@@ -11963,7 +11622,7 @@
       const env_8 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_8, this.transaction(), false);
-        return this.findInodeSync(tx, path, "stat").toStats();
+        return this.findInodeSync(tx, path, "stat");
       } catch (e_8) {
         env_8.error = e_8;
         env_8.hasError = true;
@@ -11971,20 +11630,16 @@
         __disposeResources(env_8);
       }
     }
-    async createFile(path, flag, mode, options) {
-      const node = await this.commitNew(path, { mode: mode | S_IFREG, ...options }, new Uint8Array(), "createFile");
-      return new LazyFile(this, path, flag, node.toStats());
-    }
-    createFileSync(path, flag, mode, options) {
-      const node = this.commitNewSync(path, { mode: mode | S_IFREG, ...options }, new Uint8Array(), "createFile");
-      return new LazyFile(this, path, flag, node.toStats());
-    }
-    async openFile(path, flag) {
+    async touch(path, metadata) {
       const env_9 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_9, this.transaction(), true);
-        const node = await this.findInode(tx, path, "openFile");
-        return new LazyFile(this, path, flag, node.toStats());
+        const inode = await this.findInode(tx, path, "touch");
+        if (inode.update(metadata)) {
+          this._add(inode.ino, path);
+          tx.setSync(inode.ino, serialize(inode));
+        }
+        await tx.commit();
       } catch (e_9) {
         env_9.error = e_9;
         env_9.hasError = true;
@@ -11994,18 +11649,30 @@
           await result_5;
       }
     }
-    openFileSync(path, flag) {
+    touchSync(path, metadata) {
       const env_10 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_10, this.transaction(), false);
-        const node = this.findInodeSync(tx, path, "openFile");
-        return new LazyFile(this, path, flag, node.toStats());
+        const inode = this.findInodeSync(tx, path, "touch");
+        if (inode.update(metadata)) {
+          this._add(inode.ino, path);
+          tx.setSync(inode.ino, serialize(inode));
+        }
+        tx.commitSync();
       } catch (e_10) {
         env_10.error = e_10;
         env_10.hasError = true;
       } finally {
         __disposeResources(env_10);
       }
+    }
+    async createFile(path, options) {
+      options.mode |= S_IFREG;
+      return await this.commitNew(path, options, new Uint8Array(), "createFile");
+    }
+    createFileSync(path, options) {
+      options.mode |= S_IFREG;
+      return this.commitNewSync(path, options, new Uint8Array(), "createFile");
     }
     async unlink(path) {
       return this.remove(path, false);
@@ -12025,11 +11692,13 @@
       }
       this.removeSync(path, true);
     }
-    async mkdir(path, mode, options) {
-      await this.commitNew(path, { mode: mode | S_IFDIR, ...options }, encodeUTF8("{}"), "mkdir");
+    async mkdir(path, options) {
+      options.mode |= S_IFDIR;
+      return await this.commitNew(path, options, encodeUTF8("{}"), "mkdir");
     }
-    mkdirSync(path, mode, options) {
-      this.commitNewSync(path, { mode: mode | S_IFDIR, ...options }, encodeUTF8("{}"), "mkdir");
+    mkdirSync(path, options) {
+      options.mode |= S_IFDIR;
+      return this.commitNewSync(path, options, encodeUTF8("{}"), "mkdir");
     }
     async readdir(path) {
       var _a2;
@@ -12063,16 +11732,15 @@
     }
     /**
      * Updated the inode and data node at `path`
-     * @todo Ensure mtime updates properly, and use that to determine if a data update is required.
      */
-    async sync(path, data, metadata2) {
+    async sync(path, data, metadata) {
       const env_13 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_13, this.transaction(), true);
         const inode = await this.findInode(tx, path, "sync");
         if (data)
           await tx.set(inode.data, data);
-        if (inode.update(metadata2)) {
+        if (inode.update(metadata)) {
           this._add(inode.ino, path);
           await tx.set(inode.ino, serialize(inode));
         }
@@ -12088,16 +11756,15 @@
     }
     /**
      * Updated the inode and data node at `path`
-     * @todo Ensure mtime updates properly, and use that to determine if a data update is required.
      */
-    syncSync(path, data, metadata2) {
+    syncSync(path, data, metadata) {
       const env_14 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_14, this.transaction(), false);
         const inode = this.findInodeSync(tx, path, "sync");
         if (data)
           tx.setSync(inode.data, data);
-        if (inode.update(metadata2)) {
+        if (inode.update(metadata)) {
           this._add(inode.ino, path);
           tx.setSync(inode.ino, serialize(inode));
         }
@@ -12206,9 +11873,7 @@
           offset = 0;
         }
         await tx.set(inode.data, buffer, offset);
-        inode.update({ mtimeMs: Date.now(), size: Math.max(inode.size, data.byteLength + offset) });
         this._add(inode.ino, path);
-        await tx.set(inode.ino, serialize(inode));
         await tx.commit();
       } catch (e_19) {
         env_19.error = e_19;
@@ -12232,9 +11897,7 @@
           offset = 0;
         }
         tx.setSync(inode.data, buffer, offset);
-        inode.update({ mtimeMs: Date.now(), size: Math.max(inode.size, data.byteLength + offset) });
         this._add(inode.ino, path);
-        tx.setSync(inode.ino, serialize(inode));
         tx.commitSync();
       } catch (e_20) {
         env_20.error = e_20;
@@ -12316,7 +11979,7 @@
           await tx.commit();
           return;
         }
-        if (rootData.length != __inode_sz) {
+        if (rootData.length < sizeof(Inode)) {
           crit("Store contains an invalid root inode. Refusing to populate tables");
           return;
         }
@@ -12332,7 +11995,7 @@
             warn("Store is missing data for inode: " + ino);
             continue;
           }
-          if (inodeData.length != __inode_sz) {
+          if (inodeData.length < sizeof(Inode)) {
             warn(`Invalid inode size for ino ${ino}: ${inodeData.length}`);
             continue;
           }
@@ -12420,12 +12083,10 @@
           throw ErrnoError.With("EEXIST", path, syscall);
         const id = this.allocNew(path, syscall);
         const inode = new Inode({
+          ...options,
           ino: id,
           data: id + 1,
-          mode: options.mode,
-          size: data.byteLength,
-          uid: parent.mode & S_ISUID ? parent.uid : options.uid,
-          gid: parent.mode & S_ISGID ? parent.gid : options.gid
+          size: data.byteLength
         });
         await tx.set(inode.ino, serialize(inode));
         await tx.set(inode.data, data);
@@ -12464,12 +12125,10 @@
           throw ErrnoError.With("EEXIST", path, syscall);
         const id = this.allocNew(path, syscall);
         const inode = new Inode({
+          ...options,
           ino: id,
           data: id + 1,
-          mode: options.mode,
-          size: data.byteLength,
-          uid: parent.mode & S_ISUID ? parent.uid : options.uid,
-          gid: parent.mode & S_ISGID ? parent.gid : options.gid
+          size: data.byteLength
         });
         tx.setSync(inode.ino, serialize(inode));
         tx.setSync(inode.data, data);
@@ -12488,7 +12147,6 @@
      * Remove all traces of `path` from the file system.
      * @param path The path to remove from the file system.
      * @param isDir Does the path belong to a directory, or a file?
-     * @todo Update mtime.
      */
     async remove(path, isDir) {
       var _a2, _b2;
@@ -12500,16 +12158,19 @@
         if (!listing[fileName]) {
           throw ErrnoError.With("ENOENT", path, syscall);
         }
-        const fileIno = listing[fileName];
-        const fileNode = new Inode((_b2 = await tx.get(fileIno)) !== null && _b2 !== void 0 ? _b2 : _throw(ErrnoError.With("ENOENT", path, syscall)));
+        const ino = listing[fileName];
+        const inode = new Inode((_b2 = await tx.get(ino)) !== null && _b2 !== void 0 ? _b2 : _throw(ErrnoError.With("ENOENT", path, syscall)));
         delete listing[fileName];
-        if (!isDir && fileNode.toStats().isDirectory())
+        if (!isDir && isDirectory(inode))
           throw ErrnoError.With("EISDIR", path, syscall);
         await tx.set(parentNode.data, encodeDirListing(listing));
-        if (--fileNode.nlink < 1) {
-          await tx.remove(fileNode.data);
-          await tx.remove(fileIno);
-          this._remove(fileIno);
+        if (inode.nlink > 1) {
+          inode.update({ nlink: inode.nlink - 1 });
+          await tx.set(inode.ino, serialize(inode));
+        } else {
+          await tx.remove(inode.data);
+          await tx.remove(ino);
+          this._remove(ino);
         }
         await tx.commit();
       } catch (e_26) {
@@ -12525,7 +12186,6 @@
      * Remove all traces of `path` from the file system.
      * @param path The path to remove from the file system.
      * @param isDir Does the path belong to a directory, or a file?
-     * @todo Update mtime.
      */
     removeSync(path, isDir) {
       var _a2, _b2;
@@ -12533,19 +12193,22 @@
       try {
         const syscall = isDir ? "rmdir" : "unlink";
         const tx = __addDisposableResource(env_27, this.transaction(), false);
-        const { dir: parent, base: fileName } = parse(path), parentNode = this.findInodeSync(tx, parent, syscall), listing = decodeDirListing((_a2 = tx.getSync(parentNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", parent, syscall))), fileIno = listing[fileName];
-        if (!fileIno)
+        const { dir: parent, base: fileName } = parse(path), parentNode = this.findInodeSync(tx, parent, syscall), listing = decodeDirListing((_a2 = tx.getSync(parentNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", parent, syscall))), ino = listing[fileName];
+        if (!ino)
           throw ErrnoError.With("ENOENT", path, syscall);
-        const fileNode = new Inode((_b2 = tx.getSync(fileIno)) !== null && _b2 !== void 0 ? _b2 : _throw(ErrnoError.With("ENOENT", path, syscall)));
+        const inode = new Inode((_b2 = tx.getSync(ino)) !== null && _b2 !== void 0 ? _b2 : _throw(ErrnoError.With("ENOENT", path, syscall)));
         delete listing[fileName];
-        if (!isDir && fileNode.toStats().isDirectory()) {
+        if (!isDir && isDirectory(inode)) {
           throw ErrnoError.With("EISDIR", path, syscall);
         }
         tx.setSync(parentNode.data, encodeDirListing(listing));
-        if (--fileNode.nlink < 1) {
-          tx.removeSync(fileNode.data);
-          tx.removeSync(fileIno);
-          this._remove(fileIno);
+        if (inode.nlink > 1) {
+          inode.update({ nlink: inode.nlink - 1 });
+          tx.setSync(inode.ino, serialize(inode));
+        } else {
+          tx.removeSync(inode.data);
+          tx.removeSync(ino);
+          this._remove(ino);
         }
         tx.commitSync();
       } catch (e_27) {
@@ -12557,7 +12220,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/backends/store/map.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/store/map.js
   var SyncMapTransaction = class extends SyncTransaction {
     // eslint-disable-next-line @typescript-eslint/require-await
     async keys() {
@@ -12599,7 +12262,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/backends/memory.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/memory.js
   var InMemoryStore = class extends Map {
     constructor(maxSize = size_max, label) {
       super();
@@ -12630,195 +12293,18 @@
     name: "InMemory",
     options: {
       maxSize: { type: "number", required: false },
-      label: { type: "string", required: false },
-      name: { type: "string", required: false }
+      label: { type: "string", required: false }
     },
-    create({ maxSize, label, name }) {
-      const fs = new StoreFS(new InMemoryStore(maxSize, label !== null && label !== void 0 ? label : name));
+    create({ maxSize, label }) {
+      const fs = new StoreFS(new InMemoryStore(maxSize, label));
       fs.checkRootSync();
       return fs;
     }
   };
   var InMemory = _InMemory;
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/internal/devices.js
-  var __addDisposableResource2 = function(env, value, async) {
-    if (value !== null && value !== void 0) {
-      if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
-      var dispose, inner;
-      if (async) {
-        if (!Symbol.asyncDispose) throw new TypeError("Symbol.asyncDispose is not defined.");
-        dispose = value[Symbol.asyncDispose];
-      }
-      if (dispose === void 0) {
-        if (!Symbol.dispose) throw new TypeError("Symbol.dispose is not defined.");
-        dispose = value[Symbol.dispose];
-        if (async) inner = dispose;
-      }
-      if (typeof dispose !== "function") throw new TypeError("Object not disposable.");
-      if (inner) dispose = function() {
-        try {
-          inner.call(this);
-        } catch (e) {
-          return Promise.reject(e);
-        }
-      };
-      env.stack.push({ value, dispose, async });
-    } else if (async) {
-      env.stack.push({ async: true });
-    }
-    return value;
-  };
-  var __disposeResources2 = /* @__PURE__ */ function(SuppressedError2) {
-    return function(env) {
-      function fail(e) {
-        env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
-        env.hasError = true;
-      }
-      var r, s = 0;
-      function next() {
-        while (r = env.stack.pop()) {
-          try {
-            if (!r.async && s === 1) return s = 0, env.stack.push(r), Promise.resolve().then(next);
-            if (r.dispose) {
-              var result = r.dispose.call(r.value);
-              if (r.async) return s |= 2, Promise.resolve(result).then(next, function(e) {
-                fail(e);
-                return next();
-              });
-            } else s |= 1;
-          } catch (e) {
-            fail(e);
-          }
-        }
-        if (s === 1) return env.hasError ? Promise.reject(env.error) : Promise.resolve();
-        if (env.hasError) throw env.error;
-      }
-      return next();
-    };
-  }(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
-    var e = new Error(message);
-    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-  });
-  var DeviceFile = class extends File {
-    constructor(fs, path, device) {
-      super(fs, path);
-      this.fs = fs;
-      this.device = device;
-      this.position = 0;
-      this.stats = new Inode({
-        mode: (this.driver.isBuffered ? S_IFBLK : S_IFCHR) | 438
-      });
-    }
-    get driver() {
-      return this.device.driver;
-    }
-    async stat() {
-      return Promise.resolve(new Stats(this.stats));
-    }
-    statSync() {
-      return new Stats(this.stats);
-    }
-    readSync(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
-      this.stats.atimeMs = Date.now();
-      const end = position + length;
-      this.position = end;
-      const uint8 = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-      this.driver.readD(this.device, uint8.subarray(offset, length), position, end);
-      return length;
-    }
-    // eslint-disable-next-line @typescript-eslint/require-await
-    async read(buffer, offset, length) {
-      return { bytesRead: this.readSync(buffer, offset, length), buffer };
-    }
-    writeSync(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
-      const end = position + length;
-      if (end > this.stats.size)
-        this.stats.size = end;
-      this.stats.mtimeMs = Date.now();
-      this.position = end;
-      const data = buffer.subarray(offset, offset + length);
-      this.driver.writeD(this.device, data, position);
-      return length;
-    }
-    // eslint-disable-next-line @typescript-eslint/require-await
-    async write(buffer, offset, length, position) {
-      return this.writeSync(buffer, offset, length, position);
-    }
-    async truncate(length) {
-      const { size } = await this.stat();
-      const buffer = new Uint8Array(length > size ? length - size : 0);
-      await this.write(buffer, 0, buffer.length, length > size ? size : length);
-    }
-    truncateSync(length) {
-      const { size } = this.statSync();
-      const buffer = new Uint8Array(length > size ? length - size : 0);
-      this.writeSync(buffer, 0, buffer.length, length > size ? size : length);
-    }
-    closeSync() {
-      var _a2, _b2;
-      (_b2 = (_a2 = this.driver).close) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, this);
-    }
-    close() {
-      this.closeSync();
-      return Promise.resolve();
-    }
-    syncSync() {
-      var _a2, _b2;
-      (_b2 = (_a2 = this.driver).sync) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, this);
-    }
-    sync() {
-      this.syncSync();
-      return Promise.resolve();
-    }
-    chown() {
-      throw ErrnoError.With("ENOTSUP", this.path, "chown");
-    }
-    chownSync() {
-      throw ErrnoError.With("ENOTSUP", this.path, "chown");
-    }
-    chmod() {
-      throw ErrnoError.With("ENOTSUP", this.path, "chmod");
-    }
-    chmodSync() {
-      throw ErrnoError.With("ENOTSUP", this.path, "chmod");
-    }
-    utimes() {
-      throw ErrnoError.With("ENOTSUP", this.path, "utimes");
-    }
-    utimesSync() {
-      throw ErrnoError.With("ENOTSUP", this.path, "utimes");
-    }
-  };
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/devices.js
   var DeviceFS = class extends StoreFS {
-    /* node:coverage disable */
-    /**
-     * Creates a new device at `path` relative to the `DeviceFS` root.
-     * @deprecated
-     */
-    createDevice(path, driver, options = {}) {
-      var _a2;
-      log_deprecated("DeviceFS#createDevice");
-      if (this.existsSync(path)) {
-        throw ErrnoError.With("EEXIST", path, "mknod");
-      }
-      let ino = 1;
-      const silence = canary(ErrnoError.With("EDEADLK", path, "mknod"));
-      while (this.store.has(ino))
-        ino++;
-      silence();
-      const dev = {
-        driver,
-        ino,
-        data: {},
-        minor: 0,
-        major: 0,
-        ...(_a2 = driver.init) === null || _a2 === void 0 ? void 0 : _a2.call(driver, ino, options)
-      };
-      this.devices.set(path, dev);
-      return dev;
-    }
-    /* node:coverage enable */
     devicesWithDriver(driver, forceIdentity) {
       if (forceIdentity && typeof driver == "string") {
         throw err(new ErrnoError(Errno.EINVAL, "Can not fetch devices using only a driver name"), { fs: this });
@@ -12839,15 +12325,20 @@
     _createDevice(driver, options = {}) {
       var _a2;
       let ino = 1;
-      while (this.store.has(ino))
+      const lastDev = Array.from(this.devices.values()).at(-1);
+      while (this.store.has(ino) || (lastDev === null || lastDev === void 0 ? void 0 : lastDev.inode.ino) == ino)
         ino++;
+      const init = (_a2 = driver.init) === null || _a2 === void 0 ? void 0 : _a2.call(driver, ino, options);
       const dev = {
-        driver,
-        ino,
         data: {},
         minor: 0,
         major: 0,
-        ...(_a2 = driver.init) === null || _a2 === void 0 ? void 0 : _a2.call(driver, ino, options)
+        ...omit(init !== null && init !== void 0 ? init : {}, "metadata"),
+        driver,
+        inode: new Inode({
+          mode: S_IFCHR | 438,
+          ...init === null || init === void 0 ? void 0 : init.metadata
+        })
       };
       const path = "/" + (dev.name || driver.name) + (driver.singleton ? "" : this.devicesWithDriver(driver).length);
       if (this.existsSync(path))
@@ -12890,60 +12381,40 @@
       return super.renameSync(oldPath, newPath);
     }
     async stat(path) {
-      if (this.devices.has(path)) {
-        const env_1 = { stack: [], error: void 0, hasError: false };
-        try {
-          const file = __addDisposableResource2(env_1, await this.openFile(path, "r"), true);
-          return file.stat();
-        } catch (e_1) {
-          env_1.error = e_1;
-          env_1.hasError = true;
-        } finally {
-          const result_1 = __disposeResources2(env_1);
-          if (result_1)
-            await result_1;
-        }
-      }
+      const dev = this.devices.get(path);
+      if (dev)
+        return dev.inode;
       return super.stat(path);
     }
     statSync(path) {
-      if (this.devices.has(path)) {
-        const env_2 = { stack: [], error: void 0, hasError: false };
-        try {
-          const file = __addDisposableResource2(env_2, this.openFileSync(path, "r"), false);
-          return file.statSync();
-        } catch (e_2) {
-          env_2.error = e_2;
-          env_2.hasError = true;
-        } finally {
-          __disposeResources2(env_2);
-        }
-      }
+      const dev = this.devices.get(path);
+      if (dev)
+        return dev.inode;
       return super.statSync(path);
     }
-    async openFile(path, flag) {
-      if (this.devices.has(path)) {
-        return new DeviceFile(this, path, this.devices.get(path));
-      }
-      return await super.openFile(path, flag);
+    async touch(path, metadata) {
+      const dev = this.devices.get(path);
+      if (dev)
+        dev.inode.update(metadata);
+      else
+        await super.touch(path, metadata);
     }
-    openFileSync(path, flag) {
-      if (this.devices.has(path)) {
-        return new DeviceFile(this, path, this.devices.get(path));
-      }
-      return super.openFileSync(path, flag);
+    touchSync(path, metadata) {
+      const dev = this.devices.get(path);
+      if (dev)
+        dev.inode.update(metadata);
+      else
+        super.touchSync(path, metadata);
     }
-    async createFile(path, flag, mode, options) {
-      if (this.devices.has(path)) {
+    async createFile(path, options) {
+      if (this.devices.has(path))
         throw ErrnoError.With("EEXIST", path, "createFile");
-      }
-      return super.createFile(path, flag, mode, options);
+      return super.createFile(path, options);
     }
-    createFileSync(path, flag, mode, options) {
-      if (this.devices.has(path)) {
+    createFileSync(path, options) {
+      if (this.devices.has(path))
         throw ErrnoError.With("EEXIST", path, "createFile");
-      }
-      return super.createFileSync(path, flag, mode, options);
+      return super.createFileSync(path, options);
     }
     async unlink(path) {
       if (this.devices.has(path)) {
@@ -12963,17 +12434,15 @@
     rmdirSync(path) {
       return super.rmdirSync(path);
     }
-    async mkdir(path, mode, options) {
-      if (this.devices.has(path)) {
+    async mkdir(path, options) {
+      if (this.devices.has(path))
         throw ErrnoError.With("EEXIST", path, "mkdir");
-      }
-      return super.mkdir(path, mode, options);
+      return super.mkdir(path, options);
     }
-    mkdirSync(path, mode, options) {
-      if (this.devices.has(path)) {
+    mkdirSync(path, options) {
+      if (this.devices.has(path))
         throw ErrnoError.With("EEXIST", path, "mkdir");
-      }
-      return super.mkdirSync(path, mode, options);
+      return super.mkdirSync(path, options);
     }
     async readdir(path) {
       const entries2 = await super.readdir(path);
@@ -13011,17 +12480,19 @@
       }
       return super.linkSync(target, link3);
     }
-    async sync(path, data, stats) {
-      if (this.devices.has(path)) {
-        throw alert(new ErrnoError(Errno.EINVAL, "Attempted to sync a device incorrectly (bug)", path, "sync"), { fs: this });
-      }
-      return super.sync(path, data, stats);
+    async sync(path) {
+      var _a2, _b2;
+      const device = this.devices.get(path);
+      if (device)
+        return (_b2 = (_a2 = device.driver).sync) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, device);
+      return super.sync(path);
     }
-    syncSync(path, data, stats) {
-      if (this.devices.has(path)) {
-        throw alert(new ErrnoError(Errno.EINVAL, "Attempted to sync a device incorrectly (bug)", path, "sync"), { fs: this });
-      }
-      return super.syncSync(path, data, stats);
+    syncSync(path) {
+      var _a2, _b2;
+      const device = this.devices.get(path);
+      if (device)
+        return (_b2 = (_a2 = device.driver).sync) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, device);
+      return super.syncSync(path);
     }
     async read(path, buffer, offset, end) {
       const device = this.devices.get(path);
@@ -13029,7 +12500,7 @@
         await super.read(path, buffer, offset, end);
         return;
       }
-      device.driver.readD(device, buffer, offset, end);
+      device.driver.read(device, buffer, offset, end);
     }
     readSync(path, buffer, offset, end) {
       const device = this.devices.get(path);
@@ -13037,26 +12508,23 @@
         super.readSync(path, buffer, offset, end);
         return;
       }
-      device.driver.readD(device, buffer, offset, end);
+      device.driver.read(device, buffer, offset, end);
     }
     async write(path, data, offset) {
       const device = this.devices.get(path);
       if (!device) {
         return await super.write(path, data, offset);
       }
-      device.driver.writeD(device, data, offset);
+      device.driver.write(device, data, offset);
     }
     writeSync(path, data, offset) {
       const device = this.devices.get(path);
       if (!device) {
         return super.writeSync(path, data, offset);
       }
-      device.driver.writeD(device, data, offset);
+      device.driver.write(device, data, offset);
     }
   };
-  function defaultWrite(device, data, offset) {
-    return;
-  }
   var emptyBuffer = new Uint8Array();
   var nullDevice = {
     name: "null",
@@ -13065,12 +12533,11 @@
       return { major: 1, minor: 3 };
     },
     read() {
-      return 0;
-    },
-    readD() {
       return emptyBuffer;
     },
-    writeD: defaultWrite
+    write() {
+      return;
+    }
   };
   var zeroDevice = {
     name: "zero",
@@ -13078,10 +12545,12 @@
     init() {
       return { major: 1, minor: 5 };
     },
-    readD(device, buffer, offset, end) {
+    read(device, buffer, offset, end) {
       buffer.fill(0, offset, end);
     },
-    writeD: defaultWrite
+    write() {
+      return;
+    }
   };
   var fullDevice = {
     name: "full",
@@ -13089,13 +12558,10 @@
     init() {
       return { major: 1, minor: 7 };
     },
-    readD(device, buffer, offset, end) {
+    read(device, buffer, offset, end) {
       buffer.fill(0, offset, end);
     },
-    write(file) {
-      throw ErrnoError.With("ENOSPC", file.path, "write");
-    },
-    writeD() {
+    write() {
       throw ErrnoError.With("ENOSPC", void 0, "write");
     }
   };
@@ -13105,12 +12571,14 @@
     init() {
       return { major: 1, minor: 8 };
     },
-    readD(device, buffer) {
+    read(device, buffer) {
       for (let i = 0; i < buffer.length; i++) {
         buffer[i] = Math.floor(Math.random() * 256);
       }
     },
-    writeD: defaultWrite
+    write() {
+      return;
+    }
   };
   var consoleDevice = {
     name: "console",
@@ -13118,10 +12586,10 @@
     init(ino, { output: output2 = (text) => console.log(text) } = {}) {
       return { major: 5, minor: 1, data: { output: output2 } };
     },
-    readD() {
+    read() {
       return emptyBuffer;
     },
-    writeD(device, buffer, offset) {
+    write(device, buffer, offset) {
       const text = decodeUTF8(buffer);
       device.data.output(text, offset);
     }
@@ -13134,12 +12602,20 @@
     console: consoleDevice
   };
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/index.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/config.js
+  var checkAccess = true;
+  function _setAccessChecks(value) {
+    checkAccess = value;
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/index.js
   var vfs_exports = {};
   __export(vfs_exports, {
     BigIntStatsFs: () => BigIntStatsFs,
     Dir: () => Dir,
     Dirent: () => Dirent,
+    IOC: () => IOC,
+    IOC32: () => IOC32,
     ReadStream: () => ReadStream,
     Stats: () => Stats,
     StatsFs: () => StatsFs,
@@ -13180,6 +12656,8 @@
     futimesSync: () => futimesSync,
     glob: () => glob2,
     globSync: () => globSync,
+    ioctl: () => ioctl,
+    ioctlSync: () => ioctlSync,
     lchmod: () => lchmod2,
     lchmodSync: () => lchmodSync,
     lchown: () => lchown2,
@@ -13196,8 +12674,6 @@
     mkdtemp: () => mkdtemp2,
     mkdtempSync: () => mkdtempSync,
     mount: () => mount,
-    mountObject: () => mountObject,
-    mounts: () => mounts,
     open: () => open2,
     openAsBlob: () => openAsBlob,
     openSync: () => openSync,
@@ -13243,13 +12719,14 @@
     writeFileSync: () => writeFileSync,
     writeSync: () => writeSync,
     writev: () => writev,
-    writevSync: () => writevSync
+    writevSync: () => writevSync,
+    xattr: () => xattr_exports
   });
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/async.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/async.js
   var import_buffer6 = __toESM(require_buffer(), 1);
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/promises.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/promises.js
   var promises_exports = {};
   __export(promises_exports, {
     FileHandle: () => FileHandle,
@@ -13289,43 +12766,665 @@
   });
   var import_buffer5 = __toESM(require_buffer(), 1);
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/sync.js
-  var import_buffer4 = __toESM(require_buffer(), 1);
-
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/context.js
-  function _bindFunctions(fns, thisValue) {
-    return Object.fromEntries(Object.entries(fns).map(([k, v]) => [k, typeof v == "function" ? v.bind(thisValue) : v]));
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/readline.js
+  var Interface = class extends import_index.default {
+    get cursor() {
+      return this._cursor;
+    }
+    constructor(input, output2, completer, terminal = false) {
+      super();
+      this.input = input;
+      this.output = output2;
+      this.terminal = terminal;
+      this.line = "";
+      this._cursor = 0;
+      this._buffer = "";
+      this._closed = false;
+      this._paused = false;
+      this._prompt = "";
+      this._history = [];
+      this._historyIndex = -1;
+      this._currentLine = "";
+      this._onData = (data) => {
+        if (this._paused || this._closed)
+          return;
+        this._buffer += typeof data === "string" ? data : data.toString("utf8");
+        for (let lineEnd = this._buffer.indexOf("\n"); lineEnd >= 0; lineEnd = this._buffer.indexOf("\n")) {
+          let line = this._buffer.substring(0, lineEnd);
+          if (line.endsWith("\r")) {
+            line = line.substring(0, line.length - 1);
+          }
+          this._buffer = this._buffer.substring(lineEnd + 1);
+          this.line = line;
+          if (line.trim() && !line.trim().match(/^\s*$/) && this._history.at(-1) != line) {
+            this._history.push(line);
+            this._historyIndex = this._history.length;
+            this.emit("history", this._history);
+          }
+          this.emit("line", line);
+        }
+      };
+      this.input.on("data", this._onData);
+      this.input.on("end", this.close.bind(this));
+      this.input.on("close", this.close.bind(this));
+    }
+    /**
+     * Closes the interface and removes all event listeners
+     */
+    close() {
+      var _a2, _b2;
+      if (this._closed)
+        return;
+      this._closed = true;
+      (_b2 = (_a2 = this.input) === null || _a2 === void 0 ? void 0 : _a2.removeAllListeners) === null || _b2 === void 0 ? void 0 : _b2.call(_a2);
+      if (this._buffer.length) {
+        const line = this._buffer;
+        this._buffer = "";
+        this.line = line;
+        this.emit("line", line);
+      }
+      this.emit("history", this._history);
+      this.emit("close");
+      this.removeAllListeners();
+    }
+    /**
+     * Pauses the input stream
+     */
+    pause() {
+      if (this._paused)
+        return this;
+      this._paused = true;
+      if ("pause" in this.input)
+        this.input.pause();
+      this.emit("pause");
+      return this;
+    }
+    /**
+     * Resumes the input stream
+     */
+    resume() {
+      if (!this._paused)
+        return this;
+      this._paused = false;
+      if ("resume" in this.input)
+        this.input.resume();
+      this.emit("resume");
+      return this;
+    }
+    /**
+     * Sets the prompt text
+     */
+    setPrompt(prompt) {
+      this._prompt = prompt;
+    }
+    /**
+     * Gets the current prompt text
+     */
+    getPrompt() {
+      return this._prompt;
+    }
+    /**
+     * Displays the prompt to the user
+     */
+    prompt(preserveCursor) {
+      if (!this.output)
+        return;
+      if (!preserveCursor) {
+        this.output.write(this._prompt);
+        return;
+      }
+      const { cols } = this.getCursorPos();
+      this.output.write(this._prompt);
+      this._cursor = cols;
+    }
+    /**
+     * Writes data to the interface and handles key events
+     */
+    write(data, key) {
+      if (this._closed)
+        return;
+      if (data) {
+        const str = typeof data === "string" ? data : data.toString("utf8");
+        this._onData(str);
+      }
+      if (!key || !this.terminal)
+        return;
+      switch ((key.ctrl ? "^" : "") + key.name) {
+        case "^c":
+          this.emit("SIGINT");
+          break;
+        case "^z":
+          this.emit("SIGTSTP");
+          break;
+        case "^q":
+          this.emit("SIGCONT");
+          break;
+        case "home":
+        case "^a":
+          if (!this.output)
+            return;
+          moveCursor(this.output, -this._cursor, 0);
+          this._cursor = 0;
+          this._cursor = 0;
+          break;
+        case "^e":
+        case "end": {
+          if (!this.output)
+            return;
+          const dx = this.line.length - this._cursor;
+          if (!dx)
+            return;
+          moveCursor(this.output, dx, 0);
+          this._cursor = this.line.length;
+          this._cursor = this.line.length;
+          break;
+        }
+        case "^k": {
+          if (!this.output)
+            return;
+          if (this._cursor >= this.line.length)
+            return;
+          const newLine = this.line.slice(0, this._cursor);
+          clearLine(this.output, 1);
+          this.line = newLine;
+          break;
+        }
+        case "^u": {
+          if (!this.output || !this._cursor)
+            return;
+          const newLine = this.line.slice(this._cursor);
+          clearLine(this.output, 0);
+          moveCursor(this.output, 0, 0);
+          this.output.write(this._prompt + newLine);
+          this.line = newLine;
+          this._cursor = 0;
+          this._cursor = 0;
+          break;
+        }
+        case "^w": {
+          if (!this.output || !this._cursor)
+            return;
+          let i = this._cursor - 1;
+          while (i >= 0 && this.line[i] === " ")
+            i--;
+          while (i >= 0 && this.line[i] !== " ")
+            i--;
+          const newLine = this.line.slice(0, i + 1) + this.line.slice(this._cursor);
+          const newCursorPos = i + 1;
+          this._renderLine(newLine);
+          this._cursor = newCursorPos;
+          this._cursor = newCursorPos;
+          moveCursor(this.output, -newLine.length, 0);
+          moveCursor(this.output, newCursorPos, 0);
+          break;
+        }
+        case "^return":
+        case "^enter":
+          this._onData("\n");
+          break;
+        case "return":
+        case "enter":
+          this._onData((!data ? "" : typeof data == "string" ? data : data.toString("utf8")) + "\n");
+          break;
+        case "up":
+        case "down": {
+          if (!this.output || !this._history.length)
+            return;
+          if (this._historyIndex === this._history.length) {
+            this._currentLine = this.line || "";
+          }
+          if (key.name == "up" && this._historyIndex > 0) {
+            this._historyIndex--;
+          } else if (key.name == "down" && this._historyIndex < this._history.length - 1) {
+            this._historyIndex++;
+          } else if (key.name == "down" && this._historyIndex == this._history.length - 1) {
+            this._historyIndex = this._history.length;
+            this._renderLine(this._currentLine);
+            return;
+          } else {
+            return;
+          }
+          const historyItem = this._history[this._historyIndex];
+          this._renderLine(historyItem);
+          break;
+        }
+        case "left":
+        case "right": {
+          const dx = key.name == "left" ? -1 : 1;
+          if (!this.output)
+            return;
+          const newPos = Math.max(0, Math.min(this.line.length, this._cursor + dx));
+          if (newPos == this._cursor)
+            return;
+          moveCursor(this.output, dx, 0);
+          this._cursor = newPos;
+          this._cursor = newPos;
+          break;
+        }
+        case "backspace": {
+          if (!this.output || !this._cursor)
+            return;
+          const newLine = this.line.slice(0, this._cursor - 1) + this.line.slice(this._cursor);
+          this._renderLine(newLine);
+          this._cursor = --this._cursor;
+          if (this._cursor > 0) {
+            moveCursor(this.output, -this._cursor, 0);
+            moveCursor(this.output, this._cursor, 0);
+          }
+          break;
+        }
+        case "delete": {
+          if (!this.output)
+            return;
+          if (this._cursor >= this.line.length)
+            return;
+          const newLine = this.line.slice(0, this._cursor) + this.line.slice(this._cursor + 1);
+          clearLine(this.output, 0);
+          moveCursor(this.output, 0, 0);
+          this.output.write(this._prompt + newLine);
+          this.line = newLine;
+          moveCursor(this.output, -newLine.length, 0);
+          moveCursor(this.output, this._cursor, 0);
+          break;
+        }
+      }
+    }
+    _renderLine(text) {
+      if (!this.output)
+        return;
+      clearLine(this.output, 0);
+      moveCursor(this.output, 0, 0);
+      this.output.write(this._prompt + text);
+      this.line = text;
+      this._cursor = text.length;
+      this._cursor = text.length;
+    }
+    question(query, optionsOrCallback, maybeCallback) {
+      const callback = typeof optionsOrCallback === "function" ? optionsOrCallback : maybeCallback;
+      if (this._closed || !this.output) {
+        callback("");
+        return;
+      }
+      this.output.write(query);
+      this.once("line", callback);
+    }
+    /**
+     * Gets the current cursor position
+     */
+    getCursorPos() {
+      return { rows: 0, cols: this.cursor };
+    }
+    /**
+     * Prepends a listener for the specified event
+     */
+    prependListener(event, listener) {
+      const listeners = this.listeners(event);
+      this.removeAllListeners(event);
+      this.on(event, listener);
+      listeners.forEach(this.on.bind(this, event));
+      return this;
+    }
+    /**
+     * Prepends a one-time listener for the specified event
+     */
+    prependOnceListener(event, listener) {
+      const listeners = this.listeners(event);
+      this.removeAllListeners(event);
+      this.once(event, listener);
+      listeners.forEach(this.on.bind(this, event));
+      return this;
+    }
+    /**
+     * Sets the maximum number of listeners
+     */
+    setMaxListeners() {
+      warn("Interface.prototype.setMaxListeners is not supported");
+      return this;
+    }
+    /**
+     * Gets the maximum number of listeners
+     */
+    getMaxListeners() {
+      warn("Interface.prototype.getMaxListeners is not supported");
+      return 10;
+    }
+    [Symbol.asyncIterator]() {
+      let done = false;
+      return {
+        next: async () => {
+          if (done)
+            return { done, value: void 0 };
+          const { resolve: resolve2, promise } = Promise.withResolvers();
+          this.once("line", (line) => resolve2({ value: line, done: false }));
+          this.once("close", () => {
+            done = true;
+            resolve2({ value: void 0, done });
+          });
+          return promise;
+        },
+        return: async (value) => {
+          if (done)
+            return { done, value };
+          done = true;
+          this.close();
+          return { done, value };
+        },
+        throw: async (error) => {
+          if (!done) {
+            done = true;
+            this.close();
+          }
+          throw error;
+        },
+        [Symbol.asyncIterator]() {
+          return this;
+        },
+        [Symbol.asyncDispose]: async () => {
+          if (done)
+            return;
+          done = true;
+          this.close();
+        }
+      };
+    }
+    async [Symbol.asyncDispose]() {
+      if (this._closed)
+        return;
+      const { resolve: resolve2, promise } = Promise.withResolvers();
+      this.once("close", () => resolve2());
+      this.close();
+      await promise;
+    }
+    rawListeners(event) {
+      return this.listeners(event);
+    }
+  };
+  function createInterface(input, output2, completer, terminal) {
+    return "input" in input ? new Interface(input.input, input.output, input.completer, input.terminal) : new Interface(input, output2, completer, terminal);
   }
-  function bindContext(root, credentials2 = structuredClone(credentials)) {
-    const ctx = {
-      root,
-      credentials: createCredentials(credentials2)
-    };
-    const fn_fs = _bindFunctions(vfs_exports, ctx);
-    const fn_promises = _bindFunctions(promises_exports, ctx);
-    return { ...ctx, fs: { ...vfs_exports, ...fn_fs, promises: { ...promises_exports, ...fn_promises } } };
+  function clearLine(stream, dir) {
+    stream.write(dir >= 0 ? "\r\x1B[K" : "\x1B[K");
+    return true;
+  }
+  function moveCursor(stream, dx, dy) {
+    if (!stream.write)
+      return false;
+    let cmd = "";
+    if (dx < 0) {
+      cmd += `\x1B[${-dx}D`;
+    } else if (dx > 0) {
+      cmd += `\x1B[${dx}C`;
+    }
+    if (dy < 0) {
+      cmd += `\x1B[${-dy}A`;
+    } else if (dy > 0) {
+      cmd += `\x1B[${dy}B`;
+    }
+    if (cmd)
+      stream.write(cmd);
+    return true;
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/shared.js
-  var fdMap = /* @__PURE__ */ new Map();
-  var nextFd = 100;
-  function file2fd(file) {
-    const fd = nextFd++;
-    fdMap.set(fd, file);
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/file.js
+  var SyncHandle = class {
+    /**
+     * Get the current file position.
+     *
+     * We emulate the following bug mentioned in the Node documentation:
+     *
+     * On Linux, positional writes don't work when the file is opened in append mode.
+     * The kernel ignores the position argument and always appends the data to the end of the file.
+     * @returns The current file position.
+     */
+    get position() {
+      return this.flag & O_APPEND ? this.inode.size : this._position;
+    }
+    set position(value) {
+      this._position = value;
+    }
+    /**
+     * Creates a file with `path` and, optionally, the given contents.
+     * Note that, if contents is specified, it will be mutated by the file.
+     */
+    constructor(context, path, fs, internalPath, flag, inode) {
+      this.context = context;
+      this.path = path;
+      this.fs = fs;
+      this.internalPath = internalPath;
+      this.flag = flag;
+      this.inode = inode;
+      this._position = 0;
+      this.dirty = false;
+      this.closed = false;
+    }
+    [Symbol.dispose]() {
+      this.close();
+    }
+    get _isSync() {
+      return !!(this.flag & O_SYNC || this.inode.flags & InodeFlags.Sync);
+    }
+    sync() {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "sync");
+      if (!this.dirty)
+        return;
+      if (!this.fs.attributes.has("no_write"))
+        this.fs.touchSync(this.internalPath, this.inode);
+      this.dirty = false;
+    }
+    /**
+     * Default implementation maps to `syncSync`.
+     */
+    datasync() {
+      return this.sync();
+    }
+    close() {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "close");
+      this.sync();
+      this.dispose();
+    }
+    /**
+     * Cleans up. This will *not* sync the file data to the FS
+     */
+    dispose(force) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "dispose");
+      if (this.dirty && !force)
+        throw ErrnoError.With("EBUSY", this.path, "dispose");
+      this.closed = true;
+    }
+    stat() {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "stat");
+      return this.inode;
+    }
+    truncate(length) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "truncate");
+      this.dirty = true;
+      if (!(this.flag & O_WRONLY || this.flag & O_RDWR)) {
+        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode", this.path, "truncate");
+      }
+      this.inode.mtimeMs = Date.now();
+      this.inode.size = length;
+      this.inode.ctimeMs = Date.now();
+      if (this._isSync)
+        this.sync();
+    }
+    /**
+     * Write buffer to the file.
+     * @param buffer Uint8Array containing the data to write to the file.
+     * @param offset Offset in the buffer to start reading data from.
+     * @param length The amount of bytes to write to the file.
+     * @param position Offset from the beginning of the file where this data should be written.
+     * If position is null, the data will be written at  the current position.
+     * @returns bytes written
+     */
+    write(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "write");
+      if (!(this.flag & O_WRONLY || this.flag & O_RDWR))
+        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode");
+      if (this.inode.flags & InodeFlags.Immutable)
+        throw new ErrnoError(Errno.EPERM, "File is immutable", this.path, "write");
+      this.dirty = true;
+      const end = position + length;
+      const slice = buffer.subarray(offset, offset + length);
+      if (!isCharacterDevice(this.inode) && !isBlockDevice(this.inode) && end > this.inode.size)
+        this.inode.size = end;
+      this.inode.mtimeMs = Date.now();
+      this.inode.ctimeMs = Date.now();
+      this._position = position + slice.byteLength;
+      this.fs.writeSync(this.internalPath, slice, position);
+      if (this._isSync)
+        this.sync();
+      return slice.byteLength;
+    }
+    /**
+     * Read data from the file.
+     * @param buffer The buffer that the data will be written to.
+     * @param offset The offset within the buffer where writing will start.
+     * @param length An integer specifying the number of bytes to read.
+     * @param position An integer specifying where to begin reading from in the file.
+     * If position is null, data will be read from the current file position.
+     * @returns number of bytes written
+     */
+    read(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "read");
+      if (this.flag & O_WRONLY)
+        throw new ErrnoError(Errno.EPERM, "File not opened with a readable mode");
+      if (!(this.inode.flags & InodeFlags.NoAtime)) {
+        this.dirty = true;
+        this.inode.atimeMs = Date.now();
+      }
+      let end = position + length;
+      if (!isCharacterDevice(this.inode) && !isBlockDevice(this.inode) && end > this.inode.size) {
+        end = position + Math.max(this.inode.size - position, 0);
+      }
+      this._position = end;
+      const uint8 = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+      this.fs.readSync(this.internalPath, uint8.subarray(offset, offset + length), position, end);
+      if (this._isSync)
+        this.sync();
+      return end - position;
+    }
+    chmod(mode) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "chmod");
+      this.dirty = true;
+      this.inode.mode = this.inode.mode & (mode > S_IFMT ? ~S_IFMT : S_IFMT) | mode;
+      if (this._isSync || mode > S_IFMT)
+        this.sync();
+    }
+    chown(uid, gid) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "chown");
+      this.dirty = true;
+      _chown(this.inode, uid, gid);
+      if (this._isSync)
+        this.sync();
+    }
+    /**
+     * Change the file timestamps of the file.
+     */
+    utimes(atime, mtime) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "utimes");
+      this.dirty = true;
+      this.inode.atimeMs = atime;
+      this.inode.mtimeMs = mtime;
+      if (this._isSync)
+        this.sync();
+    }
+    /**
+     * Create a stream for reading the file.
+     */
+    streamRead(options) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "streamRead");
+      return this.fs.streamRead(this.internalPath, options);
+    }
+    /**
+     * Create a stream for writing the file.
+     */
+    streamWrite(options) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "streamWrite");
+      if (this.inode.flags & InodeFlags.Immutable)
+        throw new ErrnoError(Errno.EPERM, "File is immutable", this.path, "streamWrite");
+      return this.fs.streamWrite(this.internalPath, options);
+    }
+  };
+  function toFD(file) {
+    var _a2, _b2;
+    const map = (_b2 = (_a2 = file.context) === null || _a2 === void 0 ? void 0 : _a2.descriptors) !== null && _b2 !== void 0 ? _b2 : defaultContext.descriptors;
+    const fd = Math.max(map.size ? Math.max(...map.keys()) + 1 : 0, 4);
+    map.set(fd, file);
     return fd;
   }
-  function fd2file(fd) {
-    if (!fdMap.has(fd)) {
+  function fromFD($, fd) {
+    var _a2;
+    const map = (_a2 = $ === null || $ === void 0 ? void 0 : $.descriptors) !== null && _a2 !== void 0 ? _a2 : defaultContext.descriptors;
+    const value = map.get(fd);
+    if (!value)
       throw new ErrnoError(Errno.EBADF);
-    }
-    return fdMap.get(fd);
+    return value;
   }
+  function deleteFD($, fd) {
+    var _a2;
+    return ((_a2 = $ === null || $ === void 0 ? void 0 : $.descriptors) !== null && _a2 !== void 0 ? _a2 : defaultContext.descriptors).delete(fd);
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/sync.js
+  var import_buffer4 = __toESM(require_buffer(), 1);
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/flags.js
+  var pattern = /[rwasx]{1,2}\+?/;
+  function parse2(flag) {
+    if (typeof flag == "number")
+      return flag;
+    if (!pattern.test(flag)) {
+      throw new ErrnoError(Errno.EINVAL, "Invalid flag string: " + flag);
+    }
+    return toNumber(flag);
+  }
+  function toNumber(flag) {
+    if (!flag.includes("r") && !flag.includes("w") && !flag.includes("a")) {
+      throw new ErrnoError(Errno.EINVAL, "Invalid flag string: " + flag);
+    }
+    let n = flag.includes("r") ? O_RDONLY : O_CREAT;
+    if (flag.includes("w"))
+      n |= O_TRUNC;
+    if (flag.includes("a"))
+      n |= O_APPEND;
+    if (flag.includes("+"))
+      n |= O_RDWR;
+    else if (!flag.includes("r"))
+      n |= O_WRONLY;
+    if (flag.includes("s"))
+      n |= O_SYNC;
+    if (flag.includes("x"))
+      n |= O_EXCL;
+    return n;
+  }
+  function toMode(flag) {
+    let mode = 0;
+    if (!(flag & O_WRONLY))
+      mode |= R_OK;
+    if (flag & O_WRONLY || flag & O_RDWR)
+      mode |= W_OK;
+    return mode;
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/shared.js
   var mounts = /* @__PURE__ */ new Map();
-  mount("/", InMemory.create({ name: "root" }));
+  mount("/", InMemory.create({ label: "root" }));
   function mount(mountPoint, fs) {
     if (mountPoint[0] != "/")
       mountPoint = "/" + mountPoint;
-    mountPoint = resolve(mountPoint);
+    mountPoint = resolve.call(this, mountPoint);
     if (mounts.has(mountPoint))
       throw err(new ErrnoError(Errno.EINVAL, "Mount point is already in use: " + mountPoint));
     fs._mountPoint = mountPoint;
@@ -13336,7 +13435,7 @@
   function umount(mountPoint) {
     if (mountPoint[0] != "/")
       mountPoint = "/" + mountPoint;
-    mountPoint = resolve(mountPoint);
+    mountPoint = resolve.call(this, mountPoint);
     if (!mounts.has(mountPoint)) {
       warn(mountPoint + " is already unmounted");
       return;
@@ -13345,7 +13444,7 @@
     notice("Unmounted " + mountPoint);
   }
   function resolveMount(path, ctx) {
-    const root = (ctx === null || ctx === void 0 ? void 0 : ctx.root) || "/";
+    const root = (ctx === null || ctx === void 0 ? void 0 : ctx.root) || defaultContext.root;
     path = normalizePath(join(root, path));
     const sortedMounts = [...mounts].sort((a, b) => a[0].length > b[0].length ? -1 : 1);
     for (const [mountPoint, fs] of sortedMounts) {
@@ -13376,20 +13475,11 @@
       e.path = fixPaths(e.path, paths);
     return e;
   }
-  function mountObject(mounts2) {
-    log_deprecated("mountObject");
-    if ("/" in mounts2) {
-      umount("/");
-    }
-    for (const [point, fs] of Object.entries(mounts2)) {
-      mount(point, fs);
-    }
-  }
   function _statfs(fs, bigint) {
     const md = fs.usage();
     const bs = md.blockSize || 4096;
     return {
-      type: (bigint ? BigInt : Number)(fs.id),
+      type: (bigint ? BigInt : Number)(fs.type),
       bsize: (bigint ? BigInt : Number)(bs),
       ffree: (bigint ? BigInt : Number)(md.freeNodes || size_max),
       files: (bigint ? BigInt : Number)(md.totalNodes || size_max),
@@ -13398,16 +13488,21 @@
       blocks: (bigint ? BigInt : Number)(md.totalSpace / bs)
     };
   }
-  function chroot(path, inPlace) {
-    const creds = this === null || this === void 0 ? void 0 : this.credentials;
-    if ((creds === null || creds === void 0 ? void 0 : creds.uid) && (creds === null || creds === void 0 ? void 0 : creds.gid) && (creds === null || creds === void 0 ? void 0 : creds.euid) && (creds === null || creds === void 0 ? void 0 : creds.egid)) {
+  function chroot(path) {
+    var _a2, _b2, _c2, _d, _e, _f, _g;
+    const $ = this !== null && this !== void 0 ? this : defaultContext;
+    if (((_a2 = $.credentials) === null || _a2 === void 0 ? void 0 : _a2.uid) !== 0 && ((_b2 = $.credentials) === null || _b2 === void 0 ? void 0 : _b2.gid) !== 0 && ((_c2 = $.credentials) === null || _c2 === void 0 ? void 0 : _c2.euid) !== 0 && ((_d = $.credentials) === null || _d === void 0 ? void 0 : _d.egid) !== 0)
       throw new ErrnoError(Errno.EPERM, "Can not chroot() as non-root user");
+    (_e = $.root) !== null && _e !== void 0 ? _e : $.root = "/";
+    const newRoot = join($.root, path);
+    for (const handle of (_g = (_f = $.descriptors) === null || _f === void 0 ? void 0 : _f.values()) !== null && _g !== void 0 ? _g : []) {
+      if (!handle.path.startsWith($.root))
+        throw ErrnoError.With("EBUSY", handle.path, "chroot");
+      handle.path = handle.path.slice($.root.length);
     }
-    if (inPlace && this) {
-      this.root += path;
-      return this;
-    }
-    return bindContext(join((this === null || this === void 0 ? void 0 : this.root) || "/", path), creds);
+    if (newRoot.length > $.root.length)
+      throw new ErrnoError(Errno.EPERM, "Can not chroot() outside of current root");
+    $.root = newRoot;
   }
   function _isParentOf(parent, child) {
     if (parent === "/" || parent === child)
@@ -13417,7 +13512,7 @@
     return child.startsWith(parent);
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/watchers.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/watchers.js
   var Watcher = class extends import_index.default {
     /* eslint-disable @typescript-eslint/no-explicit-any */
     off(event, fn, context, once) {
@@ -13527,23 +13622,23 @@
       }
     }
   }
-  function emitChange(context, eventType, filename) {
+  function emitChange($, eventType, filename) {
     var _a2;
-    if (context)
-      filename = join((_a2 = context.root) !== null && _a2 !== void 0 ? _a2 : "/", filename);
+    if ($)
+      filename = join((_a2 = $.root) !== null && _a2 !== void 0 ? _a2 : "/", filename);
     filename = normalizePath(filename);
     for (let path = filename; path != "/"; path = dirname(path)) {
       const watchersForPath = watchers.get(path);
       if (!watchersForPath)
         continue;
       for (const watcher of watchersForPath) {
-        watcher.emit("change", eventType, relative(path, filename) || basename(filename));
+        watcher.emit("change", eventType, relative.call(watcher._context, path, filename) || basename(filename));
       }
     }
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/sync.js
-  var __addDisposableResource3 = function(env, value, async) {
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/sync.js
+  var __addDisposableResource2 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
       var dispose, inner;
@@ -13570,7 +13665,7 @@
     }
     return value;
   };
-  var __disposeResources3 = /* @__PURE__ */ function(SuppressedError2) {
+  var __disposeResources2 = /* @__PURE__ */ function(SuppressedError2) {
     return function(env) {
       function fail(e) {
         env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
@@ -13606,7 +13701,7 @@
     newPath = normalizePath(newPath);
     const oldMount = resolveMount(oldPath, this);
     const newMount = resolveMount(newPath, this);
-    if (config.checkAccess && !statSync.call(this, dirname(oldPath)).hasAccess(W_OK, this)) {
+    if (checkAccess && !statSync.call(this, dirname(oldPath)).hasAccess(W_OK, this)) {
       throw ErrnoError.With("EACCES", oldPath, "rename");
     }
     try {
@@ -13640,10 +13735,10 @@
     const { fs, path: resolved } = resolveMount(realpathSync.call(this, path), this);
     try {
       const stats = fs.statSync(resolved);
-      if (config.checkAccess && !stats.hasAccess(R_OK, this)) {
+      if (checkAccess && !hasAccess(this, stats, R_OK)) {
         throw ErrnoError.With("EACCES", resolved, "stat");
       }
-      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : stats;
+      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
     } catch (e) {
       throw fixError(e, { [resolved]: path });
     }
@@ -13653,7 +13748,10 @@
     const { fs, path: resolved } = resolveMount(path, this);
     try {
       const stats = fs.statSync(resolved);
-      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : stats;
+      if (checkAccess && !hasAccess(this, stats, R_OK)) {
+        throw ErrnoError.With("EACCES", resolved, "lstat");
+      }
+      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
     } catch (e) {
       throw fixError(e, { [resolved]: path });
     }
@@ -13661,24 +13759,24 @@
   function truncateSync(path, len = 0) {
     const env_1 = { stack: [], error: void 0, hasError: false };
     try {
-      const file = __addDisposableResource3(env_1, _openSync.call(this, path, { flag: "r+" }), false);
+      const file = __addDisposableResource2(env_1, _openSync.call(this, path, { flag: "r+" }), false);
       len || (len = 0);
       if (len < 0) {
         throw new ErrnoError(Errno.EINVAL);
       }
-      file.truncateSync(len);
+      file.truncate(len);
     } catch (e_1) {
       env_1.error = e_1;
       env_1.hasError = true;
     } finally {
-      __disposeResources3(env_1);
+      __disposeResources2(env_1);
     }
   }
   function unlinkSync(path) {
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     try {
-      if (config.checkAccess && !fs.statSync(resolved).hasAccess(W_OK, this)) {
+      if (checkAccess && !hasAccess(this, fs.statSync(resolved), W_OK)) {
         throw ErrnoError.With("EACCES", resolved, "unlink");
       }
       fs.unlinkSync(resolved);
@@ -13687,20 +13785,10 @@
       throw fixError(e, { [resolved]: path });
     }
   }
-  function applySetId(file, uid, gid) {
-    if (file.fs.attributes.has("setid"))
-      return;
-    const parent = file.fs.statSync(dirname(file.path));
-    file.chownSync(
-      parent.mode & S_ISUID ? parent.uid : uid,
-      // manually apply setuid/setgid
-      parent.mode & S_ISGID ? parent.gid : gid
-    );
-  }
   function _openSync(path, opt) {
     var _a2;
     path = normalizePath(path);
-    const mode = normalizeMode(opt.mode, 420), flag = parseFlag(opt.flag);
+    const mode = normalizeMode(opt.mode, 420), flag = parse2(opt.flag);
     path = opt.preserveSymlinks ? path : realpathSync.call(this, path);
     const { fs, path: resolved } = resolveMount(path, this);
     let stats;
@@ -13709,74 +13797,77 @@
     } catch {
     }
     if (!stats) {
-      if (!isWriteable(flag) && !isAppendable(flag) || flag == "r+") {
+      if (!(flag & O_CREAT)) {
         throw ErrnoError.With("ENOENT", path, "_open");
       }
       const parentStats = fs.statSync(dirname(resolved));
-      if (config.checkAccess && !parentStats.hasAccess(W_OK, this)) {
+      if (checkAccess && !hasAccess(this, parentStats, W_OK)) {
         throw ErrnoError.With("EACCES", dirname(path), "_open");
       }
-      if (!parentStats.isDirectory()) {
+      if (!isDirectory(parentStats)) {
         throw ErrnoError.With("ENOTDIR", dirname(path), "_open");
       }
-      const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : credentials;
-      const file2 = fs.createFileSync(resolved, flag, mode, { uid, gid });
       if (!opt.allowDirectory && mode & S_IFDIR)
         throw ErrnoError.With("EISDIR", path, "_open");
-      applySetId(file2, uid, gid);
-      return file2;
+      if (checkAccess && !hasAccess(this, parentStats, W_OK)) {
+        throw ErrnoError.With("EACCES", dirname(resolved), "_open");
+      }
+      const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
+      const inode = fs.createFileSync(resolved, {
+        mode,
+        uid: parentStats.mode & S_ISUID ? parentStats.uid : uid,
+        gid: parentStats.mode & S_ISGID ? parentStats.gid : gid
+      });
+      return new SyncHandle(this, path, fs, resolved, flag, inode);
     }
-    if (config.checkAccess && (!stats.hasAccess(mode, this) || !stats.hasAccess(flagToMode(flag), this))) {
+    if (checkAccess && (!hasAccess(this, stats, mode) || !hasAccess(this, stats, toMode(flag)))) {
       throw ErrnoError.With("EACCES", path, "_open");
     }
-    if (isExclusive(flag)) {
+    if (flag & O_EXCL)
       throw ErrnoError.With("EEXIST", path, "_open");
-    }
-    const file = fs.openFileSync(resolved, flag);
-    if (isTruncating(flag)) {
-      file.truncateSync(0);
-    }
+    const file = new SyncHandle(this, path, fs, resolved, flag, stats);
+    if (flag & O_TRUNC)
+      file.truncate(0);
     if (!opt.allowDirectory && stats.mode & S_IFDIR)
       throw ErrnoError.With("EISDIR", path, "_open");
     return file;
   }
   function openSync(path, flag, mode = F_OK) {
-    return file2fd(_openSync.call(this, path, { flag, mode }));
+    return toFD(_openSync.call(this, path, { flag, mode }));
   }
   function lopenSync(path, flag, mode) {
-    return file2fd(_openSync.call(this, path, { flag, mode, preserveSymlinks: true }));
+    return toFD(_openSync.call(this, path, { flag, mode, preserveSymlinks: true }));
   }
   function _readFileSync(path, flag, preserveSymlinks) {
     const env_2 = { stack: [], error: void 0, hasError: false };
     try {
-      path = normalizePath(path);
-      const file = __addDisposableResource3(env_2, _openSync.call(this, path, { flag, mode: 420, preserveSymlinks }), false);
-      const stat3 = file.statSync();
-      const data = new Uint8Array(stat3.size);
-      file.readSync(data, 0, stat3.size, 0);
+      const file = __addDisposableResource2(env_2, typeof path == "number" ? fromFD(this, path) : _openSync.call(this, path.toString(), { flag, mode: 420, preserveSymlinks }), false);
+      const { size } = file.stat();
+      const data = new Uint8Array(size);
+      file.read(data, 0, size, 0);
       return data;
     } catch (e_2) {
       env_2.error = e_2;
       env_2.hasError = true;
     } finally {
-      __disposeResources3(env_2);
+      __disposeResources2(env_2);
     }
   }
   function readFileSync(path, _options = {}) {
     const options = normalizeOptions(_options, null, "r", 420);
-    const flag = parseFlag(options.flag);
-    if (!isReadable(flag)) {
+    const flag = parse2(options.flag);
+    if (flag & O_WRONLY) {
       throw new ErrnoError(Errno.EINVAL, "Flag passed to readFile must allow for reading");
     }
-    const data = import_buffer4.Buffer.from(_readFileSync.call(this, typeof path == "number" ? fd2file(path).path : path, options.flag, false));
+    const data = import_buffer4.Buffer.from(_readFileSync.call(this, path, options.flag, false));
     return options.encoding ? data.toString(options.encoding) : data;
   }
   function writeFileSync(path, data, _options = {}) {
     const env_3 = { stack: [], error: void 0, hasError: false };
     try {
       const options = normalizeOptions(_options, "utf8", "w+", 420);
-      const flag = parseFlag(options.flag);
-      if (!isWriteable(flag)) {
+      const flag = parse2(options.flag);
+      if (!(flag & O_WRONLY || flag & O_RDWR)) {
         throw new ErrnoError(Errno.EINVAL, "Flag passed to writeFile must allow for writing");
       }
       if (typeof data != "string" && !options.encoding) {
@@ -13786,65 +13877,65 @@
       if (!encodedData) {
         throw new ErrnoError(Errno.EINVAL, "Data not specified");
       }
-      const file = __addDisposableResource3(env_3, _openSync.call(this, typeof path == "number" ? fd2file(path).path : path.toString(), {
+      const file = __addDisposableResource2(env_3, typeof path == "number" ? fromFD(this, path) : _openSync.call(this, path.toString(), {
         flag,
         mode: options.mode,
         preserveSymlinks: true
       }), false);
-      file.writeSync(encodedData, 0, encodedData.byteLength, 0);
+      file.write(encodedData, 0, encodedData.byteLength, 0);
       emitChange(this, "change", path.toString());
     } catch (e_3) {
       env_3.error = e_3;
       env_3.hasError = true;
     } finally {
-      __disposeResources3(env_3);
+      __disposeResources2(env_3);
     }
   }
   function appendFileSync(filename, data, _options = {}) {
     const env_4 = { stack: [], error: void 0, hasError: false };
     try {
       const options = normalizeOptions(_options, "utf8", "a+", 420);
-      const flag = parseFlag(options.flag);
-      if (!isAppendable(flag)) {
+      const flag = parse2(options.flag);
+      if (!(flag & O_APPEND)) {
         throw new ErrnoError(Errno.EINVAL, "Flag passed to appendFile must allow for appending");
       }
       if (typeof data != "string" && !options.encoding) {
         throw new ErrnoError(Errno.EINVAL, "Encoding not specified");
       }
       const encodedData = typeof data == "string" ? import_buffer4.Buffer.from(data, options.encoding) : new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
-      const file = __addDisposableResource3(env_4, _openSync.call(this, typeof filename == "number" ? fd2file(filename).path : filename.toString(), {
+      const file = __addDisposableResource2(env_4, _openSync.call(this, typeof filename == "number" ? fromFD(this, filename).path : filename.toString(), {
         flag,
         mode: options.mode,
         preserveSymlinks: true
       }), false);
-      file.writeSync(encodedData, 0, encodedData.byteLength);
+      file.write(encodedData, 0, encodedData.byteLength);
     } catch (e_4) {
       env_4.error = e_4;
       env_4.hasError = true;
     } finally {
-      __disposeResources3(env_4);
+      __disposeResources2(env_4);
     }
   }
   function fstatSync(fd, options) {
-    const stats = fd2file(fd).statSync();
-    return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : stats;
+    const stats = fromFD(this, fd).stat();
+    return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
   }
   function closeSync(fd) {
-    fd2file(fd).closeSync();
-    fdMap.delete(fd);
+    fromFD(this, fd).close();
+    deleteFD(this, fd);
   }
   function ftruncateSync(fd, len = 0) {
     len || (len = 0);
     if (len < 0) {
       throw new ErrnoError(Errno.EINVAL);
     }
-    fd2file(fd).truncateSync(len);
+    fromFD(this, fd).truncate(len);
   }
   function fsyncSync(fd) {
-    fd2file(fd).syncSync();
+    fromFD(this, fd).sync();
   }
   function fdatasyncSync(fd) {
-    fd2file(fd).datasyncSync();
+    fromFD(this, fd).datasync();
   }
   function writeSync(fd, data, posOrOff, lenOrEnc, pos) {
     let buffer, offset, length, position;
@@ -13860,14 +13951,14 @@
       length = lenOrEnc;
       position = typeof pos === "number" ? pos : null;
     }
-    const file = fd2file(fd);
+    const file = fromFD(this, fd);
     position !== null && position !== void 0 ? position : position = file.position;
-    const bytesWritten = file.writeSync(buffer, offset, length, position);
+    const bytesWritten = file.write(buffer, offset, length, position);
     emitChange(this, "change", file.path);
     return bytesWritten;
   }
   function readSync(fd, buffer, options, length, position) {
-    const file = fd2file(fd);
+    const file = fromFD(this, fd);
     const offset = typeof options == "object" ? options.offset : options;
     if (typeof options == "object") {
       length = options.length;
@@ -13877,30 +13968,30 @@
     if (isNaN(position)) {
       position = file.position;
     }
-    return file.readSync(buffer, offset, length, position);
+    return file.read(buffer, offset, length, position);
   }
   function fchownSync(fd, uid, gid) {
-    fd2file(fd).chownSync(uid, gid);
+    fromFD(this, fd).chown(uid, gid);
   }
   function fchmodSync(fd, mode) {
     const numMode = normalizeMode(mode, -1);
     if (numMode < 0) {
       throw new ErrnoError(Errno.EINVAL, `Invalid mode.`);
     }
-    fd2file(fd).chmodSync(numMode);
+    fromFD(this, fd).chmod(numMode);
   }
   function futimesSync(fd, atime, mtime) {
-    fd2file(fd).utimesSync(normalizeTime(atime), normalizeTime(mtime));
+    fromFD(this, fd).utimes(normalizeTime(atime), normalizeTime(mtime));
   }
   function rmdirSync(path) {
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(realpathSync.call(this, path), this);
     try {
       const stats = fs.statSync(resolved);
-      if (!stats.isDirectory()) {
+      if (!isDirectory(stats)) {
         throw ErrnoError.With("ENOTDIR", resolved, "rmdir");
       }
-      if (config.checkAccess && !stats.hasAccess(W_OK, this)) {
+      if (checkAccess && !hasAccess(this, stats, W_OK)) {
         throw ErrnoError.With("EACCES", resolved, "rmdir");
       }
       fs.rmdirSync(resolved);
@@ -13911,19 +14002,27 @@
   }
   function mkdirSync(path, options) {
     var _a2, _b2;
-    const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : credentials;
+    const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
     options = typeof options === "object" ? options : { mode: options };
     const mode = normalizeMode(options === null || options === void 0 ? void 0 : options.mode, 511);
     path = realpathSync.call(this, path);
     const { fs, path: resolved, root } = resolveMount(path, this);
     const errorPaths = { [resolved]: path };
+    const __create2 = (path2, parent) => {
+      if (checkAccess && !hasAccess(this, parent, W_OK)) {
+        throw ErrnoError.With("EACCES", dirname(path2), "mkdir");
+      }
+      const inode = fs.mkdirSync(path2, {
+        mode,
+        uid: parent.mode & S_ISUID ? parent.uid : uid,
+        gid: parent.mode & S_ISGID ? parent.gid : gid
+      });
+      emitChange(this, "rename", path2);
+      return inode;
+    };
     try {
       if (!(options === null || options === void 0 ? void 0 : options.recursive)) {
-        if (config.checkAccess && !fs.statSync(dirname(resolved)).hasAccess(W_OK, this)) {
-          throw ErrnoError.With("EACCES", dirname(resolved), "mkdir");
-        }
-        fs.mkdirSync(resolved, mode, { uid, gid });
-        applySetId(fs.openFileSync(resolved, "r+"), uid, gid);
+        __create2(resolved, fs.statSync(dirname(resolved)));
         return;
       }
       const dirs = [];
@@ -13931,13 +14030,11 @@
         dirs.unshift(dir);
         errorPaths[dir] = original;
       }
-      for (const dir of dirs) {
-        if (config.checkAccess && !fs.statSync(dirname(dir)).hasAccess(W_OK, this)) {
-          throw ErrnoError.With("EACCES", dirname(dir), "mkdir");
-        }
-        fs.mkdirSync(dir, mode, { uid, gid });
-        applySetId(fs.openFileSync(dir, "r+"), uid, gid);
-        emitChange(this, "rename", dir);
+      if (!dirs.length)
+        return;
+      const stats = [fs.statSync(dirname(dirs[0]))];
+      for (const [i, dir] of dirs.entries()) {
+        stats.push(__create2(dir, stats[i]));
       }
       return root.length == 1 ? dirs[0] : (_b2 = dirs[0]) === null || _b2 === void 0 ? void 0 : _b2.slice(root.length);
     } catch (e) {
@@ -13951,10 +14048,10 @@
     let entries2;
     try {
       const stats = fs.statSync(resolved);
-      if (config.checkAccess && !stats.hasAccess(R_OK, this)) {
+      if (checkAccess && !hasAccess(this, stats, R_OK)) {
         throw ErrnoError.With("EACCES", resolved, "readdir");
       }
-      if (!stats.isDirectory()) {
+      if (!isDirectory(stats)) {
         throw ErrnoError.With("ENOTDIR", resolved, "readdir");
       }
       entries2 = fs.readdirSync(resolved);
@@ -13976,7 +14073,7 @@
       } else {
         values.push(entry);
       }
-      if (!entryStat.isDirectory() || !(options === null || options === void 0 ? void 0 : options.recursive))
+      if (!isDirectory(entryStat) || !(options === null || options === void 0 ? void 0 : options.recursive))
         continue;
       for (const subEntry of readdirSync.call(this, join(path, entry), options)) {
         if (subEntry instanceof Dirent) {
@@ -13993,11 +14090,11 @@
   }
   function linkSync(targetPath, linkPath) {
     targetPath = normalizePath(targetPath);
-    if (config.checkAccess && !statSync(dirname(targetPath)).hasAccess(R_OK, this)) {
+    if (checkAccess && !statSync(dirname(targetPath)).hasAccess(R_OK, this)) {
       throw ErrnoError.With("EACCES", dirname(targetPath), "link");
     }
     linkPath = normalizePath(linkPath);
-    if (config.checkAccess && !statSync(dirname(linkPath)).hasAccess(W_OK, this)) {
+    if (checkAccess && !statSync(dirname(linkPath)).hasAccess(W_OK, this)) {
       throw ErrnoError.With("EACCES", dirname(linkPath), "link");
     }
     const { fs, path } = resolveMount(targetPath, this);
@@ -14006,7 +14103,7 @@
       throw ErrnoError.With("EXDEV", linkPath, "link");
     }
     try {
-      if (config.checkAccess && !fs.statSync(path).hasAccess(R_OK, this)) {
+      if (checkAccess && !hasAccess(this, fs.statSync(path), R_OK)) {
         throw ErrnoError.With("EACCES", path, "link");
       }
       return fs.linkSync(path, link3.path);
@@ -14015,15 +14112,21 @@
     }
   }
   function symlinkSync(target, path, type = "file") {
-    if (!["file", "dir", "junction"].includes(type)) {
-      throw new ErrnoError(Errno.EINVAL, "Invalid type: " + type);
+    const env_5 = { stack: [], error: void 0, hasError: false };
+    try {
+      if (!["file", "dir", "junction"].includes(type)) {
+        throw new ErrnoError(Errno.EINVAL, "Invalid type: " + type);
+      }
+      path = normalizePath(path);
+      const file = __addDisposableResource2(env_5, _openSync.call(this, path, { flag: "wx", mode: 420 }), false);
+      file.write(encodeUTF8(normalizePath(target, true)));
+      file.chmod(S_IFLNK);
+    } catch (e_5) {
+      env_5.error = e_5;
+      env_5.hasError = true;
+    } finally {
+      __disposeResources2(env_5);
     }
-    if (existsSync.call(this, path)) {
-      throw ErrnoError.With("EEXIST", path.toString(), "symlink");
-    }
-    writeFileSync.call(this, path, normalizePath(target, true));
-    const file = _openSync.call(this, path, { flag: "r+", mode: 420, preserveSymlinks: true });
-    file.chmodSync(S_IFLNK);
   }
   function readlinkSync(path, options) {
     const value = import_buffer4.Buffer.from(_readFileSync.call(this, path, "r", true));
@@ -14035,33 +14138,33 @@
   }
   function chownSync(path, uid, gid) {
     const fd = openSync.call(this, path, "r+");
-    fchownSync(fd, uid, gid);
-    closeSync(fd);
+    fchownSync.call(this, fd, uid, gid);
+    closeSync.call(this, fd);
   }
   function lchownSync(path, uid, gid) {
     const fd = lopenSync.call(this, path, "r+");
-    fchownSync(fd, uid, gid);
-    closeSync(fd);
+    fchownSync.call(this, fd, uid, gid);
+    closeSync.call(this, fd);
   }
   function chmodSync(path, mode) {
     const fd = openSync.call(this, path, "r+");
-    fchmodSync(fd, mode);
-    closeSync(fd);
+    fchmodSync.call(this, fd, mode);
+    closeSync.call(this, fd);
   }
   function lchmodSync(path, mode) {
     const fd = lopenSync.call(this, path, "r+");
-    fchmodSync(fd, mode);
-    closeSync(fd);
+    fchmodSync.call(this, fd, mode);
+    closeSync.call(this, fd);
   }
   function utimesSync(path, atime, mtime) {
     const fd = openSync.call(this, path, "r+");
-    futimesSync(fd, atime, mtime);
-    closeSync(fd);
+    futimesSync.call(this, fd, atime, mtime);
+    closeSync.call(this, fd);
   }
   function lutimesSync(path, atime, mtime) {
     const fd = lopenSync.call(this, path, "r+");
-    futimesSync(fd, atime, mtime);
-    closeSync(fd);
+    futimesSync.call(this, fd, atime, mtime);
+    closeSync.call(this, fd);
   }
   function _resolveSync($, path, preserveSymlinks) {
     if (preserveSymlinks) {
@@ -14072,10 +14175,10 @@
     try {
       const resolved2 = resolveMount(path, $);
       const stats = resolved2.fs.statSync(resolved2.path);
-      if (!stats.isSymbolicLink()) {
+      if (!isSymbolicLink(stats)) {
         return { ...resolved2, fullPath: path, stats };
       }
-      const target = resolve(dirname(path), readlinkSync.call($, path).toString());
+      const target = resolve.call($, dirname(path), readlinkSync.call($, path).toString());
       return _resolveSync($, target);
     } catch {
     }
@@ -14085,10 +14188,10 @@
     const resolved = resolveMount(maybePath, $);
     try {
       const stats = resolved.fs.statSync(resolved.path);
-      if (!stats.isSymbolicLink()) {
+      if (!isSymbolicLink(stats)) {
         return { ...resolved, fullPath: maybePath, stats };
       }
-      const target = resolve(realDir, readlinkSync.call($, maybePath).toString());
+      const target = resolve.call($, realDir, readlinkSync.call($, maybePath).toString());
       return _resolveSync($, target);
     } catch (e) {
       if (e.code == "ENOENT") {
@@ -14110,9 +14213,9 @@
     return buf.toString(encoding);
   }
   function accessSync(path, mode = 384) {
-    if (!config.checkAccess)
+    if (!checkAccess)
       return;
-    if (!statSync.call(this, path).hasAccess(mode, this)) {
+    if (!hasAccess(this, statSync.call(this, path), mode)) {
       throw new ErrnoError(Errno.EACCES);
     }
   }
@@ -14165,18 +14268,18 @@
     emitChange(this, "rename", destination.toString());
   }
   function readvSync(fd, buffers, position) {
-    const file = fd2file(fd);
+    const file = fromFD(this, fd);
     let bytesRead = 0;
     for (const buffer of buffers) {
-      bytesRead += file.readSync(buffer, 0, buffer.byteLength, position + bytesRead);
+      bytesRead += file.read(buffer, 0, buffer.byteLength, position + bytesRead);
     }
     return bytesRead;
   }
   function writevSync(fd, buffers, position) {
-    const file = fd2file(fd);
+    const file = fromFD(this, fd);
     let bytesWritten = 0;
     for (const buffer of buffers) {
-      bytesWritten += file.writeSync(new Uint8Array(buffer.buffer), 0, buffer.byteLength, position + bytesWritten);
+      bytesWritten += file.write(new Uint8Array(buffer.buffer), 0, buffer.byteLength, position + bytesWritten);
     }
     return bytesWritten;
   }
@@ -14224,10 +14327,10 @@
     const { fs } = resolveMount(path, this);
     return _statfs(fs, options === null || options === void 0 ? void 0 : options.bigint);
   }
-  function globSync(pattern, options = {}) {
-    pattern = Array.isArray(pattern) ? pattern : [pattern];
-    const { cwd: cwd2 = "/", withFileTypes = false, exclude = () => false } = options;
-    const regexPatterns = pattern.map((p) => {
+  function globSync(pattern2, options = {}) {
+    pattern2 = Array.isArray(pattern2) ? pattern2 : [pattern2];
+    const { cwd = "/", withFileTypes = false, exclude = () => false } = options;
+    const regexPatterns = pattern2.map((p) => {
       p = p.replace(/([.?+^$(){}|[\]/])/g, "\\$1").replace(/\*\*/g, ".*").replace(/\*/g, "[^/]*").replace(/\?/g, ".");
       return new RegExp(`^${p}$`);
     });
@@ -14238,19 +14341,19 @@
         const fullPath = withFileTypes ? entry.path : dir + "/" + entry;
         if (exclude(withFileTypes ? entry : fullPath))
           continue;
-        if (statSync(fullPath).isDirectory() && regexPatterns.some((pattern2) => pattern2.source.includes(".*"))) {
+        if (statSync(fullPath).isDirectory() && regexPatterns.some((pattern3) => pattern3.source.includes(".*"))) {
           recursiveList(fullPath);
         }
-        if (regexPatterns.some((pattern2) => pattern2.test(fullPath.replace(/^\/+/g, "")))) {
+        if (regexPatterns.some((pattern3) => pattern3.test(fullPath.replace(/^\/+/g, "")))) {
           results.push(withFileTypes ? entry.path : fullPath.replace(/^\/+/g, ""));
         }
       }
     }
-    recursiveList(cwd2);
+    recursiveList(cwd);
     return results;
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/dir.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/dir.js
   var Dirent = class {
     get name() {
       return basename(this.path);
@@ -14263,25 +14366,25 @@
       return this.path;
     }
     isFile() {
-      return this.stats.isFile();
+      return isFile(this.stats);
     }
     isDirectory() {
-      return this.stats.isDirectory();
+      return isDirectory(this.stats);
     }
     isBlockDevice() {
-      return this.stats.isBlockDevice();
+      return isBlockDevice(this.stats);
     }
     isCharacterDevice() {
-      return this.stats.isCharacterDevice();
+      return isCharacterDevice(this.stats);
     }
     isSymbolicLink() {
-      return this.stats.isSymbolicLink();
+      return isSymbolicLink(this.stats);
     }
     isFIFO() {
-      return this.stats.isFIFO();
+      return isFIFO(this.stats);
     }
     isSocket() {
-      return this.stats.isSocket();
+      return isSocket(this.stats);
     }
   };
   var Dir = class {
@@ -14357,7 +14460,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/streams.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/streams.js
   var import_readable_stream = __toESM(require_browser3(), 1);
   var ReadStream = class extends import_readable_stream.Readable {
     constructor(opts = {}, handleOrPromise) {
@@ -14366,26 +14469,30 @@
       this.pending = true;
       this._path = "<unknown>";
       this._bytesRead = 0;
-      Promise.resolve(handleOrPromise).then(({ file }) => {
-        this._path = file.path;
-        const internal = file.streamRead({ start: opts.start, end: opts.end });
+      this.ready = Promise.resolve(handleOrPromise).then((handle) => {
+        this._path = handle.path;
+        const internal = handle.readableWebStream({ start: opts.start, end: opts.end });
         this.reader = internal.getReader();
         this.pending = false;
-        return this._read();
-      }).catch((err2) => this.destroy(err2));
+      }).catch((err2) => {
+        this.destroy(err2);
+      });
     }
     async _read() {
-      if (!this.reader)
-        return;
-      const { done, value } = await this.reader.read();
-      if (done) {
-        this.push(null);
-        return;
+      try {
+        await this.ready;
+        if (!this.reader)
+          return;
+        const { done, value } = await this.reader.read();
+        if (done) {
+          this.push(null);
+          return;
+        }
+        this._bytesRead += value.byteLength;
+        this.push(value);
+      } catch (err2) {
+        this.destroy(new ErrnoError(Errno.EIO, err2.toString()));
       }
-      this._bytesRead += value.byteLength;
-      if (!this.push(value))
-        return;
-      await this._read();
     }
     close(callback = () => null) {
       try {
@@ -14413,9 +14520,9 @@
       this.pending = true;
       this._path = "<unknown>";
       this._bytesWritten = 0;
-      this.ready = Promise.resolve(handleOrPromise).then(({ file }) => {
-        this._path = file.path;
-        const internal = file.streamWrite({ start: opts.start });
+      this.ready = Promise.resolve(handleOrPromise).then((handle) => {
+        this._path = handle.path;
+        const internal = handle.writableWebStream({ start: opts.start });
         this.writer = internal.getWriter();
         this.pending = false;
       }).catch((err2) => this.destroy(err2));
@@ -14463,8 +14570,8 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/promises.js
-  var __addDisposableResource4 = function(env, value, async) {
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/promises.js
+  var __addDisposableResource3 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
       var dispose, inner;
@@ -14491,7 +14598,7 @@
     }
     return value;
   };
-  var __disposeResources4 = /* @__PURE__ */ function(SuppressedError2) {
+  var __disposeResources3 = /* @__PURE__ */ function(SuppressedError2) {
     return function(env) {
       function fail(e) {
         env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
@@ -14523,21 +14630,46 @@
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
   });
   var FileHandle = class {
-    constructor(fdOrFile, context) {
+    /**
+     * Get the current file position.
+     *
+     * We emulate the following bug mentioned in the Node documentation:
+     *
+     * On Linux, positional writes don't work when the file is opened in append mode.
+     * The kernel ignores the position argument and always appends the data to the end of the file.
+     * @returns The current file position.
+     */
+    get position() {
+      return this.flag & O_APPEND ? this.inode.size : this._position;
+    }
+    set position(value) {
+      this._position = value;
+    }
+    constructor(context, fd) {
       this.context = context;
-      const isFile = typeof fdOrFile != "number";
-      this.fd = isFile ? file2fd(fdOrFile) : fdOrFile;
-      this.file = isFile ? fdOrFile : fd2file(fdOrFile);
+      this.fd = fd;
+      this._position = 0;
+      this.dirty = false;
+      this.closed = false;
+      const sync = fromFD(context, fd);
+      Object.assign(this, pick(sync, "path", "fs", "internalPath", "flag", "inode"));
+    }
+    get _isSync() {
+      return !!(this.flag & O_SYNC || this.inode.flags & InodeFlags.Sync);
     }
     _emitChange() {
-      var _a2, _b2, _c2;
-      emitChange(this.context, "change", this.file.path.slice((_c2 = (_b2 = (_a2 = this.context) === null || _a2 === void 0 ? void 0 : _a2.root) === null || _b2 === void 0 ? void 0 : _b2.length) !== null && _c2 !== void 0 ? _c2 : 0));
+      emitChange(this.context, "change", this.path);
     }
     /**
      * Asynchronous fchown(2) - Change ownership of a file.
      */
     async chown(uid, gid) {
-      await this.file.chown(uid, gid);
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "chown");
+      this.dirty = true;
+      _chown(this.inode, uid, gid);
+      if (this._isSync)
+        await this.sync();
       this._emitChange();
     }
     /**
@@ -14548,30 +14680,49 @@
       const numMode = normalizeMode(mode, -1);
       if (numMode < 0)
         throw new ErrnoError(Errno.EINVAL, "Invalid mode");
-      await this.file.chmod(numMode);
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "chmod");
+      this.dirty = true;
+      this.inode.mode = this.inode.mode & (numMode > S_IFMT ? ~S_IFMT : S_IFMT) | numMode;
+      if (this._isSync || numMode > S_IFMT)
+        await this.sync();
       this._emitChange();
     }
     /**
      * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
      */
     datasync() {
-      return this.file.datasync();
+      return this.sync();
     }
     /**
      * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
      */
-    sync() {
-      return this.file.sync();
+    async sync() {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "sync");
+      if (!this.dirty)
+        return;
+      if (!this.fs.attributes.has("no_write"))
+        await this.fs.touch(this.internalPath, this.inode);
+      this.dirty = false;
     }
     /**
      * Asynchronous ftruncate(2) - Truncate a file to a specified length.
      * @param length If not specified, defaults to `0`.
      */
-    async truncate(length) {
-      length || (length = 0);
+    async truncate(length = 0) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "truncate");
       if (length < 0)
         throw new ErrnoError(Errno.EINVAL);
-      await this.file.truncate(length);
+      this.dirty = true;
+      if (!(this.flag & O_WRONLY || this.flag & O_RDWR)) {
+        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode", this.path, "truncate");
+      }
+      this.inode.mtimeMs = Date.now();
+      this.inode.size = length;
+      if (this._isSync)
+        await this.sync();
       this._emitChange();
     }
     /**
@@ -14580,7 +14731,13 @@
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
     async utimes(atime, mtime) {
-      await this.file.utimes(normalizeTime(atime), normalizeTime(mtime));
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "utimes");
+      this.dirty = true;
+      this.inode.atimeMs = normalizeTime(atime);
+      this.inode.mtimeMs = normalizeTime(mtime);
+      if (this._isSync)
+        await this.sync();
       this._emitChange();
     }
     /**
@@ -14594,16 +14751,44 @@
      */
     async appendFile(data, _options = {}) {
       const options = normalizeOptions(_options, "utf8", "a", 420);
-      const flag = parseFlag(options.flag);
-      if (!isAppendable(flag)) {
+      const flag = parse2(options.flag);
+      if (!(flag & O_APPEND)) {
         throw new ErrnoError(Errno.EINVAL, "Flag passed to appendFile must allow for appending");
       }
       if (typeof data != "string" && !options.encoding) {
         throw new ErrnoError(Errno.EINVAL, "Encoding not specified");
       }
       const encodedData = typeof data == "string" ? import_buffer5.Buffer.from(data, options.encoding) : data;
-      await this.file.write(encodedData, 0, encodedData.length);
+      await this._write(encodedData, 0, encodedData.length);
       this._emitChange();
+    }
+    /**
+     * Read data from the file.
+     * @param buffer The buffer that the data will be written to.
+     * @param offset The offset within the buffer where writing will start.
+     * @param length An integer specifying the number of bytes to read.
+     * @param position An integer specifying where to begin reading from in the file.
+     * If position is unset, data will be read from the current file position.
+     */
+    async _read(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "read");
+      if (this.flag & O_WRONLY)
+        throw new ErrnoError(Errno.EPERM, "File not opened with a readable mode");
+      if (!(this.inode.flags & InodeFlags.NoAtime)) {
+        this.dirty = true;
+        this.inode.atimeMs = Date.now();
+      }
+      let end = position + length;
+      if (!isCharacterDevice(this.inode) && !isBlockDevice(this.inode) && end > this.inode.size) {
+        end = position + Math.max(this.inode.size - position, 0);
+      }
+      this._position = end;
+      const uint8 = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+      await this.fs.read(this.internalPath, uint8.subarray(offset, offset + length), position, end);
+      if (this._isSync)
+        await this.sync();
+      return { bytesRead: end - position, buffer };
     }
     async read(buffer, offset, length, position) {
       if (typeof offset == "object" && offset != null) {
@@ -14617,19 +14802,19 @@
         offset = buffer.offset;
         buffer = buffer.buffer;
       }
-      const pos = Number.isSafeInteger(position) ? position : this.file.position;
-      buffer || (buffer = new Uint8Array((await this.file.stat()).size));
+      const pos = Number.isSafeInteger(position) ? position : this.position;
+      buffer || (buffer = new Uint8Array(this.inode.size));
       offset !== null && offset !== void 0 ? offset : offset = 0;
-      return this.file.read(buffer, offset, length !== null && length !== void 0 ? length : buffer.byteLength - offset, pos);
+      return this._read(buffer, offset, length !== null && length !== void 0 ? length : buffer.byteLength - offset, pos);
     }
     async readFile(_options) {
       const options = normalizeOptions(_options, null, "r", 292);
-      const flag = parseFlag(options.flag);
-      if (!isReadable(flag)) {
-        throw new ErrnoError(Errno.EINVAL, "Flag passed must allow for reading");
+      const flag = parse2(options.flag);
+      if (flag & O_WRONLY) {
+        throw new ErrnoError(Errno.EINVAL, "Flag passed must allow for reading", this.path, "readFile");
       }
       const { size } = await this.stat();
-      const { buffer: data } = await this.file.read(new Uint8Array(size), 0, size, 0);
+      const { buffer: data } = await this._read(new Uint8Array(size), 0, size, 0);
       const buffer = import_buffer5.Buffer.from(data);
       return options.encoding ? buffer.toString(options.encoding) : buffer;
     }
@@ -14638,23 +14823,72 @@
      * The handle will not be closed automatically.
      */
     readableWebStream(options = {}) {
-      return this.file.streamRead({});
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "readableWebStream");
+      return this.fs.streamRead(this.internalPath, options);
     }
     /**
-     * @todo Implement
+     * Not part of the Node.js API!
+     *
+     * Write file data using a `WritableStream`.
+     * The handle will not be closed automatically.
+     * @internal
+     */
+    writableWebStream(options = {}) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "writableWebStream");
+      if (this.inode.flags & InodeFlags.Immutable)
+        throw new ErrnoError(Errno.EPERM, "File is immutable", this.path, "writableWebStream");
+      return this.fs.streamWrite(this.internalPath, options);
+    }
+    /**
+     * Creates a readline Interface object that allows reading the file line by line
+     * @param options Options for creating a read stream
+     * @returns A readline interface for reading the file line by line
      */
     readLines(options) {
-      throw ErrnoError.With("ENOSYS", this.file.path, "FileHandle.readLines");
+      if (this.closed || this.flag & O_WRONLY)
+        throw ErrnoError.With("EBADF", this.path, "readLines");
+      return createInterface({ input: this.createReadStream(options), crlfDelay: Infinity });
     }
     [Symbol.asyncDispose]() {
       return this.close();
     }
     async stat(opts) {
-      const stats = await this.file.stat();
-      if (config.checkAccess && !stats.hasAccess(R_OK, this.context)) {
-        throw ErrnoError.With("EACCES", this.file.path, "stat");
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "stat");
+      if (checkAccess && !hasAccess(this.context, this.inode, R_OK)) {
+        throw ErrnoError.With("EACCES", this.path, "stat");
       }
-      return (opts === null || opts === void 0 ? void 0 : opts.bigint) ? new BigIntStats(stats) : stats;
+      return (opts === null || opts === void 0 ? void 0 : opts.bigint) ? new BigIntStats(this.inode) : new Stats(this.inode);
+    }
+    /**
+     * Write buffer to the file.
+     * @param buffer Uint8Array containing the data to write to the file.
+     * @param offset Offset in the buffer to start reading data from.
+     * @param length The amount of bytes to write to the file.
+     * @param position Offset from the beginning of the file where this data should be written.
+     * If position is null, the data will be written at  the current position.
+     */
+    async _write(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "write");
+      if (this.inode.flags & InodeFlags.Immutable)
+        throw new ErrnoError(Errno.EPERM, "File is immutable", this.path, "write");
+      if (!(this.flag & O_WRONLY || this.flag & O_RDWR))
+        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode", this.path, "write");
+      this.dirty = true;
+      const end = position + length;
+      const slice = buffer.subarray(offset, offset + length);
+      if (!isCharacterDevice(this.inode) && !isBlockDevice(this.inode) && end > this.inode.size)
+        this.inode.size = end;
+      this.inode.mtimeMs = Date.now();
+      this.inode.ctimeMs = Date.now();
+      this._position = position + slice.byteLength;
+      await this.fs.write(this.internalPath, slice, position);
+      if (this._isSync)
+        await this.sync();
+      return slice.byteLength;
     }
     /**
      * Asynchronously writes `string` to the file.
@@ -14680,8 +14914,8 @@
         length = typeof lenOrEnc == "number" ? lenOrEnc : buffer.byteLength;
         position = typeof position === "number" ? position : null;
       }
-      position !== null && position !== void 0 ? position : position = this.file.position;
-      const bytesWritten = await this.file.write(buffer, offset, length, position);
+      position !== null && position !== void 0 ? position : position = this.position;
+      const bytesWritten = await this._write(buffer, offset, length, position);
       this._emitChange();
       return { buffer: data, bytesWritten };
     }
@@ -14697,23 +14931,36 @@
      */
     async writeFile(data, _options = {}) {
       const options = normalizeOptions(_options, "utf8", "w", 420);
-      const flag = parseFlag(options.flag);
-      if (!isWriteable(flag)) {
-        throw new ErrnoError(Errno.EINVAL, "Flag passed must allow for writing");
+      const flag = parse2(options.flag);
+      if (!(flag & O_WRONLY || flag & O_RDWR)) {
+        throw new ErrnoError(Errno.EINVAL, "Flag passed must allow for writing", this.path, "writeFile");
       }
       if (typeof data != "string" && !options.encoding) {
         throw new ErrnoError(Errno.EINVAL, "Encoding not specified");
       }
       const encodedData = typeof data == "string" ? import_buffer5.Buffer.from(data, options.encoding) : data;
-      await this.file.write(encodedData, 0, encodedData.length, 0);
+      await this._write(encodedData, 0, encodedData.length, 0);
       this._emitChange();
     }
     /**
      * Asynchronous close(2) - close a `FileHandle`.
      */
     async close() {
-      await this.file.close();
-      fdMap.delete(this.fd);
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "close");
+      await this.sync();
+      this.dispose();
+      deleteFD(this.context, this.fd);
+    }
+    /**
+     * Cleans up. This will *not* sync the file data to the FS
+     */
+    dispose(force) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "dispose");
+      if (this.dirty && !force)
+        throw ErrnoError.With("EBUSY", this.path, "dispose");
+      this.closed = true;
     }
     /**
      * Asynchronous `writev`. Writes from multiple buffers.
@@ -14723,7 +14970,7 @@
      */
     async writev(buffers, position) {
       if (typeof position == "number")
-        this.file.position = position;
+        this.position = position;
       let bytesWritten = 0;
       for (const buffer of buffers) {
         bytesWritten += (await this.write(buffer)).bytesWritten;
@@ -14738,7 +14985,7 @@
      */
     async readv(buffers, position) {
       if (typeof position == "number")
-        this.file.position = position;
+        this.position = position;
       let bytesRead = 0;
       for (const buffer of buffers) {
         bytesRead += (await this.read(buffer)).bytesRead;
@@ -14750,6 +14997,8 @@
      * @param options Options for the readable stream
      */
     createReadStream(options = {}) {
+      if (this.closed || this.flag & O_WRONLY)
+        throw ErrnoError.With("EBADF", this.path, "createReadStream");
       return new ReadStream(options, this);
     }
     /**
@@ -14757,6 +15006,10 @@
      * @param options Options for the writeable stream.
      */
     createWriteStream(options = {}) {
+      if (this.closed)
+        throw ErrnoError.With("EBADF", this.path, "createWriteStream");
+      if (this.inode.flags & InodeFlags.Immutable)
+        throw new ErrnoError(Errno.EPERM, "File is immutable", this.path, "createWriteStream");
       return new WriteStream(options, this);
     }
   };
@@ -14765,7 +15018,7 @@
     newPath = normalizePath(newPath);
     const src = resolveMount(oldPath, this);
     const dst = resolveMount(newPath, this);
-    if (config.checkAccess && !(await stat.call(this, dirname(oldPath))).hasAccess(W_OK, this)) {
+    if (checkAccess && !(await stat.call(this, dirname(oldPath))).hasAccess(W_OK, this)) {
       throw ErrnoError.With("EACCES", oldPath, "rename");
     }
     try {
@@ -14798,10 +15051,10 @@
     const { fs, path: resolved } = resolveMount(await realpath.call(this, path), this);
     try {
       const stats = await fs.stat(resolved);
-      if (config.checkAccess && !stats.hasAccess(R_OK, this)) {
+      if (checkAccess && !hasAccess(this, stats, R_OK)) {
         throw ErrnoError.With("EACCES", resolved, "stat");
       }
-      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : stats;
+      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
     } catch (e) {
       throw fixError(e, { [resolved]: path });
     }
@@ -14811,7 +15064,10 @@
     const { fs, path: resolved } = resolveMount(path, this);
     try {
       const stats = await fs.stat(resolved);
-      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : stats;
+      if (checkAccess && !hasAccess(this, stats, R_OK)) {
+        throw ErrnoError.With("EACCES", resolved, "lstat");
+      }
+      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
     } catch (e) {
       throw fixError(e, { [resolved]: path });
     }
@@ -14819,13 +15075,13 @@
   async function truncate(path, len = 0) {
     const env_1 = { stack: [], error: void 0, hasError: false };
     try {
-      const handle = __addDisposableResource4(env_1, await open.call(this, path, "r+"), true);
+      const handle = __addDisposableResource3(env_1, await open.call(this, path, "r+"), true);
       await handle.truncate(len);
     } catch (e_1) {
       env_1.error = e_1;
       env_1.hasError = true;
     } finally {
-      const result_1 = __disposeResources4(env_1);
+      const result_1 = __disposeResources3(env_1);
       if (result_1)
         await result_1;
     }
@@ -14834,7 +15090,7 @@
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     try {
-      if (config.checkAccess && !(await fs.stat(resolved)).hasAccess(W_OK, this)) {
+      if (checkAccess && !hasAccess(this, await fs.stat(resolved), W_OK)) {
         throw ErrnoError.With("EACCES", resolved, "unlink");
       }
       await fs.unlink(resolved);
@@ -14843,47 +15099,38 @@
       throw fixError(e, { [resolved]: path });
     }
   }
-  async function applySetId2(file, uid, gid) {
-    if (file.fs.attributes.has("setid"))
-      return;
-    const parent = await file.fs.stat(dirname(file.path));
-    await file.chown(
-      parent.mode & S_ISUID ? parent.uid : uid,
-      // manually apply setuid/setgid
-      parent.mode & S_ISGID ? parent.gid : gid
-    );
-  }
   async function _open($, path, opt) {
     var _a2;
     path = normalizePath(path);
-    const mode = normalizeMode(opt.mode, 420), flag = parseFlag(opt.flag);
+    const mode = normalizeMode(opt.mode, 420), flag = parse2(opt.flag);
     const { fullPath, fs, path: resolved, stats } = await _resolve($, path.toString(), opt.preserveSymlinks);
     if (!stats) {
-      if (!isWriteable(flag) && !isAppendable(flag) || flag == "r+") {
+      if (!(flag & O_CREAT)) {
         throw ErrnoError.With("ENOENT", fullPath, "_open");
       }
       const parentStats = await fs.stat(dirname(resolved));
-      if (config.checkAccess && !parentStats.hasAccess(W_OK, $)) {
+      if (checkAccess && !hasAccess($, parentStats, W_OK)) {
         throw ErrnoError.With("EACCES", dirname(fullPath), "_open");
       }
-      if (!parentStats.isDirectory()) {
+      if (!isDirectory(parentStats)) {
         throw ErrnoError.With("ENOTDIR", dirname(fullPath), "_open");
       }
-      const { euid: uid, egid: gid } = (_a2 = $ === null || $ === void 0 ? void 0 : $.credentials) !== null && _a2 !== void 0 ? _a2 : credentials;
-      const file = await fs.createFile(resolved, flag, mode, { uid, gid });
-      await applySetId2(file, uid, gid);
-      return new FileHandle(file, $);
+      const { euid: uid, egid: gid } = (_a2 = $ === null || $ === void 0 ? void 0 : $.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
+      const inode = await fs.createFile(resolved, {
+        mode,
+        uid: parentStats.mode & S_ISUID ? parentStats.uid : uid,
+        gid: parentStats.mode & S_ISGID ? parentStats.gid : gid
+      });
+      return new FileHandle($, toFD(new SyncHandle($, path, fs, resolved, flag, inode)));
     }
-    if (config.checkAccess && !stats.hasAccess(flagToMode(flag), $)) {
+    if (checkAccess && !hasAccess($, stats, toMode(flag))) {
       throw ErrnoError.With("EACCES", fullPath, "_open");
     }
-    if (isExclusive(flag)) {
+    if (flag & O_EXCL)
       throw ErrnoError.With("EEXIST", fullPath, "_open");
-    }
-    const handle = new FileHandle(await fs.openFile(resolved, flag), $);
-    if (isTruncating(flag)) {
+    const handle = new FileHandle($, toFD(new SyncHandle($, path, fs, resolved, flag, stats)));
+    if (flag & O_TRUNC)
       await handle.truncate(0);
-    }
     return handle;
   }
   async function open(path, flag = "r", mode = 420) {
@@ -14892,14 +15139,14 @@
   async function readFile(path, _options) {
     const env_2 = { stack: [], error: void 0, hasError: false };
     try {
-      const options = normalizeOptions(_options, null, "r", 420);
-      const handle = __addDisposableResource4(env_2, typeof path == "object" && "fd" in path ? path : await open.call(this, path, options.flag, options.mode), true);
+      const options = normalizeOptions(_options, null, "r", 292);
+      const handle = __addDisposableResource3(env_2, typeof path == "object" && "fd" in path ? path : await open.call(this, path, options.flag, options.mode), true);
       return await handle.readFile(options);
     } catch (e_2) {
       env_2.error = e_2;
       env_2.hasError = true;
     } finally {
-      const result_2 = __disposeResources4(env_2);
+      const result_2 = __disposeResources3(env_2);
       if (result_2)
         await result_2;
     }
@@ -14908,17 +15155,17 @@
     const env_3 = { stack: [], error: void 0, hasError: false };
     try {
       const options = normalizeOptions(_options, "utf8", "w+", 420);
-      const handle = __addDisposableResource4(env_3, path instanceof FileHandle ? path : await open.call(this, path.toString(), options.flag, options.mode), true);
+      const handle = __addDisposableResource3(env_3, path instanceof FileHandle ? path : await open.call(this, path.toString(), options.flag, options.mode), true);
       const _data = typeof data == "string" ? data : data instanceof DataView ? new Uint8Array(data.buffer, data.byteOffset, data.byteLength) : data;
       if (typeof _data != "string" && !(_data instanceof Uint8Array)) {
-        throw new ErrnoError(Errno.EINVAL, 'The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received ' + typeof data, handle.file.path, "writeFile");
+        throw new ErrnoError(Errno.EINVAL, 'The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received ' + typeof data, handle.path, "writeFile");
       }
       await handle.writeFile(_data, options);
     } catch (e_3) {
       env_3.error = e_3;
       env_3.hasError = true;
     } finally {
-      const result_3 = __disposeResources4(env_3);
+      const result_3 = __disposeResources3(env_3);
       if (result_3)
         await result_3;
     }
@@ -14927,21 +15174,21 @@
     const env_4 = { stack: [], error: void 0, hasError: false };
     try {
       const options = normalizeOptions(_options, "utf8", "a", 420);
-      const flag = parseFlag(options.flag);
-      if (!isAppendable(flag)) {
+      const flag = parse2(options.flag);
+      if (!(flag & O_APPEND)) {
         throw new ErrnoError(Errno.EINVAL, "Flag passed to appendFile must allow for appending");
       }
       if (typeof data != "string" && !options.encoding) {
         throw new ErrnoError(Errno.EINVAL, "Encoding not specified");
       }
       const encodedData = typeof data == "string" ? import_buffer5.Buffer.from(data, options.encoding) : new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
-      const handle = __addDisposableResource4(env_4, typeof path == "object" && "fd" in path ? path : await open.call(this, path, options.flag, options.mode), true);
+      const handle = __addDisposableResource3(env_4, typeof path == "object" && "fd" in path ? path : await open.call(this, path, options.flag, options.mode), true);
       await handle.appendFile(encodedData, options);
     } catch (e_4) {
       env_4.error = e_4;
       env_4.hasError = true;
     } finally {
-      const result_4 = __disposeResources4(env_4);
+      const result_4 = __disposeResources3(env_4);
       if (result_4)
         await result_4;
     }
@@ -14951,15 +15198,12 @@
     const { fs, path: resolved } = resolveMount(path, this);
     try {
       const stats = await fs.stat(resolved);
-      if (!stats) {
+      if (!stats)
         throw ErrnoError.With("ENOENT", path, "rmdir");
-      }
-      if (!stats.isDirectory()) {
+      if (!isDirectory(stats))
         throw ErrnoError.With("ENOTDIR", resolved, "rmdir");
-      }
-      if (config.checkAccess && !stats.hasAccess(W_OK, this)) {
+      if (checkAccess && !hasAccess(this, stats, W_OK))
         throw ErrnoError.With("EACCES", resolved, "rmdir");
-      }
       await fs.rmdir(resolved);
       emitChange(this, "rename", path.toString());
     } catch (e) {
@@ -14968,20 +15212,26 @@
   }
   async function mkdir(path, options) {
     var _a2, _b2;
-    const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : credentials;
+    const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
     options = typeof options === "object" ? options : { mode: options };
     const mode = normalizeMode(options === null || options === void 0 ? void 0 : options.mode, 511);
     path = await realpath.call(this, path);
     const { fs, path: resolved, root } = resolveMount(path, this);
     const errorPaths = { [resolved]: path };
+    const __create2 = async (path2, parent) => {
+      if (checkAccess && !hasAccess(this, parent, W_OK))
+        throw ErrnoError.With("EACCES", dirname(path2), "mkdir");
+      const inode = await fs.mkdir(path2, {
+        mode,
+        uid: parent.mode & S_ISUID ? parent.uid : uid,
+        gid: parent.mode & S_ISGID ? parent.gid : gid
+      });
+      emitChange(this, "rename", path2);
+      return inode;
+    };
     try {
       if (!(options === null || options === void 0 ? void 0 : options.recursive)) {
-        if (config.checkAccess && !(await fs.stat(dirname(resolved))).hasAccess(W_OK, this)) {
-          throw ErrnoError.With("EACCES", dirname(resolved), "mkdir");
-        }
-        await fs.mkdir(resolved, mode, { uid, gid });
-        await applySetId2(await fs.openFile(resolved, "r+"), uid, gid);
-        emitChange(this, "rename", path.toString());
+        await __create2(resolved, await fs.stat(dirname(resolved)));
         return;
       }
       const dirs = [];
@@ -14989,13 +15239,11 @@
         dirs.unshift(dir);
         errorPaths[dir] = origDir;
       }
-      for (const dir of dirs) {
-        if (config.checkAccess && !(await fs.stat(dirname(dir))).hasAccess(W_OK, this)) {
-          throw ErrnoError.With("EACCES", dirname(dir), "mkdir");
-        }
-        await fs.mkdir(dir, mode, { uid, gid });
-        await applySetId2(await fs.openFile(dir, "r+"), uid, gid);
-        emitChange(this, "rename", dir);
+      if (!dirs.length)
+        return;
+      const stats = [await fs.stat(dirname(dirs[0]))];
+      for (const [i, dir] of dirs.entries()) {
+        stats.push(await __create2(dir, stats[i]));
       }
       return root.length == 1 ? dirs[0] : (_b2 = dirs[0]) === null || _b2 === void 0 ? void 0 : _b2.slice(root.length);
     } catch (e) {
@@ -15010,12 +15258,10 @@
     if (!stats) {
       throw ErrnoError.With("ENOENT", path, "readdir");
     }
-    if (config.checkAccess && !stats.hasAccess(R_OK, this)) {
+    if (checkAccess && !hasAccess(this, stats, R_OK))
       throw ErrnoError.With("EACCES", path, "readdir");
-    }
-    if (!stats.isDirectory()) {
+    if (!isDirectory(stats))
       throw ErrnoError.With("ENOTDIR", path, "readdir");
-    }
     const entries2 = await fs.readdir(resolved).catch((e) => _throw(fixError(e, { [resolved]: path })));
     const values = [];
     const addEntry = async (entry) => {
@@ -15036,7 +15282,7 @@
       } else {
         values.push(entry);
       }
-      if (!(options === null || options === void 0 ? void 0 : options.recursive) || !(entryStats === null || entryStats === void 0 ? void 0 : entryStats.isDirectory()))
+      if (!(options === null || options === void 0 ? void 0 : options.recursive) || !isDirectory(entryStats))
         return;
       for (const subEntry of await readdir.call(this, join(path, entry), options)) {
         if (subEntry instanceof Dirent) {
@@ -15061,13 +15307,13 @@
       throw ErrnoError.With("EXDEV", linkPath, "link");
     }
     try {
-      if (config.checkAccess && !(await fs.stat(dirname(targetPath))).hasAccess(R_OK, this)) {
+      if (checkAccess && !hasAccess(this, await fs.stat(dirname(path)), R_OK)) {
         throw ErrnoError.With("EACCES", dirname(path), "link");
       }
-      if (config.checkAccess && !(await stat.call(this, dirname(linkPath))).hasAccess(W_OK, this)) {
+      if (checkAccess && !(await stat.call(this, dirname(linkPath))).hasAccess(W_OK, this)) {
         throw ErrnoError.With("EACCES", dirname(linkPath), "link");
       }
-      if (config.checkAccess && !(await fs.stat(path)).hasAccess(R_OK, this)) {
+      if (checkAccess && !hasAccess(this, await fs.stat(path), R_OK)) {
         throw ErrnoError.With("EACCES", path, "link");
       }
       return await fs.link(path, link3.path);
@@ -15084,14 +15330,14 @@
       path = normalizePath(path);
       if (await exists.call(this, path))
         throw ErrnoError.With("EEXIST", path, "symlink");
-      const handle = __addDisposableResource4(env_5, await _open(this, path, { flag: "w+", mode: 420, preserveSymlinks: true }), true);
+      const handle = __addDisposableResource3(env_5, await _open(this, path, { flag: "w+", mode: 420, preserveSymlinks: true }), true);
       await handle.writeFile(normalizePath(target, true));
-      await handle.file.chmod(S_IFLNK);
+      await handle.chmod(S_IFLNK);
     } catch (e_5) {
       env_5.error = e_5;
       env_5.hasError = true;
     } finally {
-      const result_5 = __disposeResources4(env_5);
+      const result_5 = __disposeResources3(env_5);
       if (result_5)
         await result_5;
     }
@@ -15099,7 +15345,7 @@
   async function readlink(path, options) {
     const env_6 = { stack: [], error: void 0, hasError: false };
     try {
-      const handle = __addDisposableResource4(env_6, await _open(this, normalizePath(path), { flag: "r", mode: 420, preserveSymlinks: true }), true);
+      const handle = __addDisposableResource3(env_6, await _open(this, normalizePath(path), { flag: "r", mode: 420, preserveSymlinks: true }), true);
       const value = await handle.readFile();
       const encoding = typeof options == "object" ? options === null || options === void 0 ? void 0 : options.encoding : options;
       return encoding == "buffer" ? value : value.toString(encoding !== null && encoding !== void 0 ? encoding : "utf-8");
@@ -15107,7 +15353,7 @@
       env_6.error = e_6;
       env_6.hasError = true;
     } finally {
-      const result_6 = __disposeResources4(env_6);
+      const result_6 = __disposeResources3(env_6);
       if (result_6)
         await result_6;
     }
@@ -15115,13 +15361,13 @@
   async function chown(path, uid, gid) {
     const env_7 = { stack: [], error: void 0, hasError: false };
     try {
-      const handle = __addDisposableResource4(env_7, await open.call(this, path, "r+"), true);
+      const handle = __addDisposableResource3(env_7, await open.call(this, path, "r+"), true);
       await handle.chown(uid, gid);
     } catch (e_7) {
       env_7.error = e_7;
       env_7.hasError = true;
     } finally {
-      const result_7 = __disposeResources4(env_7);
+      const result_7 = __disposeResources3(env_7);
       if (result_7)
         await result_7;
     }
@@ -15129,7 +15375,7 @@
   async function lchown(path, uid, gid) {
     const env_8 = { stack: [], error: void 0, hasError: false };
     try {
-      const handle = __addDisposableResource4(env_8, await _open(this, path, {
+      const handle = __addDisposableResource3(env_8, await _open(this, path, {
         flag: "r+",
         mode: 420,
         preserveSymlinks: true,
@@ -15140,7 +15386,7 @@
       env_8.error = e_8;
       env_8.hasError = true;
     } finally {
-      const result_8 = __disposeResources4(env_8);
+      const result_8 = __disposeResources3(env_8);
       if (result_8)
         await result_8;
     }
@@ -15148,13 +15394,13 @@
   async function chmod(path, mode) {
     const env_9 = { stack: [], error: void 0, hasError: false };
     try {
-      const handle = __addDisposableResource4(env_9, await open.call(this, path, "r+"), true);
+      const handle = __addDisposableResource3(env_9, await open.call(this, path, "r+"), true);
       await handle.chmod(mode);
     } catch (e_9) {
       env_9.error = e_9;
       env_9.hasError = true;
     } finally {
-      const result_9 = __disposeResources4(env_9);
+      const result_9 = __disposeResources3(env_9);
       if (result_9)
         await result_9;
     }
@@ -15162,7 +15408,7 @@
   async function lchmod(path, mode) {
     const env_10 = { stack: [], error: void 0, hasError: false };
     try {
-      const handle = __addDisposableResource4(env_10, await _open(this, path, {
+      const handle = __addDisposableResource3(env_10, await _open(this, path, {
         flag: "r+",
         mode: 420,
         preserveSymlinks: true,
@@ -15173,7 +15419,7 @@
       env_10.error = e_10;
       env_10.hasError = true;
     } finally {
-      const result_10 = __disposeResources4(env_10);
+      const result_10 = __disposeResources3(env_10);
       if (result_10)
         await result_10;
     }
@@ -15181,13 +15427,13 @@
   async function utimes(path, atime, mtime) {
     const env_11 = { stack: [], error: void 0, hasError: false };
     try {
-      const handle = __addDisposableResource4(env_11, await open.call(this, path, "r+"), true);
+      const handle = __addDisposableResource3(env_11, await open.call(this, path, "r+"), true);
       await handle.utimes(atime, mtime);
     } catch (e_11) {
       env_11.error = e_11;
       env_11.hasError = true;
     } finally {
-      const result_11 = __disposeResources4(env_11);
+      const result_11 = __disposeResources3(env_11);
       if (result_11)
         await result_11;
     }
@@ -15195,7 +15441,7 @@
   async function lutimes(path, atime, mtime) {
     const env_12 = { stack: [], error: void 0, hasError: false };
     try {
-      const handle = __addDisposableResource4(env_12, await _open(this, path, {
+      const handle = __addDisposableResource3(env_12, await _open(this, path, {
         flag: "r+",
         mode: 420,
         preserveSymlinks: true,
@@ -15206,7 +15452,7 @@
       env_12.error = e_12;
       env_12.hasError = true;
     } finally {
-      const result_12 = __disposeResources4(env_12);
+      const result_12 = __disposeResources3(env_12);
       if (result_12)
         await result_12;
     }
@@ -15220,10 +15466,10 @@
     try {
       const resolved2 = resolveMount(path, $);
       const stats = await resolved2.fs.stat(resolved2.path);
-      if (!stats.isSymbolicLink()) {
+      if (!isSymbolicLink(stats)) {
         return { ...resolved2, fullPath: path, stats };
       }
-      const target = resolve(dirname(path), (await readlink.call($, path)).toString());
+      const target = resolve.call($, dirname(path), (await readlink.call($, path)).toString());
       return await _resolve($, target);
     } catch {
     }
@@ -15233,10 +15479,10 @@
     const resolved = resolveMount(maybePath, $);
     try {
       const stats = await resolved.fs.stat(resolved.path);
-      if (!stats.isSymbolicLink()) {
+      if (!isSymbolicLink(stats)) {
         return { ...resolved, fullPath: maybePath, stats };
       }
-      const target = resolve(realDir, (await readlink.call($, maybePath)).toString());
+      const target = resolve.call($, realDir, (await readlink.call($, maybePath)).toString());
       return await _resolve($, target);
     } catch (e) {
       if (e.code == "ENOENT") {
@@ -15293,7 +15539,7 @@
     };
   }
   async function access(path, mode = F_OK) {
-    if (!config.checkAccess)
+    if (!checkAccess)
       return;
     const stats = await stat.call(this, path);
     if (!stats.hasAccess(mode, this)) {
@@ -15398,10 +15644,10 @@
     const { fs } = resolveMount(path, this);
     return Promise.resolve(_statfs(fs, opts === null || opts === void 0 ? void 0 : opts.bigint));
   }
-  function glob(pattern, opt) {
-    pattern = Array.isArray(pattern) ? pattern : [pattern];
-    const { cwd: cwd2 = "/", withFileTypes = false, exclude = () => false } = opt || {};
-    const regexPatterns = pattern.map((p) => {
+  function glob(pattern2, opt) {
+    pattern2 = Array.isArray(pattern2) ? pattern2 : [pattern2];
+    const { cwd = "/", withFileTypes = false, exclude = () => false } = opt || {};
+    const regexPatterns = pattern2.map((p) => {
       p = p.replace(/([.?+^$(){}|[\]/])/g, "$1").replace(/\*\*/g, ".*").replace(/\*/g, "[^/]*").replace(/\?/g, ".");
       return new RegExp(`^${p}$`);
     });
@@ -15411,18 +15657,18 @@
         const fullPath = withFileTypes ? entry.path : dir + "/" + entry;
         if (exclude(withFileTypes ? entry : fullPath))
           continue;
-        if ((await stat(fullPath)).isDirectory() && regexPatterns.some((pattern2) => pattern2.source.includes(".*"))) {
+        if ((await stat(fullPath)).isDirectory() && regexPatterns.some((pattern3) => pattern3.source.includes(".*"))) {
           yield* recursiveList(fullPath);
         }
-        if (regexPatterns.some((pattern2) => pattern2.test(fullPath.replace(/^\/+/g, "")))) {
+        if (regexPatterns.some((pattern3) => pattern3.test(fullPath.replace(/^\/+/g, "")))) {
           yield withFileTypes ? entry : fullPath.replace(/^\/+/g, "");
         }
       }
     }
-    return recursiveList(cwd2);
+    return recursiveList(cwd);
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/vfs/async.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/async.js
   var nop = () => {
   };
   async function collectAsyncIterator(it) {
@@ -15474,31 +15720,29 @@
   }
   function fstat(fd, options, cb = nop) {
     cb = typeof options == "function" ? options : cb;
-    fd2file(fd).stat().then((stats) => cb(void 0, typeof options == "object" && (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : stats)).catch(cb);
+    new FileHandle(this, fd).stat().then((stats) => cb(void 0, typeof options == "object" && (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : stats)).catch(cb);
   }
   function close(fd, cb = nop) {
-    const close2 = fd2file(fd).close();
-    fdMap.delete(fd);
-    close2.then(() => cb()).catch(cb);
+    new FileHandle(this, fd).close().then(() => cb()).catch(cb);
   }
   function ftruncate(fd, lenOrCB, cb = nop) {
     const length = typeof lenOrCB === "number" ? lenOrCB : 0;
     cb = typeof lenOrCB === "function" ? lenOrCB : cb;
-    const file = fd2file(fd);
+    const file = new FileHandle(this, fd);
     if (length < 0) {
       throw new ErrnoError(Errno.EINVAL);
     }
     file.truncate(length).then(() => cb()).catch(cb);
   }
   function fsync(fd, cb = nop) {
-    fd2file(fd).sync().then(() => cb()).catch(cb);
+    new FileHandle(this, fd).sync().then(() => cb()).catch(cb);
   }
   function fdatasync(fd, cb = nop) {
-    fd2file(fd).datasync().then(() => cb()).catch(cb);
+    new FileHandle(this, fd).datasync().then(() => cb()).catch(cb);
   }
   function write(fd, data, cbPosOff, cbLenEnc, cbPosEnc, cb = nop) {
     let buffer, offset, length, position, encoding;
-    const handle = new FileHandle(fd, this);
+    const handle = new FileHandle(this, fd);
     if (typeof data === "string") {
       encoding = "utf8";
       switch (typeof cbPosOff) {
@@ -15530,16 +15774,16 @@
     }
   }
   function read(fd, buffer, offset, length, position, cb = nop) {
-    new FileHandle(fd, this).read(buffer, offset, length, position).then(({ bytesRead, buffer: buffer2 }) => cb(void 0, bytesRead, buffer2)).catch(cb);
+    new FileHandle(this, fd).read(buffer, offset, length, position).then(({ bytesRead, buffer: buffer2 }) => cb(void 0, bytesRead, buffer2)).catch(cb);
   }
   function fchown(fd, uid, gid, cb = nop) {
-    new FileHandle(fd, this).chown(uid, gid).then(() => cb()).catch(cb);
+    new FileHandle(this, fd).chown(uid, gid).then(() => cb()).catch(cb);
   }
   function fchmod(fd, mode, cb) {
-    new FileHandle(fd, this).chmod(mode).then(() => cb()).catch(cb);
+    new FileHandle(this, fd).chmod(mode).then(() => cb()).catch(cb);
   }
   function futimes(fd, atime, mtime, cb = nop) {
-    new FileHandle(fd, this).utimes(atime, mtime).then(() => cb()).catch(cb);
+    new FileHandle(this, fd).utimes(atime, mtime).then(() => cb()).catch(cb);
   }
   function rmdir2(path, cb = nop) {
     rmdir.call(this, path).then(() => cb()).catch(cb);
@@ -15593,7 +15837,7 @@
   }
   var statWatchers = /* @__PURE__ */ new Map();
   function watchFile(path, options, listener) {
-    const normalizedPath = normalizePath(path.toString());
+    const normalizedPath = normalizePath(path);
     const opts = typeof options != "function" ? options : {};
     if (typeof options == "function") {
       listener = options;
@@ -15621,7 +15865,7 @@
     statWatchers.set(normalizedPath, { watcher, listeners: /* @__PURE__ */ new Set() });
   }
   function unwatchFile(path, listener = nop) {
-    const normalizedPath = normalizePath(path.toString());
+    const normalizedPath = normalizePath(path);
     const entry = statWatchers.get(normalizedPath);
     if (entry) {
       if (listener && listener !== nop) {
@@ -15665,11 +15909,11 @@
   }
   function readv(fd, buffers, position, cb = nop) {
     cb = typeof position === "function" ? position : cb;
-    new FileHandle(fd, this).readv(buffers, typeof position === "function" ? void 0 : position).then(({ buffers: buffers2, bytesRead }) => cb(void 0, bytesRead, buffers2)).catch(cb);
+    new FileHandle(this, fd).readv(buffers, typeof position === "function" ? void 0 : position).then(({ buffers: buffers2, bytesRead }) => cb(void 0, bytesRead, buffers2)).catch(cb);
   }
   function writev(fd, buffers, position, cb = nop) {
     cb = typeof position === "function" ? position : cb;
-    new FileHandle(fd, this).writev(buffers, typeof position === "function" ? void 0 : position).then(({ buffers: buffers2, bytesWritten }) => cb(void 0, bytesWritten, buffers2)).catch(cb);
+    new FileHandle(this, fd).writev(buffers, typeof position === "function" ? void 0 : position).then(({ buffers: buffers2, bytesWritten }) => cb(void 0, bytesWritten, buffers2)).catch(cb);
   }
   function opendir2(path, options, cb = nop) {
     cb = typeof options === "function" ? options : cb;
@@ -15689,16 +15933,438 @@
     await handle.close();
     return new Blob([buffer], options);
   }
-  function glob2(pattern, options, callback = nop) {
+  function glob2(pattern2, options, callback = nop) {
     callback = typeof options == "function" ? options : callback;
-    const it = glob.call(this, pattern, typeof options === "function" ? void 0 : options);
+    const it = glob.call(this, pattern2, typeof options === "function" ? void 0 : options);
     collectAsyncIterator(it).then((results) => {
       var _a2;
       return callback(null, (_a2 = results) !== null && _a2 !== void 0 ? _a2 : []);
     }).catch((e) => callback(e));
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/config.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/ioctl.js
+  var __esDecorate2 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    function accept(f) {
+      if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
+      return f;
+    }
+    var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+    var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+    var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+    var _, done = false;
+    for (var i = decorators.length - 1; i >= 0; i--) {
+      var context = {};
+      for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
+      for (var p in contextIn.access) context.access[p] = contextIn.access[p];
+      context.addInitializer = function(f) {
+        if (done) throw new TypeError("Cannot add initializers after decoration has completed");
+        extraInitializers.push(accept(f || null));
+      };
+      var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+      if (kind === "accessor") {
+        if (result === void 0) continue;
+        if (result === null || typeof result !== "object") throw new TypeError("Object expected");
+        if (_ = accept(result.get)) descriptor.get = _;
+        if (_ = accept(result.set)) descriptor.set = _;
+        if (_ = accept(result.init)) initializers.unshift(_);
+      } else if (_ = accept(result)) {
+        if (kind === "field") initializers.unshift(_);
+        else descriptor[key] = _;
+      }
+    }
+    if (target) Object.defineProperty(target, contextIn.name, descriptor);
+    done = true;
+  };
+  var __runInitializers2 = function(thisArg, initializers, value) {
+    var useValue = arguments.length > 2;
+    for (var i = 0; i < initializers.length; i++) {
+      value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+    }
+    return useValue ? value : void 0;
+  };
+  var __setFunctionName2 = function(f, name, prefix) {
+    if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
+    return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
+  };
+  var XFlag;
+  (function(XFlag2) {
+    XFlag2[XFlag2["RealTime"] = 1] = "RealTime";
+    XFlag2[XFlag2["PreAlloc"] = 2] = "PreAlloc";
+    XFlag2[XFlag2["Immutable"] = 8] = "Immutable";
+    XFlag2[XFlag2["Append"] = 16] = "Append";
+    XFlag2[XFlag2["Sync"] = 32] = "Sync";
+    XFlag2[XFlag2["NoAtime"] = 64] = "NoAtime";
+    XFlag2[XFlag2["NoDump"] = 128] = "NoDump";
+    XFlag2[XFlag2["RtInherit"] = 256] = "RtInherit";
+    XFlag2[XFlag2["ProjInherit"] = 512] = "ProjInherit";
+    XFlag2[XFlag2["NoSymlinks"] = 1024] = "NoSymlinks";
+    XFlag2[XFlag2["ExtSize"] = 2048] = "ExtSize";
+    XFlag2[XFlag2["ExtSzInherit"] = 4096] = "ExtSzInherit";
+    XFlag2[XFlag2["NoDefrag"] = 8192] = "NoDefrag";
+    XFlag2[XFlag2["FileStream"] = 16384] = "FileStream";
+    XFlag2[XFlag2["Dax"] = 32768] = "Dax";
+    XFlag2[XFlag2["CowExtSize"] = 65536] = "CowExtSize";
+    XFlag2[XFlag2["HasAttr"] = 2147483648] = "HasAttr";
+  })(XFlag || (XFlag = {}));
+  var fsxattr = (() => {
+    var _a2, _b2, _c2, _d, _e;
+    let _classDecorators = [struct()];
+    let _classDescriptor;
+    let _classExtraInitializers = [];
+    let _classThis;
+    let _xflags_decorators;
+    let _xflags_initializers = [];
+    let _xflags_extraInitializers = [];
+    let _extsize_decorators;
+    let _extsize_initializers = [];
+    let _extsize_extraInitializers = [];
+    let _nextents_decorators;
+    let _nextents_initializers = [];
+    let _nextents_extraInitializers = [];
+    let _projid_decorators;
+    let _projid_initializers = [];
+    let _projid_extraInitializers = [];
+    let _cowextsize_decorators;
+    let _cowextsize_initializers = [];
+    let _cowextsize_extraInitializers = [];
+    let _pad_decorators;
+    let _pad_initializers = [];
+    let _pad_extraInitializers = [];
+    var fsxattr2 = _classThis = class {
+      constructor(inode = _throw(new ErrnoError(Errno.EINVAL, "fsxattr must be initialized with an inode"))) {
+        this.xflags = __runInitializers2(this, _xflags_initializers, 0);
+        this.extsize = (__runInitializers2(this, _xflags_extraInitializers), __runInitializers2(this, _extsize_initializers, 0));
+        this.nextents = (__runInitializers2(this, _extsize_extraInitializers), __runInitializers2(this, _nextents_initializers, 0));
+        this.projid = (__runInitializers2(this, _nextents_extraInitializers), __runInitializers2(this, _projid_initializers, 0));
+        this.cowextsize = (__runInitializers2(this, _projid_extraInitializers), __runInitializers2(this, _cowextsize_initializers, 0));
+        this.pad = (__runInitializers2(this, _cowextsize_extraInitializers), __runInitializers2(this, _pad_initializers, []));
+        __runInitializers2(this, _pad_extraInitializers);
+        this.extsize = inode.size;
+        this.nextents = 1;
+        this.projid = inode.uid;
+        this.cowextsize = inode.size;
+        for (const name of Object.keys(InodeFlags)) {
+          if (!(inode.flags & InodeFlags[name]))
+            continue;
+          if (name in XFlag)
+            this.xflags |= XFlag[name];
+        }
+      }
+    };
+    __setFunctionName2(_classThis, "fsxattr");
+    (() => {
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
+      _xflags_decorators = [(_a2 = types).uint32.bind(_a2)];
+      _extsize_decorators = [(_b2 = types).uint32.bind(_b2)];
+      _nextents_decorators = [(_c2 = types).uint32.bind(_c2)];
+      _projid_decorators = [(_d = types).uint32.bind(_d)];
+      _cowextsize_decorators = [(_e = types).uint32.bind(_e)];
+      _pad_decorators = [types.char(8)];
+      __esDecorate2(null, null, _xflags_decorators, { kind: "field", name: "xflags", static: false, private: false, access: { has: (obj) => "xflags" in obj, get: (obj) => obj.xflags, set: (obj, value) => {
+        obj.xflags = value;
+      } }, metadata: _metadata }, _xflags_initializers, _xflags_extraInitializers);
+      __esDecorate2(null, null, _extsize_decorators, { kind: "field", name: "extsize", static: false, private: false, access: { has: (obj) => "extsize" in obj, get: (obj) => obj.extsize, set: (obj, value) => {
+        obj.extsize = value;
+      } }, metadata: _metadata }, _extsize_initializers, _extsize_extraInitializers);
+      __esDecorate2(null, null, _nextents_decorators, { kind: "field", name: "nextents", static: false, private: false, access: { has: (obj) => "nextents" in obj, get: (obj) => obj.nextents, set: (obj, value) => {
+        obj.nextents = value;
+      } }, metadata: _metadata }, _nextents_initializers, _nextents_extraInitializers);
+      __esDecorate2(null, null, _projid_decorators, { kind: "field", name: "projid", static: false, private: false, access: { has: (obj) => "projid" in obj, get: (obj) => obj.projid, set: (obj, value) => {
+        obj.projid = value;
+      } }, metadata: _metadata }, _projid_initializers, _projid_extraInitializers);
+      __esDecorate2(null, null, _cowextsize_decorators, { kind: "field", name: "cowextsize", static: false, private: false, access: { has: (obj) => "cowextsize" in obj, get: (obj) => obj.cowextsize, set: (obj, value) => {
+        obj.cowextsize = value;
+      } }, metadata: _metadata }, _cowextsize_initializers, _cowextsize_extraInitializers);
+      __esDecorate2(null, null, _pad_decorators, { kind: "field", name: "pad", static: false, private: false, access: { has: (obj) => "pad" in obj, get: (obj) => obj.pad, set: (obj, value) => {
+        obj.pad = value;
+      } }, metadata: _metadata }, _pad_initializers, _pad_extraInitializers);
+      __esDecorate2(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+      fsxattr2 = _classThis = _classDescriptor.value;
+      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+      __runInitializers2(_classThis, _classExtraInitializers);
+    })();
+    return fsxattr2 = _classThis;
+  })();
+  var IOC;
+  (function(IOC2) {
+    IOC2[IOC2["GetFlags"] = 2148034049] = "GetFlags";
+    IOC2[IOC2["SetFlags"] = 1074292226] = "SetFlags";
+    IOC2[IOC2["GetVersion"] = 2148038145] = "GetVersion";
+    IOC2[IOC2["SetVersion"] = 1074296322] = "SetVersion";
+    IOC2[IOC2["Fiemap"] = 3223348747] = "Fiemap";
+    IOC2[IOC2["GetXattr"] = 2149341215] = "GetXattr";
+    IOC2[IOC2["SetXattr"] = 1075599392] = "SetXattr";
+    IOC2[IOC2["GetLabel"] = 2164298801] = "GetLabel";
+    IOC2[IOC2["SetLabel"] = 1090556978] = "SetLabel";
+    IOC2[IOC2["GetUUID"] = 2148603136] = "GetUUID";
+    IOC2[IOC2["GetSysfsPath"] = 2155943169] = "GetSysfsPath";
+  })(IOC || (IOC = {}));
+  var IOC32;
+  (function(IOC322) {
+    IOC322[IOC322["GetFlags"] = 2147771905] = "GetFlags";
+    IOC322[IOC322["SetFlags"] = 1074030082] = "SetFlags";
+    IOC322[IOC322["GetVersion"] = 2147776001] = "GetVersion";
+    IOC322[IOC322["SetVersion"] = 1074034178] = "SetVersion";
+  })(IOC32 || (IOC32 = {}));
+  async function ioctl(path, command, ...args) {
+    path = normalizePath(path);
+    const { fs, path: resolved } = resolveMount(path, this);
+    try {
+      const inode = new Inode(await fs.stat(resolved));
+      switch (command) {
+        case IOC.GetFlags:
+        case IOC32.GetFlags:
+          return inode.flags;
+        case IOC.SetFlags:
+        case IOC32.SetFlags:
+          inode.flags = args[0];
+          await fs.touch(resolved, inode);
+          return void 0;
+        case IOC.GetVersion:
+        case IOC32.GetVersion:
+          return inode.version;
+        case IOC.SetVersion:
+        case IOC32.SetVersion:
+          inode.version = args[0];
+          await fs.touch(resolved, inode);
+          return void 0;
+        case IOC.Fiemap:
+          break;
+        case IOC.GetXattr:
+          return new fsxattr(inode);
+        case IOC.SetXattr:
+          break;
+        case IOC.GetLabel:
+          return fs.label;
+        case IOC.SetLabel:
+          fs.label = args[0];
+          return void 0;
+        case IOC.GetUUID:
+          return fs.uuid;
+        case IOC.GetSysfsPath:
+          return `/sys/fs/${fs.name}/${fs.uuid}`;
+      }
+    } catch (e) {
+      throw fixError(e, { [resolved]: path });
+    }
+    throw new ErrnoError(Errno.ENOTSUP, "Unsupported command: " + command, path, "ioctl");
+  }
+  function ioctlSync(path, command, ...args) {
+    path = normalizePath(path);
+    const { fs, path: resolved } = resolveMount(path, this);
+    try {
+      const inode = new Inode(fs.statSync(resolved));
+      switch (command) {
+        case IOC.GetFlags:
+        case IOC32.GetFlags:
+          return inode.flags;
+        case IOC.SetFlags:
+        case IOC32.SetFlags:
+          inode.flags = args[0];
+          fs.touchSync(resolved, inode);
+          return void 0;
+        case IOC.GetVersion:
+        case IOC32.GetVersion:
+          return inode.version;
+        case IOC.SetVersion:
+        case IOC32.SetVersion:
+          inode.version = args[0];
+          fs.touchSync(resolved, inode);
+          return void 0;
+        case IOC.Fiemap:
+          break;
+        case IOC.GetXattr:
+          return new fsxattr(inode);
+        case IOC.SetXattr:
+          break;
+        case IOC.GetLabel:
+          return fs.label;
+        case IOC.SetLabel:
+          fs.label = args[0];
+          return void 0;
+        case IOC.GetUUID:
+          return fs.uuid;
+        case IOC.GetSysfsPath:
+          return `/sys/fs/${fs.name}/${fs.uuid}`;
+      }
+    } catch (e) {
+      throw fixError(e, { [resolved]: path });
+    }
+    throw new ErrnoError(Errno.ENOTSUP, "Unsupported command: " + command, path, "ioctl");
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/xattr.js
+  var xattr_exports = {};
+  __export(xattr_exports, {
+    get: () => get,
+    getSync: () => getSync,
+    list: () => list,
+    listSync: () => listSync,
+    remove: () => remove,
+    removeSync: () => removeSync,
+    set: () => set,
+    setSync: () => setSync
+  });
+  var import_buffer7 = __toESM(require_buffer(), 1);
+  var _allowedRestrictedNames = [];
+  function checkName($, name, path, syscall) {
+    if (!name.startsWith("user.") && !_allowedRestrictedNames.includes(name))
+      throw new ErrnoError(Errno.EPERM, "Only attributes in the user namespace are supported", path, syscall);
+  }
+  async function get(path, name, opt = {}) {
+    var _a2;
+    path = normalizePath(path);
+    const { fs, path: resolved } = resolveMount(path, this);
+    checkName(this, name, path, "xattr.get");
+    try {
+      const inode = await fs.stat(resolved);
+      if (checkAccess && !hasAccess(this, inode, R_OK)) {
+        throw ErrnoError.With("EACCES", resolved, "xattr.get");
+      }
+      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+      const attr = inode.attributes.get(name);
+      if (!attr)
+        throw ErrnoError.With("ENODATA", resolved, "xattr.get");
+      const buffer = import_buffer7.Buffer.from(attr.value);
+      return opt.encoding == "buffer" || !opt.encoding ? buffer : buffer.toString(opt.encoding);
+    } catch (e) {
+      throw fixError(e, { [resolved]: path });
+    }
+  }
+  function getSync(path, name, opt = {}) {
+    var _a2;
+    path = normalizePath(path);
+    checkName(this, name, path, "xattr.get");
+    const { fs, path: resolved } = resolveMount(path, this);
+    try {
+      const inode = fs.statSync(resolved);
+      if (checkAccess && !hasAccess(this, inode, R_OK)) {
+        throw ErrnoError.With("EACCES", resolved, "xattr.get");
+      }
+      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+      const attr = inode.attributes.get(name);
+      if (!attr)
+        throw ErrnoError.With("ENODATA", resolved, "xattr.get");
+      const buffer = import_buffer7.Buffer.from(attr.value);
+      return opt.encoding == "buffer" || !opt.encoding ? buffer : buffer.toString(opt.encoding);
+    } catch (e) {
+      throw fixError(e, { [resolved]: path });
+    }
+  }
+  async function set(path, name, value, opt = {}) {
+    var _a2;
+    path = normalizePath(path);
+    const { fs, path: resolved } = resolveMount(path, this);
+    checkName(this, name, path, "xattr.set");
+    try {
+      const inode = await fs.stat(resolved);
+      if (checkAccess && !hasAccess(this, inode, W_OK)) {
+        throw ErrnoError.With("EACCES", resolved, "xattr.set");
+      }
+      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+      const attr = inode.attributes.get(name);
+      if (opt.create && attr) {
+        throw ErrnoError.With("EEXIST", resolved, "xattr.set");
+      }
+      if (opt.replace && !attr) {
+        throw ErrnoError.With("ENODATA", resolved, "xattr.set");
+      }
+      inode.attributes.set(name, import_buffer7.Buffer.from(value));
+      await fs.touch(resolved, pick(inode, "attributes"));
+    } catch (e) {
+      throw fixError(e, { [resolved]: path });
+    }
+  }
+  function setSync(path, name, value, opt = {}) {
+    var _a2;
+    path = normalizePath(path);
+    const { fs, path: resolved } = resolveMount(path, this);
+    checkName(this, name, path, "xattr.set");
+    try {
+      const inode = fs.statSync(resolved);
+      if (checkAccess && !hasAccess(this, inode, W_OK)) {
+        throw ErrnoError.With("EACCES", resolved, "xattr.set");
+      }
+      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+      const attr = inode.attributes.get(name);
+      if (opt.create && attr) {
+        throw ErrnoError.With("EEXIST", resolved, "xattr.set");
+      }
+      if (opt.replace && !attr) {
+        throw ErrnoError.With("ENODATA", resolved, "xattr.set");
+      }
+      inode.attributes.set(name, import_buffer7.Buffer.from(value));
+      fs.touchSync(resolved, pick(inode, "attributes"));
+    } catch (e) {
+      throw fixError(e, { [resolved]: path });
+    }
+  }
+  async function remove(path, name) {
+    var _a2;
+    path = normalizePath(path);
+    const { fs, path: resolved } = resolveMount(path, this);
+    checkName(this, name, path, "xattr.remove");
+    try {
+      const inode = await fs.stat(resolved);
+      if (checkAccess && !hasAccess(this, inode, W_OK)) {
+        throw ErrnoError.With("EACCES", resolved, "xattr.remove");
+      }
+      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+      const attr = inode.attributes.get(name);
+      if (!attr)
+        throw ErrnoError.With("ENODATA", resolved, "xattr.remove");
+      inode.attributes.remove(name);
+      await fs.touch(resolved, pick(inode, "attributes"));
+    } catch (e) {
+      throw fixError(e, { [resolved]: path });
+    }
+  }
+  function removeSync(path, name) {
+    var _a2;
+    path = normalizePath(path);
+    const { fs, path: resolved } = resolveMount(path, this);
+    checkName(this, name, path, "xattr.remove");
+    try {
+      const inode = fs.statSync(resolved);
+      if (checkAccess && !hasAccess(this, inode, W_OK)) {
+        throw ErrnoError.With("EACCES", resolved, "xattr.remove");
+      }
+      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+      const attr = inode.attributes.get(name);
+      if (!attr)
+        throw ErrnoError.With("ENODATA", resolved, "xattr.remove");
+      inode.attributes.remove(name);
+      fs.touchSync(resolved, pick(inode, "attributes"));
+    } catch (e) {
+      throw fixError(e, { [resolved]: path });
+    }
+  }
+  async function list(path) {
+    path = normalizePath(path);
+    const { fs, path: resolved } = resolveMount(path, this);
+    try {
+      const inode = await fs.stat(resolved);
+      if (!inode.attributes)
+        return [];
+      return inode.attributes.keys();
+    } catch (e) {
+      throw fixError(e, { [resolved]: path });
+    }
+  }
+  function listSync(path) {
+    path = normalizePath(path);
+    const { fs, path: resolved } = resolveMount(path, this);
+    try {
+      const inode = fs.statSync(resolved);
+      if (!inode.attributes)
+        return [];
+      return inode.attributes.keys();
+    } catch (e) {
+      throw fixError(e, { [resolved]: path });
+    }
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/config.js
   function isMountConfig(arg) {
     return isBackendConfig(arg) || isBackend(arg) || arg instanceof FileSystem;
   }
@@ -15728,10 +16394,10 @@
       configuration[key] = await resolveMountConfig(value, ++_depth);
     }
     const { backend } = configuration;
-    if (typeof backend.isAvailable == "function" && !await backend.isAvailable()) {
+    if (typeof backend.isAvailable == "function" && !await backend.isAvailable(configuration)) {
       throw err(new ErrnoError(Errno.EPERM, "Backend not available: " + backend.name));
     }
-    await checkOptions(backend, configuration);
+    checkOptions(backend, configuration);
     const mount3 = await backend.create(configuration);
     if (configuration.disableAsyncCache)
       mount3.attributes.set("no_async");
@@ -15769,10 +16435,8 @@
     var _a2;
     const uid = "uid" in configuration ? configuration.uid || 0 : 0;
     const gid = "gid" in configuration ? configuration.gid || 0 : 0;
-    useCredentials({ uid, gid });
-    config.checkAccess = !configuration.disableAccessChecks;
-    config.updateOnRead = !configuration.disableUpdateOnRead;
-    config.syncImmediately = !configuration.onlySyncOnClose;
+    Object.assign(defaultContext.credentials, createCredentials({ uid, gid }));
+    _setAccessChecks(!configuration.disableAccessChecks);
     if (configuration.log)
       configure(configuration.log);
     if (configuration.mounts) {
@@ -15794,65 +16458,7 @@
     }
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/backends/cow.js
-  var __addDisposableResource5 = function(env, value, async) {
-    if (value !== null && value !== void 0) {
-      if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
-      var dispose, inner;
-      if (async) {
-        if (!Symbol.asyncDispose) throw new TypeError("Symbol.asyncDispose is not defined.");
-        dispose = value[Symbol.asyncDispose];
-      }
-      if (dispose === void 0) {
-        if (!Symbol.dispose) throw new TypeError("Symbol.dispose is not defined.");
-        dispose = value[Symbol.dispose];
-        if (async) inner = dispose;
-      }
-      if (typeof dispose !== "function") throw new TypeError("Object not disposable.");
-      if (inner) dispose = function() {
-        try {
-          inner.call(this);
-        } catch (e) {
-          return Promise.reject(e);
-        }
-      };
-      env.stack.push({ value, dispose, async });
-    } else if (async) {
-      env.stack.push({ async: true });
-    }
-    return value;
-  };
-  var __disposeResources5 = /* @__PURE__ */ function(SuppressedError2) {
-    return function(env) {
-      function fail(e) {
-        env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
-        env.hasError = true;
-      }
-      var r, s = 0;
-      function next() {
-        while (r = env.stack.pop()) {
-          try {
-            if (!r.async && s === 1) return s = 0, env.stack.push(r), Promise.resolve().then(next);
-            if (r.dispose) {
-              var result = r.dispose.call(r.value);
-              if (r.async) return s |= 2, Promise.resolve(result).then(next, function(e) {
-                fail(e);
-                return next();
-              });
-            } else s |= 1;
-          } catch (e) {
-            fail(e);
-          }
-        }
-        if (s === 1) return env.hasError ? Promise.reject(env.error) : Promise.resolve();
-        if (env.hasError) throw env.error;
-      }
-      return next();
-    };
-  }(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
-    var e = new Error(message);
-    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-  });
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/cow.js
   var journalOperations = ["delete"];
   function isJournalOp(op) {
     return journalOperations.includes(op);
@@ -15934,13 +16540,13 @@
     usage() {
       return this.readable.usage();
     }
-    async sync(path, data, stats) {
+    async sync(path) {
       await this.copyForWrite(path);
-      await this.writable.sync(path, data, stats);
+      await this.writable.sync(path);
     }
-    syncSync(path, data, stats) {
+    syncSync(path) {
       this.copyForWriteSync(path);
-      this.writable.syncSync(path, data, stats);
+      this.writable.syncSync(path);
     }
     async read(path, buffer, offset, end) {
       return await this.writable.exists(path) ? await this.writable.read(path, buffer, offset, end) : await this.readable.read(path, buffer, offset, end);
@@ -15998,27 +16604,21 @@
         return oldStat;
       }
     }
-    async openFile(path, flag) {
-      if (await this.writable.exists(path)) {
-        return this.writable.openFile(path, flag);
-      }
-      const stats = await this.readable.stat(path);
-      return new LazyFile(this, path, flag, stats);
+    async touch(path, metadata) {
+      await this.copyForWrite(path);
+      await this.writable.touch(path, metadata);
     }
-    openFileSync(path, flag) {
-      if (this.writable.existsSync(path)) {
-        return this.writable.openFileSync(path, flag);
-      }
-      const stats = this.readable.statSync(path);
-      return new LazyFile(this, path, flag, stats);
+    touchSync(path, metadata) {
+      this.copyForWriteSync(path);
+      this.writable.touchSync(path, metadata);
     }
-    async createFile(path, flag, mode, options) {
-      await this.writable.createFile(path, flag, mode, options);
-      return this.openFile(path, flag);
+    async createFile(path, options) {
+      await this.createParentDirectories(path);
+      return await this.writable.createFile(path, options);
     }
-    createFileSync(path, flag, mode, options) {
-      this.writable.createFileSync(path, flag, mode, options);
-      return this.openFileSync(path, flag);
+    createFileSync(path, options) {
+      this.createParentDirectoriesSync(path);
+      return this.writable.createFileSync(path, options);
     }
     async link(srcpath, dstpath) {
       await this.copyForWrite(srcpath);
@@ -16079,17 +16679,17 @@
       }
       this.journal.add("delete", path);
     }
-    async mkdir(path, mode, options) {
+    async mkdir(path, options) {
       if (await this.exists(path))
         throw ErrnoError.With("EEXIST", path, "mkdir");
       await this.createParentDirectories(path);
-      await this.writable.mkdir(path, mode, options);
+      return await this.writable.mkdir(path, options);
     }
-    mkdirSync(path, mode, options) {
+    mkdirSync(path, options) {
       if (this.existsSync(path))
         throw ErrnoError.With("EEXIST", path, "mkdir");
       this.createParentDirectoriesSync(path);
-      this.writable.mkdirSync(path, mode, options);
+      return this.writable.mkdirSync(path, options);
     }
     async readdir(path) {
       if (this.isDeleted(path) || !await this.exists(path))
@@ -16134,8 +16734,7 @@
       if (toCreate.length)
         debug("COW: Creating parent directories: " + toCreate.join(", "));
       for (const path2 of toCreate.reverse()) {
-        const { uid, gid, mode } = this.statSync(path2);
-        this.writable.mkdirSync(path2, mode, { uid, gid });
+        this.writable.mkdirSync(path2, this.statSync(path2));
       }
     }
     /**
@@ -16152,8 +16751,7 @@
       if (toCreate.length)
         debug("COW: Creating parent directories: " + toCreate.join(", "));
       for (const path2 of toCreate.reverse()) {
-        const { uid, gid, mode } = await this.stat(path2);
-        await this.writable.mkdir(path2, mode, { uid, gid });
+        await this.writable.mkdir(path2, await this.stat(path2));
       }
     }
     /**
@@ -16188,56 +16786,37 @@
      * PRECONDITION: File does not exist on writable storage.
      */
     copyToWritableSync(path) {
-      const env_1 = { stack: [], error: void 0, hasError: false };
-      try {
-        const stats = this.statSync(path);
-        stats.mode |= 146;
-        if (stats.isDirectory()) {
-          this.writable.mkdirSync(path, stats.mode, stats);
-          for (const k of this.readable.readdirSync(path)) {
-            this.copyToWritableSync(join(path, k));
-          }
-          return;
+      const stats = this.statSync(path);
+      stats.mode |= 146;
+      if (isDirectory(stats)) {
+        this.writable.mkdirSync(path, stats);
+        for (const k of this.readable.readdirSync(path)) {
+          this.copyToWritableSync(join(path, k));
         }
-        const data = new Uint8Array(stats.size);
-        const readable = __addDisposableResource5(env_1, this.readable.openFileSync(path, "r"), false);
-        readable.readSync(data);
-        const writable = __addDisposableResource5(env_1, this.writable.createFileSync(path, "w", stats.mode, stats), false);
-        writable.writeSync(data);
-      } catch (e_1) {
-        env_1.error = e_1;
-        env_1.hasError = true;
-      } finally {
-        __disposeResources5(env_1);
+        return;
       }
+      const data = new Uint8Array(stats.size);
+      this.readable.readSync(path, data, 0, data.byteLength);
+      this.writable.createFileSync(path, stats);
+      this.writable.touchSync(path, stats);
+      this.writable.writeSync(path, data, 0);
     }
     async copyToWritable(path) {
-      const env_2 = { stack: [], error: void 0, hasError: false };
-      try {
-        const stats = await this.stat(path);
-        stats.mode |= 146;
-        if (stats.isDirectory()) {
-          await this.writable.mkdir(path, stats.mode, stats);
-          for (const k of await this.readable.readdir(path)) {
-            await this.copyToWritable(join(path, k));
-          }
-          return;
+      const stats = await this.stat(path);
+      stats.mode |= 146;
+      if (isDirectory(stats)) {
+        await this.writable.mkdir(path, stats);
+        for (const k of await this.readable.readdir(path)) {
+          await this.copyToWritable(join(path, k));
         }
-        const data = new Uint8Array(stats.size);
-        await this.readable.read(path, data, 0, stats.size);
-        const writable = __addDisposableResource5(env_2, await this.writable.createFile(path, "w", stats.mode, stats), true);
-        await writable.write(data);
-      } catch (e_2) {
-        env_2.error = e_2;
-        env_2.hasError = true;
-      } finally {
-        const result_1 = __disposeResources5(env_2);
-        if (result_1)
-          await result_1;
+        return;
       }
+      const data = new Uint8Array(stats.size);
+      await this.readable.read(path, data, 0, stats.size);
+      await this.writable.createFile(path, stats);
+      await this.writable.touch(path, stats);
+      await this.writable.write(path, data, 0);
     }
-  };
-  var OverlayFS = class extends CopyOnWriteFS {
   };
   var _CopyOnWrite = {
     name: "CopyOnWrite",
@@ -16253,12 +16832,11 @@
     }
   };
   var CopyOnWrite = _CopyOnWrite;
-  var Overlay = _CopyOnWrite;
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/requests.js
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/requests.js
   var resourcesCache = /* @__PURE__ */ new Map();
-  async function _fetch(input, init2 = {}, bodyOptional = false) {
-    const response = await fetch(input, init2).catch((error) => {
+  async function _fetch(input, init = {}, bodyOptional = false) {
+    const response = await fetch(input, init).catch((error) => {
       throw { tag: "fetch", message: error.message };
     });
     if (!response.ok)
@@ -16270,10 +16848,10 @@
     });
     return { response, data: raw ? new Uint8Array(raw) : void 0 };
   }
-  async function get(url, options, init2 = {}) {
-    const req = new Request(url, init2);
+  async function get2(url, options, init = {}) {
+    const req = new Request(url, init);
     if (typeof options.start != "number" || typeof options.end != "number") {
-      const { data } = await _fetch(url, init2);
+      const { data } = await _fetch(url, init);
       new Resource(url, data.byteLength, options, resourcesCache).add(data, 0);
       return data;
     }
@@ -16334,23 +16912,23 @@
     }
     return { data, missing: cache.missing(start, end) };
   }
-  async function set(url, data, options, init2 = {}) {
+  async function set2(url, data, options, init = {}) {
     if (!resourcesCache.has(url)) {
       new Resource(url, options.size ?? data.byteLength, options, resourcesCache);
     }
     const resource = resourcesCache.get(url);
     const { offset = 0 } = options;
     if (!options.cacheOnly)
-      await _fetch(new Request(url, init2), { method: "POST" }, true);
+      await _fetch(new Request(url, init), { method: "POST" }, true);
     resource.add(data, offset);
   }
-  async function remove(url, options = {}, init2 = {}) {
+  async function remove2(url, options = {}, init = {}) {
     if (!options.cacheOnly)
-      await _fetch(new Request(url, init2), { method: "DELETE" }, true);
+      await _fetch(new Request(url, init), { method: "DELETE" }, true);
     resourcesCache.delete(url);
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/internal/index_fs.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/index_fs.js
   var IndexFS = class extends FileSystem {
     constructor(id, name, index = new Index()) {
       super(id, name);
@@ -16359,20 +16937,6 @@
     usage() {
       return this.index.usage();
     }
-    /* node:coverage disable */
-    /**
-     * @deprecated
-     */
-    reloadFiles() {
-      throw ErrnoError.With("ENOTSUP");
-    }
-    /**
-     * @deprecated
-     */
-    reloadFilesSync() {
-      throw ErrnoError.With("ENOTSUP");
-    }
-    /* node:coverage enable */
     /**
      * Finds all the paths in the index that need to be moved for a rename
      */
@@ -16421,23 +16985,23 @@
       const inode = this.index.get(path);
       if (!inode)
         throw ErrnoError.With("ENOENT", path, "stat");
-      return new Stats(inode);
+      return inode;
     }
     statSync(path) {
       const inode = this.index.get(path);
       if (!inode)
         throw ErrnoError.With("ENOENT", path, "stat");
-      return new Stats(inode);
+      return inode;
     }
-    async openFile(path, flag) {
+    async touch(path, metadata) {
       var _a2;
-      const stats = (_a2 = this.index.get(path)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", path, "openFile"));
-      return new LazyFile(this, path, flag, stats);
+      const inode = (_a2 = this.index.get(path)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", path, "touch"));
+      inode.update(metadata);
     }
-    openFileSync(path, flag) {
+    touchSync(path, metadata) {
       var _a2;
-      const stats = (_a2 = this.index.get(path)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", path, "openFile"));
-      return new LazyFile(this, path, flag, stats);
+      const inode = (_a2 = this.index.get(path)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", path, "touch"));
+      inode.update(metadata);
     }
     _remove(path, isUnlink) {
       const syscall = isUnlink ? "unlink" : "rmdir";
@@ -16486,19 +17050,21 @@
       this.index.set(path, inode);
       return inode;
     }
-    async createFile(path, flag, mode, options) {
-      const node = this.create(path, { mode: mode | S_IFREG, ...options });
-      return new LazyFile(this, path, flag, node.toStats());
+    async createFile(path, options) {
+      options.mode |= S_IFREG;
+      return this.create(path, options);
     }
-    createFileSync(path, flag, mode, options) {
-      const node = this.create(path, { mode: mode | S_IFREG, ...options });
-      return new LazyFile(this, path, flag, node.toStats());
+    createFileSync(path, options) {
+      options.mode |= S_IFREG;
+      return this.create(path, options);
     }
-    async mkdir(path, mode, options) {
-      this.create(path, { mode: mode | S_IFDIR, ...options });
+    async mkdir(path, options) {
+      options.mode |= S_IFDIR;
+      return this.create(path, options);
     }
-    mkdirSync(path, mode, options) {
-      this.create(path, { mode: mode | S_IFDIR, ...options });
+    mkdirSync(path, options) {
+      options.mode |= S_IFDIR;
+      return this.create(path, options);
     }
     link(target, link3) {
       throw ErrnoError.With("ENOSYS", link3, "link");
@@ -16512,29 +17078,13 @@
     readdirSync(path) {
       return Object.keys(this.index.directoryEntries(path));
     }
-    async sync(path, data, stats) {
-      var _a2;
-      const inode = this.index.get(path);
-      if (!inode)
-        throw ErrnoError.With("ENOENT", path, "sync");
-      if (inode.update(stats))
-        await ((_a2 = this.syncMetadata) === null || _a2 === void 0 ? void 0 : _a2.call(this, path, stats));
-      if (data)
-        await this.write(path, data, 0);
+    async sync(path) {
     }
-    syncSync(path, data, stats) {
-      var _a2;
-      const inode = this.index.get(path);
-      if (!inode)
-        throw ErrnoError.With("ENOENT", path, "sync");
-      if (inode.update(stats))
-        (_a2 = this.syncMetadataSync) === null || _a2 === void 0 ? void 0 : _a2.call(this, path, stats);
-      if (data)
-        this.writeSync(path, data, 0);
+    syncSync(path) {
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/backends/fetch.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/fetch.js
   function parseError(path, fs) {
     return (error) => {
       if (!("tag" in error))
@@ -16563,10 +17113,10 @@
       this._asyncDone = Promise.resolve();
     }
     async remove(path) {
-      await remove(this.baseUrl + path, { warn, cacheOnly: !this.remoteWrite }, this.requestInit);
+      await remove2(this.baseUrl + path, { warn, cacheOnly: !this.remoteWrite }, this.requestInit);
     }
     removeSync(path) {
-      this._async(remove(this.baseUrl + path, { warn, cacheOnly: !this.remoteWrite }, this.requestInit));
+      this._async(remove2(this.baseUrl + path, { warn, cacheOnly: !this.remoteWrite }, this.requestInit));
     }
     async read(path, buffer, offset = 0, end) {
       const inode = this.index.get(path);
@@ -16574,7 +17124,7 @@
         throw ErrnoError.With("ENOENT", path, "read");
       if (end - offset == 0)
         return;
-      const data = await get(this.baseUrl + path, { start: offset, end, size: inode.size, warn }, this.requestInit).catch(parseError(path, this)).catch(() => void 0);
+      const data = await get2(this.baseUrl + path, { start: offset, end, size: inode.size, warn }, this.requestInit).catch(parseError(path, this)).catch(() => void 0);
       if (!data)
         throw ErrnoError.With("ENODATA", path, "read");
       buffer.set(data);
@@ -16589,7 +17139,7 @@
       if (!data)
         throw ErrnoError.With("ENODATA", path, "read");
       if (missing.length) {
-        this._async(get(this.baseUrl + path, { start: offset, end, size: inode.size, warn }));
+        this._async(get2(this.baseUrl + path, { start: offset, end, size: inode.size, warn }));
         throw ErrnoError.With("EAGAIN", path, "read");
       }
       buffer.set(data);
@@ -16599,14 +17149,14 @@
       if (!inode)
         throw ErrnoError.With("ENOENT", path, "write");
       inode.update({ mtimeMs: Date.now(), size: Math.max(inode.size, data.byteLength + offset) });
-      await set(this.baseUrl + path, data, { offset, warn, cacheOnly: !this.remoteWrite }, this.requestInit).catch(parseError(path, this));
+      await set2(this.baseUrl + path, data, { offset, warn, cacheOnly: !this.remoteWrite }, this.requestInit).catch(parseError(path, this));
     }
     writeSync(path, data, offset) {
       const inode = this.index.get(path);
       if (!inode)
         throw ErrnoError.With("ENOENT", path, "write");
       inode.update({ mtimeMs: Date.now(), size: Math.max(inode.size, data.byteLength + offset) });
-      this._async(set(this.baseUrl + path, data, { offset, warn, cacheOnly: !this.remoteWrite }, this.requestInit).catch(parseError(path, this)));
+      this._async(set2(this.baseUrl + path, data, { offset, warn, cacheOnly: !this.remoteWrite }, this.requestInit).catch(parseError(path, this)));
     }
   };
   var _Fetch = {
@@ -16632,7 +17182,7 @@
       if (typeof options.index != "string") {
         index.fromJSON(options.index);
       } else {
-        const data = await get(options.index, { warn }, options.requestInit).catch(parseError());
+        const data = await get2(options.index, { warn }, options.requestInit).catch(parseError());
         index.fromJSON(JSON.parse(decodeUTF8(data)));
       }
       const fs = new FetchFS(index, baseUrl, options.requestInit, options.remoteWrite);
@@ -16641,15 +17191,15 @@
       for (const [path, node] of index) {
         if (!(node.mode & S_IFREG))
           continue;
-        await get(baseUrl + path, { warn }, options.requestInit).catch(parseError(path, fs));
+        await get2(baseUrl + path, { warn }, options.requestInit).catch(parseError(path, fs));
       }
       return fs;
     }
   };
   var Fetch = _Fetch;
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/backends/passthrough.js
-  var __addDisposableResource6 = function(env, value, async) {
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/passthrough.js
+  var __addDisposableResource4 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
       var dispose, inner;
@@ -16676,7 +17226,7 @@
     }
     return value;
   };
-  var __disposeResources6 = /* @__PURE__ */ function(SuppressedError2) {
+  var __disposeResources4 = /* @__PURE__ */ function(SuppressedError2) {
     return function(env) {
       function fail(e) {
         env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
@@ -16707,85 +17257,6 @@
     var e = new Error(message);
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
   });
-  var PassthroughFile = class extends File {
-    constructor(fs, path, fd) {
-      super(fs, path);
-      this.fd = fd;
-      this.node = fs.nodeFS;
-      this.nodePath = fs.path(path);
-    }
-    error(err2) {
-      const error = err2;
-      return ErrnoError.With(error.code, this.path, error.syscall);
-    }
-    get position() {
-      return 0;
-    }
-    async stat() {
-      const { resolve: resolve2, reject, promise } = Promise.withResolvers();
-      this.node.fstat(this.fd, (err2, stats) => err2 ? reject(this.error(err2)) : resolve2(new Stats(stats)));
-      return promise;
-    }
-    statSync() {
-      return new Stats(this.node.fstatSync(this.fd));
-    }
-    close() {
-      const { resolve: resolve2, reject, promise } = Promise.withResolvers();
-      this.node.close(this.fd, (err2) => err2 ? reject(this.error(err2)) : resolve2());
-      return promise;
-    }
-    closeSync() {
-      this.node.closeSync(this.fd);
-    }
-    async truncate(len) {
-      await this.node.promises.truncate(this.nodePath, len);
-    }
-    truncateSync(len) {
-      this.node.ftruncateSync(this.fd, len);
-    }
-    async sync() {
-      const { resolve: resolve2, reject, promise } = Promise.withResolvers();
-      this.node.fsync(this.fd, (err2) => err2 ? reject(this.error(err2)) : resolve2());
-      return promise;
-    }
-    syncSync() {
-      this.node.fsyncSync(this.fd);
-    }
-    async write(buffer, offset, length, position) {
-      const { resolve: resolve2, reject, promise } = Promise.withResolvers();
-      this.node.write(this.fd, buffer, offset, length, position, (err2, written) => err2 ? reject(this.error(err2)) : resolve2(written));
-      return promise;
-    }
-    writeSync(buffer, offset, length, position) {
-      return this.node.writeSync(this.fd, buffer, offset, length, position);
-    }
-    async read(buffer, offset = 0, length, position = null) {
-      const { resolve: resolve2, reject, promise } = Promise.withResolvers();
-      this.node.read(this.fd, buffer, offset, length || (await this.stat()).size, position, (err2, bytesRead, buffer2) => err2 ? reject(this.error(err2)) : resolve2({ bytesRead, buffer: buffer2 }));
-      return promise;
-    }
-    readSync(buffer, offset = 0, length = this.statSync().size, position = null) {
-      return this.node.readSync(this.fd, buffer, offset, length, position);
-    }
-    async chmod(mode) {
-      await this.node.promises.chmod(this.nodePath, mode);
-    }
-    chmodSync(mode) {
-      this.node.fchmodSync(this.fd, mode);
-    }
-    async chown(uid, gid) {
-      await this.node.promises.chown(this.nodePath, uid, gid);
-    }
-    chownSync(uid, gid) {
-      this.node.fchownSync(this.fd, uid, gid);
-    }
-    async utimes(atime, mtime) {
-      await this.node.promises.utimes(this.nodePath, atime, mtime);
-    }
-    utimesSync(atime, mtime) {
-      this.node.futimesSync(this.fd, atime, mtime);
-    }
-  };
   var PassthroughFS = class extends FileSystem {
     constructor(nodeFS, prefix) {
       super(1852793957, "nodefs");
@@ -16800,7 +17271,7 @@
       };
     }
     path(path) {
-      return join(this.prefix, path.slice(1));
+      return this.prefix + path;
     }
     error(err2, path) {
       const error = err2;
@@ -16831,7 +17302,7 @@
      */
     async stat(path) {
       try {
-        return new Stats(await this.nodeFS.promises.stat(this.path(path)));
+        return await this.nodeFS.promises.stat(this.path(path));
       } catch (err2) {
         this.error(err2, path);
       }
@@ -16841,29 +17312,36 @@
      */
     statSync(path) {
       try {
-        return new Stats(this.nodeFS.statSync(this.path(path)));
+        return this.nodeFS.statSync(this.path(path));
       } catch (err2) {
         this.error(err2, path);
       }
     }
-    /**
-     * Open a file.
-     */
-    async openFile(path, flag) {
+    async touch(path, metadata) {
       try {
-        const { fd } = await this.nodeFS.promises.open(this.path(path), flag);
-        return new PassthroughFile(this, path, fd);
+        const env_1 = { stack: [], error: void 0, hasError: false };
+        try {
+          const handle = __addDisposableResource4(env_1, await this.nodeFS.promises.open(this.path(path), "w"), true);
+          await handle.chmod(metadata.mode);
+          await handle.chown(metadata.uid, metadata.gid);
+          await handle.utimes(metadata.atimeMs, metadata.mtimeMs);
+        } catch (e_1) {
+          env_1.error = e_1;
+          env_1.hasError = true;
+        } finally {
+          const result_1 = __disposeResources4(env_1);
+          if (result_1)
+            await result_1;
+        }
       } catch (err2) {
         this.error(err2, path);
       }
     }
-    /**
-     * Open a file synchronously.
-     */
-    openFileSync(path, flag) {
+    touchSync(path, metadata) {
       try {
-        const fd = this.nodeFS.openSync(this.path(path), flag);
-        return new PassthroughFile(this, path, fd);
+        this.nodeFS.chmodSync(this.path(path), metadata.mode);
+        this.nodeFS.chownSync(this.path(path), metadata.uid, metadata.gid);
+        this.nodeFS.utimesSync(this.path(path), metadata.atimeMs, metadata.mtimeMs);
       } catch (err2) {
         this.error(err2, path);
       }
@@ -16891,9 +17369,10 @@
     /**
      * Create a directory.
      */
-    async mkdir(path, mode) {
+    async mkdir(path, options) {
       try {
-        await this.nodeFS.promises.mkdir(this.path(path), { mode });
+        await this.nodeFS.promises.mkdir(this.path(path), options);
+        return await this.nodeFS.promises.stat(this.path(path));
       } catch (err2) {
         this.error(err2, path);
       }
@@ -16901,9 +17380,10 @@
     /**
      * Create a directory synchronously.
      */
-    mkdirSync(path, mode) {
+    mkdirSync(path, options) {
       try {
-        this.nodeFS.mkdirSync(this.path(path), { mode });
+        this.nodeFS.mkdirSync(this.path(path), options);
+        return this.nodeFS.statSync(this.path(path));
       } catch (err2) {
         this.error(err2, path);
       }
@@ -16931,10 +17411,25 @@
     /**
      * Create a file.
      */
-    async createFile(path, flag, mode) {
+    async createFile(path, options) {
       try {
-        const { fd } = await this.nodeFS.promises.open(this.path(path), flag, mode);
-        return new PassthroughFile(this, path, fd);
+        if (isDirectory(options)) {
+          await this.nodeFS.promises.mkdir(this.path(path), { mode: options.mode });
+        } else {
+          const env_2 = { stack: [], error: void 0, hasError: false };
+          try {
+            const handle = __addDisposableResource4(env_2, await this.nodeFS.promises.open(this.path(path), "wx"), true);
+            await handle.close();
+          } catch (e_2) {
+            env_2.error = e_2;
+            env_2.hasError = true;
+          } finally {
+            const result_2 = __disposeResources4(env_2);
+            if (result_2)
+              await result_2;
+          }
+        }
+        return await this.nodeFS.promises.stat(this.path(path));
       } catch (err2) {
         this.error(err2, path);
       }
@@ -16942,10 +17437,15 @@
     /**
      * Create a file synchronously.
      */
-    createFileSync(path, flag, mode) {
+    createFileSync(path, options) {
       try {
-        const fd = this.nodeFS.openSync(this.path(path), flag, mode);
-        return new PassthroughFile(this, path, fd);
+        if (isDirectory(options)) {
+          this.nodeFS.mkdirSync(this.path(path), { mode: options.mode });
+        } else {
+          const fd = this.nodeFS.openSync(this.path(path), "wx");
+          this.nodeFS.closeSync(fd);
+        }
+        return this.nodeFS.statSync(this.path(path));
       } catch (err2) {
         this.error(err2, path);
       }
@@ -16973,40 +17473,14 @@
     /**
      * Synchronize data to the file system.
      */
-    async sync(path, data, stats) {
-      try {
-        const env_1 = { stack: [], error: void 0, hasError: false };
-        try {
-          const handle = __addDisposableResource6(env_1, await this.nodeFS.promises.open(this.path(path), "w"), true);
-          await handle.writeFile(data);
-          await handle.chmod(stats.mode);
-          await handle.chown(stats.uid, stats.gid);
-          await handle.utimes(stats.atimeMs, stats.mtimeMs);
-        } catch (e_1) {
-          env_1.error = e_1;
-          env_1.hasError = true;
-        } finally {
-          const result_1 = __disposeResources6(env_1);
-          if (result_1)
-            await result_1;
-        }
-      } catch (err2) {
-        this.error(err2, path);
-      }
+    async sync(path) {
+      warn("Sync on passthrough is unnecessary");
     }
     /**
      * Synchronize data to the file system synchronously.
      */
-    syncSync(path, data, stats) {
-      try {
-        const p = this.path(path);
-        this.nodeFS.writeFileSync(p, data);
-        this.nodeFS.chmodSync(p, stats.mode);
-        this.nodeFS.chownSync(p, stats.uid, stats.gid);
-        this.nodeFS.utimesSync(p, stats.atimeMs, stats.mtimeMs);
-      } catch (err2) {
-        this.error(err2, path);
-      }
+    syncSync(path) {
+      warn("Sync on passthrough is unnecessary");
     }
     /**
      * Create a hard link.
@@ -17030,17 +17504,17 @@
     }
     async read(path, buffer, offset, end) {
       try {
-        const env_2 = { stack: [], error: void 0, hasError: false };
+        const env_3 = { stack: [], error: void 0, hasError: false };
         try {
-          const handle = __addDisposableResource6(env_2, await this.nodeFS.promises.open(this.path(path), "r"), true);
+          const handle = __addDisposableResource4(env_3, await this.nodeFS.promises.open(this.path(path), "r"), true);
           await handle.read({ buffer, offset, length: end - offset });
-        } catch (e_2) {
-          env_2.error = e_2;
-          env_2.hasError = true;
+        } catch (e_3) {
+          env_3.error = e_3;
+          env_3.hasError = true;
         } finally {
-          const result_2 = __disposeResources6(env_2);
-          if (result_2)
-            await result_2;
+          const result_3 = __disposeResources4(env_3);
+          if (result_3)
+            await result_3;
         }
       } catch (err2) {
         this.error(err2, path);
@@ -17060,17 +17534,17 @@
     }
     async write(path, buffer, offset) {
       try {
-        const env_3 = { stack: [], error: void 0, hasError: false };
+        const env_4 = { stack: [], error: void 0, hasError: false };
         try {
-          const handle = __addDisposableResource6(env_3, await this.nodeFS.promises.open(this.path(path), "w"), true);
+          const handle = __addDisposableResource4(env_4, await this.nodeFS.promises.open(this.path(path), "w"), true);
           await handle.write(buffer, offset);
-        } catch (e_3) {
-          env_3.error = e_3;
-          env_3.hasError = true;
+        } catch (e_4) {
+          env_4.error = e_4;
+          env_4.hasError = true;
         } finally {
-          const result_3 = __disposeResources6(env_3);
-          if (result_3)
-            await result_3;
+          const result_4 = __disposeResources4(env_4);
+          if (result_4)
+            await result_4;
         }
       } catch (err2) {
         this.error(err2, path);
@@ -17093,73 +17567,15 @@
     name: "Passthrough",
     options: {
       fs: { type: "object", required: true },
-      prefix: { type: "string", required: false }
+      prefix: { type: "string", required: true }
     },
-    create({ fs, prefix = "/" }) {
+    create({ fs, prefix }) {
       return new PassthroughFS(fs, resolve(prefix));
     }
   };
   var Passthrough = _Passthrough;
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/mixins/async.js
-  var __addDisposableResource7 = function(env, value, async) {
-    if (value !== null && value !== void 0) {
-      if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
-      var dispose, inner;
-      if (async) {
-        if (!Symbol.asyncDispose) throw new TypeError("Symbol.asyncDispose is not defined.");
-        dispose = value[Symbol.asyncDispose];
-      }
-      if (dispose === void 0) {
-        if (!Symbol.dispose) throw new TypeError("Symbol.dispose is not defined.");
-        dispose = value[Symbol.dispose];
-        if (async) inner = dispose;
-      }
-      if (typeof dispose !== "function") throw new TypeError("Object not disposable.");
-      if (inner) dispose = function() {
-        try {
-          inner.call(this);
-        } catch (e) {
-          return Promise.reject(e);
-        }
-      };
-      env.stack.push({ value, dispose, async });
-    } else if (async) {
-      env.stack.push({ async: true });
-    }
-    return value;
-  };
-  var __disposeResources7 = /* @__PURE__ */ function(SuppressedError2) {
-    return function(env) {
-      function fail(e) {
-        env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
-        env.hasError = true;
-      }
-      var r, s = 0;
-      function next() {
-        while (r = env.stack.pop()) {
-          try {
-            if (!r.async && s === 1) return s = 0, env.stack.push(r), Promise.resolve().then(next);
-            if (r.dispose) {
-              var result = r.dispose.call(r.value);
-              if (r.async) return s |= 2, Promise.resolve(result).then(next, function(e) {
-                fail(e);
-                return next();
-              });
-            } else s |= 1;
-          } catch (e) {
-            fail(e);
-          }
-        }
-        if (s === 1) return env.hasError ? Promise.reject(env.error) : Promise.resolve();
-        if (env.hasError) throw env.error;
-      }
-      return next();
-    };
-  }(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
-    var e = new Error(message);
-    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-  });
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/mixins/async.js
   function Async(FS) {
     class AsyncFS extends FS {
       async done() {
@@ -17207,9 +17623,7 @@
       }
       checkSync(path, syscall) {
         if (this.attributes.has("no_async")) {
-          throw crit(new ErrnoError(Errno.ENOTSUP, "Sync preloading has been disabled for this async file system", path, syscall), {
-            fs: this
-          });
+          throw new ErrnoError(Errno.ENOTSUP, "Sync preloading has been disabled for this async file system", path, syscall);
         }
         if (!this._sync) {
           throw crit(new ErrnoError(Errno.ENOTSUP, "No sync cache is attached to this async file system", path, syscall), { fs: this });
@@ -17224,16 +17638,15 @@
         this.checkSync(path, "stat");
         return this._sync.statSync(path);
       }
-      createFileSync(path, flag, mode, options) {
-        this.checkSync(path, "createFile");
-        const file = this._sync.createFileSync(path, flag, mode, options);
-        this._async(this.createFile(path, flag, mode, options));
-        return new LazyFile(this, path, flag, file.statSync());
+      touchSync(path, metadata) {
+        this.checkSync(path, "touch");
+        this._sync.touchSync(path, metadata);
+        this._async(this.touch(path, metadata));
       }
-      openFileSync(path, flag) {
-        this.checkSync(path, "openFile");
-        const stats = this._sync.statSync(path);
-        return new LazyFile(this, path, flag, stats);
+      createFileSync(path, options) {
+        this.checkSync(path, "createFile");
+        this._async(this.createFile(path, options));
+        return this._sync.createFileSync(path, options);
       }
       unlinkSync(path) {
         this.checkSync(path, "unlinkSync");
@@ -17245,10 +17658,10 @@
         this._sync.rmdirSync(path);
         this._async(this.rmdir(path));
       }
-      mkdirSync(path, mode, options) {
+      mkdirSync(path, options) {
         this.checkSync(path, "mkdir");
-        this._sync.mkdirSync(path, mode, options);
-        this._async(this.mkdir(path, mode, options));
+        this._async(this.mkdir(path, options));
+        return this._sync.mkdirSync(path, options);
       }
       readdirSync(path) {
         this.checkSync(path, "readdir");
@@ -17259,10 +17672,10 @@
         this._sync.linkSync(srcpath, dstpath);
         this._async(this.link(srcpath, dstpath));
       }
-      syncSync(path, data, stats) {
+      syncSync(path) {
         this.checkSync(path, "sync");
-        this._sync.syncSync(path, data, stats);
-        this._async(this.sync(path, data, stats));
+        this._sync.syncSync(path);
+        this._async(this.sync(path));
       }
       existsSync(path) {
         this.checkSync(path, "exists");
@@ -17299,24 +17712,17 @@
       async crossCopy(path) {
         this.checkSync(path, "crossCopy");
         const stats = await this.stat(path);
-        if (!stats.isDirectory()) {
-          const env_1 = { stack: [], error: void 0, hasError: false };
-          try {
-            const syncFile = __addDisposableResource7(env_1, this._sync.createFileSync(path, parseFlag("w"), stats.mode, stats), false);
-            const buffer = new Uint8Array(stats.size);
-            await this.read(path, buffer, 0, stats.size);
-            syncFile.writeSync(buffer, 0, stats.size);
-            return;
-          } catch (e_1) {
-            env_1.error = e_1;
-            env_1.hasError = true;
-          } finally {
-            __disposeResources7(env_1);
-          }
+        if (!isDirectory(stats)) {
+          this._sync.createFileSync(path, stats);
+          const buffer = new Uint8Array(stats.size);
+          await this.read(path, buffer, 0, stats.size);
+          this._sync.writeSync(path, buffer, 0);
+          this._sync.touchSync(path, stats);
+          return;
         }
         if (path !== "/") {
-          const stats2 = await this.stat(path);
-          this._sync.mkdirSync(path, stats2.mode, stats2);
+          this._sync.mkdirSync(path, stats);
+          this._sync.touchSync(path, stats);
         }
         const promises = [];
         for (const file of await this.readdir(path)) {
@@ -17356,11 +17762,8 @@
     return AsyncFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/backends/port/rpc.js
-  function isFileData(value) {
-    return typeof value == "object" && value != null && "path" in value && "flag" in value;
-  }
-  function isMessage(arg) {
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/port.js
+  function isRPCMessage(arg) {
     return typeof arg == "object" && arg != null && "_zenfs" in arg && !!arg._zenfs;
   }
   var executors = /* @__PURE__ */ new Map();
@@ -17368,48 +17771,44 @@
     const stack = "\n" + new Error().stack.slice("Error:".length);
     if (!port)
       throw err(new ErrnoError(Errno.EINVAL, "Can not make an RPC request without a port"));
-    return new Promise((resolve2, reject) => {
-      const id = Math.random().toString(16).slice(10);
-      executors.set(id, { resolve: resolve2, reject, fs });
-      port.postMessage({ ...request2, _zenfs: true, id, stack });
-      const _ = setTimeout(() => {
-        const error = err(new ErrnoError(Errno.EIO, "RPC Failed", typeof request2.args[0] == "string" ? request2.args[0] : "", request2.method), {
-          fs
-        });
-        error.stack += stack;
-        reject(error);
-        if (typeof _ == "object")
-          _.unref();
-      }, timeout);
-    });
+    const { resolve: resolve2, reject, promise } = Promise.withResolvers();
+    const id = Math.random().toString(16).slice(10);
+    executors.set(id, { resolve: resolve2, reject, promise, fs });
+    port.postMessage({ ...request2, _zenfs: true, id, stack });
+    const _ = setTimeout(() => {
+      const error = err(new ErrnoError(Errno.EIO, "RPC Failed", typeof request2.args[0] == "string" ? request2.args[0] : "", request2.method), {
+        fs
+      });
+      error.stack += stack;
+      reject(error);
+      if (typeof _ == "object")
+        _.unref();
+    }, timeout);
+    return promise;
+  }
+  function __requestMethod(req) {
+  }
+  function __responseMethod(res, ...t) {
+    return t.includes(res.method);
   }
   function handleResponse(response) {
-    if (!isMessage(response)) {
+    if (!isRPCMessage(response))
       return;
+    if (!executors.has(response.id)) {
+      const error = err(new ErrnoError(Errno.EIO, "Invalid RPC id:" + response.id));
+      error.stack += response.stack;
+      throw error;
     }
-    const { id, value, error, stack } = response;
-    if (!executors.has(id)) {
-      const error2 = err(new ErrnoError(Errno.EIO, "Invalid RPC id:" + id));
-      error2.stack += stack;
-      throw error2;
-    }
-    const { resolve: resolve2, reject, fs } = executors.get(id);
-    if (error) {
-      const e = ErrnoError.fromJSON({ code: "EIO", errno: Errno.EIO, ...value });
-      e.stack += stack;
+    const { resolve: resolve2, reject } = executors.get(response.id);
+    if (response.error) {
+      const e = ErrnoError.fromJSON({ code: "EIO", errno: Errno.EIO, ...response.error });
+      e.stack += response.stack;
       reject(e);
-      executors.delete(id);
+      executors.delete(response.id);
       return;
     }
-    if (isFileData(value)) {
-      const { path, flag, stats } = value;
-      const file = new LazyFile(fs, path, flag, new Stats(stats));
-      resolve2(file);
-      executors.delete(id);
-      return;
-    }
-    resolve2(value);
-    executors.delete(id);
+    resolve2(__responseMethod(response, "stat", "createFile", "mkdir") ? new Inode(response.value) : response.value);
+    executors.delete(response.id);
     return;
   }
   function attach(port, handler) {
@@ -17440,8 +17839,14 @@
       }
     };
   }
-
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/backends/port/fs.js
+  async function waitOnline(port) {
+    if (!("on" in port))
+      return;
+    const online = Promise.withResolvers();
+    setTimeout(online.reject, 500);
+    port.on("online", online.resolve);
+    await online.promise;
+  }
   var PortFS = class extends Async(FileSystem) {
     /**
      * Constructs a new PortFS instance that connects with the FS running on `options.port`.
@@ -17449,7 +17854,7 @@
     constructor(options) {
       super(1886351988, "portfs");
       this.options = options;
-      this._sync = InMemory.create({ name: "tmpfs:port" });
+      this._sync = InMemory.create({ label: "tmpfs:port" });
       this.port = options.port;
       attach(this.port, handleResponse);
     }
@@ -17467,17 +17872,16 @@
       return this.rpc("rename", oldPath, newPath);
     }
     async stat(path) {
-      return new Stats(await this.rpc("stat", path));
+      return new Inode(await this.rpc("stat", path));
     }
-    sync(path, data, stats) {
-      stats = "toJSON" in stats ? stats.toJSON() : stats;
-      return this.rpc("sync", path, data, stats);
+    async touch(path, metadata) {
+      await this.rpc("touch", path, serialize(metadata instanceof Inode ? metadata : new Inode(metadata)));
     }
-    openFile(path, flag) {
-      return this.rpc("openFile", path, flag);
+    sync(path) {
+      return this.rpc("sync", path);
     }
-    createFile(path, flag, mode, options) {
-      return this.rpc("createFile", path, flag, mode, options);
+    async createFile(path, options) {
+      return new Inode(await this.rpc("createFile", path, options));
     }
     unlink(path) {
       return this.rpc("unlink", path);
@@ -17485,8 +17889,8 @@
     rmdir(path) {
       return this.rpc("rmdir", path);
     }
-    mkdir(path, mode, options) {
-      return this.rpc("mkdir", path, mode, options);
+    async mkdir(path, options) {
+      return new Inode(await this.rpc("mkdir", path, options));
     }
     readdir(path) {
       return this.rpc("readdir", path);
@@ -17497,40 +17901,49 @@
     link(srcpath, dstpath) {
       return this.rpc("link", srcpath, dstpath);
     }
-    async read(path, buffer, offset, length) {
-      const _buf = await this.rpc("read", path, buffer, offset, length);
-      buffer.set(_buf);
+    async read(path, buffer, start, end) {
+      buffer.set(await this.rpc("read", path, buffer, start, end));
     }
     write(path, buffer, offset) {
       return this.rpc("write", path, buffer, offset);
     }
   };
   async function handleRequest(port, fs, request2) {
-    if (!isMessage(request2))
+    if (!isRPCMessage(request2))
       return;
-    const { method, args, id, stack } = request2;
-    let value, error = false;
+    let value, error;
+    const transferList = [];
     try {
-      value = await fs[method](...args);
-      switch (method) {
-        case "openFile":
-        case "createFile": {
-          value = {
-            path: args[0],
-            flag: args[1],
-            stats: await fs.stat(args[0])
-          };
+      switch (request2.method) {
+        case "read": {
+          __requestMethod(request2);
+          const [path, buffer, start, end] = request2.args;
+          await fs.read(path, buffer, start, end);
+          value = buffer;
           break;
         }
-        case "read":
-          value = args[1];
+        case "stat":
+        case "createFile":
+        case "mkdir": {
+          __requestMethod(request2);
+          const inode = await fs[request2.method](...request2.args);
+          value = serialize(inode instanceof Inode ? inode : new Inode(inode));
           break;
+        }
+        case "touch": {
+          __requestMethod(request2);
+          const [path, metadata] = request2.args;
+          await fs.touch(path, new Inode(metadata));
+          value = void 0;
+          break;
+        }
+        default:
+          value = await fs[request2.method](...request2.args);
       }
     } catch (e) {
-      value = e instanceof ErrnoError ? e.toJSON() : pick(e, "message", "stack");
-      error = true;
+      error = e instanceof ErrnoError ? e.toJSON() : pick(e, "message", "stack");
     }
-    port.postMessage({ _zenfs: true, id, error, method, stack, value });
+    port.postMessage({ _zenfs: true, ...pick(request2, "id", "method", "stack"), error, value }, transferList);
   }
   function attachFS(port, fs) {
     attach(port, (request2) => handleRequest(port, fs, request2));
@@ -17542,13 +17955,8 @@
     name: "Port",
     options: {
       port: {
-        type: "object",
-        required: true,
-        validator(port) {
-          if (typeof (port === null || port === void 0 ? void 0 : port.postMessage) != "function") {
-            throw err(new ErrnoError(Errno.EINVAL, "option must be a port"));
-          }
-        }
+        type: _fnOpt("RPCPort", (port) => typeof (port === null || port === void 0 ? void 0 : port.postMessage) == "function"),
+        required: true
       },
       timeout: { type: "number", required: false }
     },
@@ -17557,16 +17965,16 @@
     }
   };
   var Port = _Port;
-  async function resolveRemoteMount(port, config2, _depth = 0) {
+  async function resolveRemoteMount(port, config, _depth = 0) {
     const stopAndReplay = catchMessages(port);
-    const fs = await resolveMountConfig(config2, _depth);
+    const fs = await resolveMountConfig(config, _depth);
     attachFS(port, fs);
     await stopAndReplay(fs);
     info("Resolved remote mount: " + fs.toString());
     return fs;
   }
 
-  // node_modules/.pnpm/utilium@1.4.0/node_modules/utilium/dist/checksum.js
+  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/checksum.js
   var crc32cTable = new Uint32Array(256);
   for (let i = 0; i < 256; i++) {
     let value = i;
@@ -17583,8 +17991,8 @@
     return (crc ^ 4294967295) >>> 0;
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/backends/single_buffer.js
-  var __esDecorate2 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/single_buffer.js
+  var __esDecorate3 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) {
       if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
       return f;
@@ -17616,14 +18024,14 @@
     if (target) Object.defineProperty(target, contextIn.name, descriptor);
     done = true;
   };
-  var __runInitializers2 = function(thisArg, initializers, value) {
+  var __runInitializers3 = function(thisArg, initializers, value) {
     var useValue = arguments.length > 2;
     for (var i = 0; i < initializers.length; i++) {
       value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
     }
     return useValue ? value : void 0;
   };
-  var __setFunctionName2 = function(f, name, prefix) {
+  var __setFunctionName3 = function(f, name, prefix) {
     if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
     return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
   };
@@ -17647,36 +18055,36 @@
     let _size_extraInitializers = [];
     var MetadataEntry2 = _classThis = class {
       constructor() {
-        this.id = __runInitializers2(this, _id_initializers, 0);
-        this.offset_ = (__runInitializers2(this, _id_extraInitializers), __runInitializers2(this, _offset__initializers, 0));
-        this.offset = (__runInitializers2(this, _offset__extraInitializers), __runInitializers2(this, _offset_initializers, 0));
-        this.size = (__runInitializers2(this, _offset_extraInitializers), __runInitializers2(this, _size_initializers, 0));
-        __runInitializers2(this, _size_extraInitializers);
+        this.id = __runInitializers3(this, _id_initializers, 0);
+        this.offset_ = (__runInitializers3(this, _id_extraInitializers), __runInitializers3(this, _offset__initializers, 0));
+        this.offset = (__runInitializers3(this, _offset__extraInitializers), __runInitializers3(this, _offset_initializers, 0));
+        this.size = (__runInitializers3(this, _offset_extraInitializers), __runInitializers3(this, _size_initializers, 0));
+        __runInitializers3(this, _size_extraInitializers);
       }
     };
-    __setFunctionName2(_classThis, "MetadataEntry");
+    __setFunctionName3(_classThis, "MetadataEntry");
     (() => {
       const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-      _id_decorators = [(_a2 = types2).uint32.bind(_a2)];
-      _offset__decorators = [(_b2 = types2).uint32.bind(_b2)];
-      _offset_decorators = [(_c2 = types2).uint32.bind(_c2)];
-      _size_decorators = [(_d = types2).uint32.bind(_d)];
-      __esDecorate2(null, null, _id_decorators, { kind: "field", name: "id", static: false, private: false, access: { has: (obj) => "id" in obj, get: (obj) => obj.id, set: (obj, value) => {
+      _id_decorators = [(_a2 = types).uint32.bind(_a2)];
+      _offset__decorators = [(_b2 = types).uint32.bind(_b2)];
+      _offset_decorators = [(_c2 = types).uint32.bind(_c2)];
+      _size_decorators = [(_d = types).uint32.bind(_d)];
+      __esDecorate3(null, null, _id_decorators, { kind: "field", name: "id", static: false, private: false, access: { has: (obj) => "id" in obj, get: (obj) => obj.id, set: (obj, value) => {
         obj.id = value;
       } }, metadata: _metadata }, _id_initializers, _id_extraInitializers);
-      __esDecorate2(null, null, _offset__decorators, { kind: "field", name: "offset_", static: false, private: false, access: { has: (obj) => "offset_" in obj, get: (obj) => obj.offset_, set: (obj, value) => {
+      __esDecorate3(null, null, _offset__decorators, { kind: "field", name: "offset_", static: false, private: false, access: { has: (obj) => "offset_" in obj, get: (obj) => obj.offset_, set: (obj, value) => {
         obj.offset_ = value;
       } }, metadata: _metadata }, _offset__initializers, _offset__extraInitializers);
-      __esDecorate2(null, null, _offset_decorators, { kind: "field", name: "offset", static: false, private: false, access: { has: (obj) => "offset" in obj, get: (obj) => obj.offset, set: (obj, value) => {
+      __esDecorate3(null, null, _offset_decorators, { kind: "field", name: "offset", static: false, private: false, access: { has: (obj) => "offset" in obj, get: (obj) => obj.offset, set: (obj, value) => {
         obj.offset = value;
       } }, metadata: _metadata }, _offset_initializers, _offset_extraInitializers);
-      __esDecorate2(null, null, _size_decorators, { kind: "field", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
+      __esDecorate3(null, null, _size_decorators, { kind: "field", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
         obj.size = value;
       } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
-      __esDecorate2(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+      __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
       MetadataEntry2 = _classThis = _classDescriptor.value;
       if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-      __runInitializers2(_classThis, _classExtraInitializers);
+      __runInitializers3(_classThis, _classExtraInitializers);
     })();
     return MetadataEntry2 = _classThis;
   })();
@@ -17703,16 +18111,16 @@
     let _entries_initializers = [];
     let _entries_extraInitializers = [];
     var MetadataBlock2 = _classThis = class {
-      constructor(superblock, offset = 0) {
+      constructor(superblock = _throw(new ErrnoError(Errno.EINVAL, "Metadata block must be initialized with a superblock")), offset = 0) {
         this.superblock = superblock;
         this.offset = offset;
-        this.checksum = __runInitializers2(this, _checksum_initializers, 0);
-        this.timestamp = (__runInitializers2(this, _checksum_extraInitializers), __runInitializers2(this, _timestamp_initializers, Date.now()));
-        this.previous_offset_ = (__runInitializers2(this, _timestamp_extraInitializers), __runInitializers2(this, _previous_offset__initializers, 0));
-        this.previous_offset = (__runInitializers2(this, _previous_offset__extraInitializers), __runInitializers2(this, _previous_offset_initializers, 0));
-        this._previous = __runInitializers2(this, _previous_offset_extraInitializers);
-        this.entries = __runInitializers2(this, _entries_initializers, Array.from({ length: entries_per_block }, () => new MetadataEntry()));
-        __runInitializers2(this, _entries_extraInitializers);
+        this.checksum = __runInitializers3(this, _checksum_initializers, 0);
+        this.timestamp = (__runInitializers3(this, _checksum_extraInitializers), __runInitializers3(this, _timestamp_initializers, Date.now()));
+        this.previous_offset_ = (__runInitializers3(this, _timestamp_extraInitializers), __runInitializers3(this, _previous_offset__initializers, 0));
+        this.previous_offset = (__runInitializers3(this, _previous_offset__extraInitializers), __runInitializers3(this, _previous_offset_initializers, 0));
+        this._previous = __runInitializers3(this, _previous_offset_extraInitializers);
+        this.entries = __runInitializers3(this, _entries_initializers, Array.from({ length: entries_per_block }, () => new MetadataEntry()));
+        __runInitializers3(this, _entries_extraInitializers);
         this.superblock = superblock;
         this.offset = offset;
         if (!offset)
@@ -17729,33 +18137,33 @@
         return this._previous;
       }
     };
-    __setFunctionName2(_classThis, "MetadataBlock");
+    __setFunctionName3(_classThis, "MetadataBlock");
     (() => {
       const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-      _checksum_decorators = [(_a2 = types2).uint32.bind(_a2)];
-      _timestamp_decorators = [(_b2 = types2).uint32.bind(_b2)];
-      _previous_offset__decorators = [(_c2 = types2).uint32.bind(_c2)];
-      _previous_offset_decorators = [(_d = types2).uint32.bind(_d)];
+      _checksum_decorators = [(_a2 = types).uint32.bind(_a2)];
+      _timestamp_decorators = [(_b2 = types).uint32.bind(_b2)];
+      _previous_offset__decorators = [(_c2 = types).uint32.bind(_c2)];
+      _previous_offset_decorators = [(_d = types).uint32.bind(_d)];
       _entries_decorators = [member(MetadataEntry, entries_per_block)];
-      __esDecorate2(null, null, _checksum_decorators, { kind: "field", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
+      __esDecorate3(null, null, _checksum_decorators, { kind: "field", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
         obj.checksum = value;
       } }, metadata: _metadata }, _checksum_initializers, _checksum_extraInitializers);
-      __esDecorate2(null, null, _timestamp_decorators, { kind: "field", name: "timestamp", static: false, private: false, access: { has: (obj) => "timestamp" in obj, get: (obj) => obj.timestamp, set: (obj, value) => {
+      __esDecorate3(null, null, _timestamp_decorators, { kind: "field", name: "timestamp", static: false, private: false, access: { has: (obj) => "timestamp" in obj, get: (obj) => obj.timestamp, set: (obj, value) => {
         obj.timestamp = value;
       } }, metadata: _metadata }, _timestamp_initializers, _timestamp_extraInitializers);
-      __esDecorate2(null, null, _previous_offset__decorators, { kind: "field", name: "previous_offset_", static: false, private: false, access: { has: (obj) => "previous_offset_" in obj, get: (obj) => obj.previous_offset_, set: (obj, value) => {
+      __esDecorate3(null, null, _previous_offset__decorators, { kind: "field", name: "previous_offset_", static: false, private: false, access: { has: (obj) => "previous_offset_" in obj, get: (obj) => obj.previous_offset_, set: (obj, value) => {
         obj.previous_offset_ = value;
       } }, metadata: _metadata }, _previous_offset__initializers, _previous_offset__extraInitializers);
-      __esDecorate2(null, null, _previous_offset_decorators, { kind: "field", name: "previous_offset", static: false, private: false, access: { has: (obj) => "previous_offset" in obj, get: (obj) => obj.previous_offset, set: (obj, value) => {
+      __esDecorate3(null, null, _previous_offset_decorators, { kind: "field", name: "previous_offset", static: false, private: false, access: { has: (obj) => "previous_offset" in obj, get: (obj) => obj.previous_offset, set: (obj, value) => {
         obj.previous_offset = value;
       } }, metadata: _metadata }, _previous_offset_initializers, _previous_offset_extraInitializers);
-      __esDecorate2(null, null, _entries_decorators, { kind: "field", name: "entries", static: false, private: false, access: { has: (obj) => "entries" in obj, get: (obj) => obj.entries, set: (obj, value) => {
+      __esDecorate3(null, null, _entries_decorators, { kind: "field", name: "entries", static: false, private: false, access: { has: (obj) => "entries" in obj, get: (obj) => obj.entries, set: (obj, value) => {
         obj.entries = value;
       } }, metadata: _metadata }, _entries_initializers, _entries_extraInitializers);
-      __esDecorate2(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+      __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
       MetadataBlock2 = _classThis = _classDescriptor.value;
       if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-      __runInitializers2(_classThis, _classExtraInitializers);
+      __runInitializers3(_classThis, _classExtraInitializers);
     })();
     return MetadataBlock2 = _classThis;
   })();
@@ -17787,9 +18195,9 @@
     let _total_bytes_decorators;
     let _total_bytes_initializers = [];
     let _total_bytes_extraInitializers = [];
-    let _id_decorators;
-    let _id_initializers = [];
-    let _id_extraInitializers = [];
+    let _uuid_decorators;
+    let _uuid_initializers = [];
+    let _uuid_extraInitializers = [];
     let _metadata_block_size_decorators;
     let _metadata_block_size_initializers = [];
     let _metadata_block_size_extraInitializers = [];
@@ -17806,27 +18214,29 @@
     let __padding_initializers = [];
     let __padding_extraInitializers = [];
     var SuperBlock2 = _classThis = class {
-      constructor(store) {
+      constructor(store = _throw(new ErrnoError(Errno.EINVAL, "Super block must be initialized with a store"))) {
         this.store = store;
-        this.checksum = __runInitializers2(this, _checksum_initializers, 0);
-        this.magic = (__runInitializers2(this, _checksum_extraInitializers), __runInitializers2(this, _magic_initializers, sb_magic));
-        this.version = (__runInitializers2(this, _magic_extraInitializers), __runInitializers2(this, _version_initializers, 1));
-        this.inode_format = (__runInitializers2(this, _version_extraInitializers), __runInitializers2(this, _inode_format_initializers, _inode_version));
-        this.flags = (__runInitializers2(this, _inode_format_extraInitializers), __runInitializers2(this, _flags_initializers, 0));
-        this.used_bytes = (__runInitializers2(this, _flags_extraInitializers), __runInitializers2(this, _used_bytes_initializers, BigInt(0)));
-        this.total_bytes = (__runInitializers2(this, _used_bytes_extraInitializers), __runInitializers2(this, _total_bytes_initializers, BigInt(0)));
-        this.id = (__runInitializers2(this, _total_bytes_extraInitializers), __runInitializers2(this, _id_initializers, BigInt(0)));
-        this.metadata_block_size = (__runInitializers2(this, _id_extraInitializers), __runInitializers2(this, _metadata_block_size_initializers, sizeof(MetadataBlock)));
-        this.metadata_offset_ = (__runInitializers2(this, _metadata_block_size_extraInitializers), __runInitializers2(this, _metadata_offset__initializers, 0));
-        this.metadata_offset = (__runInitializers2(this, _metadata_offset__extraInitializers), __runInitializers2(this, _metadata_offset_initializers, 0));
-        this.metadata = __runInitializers2(this, _metadata_offset_extraInitializers);
-        this.label = __runInitializers2(this, _label_initializers, "");
-        this._padding = (__runInitializers2(this, _label_extraInitializers), __runInitializers2(this, __padding_initializers, new Array(132).fill(0)));
-        __runInitializers2(this, __padding_extraInitializers);
+        this.checksum = __runInitializers3(this, _checksum_initializers, 0);
+        this.magic = (__runInitializers3(this, _checksum_extraInitializers), __runInitializers3(this, _magic_initializers, sb_magic));
+        this.version = (__runInitializers3(this, _magic_extraInitializers), __runInitializers3(this, _version_initializers, 1));
+        this.inode_format = (__runInitializers3(this, _version_extraInitializers), __runInitializers3(this, _inode_format_initializers, _inode_version));
+        this.flags = (__runInitializers3(this, _inode_format_extraInitializers), __runInitializers3(this, _flags_initializers, 0));
+        this.used_bytes = (__runInitializers3(this, _flags_extraInitializers), __runInitializers3(this, _used_bytes_initializers, BigInt(0)));
+        this.total_bytes = (__runInitializers3(this, _used_bytes_extraInitializers), __runInitializers3(this, _total_bytes_initializers, BigInt(0)));
+        this.uuid = (__runInitializers3(this, _total_bytes_extraInitializers), __runInitializers3(this, _uuid_initializers, BigInt(0)));
+        this.metadata_block_size = (__runInitializers3(this, _uuid_extraInitializers), __runInitializers3(this, _metadata_block_size_initializers, sizeof(MetadataBlock)));
+        this.metadata_offset_ = (__runInitializers3(this, _metadata_block_size_extraInitializers), __runInitializers3(this, _metadata_offset__initializers, 0));
+        this.metadata_offset = (__runInitializers3(this, _metadata_offset__extraInitializers), __runInitializers3(this, _metadata_offset_initializers, 0));
+        this.metadata = __runInitializers3(this, _metadata_offset_extraInitializers);
+        this.label = __runInitializers3(this, _label_initializers, "");
+        this._padding = (__runInitializers3(this, _label_extraInitializers), __runInitializers3(this, __padding_initializers, new Array(132).fill(0)));
+        __runInitializers3(this, __padding_extraInitializers);
         this.store = store;
         if (store._view.getUint32(offsetof(SuperBlock2, "magic"), true) != sb_magic) {
           warn("SingleBuffer: Invalid magic value, assuming this is a fresh super block");
           this.metadata = new MetadataBlock(this);
+          this.metadata.offset = sizeof(SuperBlock2);
+          this.metadata_offset = this.metadata.offset;
           this.used_bytes = BigInt(sizeof(SuperBlock2) + sizeof(MetadataBlock));
           this.total_bytes = BigInt(store._buffer.byteLength);
           store._write(this);
@@ -17845,15 +18255,15 @@
        * @returns the new metadata block
        */
       rotateMetadata() {
-        const metadata2 = new MetadataBlock(this);
-        metadata2.offset = Number(this.used_bytes);
-        metadata2.previous_offset = this.metadata_offset;
-        this.metadata = metadata2;
-        this.metadata_offset = metadata2.offset;
-        this.store._write(metadata2);
+        const metadata = new MetadataBlock(this);
+        metadata.offset = Number(this.used_bytes);
+        metadata.previous_offset = this.metadata_offset;
+        this.metadata = metadata;
+        this.metadata_offset = metadata.offset;
+        this.store._write(metadata);
         this.used_bytes += BigInt(sizeof(MetadataBlock));
         this.store._write(this);
-        return metadata2;
+        return metadata;
       }
       /**
        * Checks to see if `length` bytes are unused, starting at `offset`.
@@ -17878,65 +18288,65 @@
         return true;
       }
     };
-    __setFunctionName2(_classThis, "SuperBlock");
+    __setFunctionName3(_classThis, "SuperBlock");
     (() => {
       const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-      _checksum_decorators = [(_a2 = types2).uint32.bind(_a2)];
-      _magic_decorators = [(_b2 = types2).uint32.bind(_b2)];
-      _version_decorators = [(_c2 = types2).uint16.bind(_c2)];
-      _inode_format_decorators = [(_d = types2).uint16.bind(_d)];
-      _flags_decorators = [(_e = types2).uint32.bind(_e)];
-      _used_bytes_decorators = [(_f = types2).uint64.bind(_f)];
-      _total_bytes_decorators = [(_g = types2).uint64.bind(_g)];
-      _id_decorators = [(_h = types2).uint128.bind(_h)];
-      _metadata_block_size_decorators = [(_j = types2).uint32.bind(_j)];
-      _metadata_offset__decorators = [(_k = types2).uint32.bind(_k)];
-      _metadata_offset_decorators = [(_l = types2).uint32.bind(_l)];
-      _label_decorators = [types2.char(64)];
-      __padding_decorators = [types2.char(132)];
-      __esDecorate2(null, null, _checksum_decorators, { kind: "field", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
+      _checksum_decorators = [(_a2 = types).uint32.bind(_a2)];
+      _magic_decorators = [(_b2 = types).uint32.bind(_b2)];
+      _version_decorators = [(_c2 = types).uint16.bind(_c2)];
+      _inode_format_decorators = [(_d = types).uint16.bind(_d)];
+      _flags_decorators = [(_e = types).uint32.bind(_e)];
+      _used_bytes_decorators = [(_f = types).uint64.bind(_f)];
+      _total_bytes_decorators = [(_g = types).uint64.bind(_g)];
+      _uuid_decorators = [(_h = types).uint128.bind(_h)];
+      _metadata_block_size_decorators = [(_j = types).uint32.bind(_j)];
+      _metadata_offset__decorators = [(_k = types).uint32.bind(_k)];
+      _metadata_offset_decorators = [(_l = types).uint32.bind(_l)];
+      _label_decorators = [types.char(64)];
+      __padding_decorators = [types.char(132)];
+      __esDecorate3(null, null, _checksum_decorators, { kind: "field", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
         obj.checksum = value;
       } }, metadata: _metadata }, _checksum_initializers, _checksum_extraInitializers);
-      __esDecorate2(null, null, _magic_decorators, { kind: "field", name: "magic", static: false, private: false, access: { has: (obj) => "magic" in obj, get: (obj) => obj.magic, set: (obj, value) => {
+      __esDecorate3(null, null, _magic_decorators, { kind: "field", name: "magic", static: false, private: false, access: { has: (obj) => "magic" in obj, get: (obj) => obj.magic, set: (obj, value) => {
         obj.magic = value;
       } }, metadata: _metadata }, _magic_initializers, _magic_extraInitializers);
-      __esDecorate2(null, null, _version_decorators, { kind: "field", name: "version", static: false, private: false, access: { has: (obj) => "version" in obj, get: (obj) => obj.version, set: (obj, value) => {
+      __esDecorate3(null, null, _version_decorators, { kind: "field", name: "version", static: false, private: false, access: { has: (obj) => "version" in obj, get: (obj) => obj.version, set: (obj, value) => {
         obj.version = value;
       } }, metadata: _metadata }, _version_initializers, _version_extraInitializers);
-      __esDecorate2(null, null, _inode_format_decorators, { kind: "field", name: "inode_format", static: false, private: false, access: { has: (obj) => "inode_format" in obj, get: (obj) => obj.inode_format, set: (obj, value) => {
+      __esDecorate3(null, null, _inode_format_decorators, { kind: "field", name: "inode_format", static: false, private: false, access: { has: (obj) => "inode_format" in obj, get: (obj) => obj.inode_format, set: (obj, value) => {
         obj.inode_format = value;
       } }, metadata: _metadata }, _inode_format_initializers, _inode_format_extraInitializers);
-      __esDecorate2(null, null, _flags_decorators, { kind: "field", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
+      __esDecorate3(null, null, _flags_decorators, { kind: "field", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
         obj.flags = value;
       } }, metadata: _metadata }, _flags_initializers, _flags_extraInitializers);
-      __esDecorate2(null, null, _used_bytes_decorators, { kind: "field", name: "used_bytes", static: false, private: false, access: { has: (obj) => "used_bytes" in obj, get: (obj) => obj.used_bytes, set: (obj, value) => {
+      __esDecorate3(null, null, _used_bytes_decorators, { kind: "field", name: "used_bytes", static: false, private: false, access: { has: (obj) => "used_bytes" in obj, get: (obj) => obj.used_bytes, set: (obj, value) => {
         obj.used_bytes = value;
       } }, metadata: _metadata }, _used_bytes_initializers, _used_bytes_extraInitializers);
-      __esDecorate2(null, null, _total_bytes_decorators, { kind: "field", name: "total_bytes", static: false, private: false, access: { has: (obj) => "total_bytes" in obj, get: (obj) => obj.total_bytes, set: (obj, value) => {
+      __esDecorate3(null, null, _total_bytes_decorators, { kind: "field", name: "total_bytes", static: false, private: false, access: { has: (obj) => "total_bytes" in obj, get: (obj) => obj.total_bytes, set: (obj, value) => {
         obj.total_bytes = value;
       } }, metadata: _metadata }, _total_bytes_initializers, _total_bytes_extraInitializers);
-      __esDecorate2(null, null, _id_decorators, { kind: "field", name: "id", static: false, private: false, access: { has: (obj) => "id" in obj, get: (obj) => obj.id, set: (obj, value) => {
-        obj.id = value;
-      } }, metadata: _metadata }, _id_initializers, _id_extraInitializers);
-      __esDecorate2(null, null, _metadata_block_size_decorators, { kind: "field", name: "metadata_block_size", static: false, private: false, access: { has: (obj) => "metadata_block_size" in obj, get: (obj) => obj.metadata_block_size, set: (obj, value) => {
+      __esDecorate3(null, null, _uuid_decorators, { kind: "field", name: "uuid", static: false, private: false, access: { has: (obj) => "uuid" in obj, get: (obj) => obj.uuid, set: (obj, value) => {
+        obj.uuid = value;
+      } }, metadata: _metadata }, _uuid_initializers, _uuid_extraInitializers);
+      __esDecorate3(null, null, _metadata_block_size_decorators, { kind: "field", name: "metadata_block_size", static: false, private: false, access: { has: (obj) => "metadata_block_size" in obj, get: (obj) => obj.metadata_block_size, set: (obj, value) => {
         obj.metadata_block_size = value;
       } }, metadata: _metadata }, _metadata_block_size_initializers, _metadata_block_size_extraInitializers);
-      __esDecorate2(null, null, _metadata_offset__decorators, { kind: "field", name: "metadata_offset_", static: false, private: false, access: { has: (obj) => "metadata_offset_" in obj, get: (obj) => obj.metadata_offset_, set: (obj, value) => {
+      __esDecorate3(null, null, _metadata_offset__decorators, { kind: "field", name: "metadata_offset_", static: false, private: false, access: { has: (obj) => "metadata_offset_" in obj, get: (obj) => obj.metadata_offset_, set: (obj, value) => {
         obj.metadata_offset_ = value;
       } }, metadata: _metadata }, _metadata_offset__initializers, _metadata_offset__extraInitializers);
-      __esDecorate2(null, null, _metadata_offset_decorators, { kind: "field", name: "metadata_offset", static: false, private: false, access: { has: (obj) => "metadata_offset" in obj, get: (obj) => obj.metadata_offset, set: (obj, value) => {
+      __esDecorate3(null, null, _metadata_offset_decorators, { kind: "field", name: "metadata_offset", static: false, private: false, access: { has: (obj) => "metadata_offset" in obj, get: (obj) => obj.metadata_offset, set: (obj, value) => {
         obj.metadata_offset = value;
       } }, metadata: _metadata }, _metadata_offset_initializers, _metadata_offset_extraInitializers);
-      __esDecorate2(null, null, _label_decorators, { kind: "field", name: "label", static: false, private: false, access: { has: (obj) => "label" in obj, get: (obj) => obj.label, set: (obj, value) => {
+      __esDecorate3(null, null, _label_decorators, { kind: "field", name: "label", static: false, private: false, access: { has: (obj) => "label" in obj, get: (obj) => obj.label, set: (obj, value) => {
         obj.label = value;
       } }, metadata: _metadata }, _label_initializers, _label_extraInitializers);
-      __esDecorate2(null, null, __padding_decorators, { kind: "field", name: "_padding", static: false, private: false, access: { has: (obj) => "_padding" in obj, get: (obj) => obj._padding, set: (obj, value) => {
+      __esDecorate3(null, null, __padding_decorators, { kind: "field", name: "_padding", static: false, private: false, access: { has: (obj) => "_padding" in obj, get: (obj) => obj._padding, set: (obj, value) => {
         obj._padding = value;
       } }, metadata: _metadata }, __padding_initializers, __padding_extraInitializers);
-      __esDecorate2(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+      __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
       SuperBlock2 = _classThis = _classDescriptor.value;
       if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-      __runInitializers2(_classThis, _classExtraInitializers);
+      __runInitializers3(_classThis, _classExtraInitializers);
     })();
     return SuperBlock2 = _classThis;
   })();
@@ -17946,10 +18356,13 @@
     return value.checksum === computed;
   }
   var SingleBufferStore = class {
+    get uuid() {
+      return stringifyUUID(this.superblock.uuid);
+    }
     constructor(buffer) {
       this.flags = [];
       this.name = "sbfs";
-      this.id = 1935828595;
+      this.type = 1935828595;
       if (buffer.byteLength < sizeof(SuperBlock) + sizeof(MetadataBlock))
         throw crit(new ErrnoError(Errno.EINVAL, "SingleBuffer: Buffer is too small for a file system"));
       this._view = !ArrayBuffer.isView(buffer) ? new DataView(buffer) : new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength);
@@ -18073,8 +18486,40 @@
   };
   var SingleBuffer = _SingleBuffer;
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/mixins/mutexed.js
-  var __addDisposableResource8 = function(env, value, async) {
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/context.js
+  var _nextId = 1;
+  var boundContexts = /* @__PURE__ */ new Map();
+  function bindContext({ root = (this === null || this === void 0 ? void 0 : this.root) || "/", pwd = (this === null || this === void 0 ? void 0 : this.pwd) || "/", credentials = structuredClone(defaultContext.credentials) } = {}) {
+    const parent = this !== null && this !== void 0 ? this : defaultContext;
+    const ctx = {
+      id: _nextId++,
+      root,
+      pwd,
+      credentials: createCredentials(credentials),
+      descriptors: /* @__PURE__ */ new Map(),
+      parent,
+      children: []
+    };
+    const bound = {
+      ...ctx,
+      fs: {
+        ...bindFunctions(vfs_exports, ctx),
+        promises: bindFunctions(promises_exports, ctx),
+        xattr: bindFunctions(xattr_exports, ctx)
+      },
+      path: bindFunctions(path_exports, ctx),
+      bind: (init) => {
+        const child = bindContext.call(ctx, init);
+        ctx.children.push(child);
+        return child;
+      }
+    };
+    boundContexts.set(ctx.id, bound);
+    return bound;
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/mixins/mutexed.js
+  var __addDisposableResource5 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
       var dispose, inner;
@@ -18101,7 +18546,7 @@
     }
     return value;
   };
-  var __disposeResources8 = /* @__PURE__ */ function(SuppressedError2) {
+  var __disposeResources5 = /* @__PURE__ */ function(SuppressedError2) {
     return function(env) {
       function fail(e) {
         env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
@@ -18155,8 +18600,8 @@
     }
   };
   var _MutexedFS = class {
-    get id() {
-      return this._fs.id;
+    get type() {
+      return this._fs.type;
     }
     get name() {
       return this._fs.name;
@@ -18170,14 +18615,20 @@
     get attributes() {
       return this._fs.attributes;
     }
+    get _uuid() {
+      return this._fs._uuid;
+    }
+    set _uuid(value) {
+      this._fs._uuid = value;
+    }
+    get uuid() {
+      return this._fs.uuid;
+    }
     async ready() {
       return await this._fs.ready();
     }
     usage() {
       return this._fs.usage();
-    }
-    metadata() {
-      return this._fs.metadata();
     }
     /**
      * Adds a lock for a path
@@ -18230,345 +18681,337 @@
     async rename(oldPath, newPath) {
       const env_1 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_1, await this.lock(oldPath, "rename"), false);
+        const _ = __addDisposableResource5(env_1, await this.lock(oldPath, "rename"), false);
         await this._fs.rename(oldPath, newPath);
       } catch (e_1) {
         env_1.error = e_1;
         env_1.hasError = true;
       } finally {
-        __disposeResources8(env_1);
+        __disposeResources5(env_1);
       }
     }
     renameSync(oldPath, newPath) {
       const env_2 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_2, this.lockSync(oldPath, "rename"), false);
+        const _ = __addDisposableResource5(env_2, this.lockSync(oldPath, "rename"), false);
         return this._fs.renameSync(oldPath, newPath);
       } catch (e_2) {
         env_2.error = e_2;
         env_2.hasError = true;
       } finally {
-        __disposeResources8(env_2);
+        __disposeResources5(env_2);
       }
     }
     async stat(path) {
       const env_3 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_3, await this.lock(path, "stat"), false);
+        const _ = __addDisposableResource5(env_3, await this.lock(path, "stat"), false);
         return await this._fs.stat(path);
       } catch (e_3) {
         env_3.error = e_3;
         env_3.hasError = true;
       } finally {
-        __disposeResources8(env_3);
+        __disposeResources5(env_3);
       }
     }
     statSync(path) {
       const env_4 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_4, this.lockSync(path, "stat"), false);
+        const _ = __addDisposableResource5(env_4, this.lockSync(path, "stat"), false);
         return this._fs.statSync(path);
       } catch (e_4) {
         env_4.error = e_4;
         env_4.hasError = true;
       } finally {
-        __disposeResources8(env_4);
+        __disposeResources5(env_4);
       }
     }
-    async openFile(path, flag) {
+    async touch(path, metadata) {
       const env_5 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_5, await this.lock(path, "openFile"), false);
-        const file = await this._fs.openFile(path, flag);
-        file.fs = this;
-        return file;
+        const _ = __addDisposableResource5(env_5, await this.lock(path, "touch"), false);
+        await this._fs.touch(path, metadata);
       } catch (e_5) {
         env_5.error = e_5;
         env_5.hasError = true;
       } finally {
-        __disposeResources8(env_5);
+        __disposeResources5(env_5);
       }
     }
-    openFileSync(path, flag) {
+    touchSync(path, metadata) {
       const env_6 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_6, this.lockSync(path, "openFile"), false);
-        const file = this._fs.openFileSync(path, flag);
-        file.fs = this;
-        return file;
+        const _ = __addDisposableResource5(env_6, this.lockSync(path, "touch"), false);
+        this._fs.touchSync(path, metadata);
       } catch (e_6) {
         env_6.error = e_6;
         env_6.hasError = true;
       } finally {
-        __disposeResources8(env_6);
+        __disposeResources5(env_6);
       }
     }
-    async createFile(path, flag, mode, options) {
+    async createFile(path, options) {
       const env_7 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_7, await this.lock(path, "createFile"), false);
-        const file = await this._fs.createFile(path, flag, mode, options);
-        file.fs = this;
-        return file;
+        const _ = __addDisposableResource5(env_7, await this.lock(path, "createFile"), false);
+        return await this._fs.createFile(path, options);
       } catch (e_7) {
         env_7.error = e_7;
         env_7.hasError = true;
       } finally {
-        __disposeResources8(env_7);
+        __disposeResources5(env_7);
       }
     }
-    createFileSync(path, flag, mode, options) {
+    createFileSync(path, options) {
       const env_8 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_8, this.lockSync(path, "createFile"), false);
-        const file = this._fs.createFileSync(path, flag, mode, options);
-        file.fs = this;
-        return file;
+        const _ = __addDisposableResource5(env_8, this.lockSync(path, "createFile"), false);
+        return this._fs.createFileSync(path, options);
       } catch (e_8) {
         env_8.error = e_8;
         env_8.hasError = true;
       } finally {
-        __disposeResources8(env_8);
+        __disposeResources5(env_8);
       }
     }
     async unlink(path) {
       const env_9 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_9, await this.lock(path, "unlink"), false);
+        const _ = __addDisposableResource5(env_9, await this.lock(path, "unlink"), false);
         await this._fs.unlink(path);
       } catch (e_9) {
         env_9.error = e_9;
         env_9.hasError = true;
       } finally {
-        __disposeResources8(env_9);
+        __disposeResources5(env_9);
       }
     }
     unlinkSync(path) {
       const env_10 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_10, this.lockSync(path, "unlink"), false);
+        const _ = __addDisposableResource5(env_10, this.lockSync(path, "unlink"), false);
         return this._fs.unlinkSync(path);
       } catch (e_10) {
         env_10.error = e_10;
         env_10.hasError = true;
       } finally {
-        __disposeResources8(env_10);
+        __disposeResources5(env_10);
       }
     }
     async rmdir(path) {
       const env_11 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_11, await this.lock(path, "rmdir"), false);
+        const _ = __addDisposableResource5(env_11, await this.lock(path, "rmdir"), false);
         await this._fs.rmdir(path);
       } catch (e_11) {
         env_11.error = e_11;
         env_11.hasError = true;
       } finally {
-        __disposeResources8(env_11);
+        __disposeResources5(env_11);
       }
     }
     rmdirSync(path) {
       const env_12 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_12, this.lockSync(path, "rmdir"), false);
+        const _ = __addDisposableResource5(env_12, this.lockSync(path, "rmdir"), false);
         return this._fs.rmdirSync(path);
       } catch (e_12) {
         env_12.error = e_12;
         env_12.hasError = true;
       } finally {
-        __disposeResources8(env_12);
+        __disposeResources5(env_12);
       }
     }
-    async mkdir(path, mode, options) {
+    async mkdir(path, options) {
       const env_13 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_13, await this.lock(path, "mkdir"), false);
-        await this._fs.mkdir(path, mode, options);
+        const _ = __addDisposableResource5(env_13, await this.lock(path, "mkdir"), false);
+        return await this._fs.mkdir(path, options);
       } catch (e_13) {
         env_13.error = e_13;
         env_13.hasError = true;
       } finally {
-        __disposeResources8(env_13);
+        __disposeResources5(env_13);
       }
     }
-    mkdirSync(path, mode, options) {
+    mkdirSync(path, options) {
       const env_14 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_14, this.lockSync(path, "mkdir"), false);
-        return this._fs.mkdirSync(path, mode, options);
+        const _ = __addDisposableResource5(env_14, this.lockSync(path, "mkdir"), false);
+        return this._fs.mkdirSync(path, options);
       } catch (e_14) {
         env_14.error = e_14;
         env_14.hasError = true;
       } finally {
-        __disposeResources8(env_14);
+        __disposeResources5(env_14);
       }
     }
     async readdir(path) {
       const env_15 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_15, await this.lock(path, "readdir"), false);
+        const _ = __addDisposableResource5(env_15, await this.lock(path, "readdir"), false);
         return await this._fs.readdir(path);
       } catch (e_15) {
         env_15.error = e_15;
         env_15.hasError = true;
       } finally {
-        __disposeResources8(env_15);
+        __disposeResources5(env_15);
       }
     }
     readdirSync(path) {
       const env_16 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_16, this.lockSync(path, "readdir"), false);
+        const _ = __addDisposableResource5(env_16, this.lockSync(path, "readdir"), false);
         return this._fs.readdirSync(path);
       } catch (e_16) {
         env_16.error = e_16;
         env_16.hasError = true;
       } finally {
-        __disposeResources8(env_16);
+        __disposeResources5(env_16);
       }
     }
     async exists(path) {
       const env_17 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_17, await this.lock(path, "exists"), false);
+        const _ = __addDisposableResource5(env_17, await this.lock(path, "exists"), false);
         return await this._fs.exists(path);
       } catch (e_17) {
         env_17.error = e_17;
         env_17.hasError = true;
       } finally {
-        __disposeResources8(env_17);
+        __disposeResources5(env_17);
       }
     }
     existsSync(path) {
       const env_18 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_18, this.lockSync(path, "exists"), false);
+        const _ = __addDisposableResource5(env_18, this.lockSync(path, "exists"), false);
         return this._fs.existsSync(path);
       } catch (e_18) {
         env_18.error = e_18;
         env_18.hasError = true;
       } finally {
-        __disposeResources8(env_18);
+        __disposeResources5(env_18);
       }
     }
     async link(srcpath, dstpath) {
       const env_19 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_19, await this.lock(srcpath, "link"), false);
+        const _ = __addDisposableResource5(env_19, await this.lock(srcpath, "link"), false);
         await this._fs.link(srcpath, dstpath);
       } catch (e_19) {
         env_19.error = e_19;
         env_19.hasError = true;
       } finally {
-        __disposeResources8(env_19);
+        __disposeResources5(env_19);
       }
     }
     linkSync(srcpath, dstpath) {
       const env_20 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_20, this.lockSync(srcpath, "link"), false);
+        const _ = __addDisposableResource5(env_20, this.lockSync(srcpath, "link"), false);
         return this._fs.linkSync(srcpath, dstpath);
       } catch (e_20) {
         env_20.error = e_20;
         env_20.hasError = true;
       } finally {
-        __disposeResources8(env_20);
+        __disposeResources5(env_20);
       }
     }
-    async sync(path, data, stats) {
+    async sync(path) {
       const env_21 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_21, await this.lock(path, "sync"), false);
-        await this._fs.sync(path, data, stats);
+        const _ = __addDisposableResource5(env_21, await this.lock(path, "sync"), false);
+        await this._fs.sync(path);
       } catch (e_21) {
         env_21.error = e_21;
         env_21.hasError = true;
       } finally {
-        __disposeResources8(env_21);
+        __disposeResources5(env_21);
       }
     }
-    syncSync(path, data, stats) {
+    syncSync(path) {
       const env_22 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_22, this.lockSync(path, "sync"), false);
-        return this._fs.syncSync(path, data, stats);
+        const _ = __addDisposableResource5(env_22, this.lockSync(path, "sync"), false);
+        return this._fs.syncSync(path);
       } catch (e_22) {
         env_22.error = e_22;
         env_22.hasError = true;
       } finally {
-        __disposeResources8(env_22);
+        __disposeResources5(env_22);
       }
     }
     async read(path, buffer, offset, end) {
       const env_23 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_23, await this.lock(path, "read"), false);
+        const _ = __addDisposableResource5(env_23, await this.lock(path, "read"), false);
         return await this._fs.read(path, buffer, offset, end);
       } catch (e_23) {
         env_23.error = e_23;
         env_23.hasError = true;
       } finally {
-        __disposeResources8(env_23);
+        __disposeResources5(env_23);
       }
     }
     readSync(path, buffer, offset, end) {
       const env_24 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_24, this.lockSync(path, "read"), false);
+        const _ = __addDisposableResource5(env_24, this.lockSync(path, "read"), false);
         return this._fs.readSync(path, buffer, offset, end);
       } catch (e_24) {
         env_24.error = e_24;
         env_24.hasError = true;
       } finally {
-        __disposeResources8(env_24);
+        __disposeResources5(env_24);
       }
     }
     async write(path, buffer, offset) {
       const env_25 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_25, await this.lock(path, "write"), false);
+        const _ = __addDisposableResource5(env_25, await this.lock(path, "write"), false);
         return await this._fs.write(path, buffer, offset);
       } catch (e_25) {
         env_25.error = e_25;
         env_25.hasError = true;
       } finally {
-        __disposeResources8(env_25);
+        __disposeResources5(env_25);
       }
     }
     writeSync(path, buffer, offset) {
       const env_26 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_26, this.lockSync(path, "write"), false);
+        const _ = __addDisposableResource5(env_26, this.lockSync(path, "write"), false);
         return this._fs.writeSync(path, buffer, offset);
       } catch (e_26) {
         env_26.error = e_26;
         env_26.hasError = true;
       } finally {
-        __disposeResources8(env_26);
+        __disposeResources5(env_26);
       }
     }
     streamRead(path, options) {
       const env_27 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_27, this.lockSync(path, "streamRead"), false);
+        const _ = __addDisposableResource5(env_27, this.lockSync(path, "streamRead"), false);
         return this._fs.streamRead(path, options);
       } catch (e_27) {
         env_27.error = e_27;
         env_27.hasError = true;
       } finally {
-        __disposeResources8(env_27);
+        __disposeResources5(env_27);
       }
     }
     streamWrite(path, options) {
       const env_28 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource8(env_28, this.lockSync(path, "streamWrite"), false);
+        const _ = __addDisposableResource5(env_28, this.lockSync(path, "streamWrite"), false);
         return this._fs.streamWrite(path, options);
       } catch (e_28) {
         env_28.error = e_28;
         env_28.hasError = true;
       } finally {
-        __disposeResources8(env_28);
+        __disposeResources5(env_28);
       }
     }
   };
@@ -18582,7 +19025,7 @@
     return MutexedFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/mixins/readonly.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/mixins/readonly.js
   function Readonly(FS) {
     class ReadonlyFS extends FS {
       constructor(...args) {
@@ -18625,6 +19068,12 @@
       linkSync() {
         throw new ErrnoError(Errno.EROFS);
       }
+      async touch() {
+        throw new ErrnoError(Errno.EROFS);
+      }
+      touchSync() {
+        throw new ErrnoError(Errno.EROFS);
+      }
       async sync() {
         throw new ErrnoError(Errno.EROFS);
       }
@@ -18644,7 +19093,7 @@
     return ReadonlyFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/mixins/sync.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/mixins/sync.js
   function Sync(FS) {
     class SyncFS extends FS {
       async exists(path) {
@@ -18656,11 +19105,11 @@
       async stat(path) {
         return this.statSync(path);
       }
-      async createFile(path, flag, mode, options) {
-        return this.createFileSync(path, flag, mode, options);
+      async touch(path, metadata) {
+        return this.touchSync(path, metadata);
       }
-      async openFile(path, flag) {
-        return this.openFileSync(path, flag);
+      async createFile(path, options) {
+        return this.createFileSync(path, options);
       }
       async unlink(path) {
         return this.unlinkSync(path);
@@ -18668,8 +19117,8 @@
       async rmdir(path) {
         return this.rmdirSync(path);
       }
-      async mkdir(path, mode, options) {
-        return this.mkdirSync(path, mode, options);
+      async mkdir(path, options) {
+        return this.mkdirSync(path, options);
       }
       async readdir(path) {
         return this.readdirSync(path);
@@ -18677,8 +19126,8 @@
       async link(srcpath, dstpath) {
         return this.linkSync(srcpath, dstpath);
       }
-      async sync(path, data, stats) {
-        return this.syncSync(path, data, stats);
+      async sync(path) {
+        return this.syncSync(path);
       }
       async read(path, buffer, offset, end) {
         return this.readSync(path, buffer, offset, end);
@@ -18690,11 +19139,11 @@
     return SyncFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@1.11.4/node_modules/@zenfs/core/dist/index.js
+  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/index.js
   var dist_default = vfs_exports;
   globalThis.__zenfs__ = vfs_exports;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.5_@zenfs+core@1.11.4_utilium@1.4.0/node_modules/@zenfs/dom/dist/index.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/index.js
   var dist_exports2 = {};
   __export(dist_exports2, {
     IndexedDB: () => IndexedDB,
@@ -18708,7 +19157,7 @@
     XMLFS: () => XMLFS
   });
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.5_@zenfs+core@1.11.4_utilium@1.4.0/node_modules/@zenfs/dom/dist/utils.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/utils.js
   function errnoForDOMException(ex) {
     switch (ex.name) {
       case "TypeMismatchError":
@@ -18769,7 +19218,7 @@
     return error;
   }
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.5_@zenfs+core@1.11.4_utilium@1.4.0/node_modules/@zenfs/dom/dist/access.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/access.js
   function isResizable(buffer) {
     if (buffer instanceof ArrayBuffer)
       return buffer.resizable;
@@ -18820,9 +19269,8 @@
     constructor(handle) {
       super(2003133025, "webaccessfs");
       this._handles = /* @__PURE__ */ new Map();
-      this._sync = InMemory.create({ name: "accessfs-cache" });
+      this._sync = InMemory.create({ label: "accessfs-cache" });
       this.attributes.set("no_buffer_resize");
-      this.attributes.set("setid");
       this._handles.set("/", handle);
     }
     async remove(path) {
@@ -18885,11 +19333,12 @@
     async writeFile(path, data) {
       return this.write(path, data, 0);
     }
-    async mkdir(path, mode, options) {
-      await super.mkdir(path, mode, options);
+    async mkdir(path, options) {
+      const inode = await super.mkdir(path, options);
       const handle = this.get("directory", dirname(path), "mkdir");
       const dir = await handle.getDirectoryHandle(basename(path), { create: true }).catch((ex) => _throw(convertException(ex, path)));
       this._handles.set(path, dir);
+      return inode;
     }
     get(kind = null, path, syscall) {
       const handle = this._handles.get(path);
@@ -18915,7 +19364,7 @@
   };
   var WebAccess = _WebAccess;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.5_@zenfs+core@1.11.4_utilium@1.4.0/node_modules/@zenfs/dom/dist/IndexedDB.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/IndexedDB.js
   function wrap(request2) {
     return new Promise((resolve2, reject) => {
       request2.onsuccess = () => resolve2(request2.result);
@@ -18998,18 +19447,17 @@
       storeName: { type: "string", required: false },
       idbFactory: { type: "object", required: false }
     },
-    async isAvailable(idbFactory = globalThis.indexedDB) {
+    async isAvailable({ idbFactory = globalThis.indexedDB }) {
       try {
-        if (!(idbFactory instanceof IDBFactory)) {
+        if (!(idbFactory instanceof IDBFactory))
           return false;
-        }
         const req = idbFactory.open("__zenfs_test");
         await wrap(req);
         return true;
       } catch {
         return false;
       } finally {
-        idbFactory.deleteDatabase("__zenfs_test");
+        idbFactory?.deleteDatabase("__zenfs_test");
       }
     },
     async create(options) {
@@ -19029,7 +19477,7 @@
   };
   var IndexedDB = _IndexedDB;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.5_@zenfs+core@1.11.4_utilium@1.4.0/node_modules/@zenfs/dom/dist/storage.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/storage.js
   var WebStorageStore = class {
     get name() {
       return WebStorage.name;
@@ -19057,11 +19505,11 @@
       if (typeof data != "string") {
         return;
       }
-      return encodeRaw(data);
+      return encodeASCII(data);
     }
     set(key, data) {
       try {
-        this.storage.setItem(key.toString(), decodeRaw(data));
+        this.storage.setItem(key.toString(), decodeASCII(data));
       } catch {
         throw new ErrnoError(Errno.ENOSPC, "Storage is full.");
       }
@@ -19082,8 +19530,8 @@
     /**
      * @todo Consider replacing `instanceof` with a duck-typing check?
      */
-    isAvailable(storage = globalThis.localStorage) {
-      return storage instanceof globalThis.Storage;
+    isAvailable(config) {
+      return (config?.storage ?? globalThis.localStorage) instanceof globalThis.Storage;
     },
     create({ storage = globalThis.localStorage }) {
       return new StoreFS(new WebStorageStore(storage));
@@ -19091,7 +19539,7 @@
   };
   var WebStorage = _WebStorage;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.5_@zenfs+core@1.11.4_utilium@1.4.0/node_modules/@zenfs/dom/dist/xml.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/xml.js
   function get_stats(node) {
     const stats = {};
     for (const key of _inode_fields) {
@@ -19099,7 +19547,7 @@
       if (value !== null && value !== void 0)
         stats[key] = parseInt(value, 16);
     }
-    return new Stats(stats);
+    return new Inode(stats);
   }
   function set_stats(node, stats) {
     for (const key of Object.keys(stats)) {
@@ -19122,9 +19570,8 @@
     constructor(root = new DOMParser().parseFromString("<fs></fs>", "application/xml").documentElement) {
       super(544763244, "xmltmpfs");
       this.root = root;
-      this.attributes.set("setid");
       try {
-        this.mkdirSync("/", 511, { uid: 0, gid: 0 });
+        this.mkdirSync("/", { uid: 0, gid: 0, mode: 511 });
       } catch (e) {
         const error = e;
         if (error.code != "EEXIST")
@@ -19139,23 +19586,19 @@
     statSync(path) {
       return get_stats(this.get("stat", path));
     }
-    openFileSync(path, flag) {
-      const node = this.get("openFile", path);
-      return new LazyFile(this, path, flag, get_stats(node));
-    }
-    createFileSync(path, flag, mode, { uid, gid }) {
+    createFileSync(path, options) {
       const parent = this.statSync(dirname(path));
-      const stats = new Stats({
-        mode: mode | constants_exports.S_IFREG,
-        uid: parent.mode & constants_exports.S_ISUID ? parent.uid : uid,
-        gid: parent.mode & constants_exports.S_ISGID ? parent.gid : gid
+      const inode = new Inode({
+        mode: options.mode | constants_exports.S_IFREG,
+        uid: parent.mode & constants_exports.S_ISUID ? parent.uid : options.uid,
+        gid: parent.mode & constants_exports.S_ISGID ? parent.gid : options.gid
       });
-      this.create("createFile", path, stats);
-      return new LazyFile(this, path, flag, stats);
+      this.create("createFile", path, inode);
+      return inode;
     }
     unlinkSync(path) {
       const node = this.get("unlink", path);
-      if (get_stats(node).isDirectory())
+      if (get_stats(node).mode & constants_exports.S_IFDIR)
         throw ErrnoError.With("EISDIR", path, "unlink");
       this.remove("unlink", node, path);
     }
@@ -19163,22 +19606,23 @@
       const node = this.get("rmdir", path);
       if (node.textContent?.length)
         throw ErrnoError.With("ENOTEMPTY", path, "rmdir");
-      if (!get_stats(node).isDirectory())
+      if (!(get_stats(node).mode & constants_exports.S_IFDIR))
         throw ErrnoError.With("ENOTDIR", path, "rmdir");
       this.remove("rmdir", node, path);
     }
-    mkdirSync(path, mode, { uid, gid }) {
+    mkdirSync(path, options) {
       const parent = this.statSync(dirname(path));
-      const node = this.create("mkdir", path, {
-        mode: mode | constants_exports.S_IFDIR,
-        uid: parent.mode & constants_exports.S_ISUID ? parent.uid : uid,
-        gid: parent.mode & constants_exports.S_ISGID ? parent.gid : gid
+      const inode = new Inode({
+        mode: options.mode | constants_exports.S_IFDIR,
+        uid: parent.mode & constants_exports.S_ISUID ? parent.uid : options.uid,
+        gid: parent.mode & constants_exports.S_ISGID ? parent.gid : options.gid
       });
-      node.textContent = "[]";
+      this.create("mkdir", path, inode).textContent = "[]";
+      return inode;
     }
     readdirSync(path) {
       const node = this.get("readdir", path);
-      if (!get_stats(node).isDirectory())
+      if (!(get_stats(node).mode & constants_exports.S_IFDIR))
         throw ErrnoError.With("ENOTDIR", path, "rmdir");
       try {
         return JSON.parse(node.textContent);
@@ -19190,20 +19634,20 @@
       const node = this.get("link", target);
       this.add("link", node, link3);
     }
-    syncSync(path, data, stats = {}) {
-      const node = this.get("sync", path);
-      if (data)
-        node.textContent = decodeRaw(data);
-      set_stats(node, stats);
+    touchSync(path, metadata) {
+      const node = this.get("touch", path);
+      set_stats(node, metadata);
+    }
+    syncSync() {
     }
     readSync(path, buffer, offset, end) {
       const node = this.get("read", path);
-      const raw = encodeRaw(node.textContent.slice(offset, end));
+      const raw = encodeASCII(node.textContent.slice(offset, end));
       buffer.set(raw);
     }
     writeSync(path, buffer, offset) {
       const node = this.get("write", path);
-      const data = decodeRaw(buffer);
+      const data = decodeASCII(buffer);
       const after = node.textContent.slice(offset + data.length);
       node.textContent = node.textContent.slice(0, offset) + data + after;
     }
@@ -19225,7 +19669,7 @@
         throw ErrnoError.With("EEXIST", path, syscall);
       const node = document.createElement("file");
       this.add(syscall, node, path);
-      set_stats(node, new Stats({
+      set_stats(node, new Inode({
         ...stats,
         uid: stats.mode
       }));
