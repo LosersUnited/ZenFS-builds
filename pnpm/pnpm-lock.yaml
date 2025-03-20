@@ -9,31 +9,31 @@ importers:
   .:
     dependencies:
       '@zenfs/core':
-        specifier: ^1.11.4
-        version: 1.11.4
+        specifier: ^2.0.0
+        version: 2.0.0
       '@zenfs/dom':
-        specifier: ^1.1.5
-        version: 1.1.5(@zenfs/core@1.11.4)(utilium@1.4.0)
+        specifier: ^1.1.6
+        version: 1.1.6(@zenfs/core@2.0.0)(utilium@1.10.1)
 
 packages:
 
-  '@types/node@22.13.5':
-    resolution: {integrity: sha512-+lTU0PxZXn0Dr1NBtC7Y8cR21AJr87dLLU953CWA6pMxxv/UDc7jYAY90upcrie1nRcD6XNG5HOYEDtgW5TxAg==}
+  '@types/node@22.13.6':
+    resolution: {integrity: sha512-GYmF65GI7417CpZXsEXMjT8goQQDnpRnJnDw6jIYa+le3V/lMazPZ4vZmK1B/9R17fh2VLr2zuy9d/h5xgrLAg==}
 
   '@xterm/xterm@5.5.0':
     resolution: {integrity: sha512-hqJHYaQb5OptNunnyAnkHyM8aCjZ1MEIDTQu1iIbbTD/xops91NB5yq1ZK/dC2JDbVWtF23zUtl9JE2NqwT87A==}
 
-  '@zenfs/core@1.11.4':
-    resolution: {integrity: sha512-jFihhedKitw1X9rlImtaca4KTs1Xk9awo4GxUemqt2ucE1jLi10lyRfFFbiYXZsFDkuCWGHwEQwv7BeDIEXMbQ==}
+  '@zenfs/core@2.0.0':
+    resolution: {integrity: sha512-wOKNFTY1DJ1vdLqKdU7M8cRh0nVYZcDVu7WHuk/3u49hrSwTZVm4PzGxJUjFd8O9Wi3U5nYTbZoN7RX5mS2ldA==}
     engines: {node: '>= 18'}
     hasBin: true
 
-  '@zenfs/dom@1.1.5':
-    resolution: {integrity: sha512-NMrHlm+6LBQAFzuJiur9viQ47GiSw74AwYJnw0kR8AL9eDUpGkuYe2ItlBM0NKgEH8fLGB32yGkoOjsrui4K5A==}
+  '@zenfs/dom@1.1.6':
+    resolution: {integrity: sha512-7SBTWgA0esuEv/TE+N/xk6W/XJf8uBF+LhlPNHQdXds0H7aOy/UYsWv/8glvARe+meDMMidoeWFLzUWoMXfjlA==}
     engines: {node: '>= 18'}
     peerDependencies:
-      '@zenfs/core': ^1.9.1
-      utilium: ^1.2.10
+      '@zenfs/core': ^2.0.0
+      utilium: ^1.9.0
 
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
@@ -76,30 +76,30 @@ packages:
   undici-types@6.20.0:
     resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
 
-  utilium@1.4.0:
-    resolution: {integrity: sha512-qYuwspJ6x1eiwtOHgd4BBGjofwhNHbmuHjpqnio5l1nfwmPVFMQoKt8PInPIpII5Cb/IgbWYURdwDD29CpDvHw==}
+  utilium@1.10.1:
+    resolution: {integrity: sha512-GQINDTb/ocyz4acQj3GXAe0wipYxws6L+9ouqaq10KlInTk9DGvW9TJd0pYa/Xu3cppNnZuB4T/sBuSXpcN2ng==}
 
 snapshots:
 
-  '@types/node@22.13.5':
+  '@types/node@22.13.6':
     dependencies:
       undici-types: 6.20.0
 
   '@xterm/xterm@5.5.0':
     optional: true
 
-  '@zenfs/core@1.11.4':
+  '@zenfs/core@2.0.0':
     dependencies:
-      '@types/node': 22.13.5
+      '@types/node': 22.13.6
       buffer: 6.0.3
       eventemitter3: 5.0.1
       readable-stream: 4.7.0
-      utilium: 1.4.0
+      utilium: 1.10.1
 
-  '@zenfs/dom@1.1.5(@zenfs/core@1.11.4)(utilium@1.4.0)':
+  '@zenfs/dom@1.1.6(@zenfs/core@2.0.0)(utilium@1.10.1)':
     dependencies:
-      '@zenfs/core': 1.11.4
-      utilium: 1.4.0
+      '@zenfs/core': 2.0.0
+      utilium: 1.10.1
 
   abort-controller@3.0.0:
     dependencies:
@@ -138,7 +138,7 @@ snapshots:
 
   undici-types@6.20.0: {}
 
-  utilium@1.4.0:
+  utilium@1.10.1:
     dependencies:
       eventemitter3: 5.0.1
     optionalDependencies:
