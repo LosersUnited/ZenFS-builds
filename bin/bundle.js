@@ -2093,8 +2093,8 @@
     "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util/inspect.js"(exports, module) {
       "use strict";
       module.exports = {
-        format(format3, ...args) {
-          return format3.replace(/%([sdifj])/g, function(...[_unused, type]) {
+        format(format4, ...args) {
+          return format4.replace(/%([sdifj])/g, function(...[_unused, type]) {
             const replacement = args.shift();
             if (type === "f") {
               return replacement.toFixed(6);
@@ -2143,7 +2143,7 @@
   var require_errors = __commonJS({
     "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/errors.js"(exports, module) {
       "use strict";
-      var { format: format3, inspect } = require_inspect();
+      var { format: format4, inspect } = require_inspect();
       var { AggregateError: CustomAggregateError } = require_primordials();
       var AggregateError = globalThis.AggregateError || CustomAggregateError;
       var kIsNodeError = Symbol("kIsNodeError");
@@ -2193,7 +2193,7 @@
         if (args.length === 0) {
           return msg;
         }
-        return format3(msg, ...args);
+        return format4(msg, ...args);
       }
       function E(code, message, Base) {
         if (!Base) {
@@ -2271,13 +2271,13 @@
             msg += `"${name}" ${name.includes(".") ? "property" : "argument"} `;
           }
           msg += "must be ";
-          const types2 = [];
+          const types3 = [];
           const instances = [];
           const other = [];
           for (const value of expected) {
             assert(typeof value === "string", "All expected entries have to be of type string");
             if (kTypes.includes(value)) {
-              types2.push(value.toLowerCase());
+              types3.push(value.toLowerCase());
             } else if (classRegExp.test(value)) {
               instances.push(value);
             } else {
@@ -2286,23 +2286,23 @@
             }
           }
           if (instances.length > 0) {
-            const pos = types2.indexOf("object");
+            const pos = types3.indexOf("object");
             if (pos !== -1) {
-              types2.splice(types2, pos, 1);
+              types3.splice(types3, pos, 1);
               instances.push("Object");
             }
           }
-          if (types2.length > 0) {
-            switch (types2.length) {
+          if (types3.length > 0) {
+            switch (types3.length) {
               case 1:
-                msg += `of type ${types2[0]}`;
+                msg += `of type ${types3[0]}`;
                 break;
               case 2:
-                msg += `one of type ${types2[0]} or ${types2[1]}`;
+                msg += `one of type ${types3[0]} or ${types3[1]}`;
                 break;
               default: {
-                const last = types2.pop();
-                msg += `one of type ${types2.join(", ")}, or ${last}`;
+                const last = types3.pop();
+                msg += `one of type ${types3.join(", ")}, or ${last}`;
               }
             }
             if (instances.length > 0 || other.length > 0) {
@@ -2845,7 +2845,7 @@
     "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/ours/util.js"(exports, module) {
       "use strict";
       var bufferModule = require_buffer();
-      var { format: format3, inspect } = require_inspect();
+      var { format: format4, inspect } = require_inspect();
       var {
         codes: { ERR_INVALID_ARG_TYPE }
       } = require_errors();
@@ -2910,7 +2910,7 @@
           return function() {
           };
         },
-        format: format3,
+        format: format4,
         inspect,
         types: {
           isAsyncFunction(fn) {
@@ -8243,7 +8243,7 @@
     }
   });
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/index.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/index.js
   var dist_exports = {};
   __export(dist_exports, {
     Async: () => Async,
@@ -8257,7 +8257,6 @@
     DeviceFS: () => DeviceFS,
     Dir: () => Dir,
     Dirent: () => Dirent,
-    Errno: () => Errno,
     ErrnoError: () => ErrnoError,
     Fetch: () => Fetch,
     FetchFS: () => FetchFS,
@@ -8271,6 +8270,7 @@
     Inode: () => Inode,
     InodeFlags: () => InodeFlags,
     Journal: () => Journal,
+    MetadataBlock: () => MetadataBlock,
     MutexLock: () => MutexLock,
     Mutexed: () => Mutexed,
     Passthrough: () => Passthrough,
@@ -8285,6 +8285,7 @@
     StatsCommon: () => StatsCommon,
     StatsFs: () => StatsFs,
     StoreFS: () => StoreFS,
+    SuperBlock: () => SuperBlock,
     Sync: () => Sync,
     SyncMapTransaction: () => SyncMapTransaction,
     SyncTransaction: () => SyncTransaction,
@@ -8293,6 +8294,8 @@
     WriteStream: () => WriteStream,
     ZenFsType: () => ZenFsType,
     _MutexedFS: () => _MutexedFS,
+    __assertType: () => __assertType,
+    _asyncFSKeys: () => _asyncFSKeys,
     _chown: () => _chown,
     _fnOpt: () => _fnOpt,
     _inode_fields: () => _inode_fields,
@@ -8316,6 +8319,7 @@
     close: () => close,
     closeSync: () => closeSync,
     configure: () => configure2,
+    configureFileSystem: () => configureFileSystem,
     configureSingle: () => configureSingle,
     constants: () => constants_exports,
     copyFile: () => copyFile2,
@@ -8331,7 +8335,6 @@
     detachFS: () => detachFS,
     devices: () => devices,
     encodeDirListing: () => encodeDirListing,
-    errorMessages: () => errorMessages,
     exists: () => exists2,
     existsSync: () => existsSync,
     fchmod: () => fchmod,
@@ -8352,6 +8355,7 @@
     futimesSync: () => futimesSync,
     glob: () => glob2,
     globSync: () => globSync,
+    globToRegex: () => globToRegex,
     handleRequest: () => handleRequest,
     hasAccess: () => hasAccess,
     ioctl: () => ioctl,
@@ -8394,7 +8398,6 @@
     openSync: () => openSync,
     opendir: () => opendir2,
     opendirSync: () => opendirSync,
-    parseUUID: () => parseUUID,
     promises: () => promises_exports,
     randomDevice: () => randomDevice,
     read: () => read,
@@ -8422,7 +8425,6 @@
     statSync: () => statSync,
     statfs: () => statfs2,
     statfsSync: () => statfsSync,
-    stringifyUUID: () => stringifyUUID,
     symlink: () => symlink2,
     symlinkSync: () => symlinkSync,
     truncate: () => truncate2,
@@ -8439,6 +8441,8 @@
     waitOnline: () => waitOnline,
     watch: () => watch2,
     watchFile: () => watchFile,
+    withPath: () => withPath,
+    wrap: () => wrap,
     write: () => write,
     writeFile: () => writeFile2,
     writeFileSync: () => writeFileSync,
@@ -8449,229 +8453,10 @@
     zeroDevice: () => zeroDevice
   });
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/error.js
-  var Errno;
-  (function(Errno2) {
-    Errno2[Errno2["EPERM"] = 1] = "EPERM";
-    Errno2[Errno2["ENOENT"] = 2] = "ENOENT";
-    Errno2[Errno2["EINTR"] = 4] = "EINTR";
-    Errno2[Errno2["EIO"] = 5] = "EIO";
-    Errno2[Errno2["ENXIO"] = 6] = "ENXIO";
-    Errno2[Errno2["EBADF"] = 9] = "EBADF";
-    Errno2[Errno2["EAGAIN"] = 11] = "EAGAIN";
-    Errno2[Errno2["ENOMEM"] = 12] = "ENOMEM";
-    Errno2[Errno2["EACCES"] = 13] = "EACCES";
-    Errno2[Errno2["EFAULT"] = 14] = "EFAULT";
-    Errno2[Errno2["ENOTBLK"] = 15] = "ENOTBLK";
-    Errno2[Errno2["EBUSY"] = 16] = "EBUSY";
-    Errno2[Errno2["EEXIST"] = 17] = "EEXIST";
-    Errno2[Errno2["EXDEV"] = 18] = "EXDEV";
-    Errno2[Errno2["ENODEV"] = 19] = "ENODEV";
-    Errno2[Errno2["ENOTDIR"] = 20] = "ENOTDIR";
-    Errno2[Errno2["EISDIR"] = 21] = "EISDIR";
-    Errno2[Errno2["EINVAL"] = 22] = "EINVAL";
-    Errno2[Errno2["ENFILE"] = 23] = "ENFILE";
-    Errno2[Errno2["EMFILE"] = 24] = "EMFILE";
-    Errno2[Errno2["ETXTBSY"] = 26] = "ETXTBSY";
-    Errno2[Errno2["EFBIG"] = 27] = "EFBIG";
-    Errno2[Errno2["ENOSPC"] = 28] = "ENOSPC";
-    Errno2[Errno2["ESPIPE"] = 29] = "ESPIPE";
-    Errno2[Errno2["EROFS"] = 30] = "EROFS";
-    Errno2[Errno2["EMLINK"] = 31] = "EMLINK";
-    Errno2[Errno2["EPIPE"] = 32] = "EPIPE";
-    Errno2[Errno2["EDOM"] = 33] = "EDOM";
-    Errno2[Errno2["ERANGE"] = 34] = "ERANGE";
-    Errno2[Errno2["EDEADLK"] = 35] = "EDEADLK";
-    Errno2[Errno2["ENAMETOOLONG"] = 36] = "ENAMETOOLONG";
-    Errno2[Errno2["ENOLCK"] = 37] = "ENOLCK";
-    Errno2[Errno2["ENOSYS"] = 38] = "ENOSYS";
-    Errno2[Errno2["ENOTEMPTY"] = 39] = "ENOTEMPTY";
-    Errno2[Errno2["ELOOP"] = 40] = "ELOOP";
-    Errno2[Errno2["ENOMSG"] = 42] = "ENOMSG";
-    Errno2[Errno2["EBADE"] = 52] = "EBADE";
-    Errno2[Errno2["EBADR"] = 53] = "EBADR";
-    Errno2[Errno2["EXFULL"] = 54] = "EXFULL";
-    Errno2[Errno2["ENOANO"] = 55] = "ENOANO";
-    Errno2[Errno2["EBADRQC"] = 56] = "EBADRQC";
-    Errno2[Errno2["ENOSTR"] = 60] = "ENOSTR";
-    Errno2[Errno2["ENODATA"] = 61] = "ENODATA";
-    Errno2[Errno2["ETIME"] = 62] = "ETIME";
-    Errno2[Errno2["ENOSR"] = 63] = "ENOSR";
-    Errno2[Errno2["ENONET"] = 64] = "ENONET";
-    Errno2[Errno2["EREMOTE"] = 66] = "EREMOTE";
-    Errno2[Errno2["ENOLINK"] = 67] = "ENOLINK";
-    Errno2[Errno2["ECOMM"] = 70] = "ECOMM";
-    Errno2[Errno2["EPROTO"] = 71] = "EPROTO";
-    Errno2[Errno2["EBADMSG"] = 74] = "EBADMSG";
-    Errno2[Errno2["EOVERFLOW"] = 75] = "EOVERFLOW";
-    Errno2[Errno2["EBADFD"] = 77] = "EBADFD";
-    Errno2[Errno2["ESTRPIPE"] = 86] = "ESTRPIPE";
-    Errno2[Errno2["ENOTSOCK"] = 88] = "ENOTSOCK";
-    Errno2[Errno2["EDESTADDRREQ"] = 89] = "EDESTADDRREQ";
-    Errno2[Errno2["EMSGSIZE"] = 90] = "EMSGSIZE";
-    Errno2[Errno2["EPROTOTYPE"] = 91] = "EPROTOTYPE";
-    Errno2[Errno2["ENOPROTOOPT"] = 92] = "ENOPROTOOPT";
-    Errno2[Errno2["EPROTONOSUPPORT"] = 93] = "EPROTONOSUPPORT";
-    Errno2[Errno2["ESOCKTNOSUPPORT"] = 94] = "ESOCKTNOSUPPORT";
-    Errno2[Errno2["ENOTSUP"] = 95] = "ENOTSUP";
-    Errno2[Errno2["ENETDOWN"] = 100] = "ENETDOWN";
-    Errno2[Errno2["ENETUNREACH"] = 101] = "ENETUNREACH";
-    Errno2[Errno2["ENETRESET"] = 102] = "ENETRESET";
-    Errno2[Errno2["ETIMEDOUT"] = 110] = "ETIMEDOUT";
-    Errno2[Errno2["ECONNREFUSED"] = 111] = "ECONNREFUSED";
-    Errno2[Errno2["EHOSTDOWN"] = 112] = "EHOSTDOWN";
-    Errno2[Errno2["EHOSTUNREACH"] = 113] = "EHOSTUNREACH";
-    Errno2[Errno2["EALREADY"] = 114] = "EALREADY";
-    Errno2[Errno2["EINPROGRESS"] = 115] = "EINPROGRESS";
-    Errno2[Errno2["ESTALE"] = 116] = "ESTALE";
-    Errno2[Errno2["EREMOTEIO"] = 121] = "EREMOTEIO";
-    Errno2[Errno2["EDQUOT"] = 122] = "EDQUOT";
-  })(Errno || (Errno = {}));
-  var errorMessages = {
-    [Errno.EPERM]: "Operation not permitted",
-    [Errno.ENOENT]: "No such file or directory",
-    [Errno.EINTR]: "Interrupted system call",
-    [Errno.EIO]: "Input/output error",
-    [Errno.ENXIO]: "No such device or address",
-    [Errno.EBADF]: "Bad file descriptor",
-    [Errno.EAGAIN]: "Resource temporarily unavailable",
-    [Errno.ENOMEM]: "Cannot allocate memory",
-    [Errno.EACCES]: "Permission denied",
-    [Errno.EFAULT]: "Bad address",
-    [Errno.ENOTBLK]: "Block device required",
-    [Errno.EBUSY]: "Resource busy or locked",
-    [Errno.EEXIST]: "File exists",
-    [Errno.EXDEV]: "Invalid cross-device link",
-    [Errno.ENODEV]: "No such device",
-    [Errno.ENOTDIR]: "File is not a directory",
-    [Errno.EISDIR]: "File is a directory",
-    [Errno.EINVAL]: "Invalid argument",
-    [Errno.ENFILE]: "Too many open files in system",
-    [Errno.EMFILE]: "Too many open files",
-    [Errno.ETXTBSY]: "Text file busy",
-    [Errno.EFBIG]: "File is too big",
-    [Errno.ENOSPC]: "No space left on disk",
-    [Errno.ESPIPE]: "Illegal seek",
-    [Errno.EROFS]: "Cannot modify a read-only file system",
-    [Errno.EMLINK]: "Too many links",
-    [Errno.EPIPE]: "Broken pipe",
-    [Errno.EDOM]: "Numerical argument out of domain",
-    [Errno.ERANGE]: "Numerical result out of range",
-    [Errno.EDEADLK]: "Resource deadlock would occur",
-    [Errno.ENAMETOOLONG]: "File name too long",
-    [Errno.ENOLCK]: "No locks available",
-    [Errno.ENOSYS]: "Function not implemented",
-    [Errno.ENOTEMPTY]: "Directory is not empty",
-    [Errno.ELOOP]: "Too many levels of symbolic links",
-    [Errno.ENOMSG]: "No message of desired type",
-    [Errno.EBADE]: "Invalid exchange",
-    [Errno.EBADR]: "Invalid request descriptor",
-    [Errno.EXFULL]: "Exchange full",
-    [Errno.ENOANO]: "No anode",
-    [Errno.EBADRQC]: "Invalid request code",
-    [Errno.ENOSTR]: "Device not a stream",
-    [Errno.ENODATA]: "No data available",
-    [Errno.ETIME]: "Timer expired",
-    [Errno.ENOSR]: "Out of streams resources",
-    [Errno.ENONET]: "Machine is not on the network",
-    [Errno.EREMOTE]: "Object is remote",
-    [Errno.ENOLINK]: "Link has been severed",
-    [Errno.ECOMM]: "Communication error on send",
-    [Errno.EPROTO]: "Protocol error",
-    [Errno.EBADMSG]: "Bad message",
-    [Errno.EOVERFLOW]: "Value too large for defined data type",
-    [Errno.EBADFD]: "File descriptor in bad state",
-    [Errno.ESTRPIPE]: "Streams pipe error",
-    [Errno.ENOTSOCK]: "Socket operation on non-socket",
-    [Errno.EDESTADDRREQ]: "Destination address required",
-    [Errno.EMSGSIZE]: "Message too long",
-    [Errno.EPROTOTYPE]: "Protocol wrong type for socket",
-    [Errno.ENOPROTOOPT]: "Protocol not available",
-    [Errno.EPROTONOSUPPORT]: "Protocol not supported",
-    [Errno.ESOCKTNOSUPPORT]: "Socket type not supported",
-    [Errno.ENOTSUP]: "Operation is not supported",
-    [Errno.ENETDOWN]: "Network is down",
-    [Errno.ENETUNREACH]: "Network is unreachable",
-    [Errno.ENETRESET]: "Network dropped connection on reset",
-    [Errno.ETIMEDOUT]: "Connection timed out",
-    [Errno.ECONNREFUSED]: "Connection refused",
-    [Errno.EHOSTDOWN]: "Host is down",
-    [Errno.EHOSTUNREACH]: "No route to host",
-    [Errno.EALREADY]: "Operation already in progress",
-    [Errno.EINPROGRESS]: "Operation now in progress",
-    [Errno.ESTALE]: "Stale file handle",
-    [Errno.EREMOTEIO]: "Remote I/O error",
-    [Errno.EDQUOT]: "Disk quota exceeded"
-  };
-  var ErrnoError = class _ErrnoError extends Error {
-    static fromJSON(json) {
-      const err2 = new _ErrnoError(json.errno, json.message, json.path, json.syscall);
-      err2.code = json.code;
-      err2.stack = json.stack;
-      return err2;
-    }
-    static With(code, path, syscall) {
-      return new _ErrnoError(Errno[code], errorMessages[Errno[code]], path, syscall);
-    }
-    constructor(errno, message = errorMessages[errno], path, syscall = "") {
-      super(message);
-      this.errno = errno;
-      this.message = message;
-      this.path = path;
-      this.syscall = syscall;
-      this.code = Errno[errno];
-    }
-    /**
-     * @returns A friendly error message.
-     */
-    toString() {
-      return this.code + ": " + this.message + (this.path ? `, '${this.path}'` : "");
-    }
-    toJSON() {
-      return {
-        errno: this.errno,
-        code: this.code,
-        path: this.path,
-        stack: this.stack,
-        message: this.message,
-        syscall: this.syscall
-      };
-    }
-    /**
-     * The size of the API error in buffer-form in bytes.
-     */
-    bufferSize() {
-      return 4 + JSON.stringify(this.toJSON()).length;
-    }
-  };
-
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/log.js
-  var log_exports = {};
-  __export(log_exports, {
-    Level: () => Level,
-    alert: () => alert,
-    configure: () => configure,
-    crit: () => crit,
-    debug: () => debug,
-    emerg: () => emerg,
-    entries: () => entries,
-    err: () => err,
-    fancy: () => fancy,
-    format: () => format2,
-    info: () => info,
-    isEnabled: () => isEnabled,
-    levelOf: () => levelOf,
-    levels: () => levels,
-    log: () => log,
-    log_deprecated: () => log_deprecated,
-    notice: () => notice,
-    warn: () => warn
-  });
-
   // node_modules/.pnpm/eventemitter3@5.0.1/node_modules/eventemitter3/index.mjs
   var import_index = __toESM(require_eventemitter3(), 1);
 
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/list.js
+  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/list.js
   var List = class extends import_index.default {
     [Symbol.toStringTag] = "List";
     constructor(values) {
@@ -8688,7 +8473,7 @@
       return Array.from(this.data);
     }
     toJSON() {
-      return JSON.stringify(Array.from(this.data));
+      return Array.from(this.data);
     }
     toString() {
       return this.join(",");
@@ -8784,22 +8569,7 @@
     }
   };
 
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/misc.js
-  function canary(error = new Error()) {
-    const timeout = setTimeout(() => {
-      throw error;
-    }, 5e3);
-    return () => clearTimeout(timeout);
-  }
-  function _throw(e) {
-    throw e;
-  }
-
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/numbers.js
-  var __formatter = Intl.NumberFormat("en", { notation: "compact" });
-  var formatCompact = __formatter.format.bind(__formatter);
-
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/objects.js
+  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/objects.js
   function filterObject(object, predicate) {
     const entries2 = Object.entries(object);
     return Object.fromEntries(entries2.filter(([key, value]) => predicate(key, value)));
@@ -8822,21 +8592,40 @@
       return false;
     }
   }
-  function* getAllPrototypes(object) {
-    for (let prototype = object; prototype; prototype = Object.getPrototypeOf(prototype)) {
-      yield prototype;
+  function resolveConstructors(object) {
+    const constructors = [];
+    for (let prototype = object; prototype && !["Function", "Object"].includes(prototype.constructor.name); prototype = Object.getPrototypeOf(prototype)) {
+      constructors.push(prototype.constructor.name);
     }
+    return constructors;
   }
   function bindFunctions(fns, thisValue) {
     return Object.fromEntries(Object.entries(fns).map(([k, v]) => [k, typeof v == "function" ? v.bind(thisValue) : v]));
   }
 
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/random.js
+  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/misc.js
+  function canary(error = new Error()) {
+    const timeout = setTimeout(() => {
+      throw error;
+    }, 5e3);
+    return () => clearTimeout(timeout);
+  }
+  function _throw(e) {
+    if (e && typeof e == "object" && resolveConstructors(e).includes("Error"))
+      Error?.captureStackTrace(e, _throw);
+    throw e;
+  }
+
+  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/numbers.js
+  var __formatter = Intl.NumberFormat("en", { notation: "compact" });
+  var formatCompact = __formatter.format.bind(__formatter);
+
+  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/random.js
   function randomInt(min = 0, max = 1) {
     return Math.round(Math.random() * (max - min) + min);
   }
 
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/string.js
+  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/string.js
   function capitalize(value) {
     return value.at(0).toUpperCase() + value.slice(1);
   }
@@ -8868,8 +8657,1032 @@
     }
     return output2;
   }
+  function decodeUUID(uuid) {
+    const hex = Array.from(uuid).map((b) => b.toString(16).padStart(2, "0")).join("");
+    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+  }
+  function encodeUUID(uuid) {
+    const hex = uuid.replace(/-/g, "");
+    const data = new Uint8Array(16);
+    for (let i = 0; i < 16; i++) {
+      data[i] = parseInt(hex.slice(i * 2, i * 2 + 2), 16);
+    }
+    return data;
+  }
 
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/buffer.js
+  // node_modules/.pnpm/kerium@1.3.5/node_modules/kerium/dist/error.js
+  var Errno;
+  (function(Errno2) {
+    Errno2[Errno2["EPERM"] = 1] = "EPERM";
+    Errno2[Errno2["ENOENT"] = 2] = "ENOENT";
+    Errno2[Errno2["ESRCH"] = 3] = "ESRCH";
+    Errno2[Errno2["EINTR"] = 4] = "EINTR";
+    Errno2[Errno2["EIO"] = 5] = "EIO";
+    Errno2[Errno2["ENXIO"] = 6] = "ENXIO";
+    Errno2[Errno2["E2BIG"] = 7] = "E2BIG";
+    Errno2[Errno2["ENOEXEC"] = 8] = "ENOEXEC";
+    Errno2[Errno2["EBADF"] = 9] = "EBADF";
+    Errno2[Errno2["ECHILD"] = 10] = "ECHILD";
+    Errno2[Errno2["EAGAIN"] = 11] = "EAGAIN";
+    Errno2[Errno2["ENOMEM"] = 12] = "ENOMEM";
+    Errno2[Errno2["EACCES"] = 13] = "EACCES";
+    Errno2[Errno2["EFAULT"] = 14] = "EFAULT";
+    Errno2[Errno2["ENOTBLK"] = 15] = "ENOTBLK";
+    Errno2[Errno2["EBUSY"] = 16] = "EBUSY";
+    Errno2[Errno2["EEXIST"] = 17] = "EEXIST";
+    Errno2[Errno2["EXDEV"] = 18] = "EXDEV";
+    Errno2[Errno2["ENODEV"] = 19] = "ENODEV";
+    Errno2[Errno2["ENOTDIR"] = 20] = "ENOTDIR";
+    Errno2[Errno2["EISDIR"] = 21] = "EISDIR";
+    Errno2[Errno2["EINVAL"] = 22] = "EINVAL";
+    Errno2[Errno2["ENFILE"] = 23] = "ENFILE";
+    Errno2[Errno2["EMFILE"] = 24] = "EMFILE";
+    Errno2[Errno2["ETXTBSY"] = 26] = "ETXTBSY";
+    Errno2[Errno2["EFBIG"] = 27] = "EFBIG";
+    Errno2[Errno2["ENOSPC"] = 28] = "ENOSPC";
+    Errno2[Errno2["ESPIPE"] = 29] = "ESPIPE";
+    Errno2[Errno2["EROFS"] = 30] = "EROFS";
+    Errno2[Errno2["EMLINK"] = 31] = "EMLINK";
+    Errno2[Errno2["EPIPE"] = 32] = "EPIPE";
+    Errno2[Errno2["EDOM"] = 33] = "EDOM";
+    Errno2[Errno2["ERANGE"] = 34] = "ERANGE";
+    Errno2[Errno2["EDEADLK"] = 35] = "EDEADLK";
+    Errno2[Errno2["ENAMETOOLONG"] = 36] = "ENAMETOOLONG";
+    Errno2[Errno2["ENOLCK"] = 37] = "ENOLCK";
+    Errno2[Errno2["ENOSYS"] = 38] = "ENOSYS";
+    Errno2[Errno2["ENOTEMPTY"] = 39] = "ENOTEMPTY";
+    Errno2[Errno2["ELOOP"] = 40] = "ELOOP";
+    Errno2[Errno2["ENOMSG"] = 42] = "ENOMSG";
+    Errno2[Errno2["EIDRM"] = 43] = "EIDRM";
+    Errno2[Errno2["ECHRNG"] = 44] = "ECHRNG";
+    Errno2[Errno2["EL2NSYNC"] = 45] = "EL2NSYNC";
+    Errno2[Errno2["EL3HLT"] = 46] = "EL3HLT";
+    Errno2[Errno2["EL3RST"] = 47] = "EL3RST";
+    Errno2[Errno2["ENRNG"] = 48] = "ENRNG";
+    Errno2[Errno2["EUNATCH"] = 49] = "EUNATCH";
+    Errno2[Errno2["ECSI"] = 50] = "ECSI";
+    Errno2[Errno2["EL2HLT"] = 51] = "EL2HLT";
+    Errno2[Errno2["EBADE"] = 52] = "EBADE";
+    Errno2[Errno2["EBADR"] = 53] = "EBADR";
+    Errno2[Errno2["EXFULL"] = 54] = "EXFULL";
+    Errno2[Errno2["ENOANO"] = 55] = "ENOANO";
+    Errno2[Errno2["EBADRQC"] = 56] = "EBADRQC";
+    Errno2[Errno2["EBADSLT"] = 57] = "EBADSLT";
+    Errno2[Errno2["EBFONT"] = 59] = "EBFONT";
+    Errno2[Errno2["ENOSTR"] = 60] = "ENOSTR";
+    Errno2[Errno2["ENODATA"] = 61] = "ENODATA";
+    Errno2[Errno2["ETIME"] = 62] = "ETIME";
+    Errno2[Errno2["ENOSR"] = 63] = "ENOSR";
+    Errno2[Errno2["ENONET"] = 64] = "ENONET";
+    Errno2[Errno2["ENOPKG"] = 65] = "ENOPKG";
+    Errno2[Errno2["EREMOTE"] = 66] = "EREMOTE";
+    Errno2[Errno2["ENOLINK"] = 67] = "ENOLINK";
+    Errno2[Errno2["EADV"] = 68] = "EADV";
+    Errno2[Errno2["ESRMNT"] = 69] = "ESRMNT";
+    Errno2[Errno2["ECOMM"] = 70] = "ECOMM";
+    Errno2[Errno2["EPROTO"] = 71] = "EPROTO";
+    Errno2[Errno2["EMULTIHOP"] = 72] = "EMULTIHOP";
+    Errno2[Errno2["EDOTDOT"] = 73] = "EDOTDOT";
+    Errno2[Errno2["EBADMSG"] = 74] = "EBADMSG";
+    Errno2[Errno2["EOVERFLOW"] = 75] = "EOVERFLOW";
+    Errno2[Errno2["ENOTUNIQ"] = 76] = "ENOTUNIQ";
+    Errno2[Errno2["EBADFD"] = 77] = "EBADFD";
+    Errno2[Errno2["EREMCHG"] = 78] = "EREMCHG";
+    Errno2[Errno2["ELIBACC"] = 79] = "ELIBACC";
+    Errno2[Errno2["ELIBBAD"] = 80] = "ELIBBAD";
+    Errno2[Errno2["ELIBSCN"] = 81] = "ELIBSCN";
+    Errno2[Errno2["ELIBMAX"] = 82] = "ELIBMAX";
+    Errno2[Errno2["ELIBEXEC"] = 83] = "ELIBEXEC";
+    Errno2[Errno2["EILSEQ"] = 84] = "EILSEQ";
+    Errno2[Errno2["ERESTART"] = 85] = "ERESTART";
+    Errno2[Errno2["ESTRPIPE"] = 86] = "ESTRPIPE";
+    Errno2[Errno2["EUSERS"] = 87] = "EUSERS";
+    Errno2[Errno2["ENOTSOCK"] = 88] = "ENOTSOCK";
+    Errno2[Errno2["EDESTADDRREQ"] = 89] = "EDESTADDRREQ";
+    Errno2[Errno2["EMSGSIZE"] = 90] = "EMSGSIZE";
+    Errno2[Errno2["EPROTOTYPE"] = 91] = "EPROTOTYPE";
+    Errno2[Errno2["ENOPROTOOPT"] = 92] = "ENOPROTOOPT";
+    Errno2[Errno2["EPROTONOSUPPORT"] = 93] = "EPROTONOSUPPORT";
+    Errno2[Errno2["ESOCKTNOSUPPORT"] = 94] = "ESOCKTNOSUPPORT";
+    Errno2[Errno2["ENOTSUP"] = 95] = "ENOTSUP";
+    Errno2[Errno2["EPFNOSUPPORT"] = 96] = "EPFNOSUPPORT";
+    Errno2[Errno2["EAFNOSUPPORT"] = 97] = "EAFNOSUPPORT";
+    Errno2[Errno2["EADDRINUSE"] = 98] = "EADDRINUSE";
+    Errno2[Errno2["EADDRNOTAVAIL"] = 99] = "EADDRNOTAVAIL";
+    Errno2[Errno2["ENETDOWN"] = 100] = "ENETDOWN";
+    Errno2[Errno2["ENETUNREACH"] = 101] = "ENETUNREACH";
+    Errno2[Errno2["ENETRESET"] = 102] = "ENETRESET";
+    Errno2[Errno2["ECONNABORTED"] = 103] = "ECONNABORTED";
+    Errno2[Errno2["ECONNRESET"] = 104] = "ECONNRESET";
+    Errno2[Errno2["ENOBUFS"] = 105] = "ENOBUFS";
+    Errno2[Errno2["EISCONN"] = 106] = "EISCONN";
+    Errno2[Errno2["ENOTCONN"] = 107] = "ENOTCONN";
+    Errno2[Errno2["ESHUTDOWN"] = 108] = "ESHUTDOWN";
+    Errno2[Errno2["ETOOMANYREFS"] = 109] = "ETOOMANYREFS";
+    Errno2[Errno2["ETIMEDOUT"] = 110] = "ETIMEDOUT";
+    Errno2[Errno2["ECONNREFUSED"] = 111] = "ECONNREFUSED";
+    Errno2[Errno2["EHOSTDOWN"] = 112] = "EHOSTDOWN";
+    Errno2[Errno2["EHOSTUNREACH"] = 113] = "EHOSTUNREACH";
+    Errno2[Errno2["EALREADY"] = 114] = "EALREADY";
+    Errno2[Errno2["EINPROGRESS"] = 115] = "EINPROGRESS";
+    Errno2[Errno2["ESTALE"] = 116] = "ESTALE";
+    Errno2[Errno2["EEUCLEAN"] = 117] = "EEUCLEAN";
+    Errno2[Errno2["ENOTNAM"] = 118] = "ENOTNAM";
+    Errno2[Errno2["ENAVAIL"] = 119] = "ENAVAIL";
+    Errno2[Errno2["EISNAM"] = 120] = "EISNAM";
+    Errno2[Errno2["EREMOTEIO"] = 121] = "EREMOTEIO";
+    Errno2[Errno2["EDQUOT"] = 122] = "EDQUOT";
+    Errno2[Errno2["ENOMEDIUM"] = 123] = "ENOMEDIUM";
+    Errno2[Errno2["EMEDIUMTYPE"] = 124] = "EMEDIUMTYPE";
+    Errno2[Errno2["ECANCELED"] = 125] = "ECANCELED";
+    Errno2[Errno2["ENOKEY"] = 126] = "ENOKEY";
+    Errno2[Errno2["EKEYEXPIRED"] = 127] = "EKEYEXPIRED";
+    Errno2[Errno2["EKEYREVOKED"] = 128] = "EKEYREVOKED";
+    Errno2[Errno2["EKEYREJECTED"] = 129] = "EKEYREJECTED";
+    Errno2[Errno2["EOWNERDEAD"] = 130] = "EOWNERDEAD";
+    Errno2[Errno2["ENOTRECOVERABLE"] = 131] = "ENOTRECOVERABLE";
+    Errno2[Errno2["ERFKILL"] = 132] = "ERFKILL";
+    Errno2[Errno2["EHWPOISON"] = 133] = "EHWPOISON";
+  })(Errno || (Errno = {}));
+  var errnoMessages = {
+    [Errno.EPERM]: "Operation not permitted",
+    [Errno.ENOENT]: "No such file or directory",
+    [Errno.ESRCH]: "No such process",
+    [Errno.EINTR]: "Interrupted system call",
+    [Errno.EIO]: "Input/output error",
+    [Errno.ENXIO]: "No such device or address",
+    [Errno.E2BIG]: "Argument list too long",
+    [Errno.ENOEXEC]: "Exec format error",
+    [Errno.EBADF]: "Bad file descriptor",
+    [Errno.ECHILD]: "No child processes",
+    [Errno.EAGAIN]: "Resource temporarily unavailable",
+    [Errno.ENOMEM]: "Out of memory",
+    [Errno.EACCES]: "Permission denied",
+    [Errno.EFAULT]: "Bad address",
+    [Errno.ENOTBLK]: "Block device required",
+    [Errno.EBUSY]: "Resource busy or locked",
+    [Errno.EEXIST]: "File exists",
+    [Errno.EXDEV]: "Invalid cross-device link",
+    [Errno.ENODEV]: "No such device",
+    [Errno.ENOTDIR]: "File is not a directory",
+    [Errno.EISDIR]: "File is a directory",
+    [Errno.EINVAL]: "Invalid argument",
+    [Errno.ENFILE]: "Too many open files in system",
+    [Errno.EMFILE]: "Too many open files",
+    [Errno.ETXTBSY]: "Text file busy",
+    [Errno.EFBIG]: "File is too big",
+    [Errno.ENOSPC]: "No space left on disk",
+    [Errno.ESPIPE]: "Illegal seek",
+    [Errno.EROFS]: "Cannot modify a read-only file system",
+    [Errno.EMLINK]: "Too many links",
+    [Errno.EPIPE]: "Broken pipe",
+    [Errno.EDOM]: "Numerical argument out of domain",
+    [Errno.ERANGE]: "Numerical result out of range",
+    [Errno.EDEADLK]: "Resource deadlock would occur",
+    [Errno.ENAMETOOLONG]: "File name too long",
+    [Errno.ENOLCK]: "No locks available",
+    [Errno.ENOSYS]: "Function not implemented",
+    [Errno.ENOTEMPTY]: "Directory is not empty",
+    [Errno.ELOOP]: "Too many levels of symbolic links",
+    [Errno.ENOMSG]: "No message of desired type",
+    [Errno.EIDRM]: "Identifier removed",
+    [Errno.ECHRNG]: "Channel number out of range",
+    [Errno.EL2NSYNC]: "Level 2 not synchronized",
+    [Errno.EL3HLT]: "Level 3 halted",
+    [Errno.EL3RST]: "Level 3 reset",
+    [Errno.ENRNG]: "Link number out of range",
+    [Errno.EUNATCH]: "Protocol driver not attached",
+    [Errno.ECSI]: "No CSI structure available",
+    [Errno.EL2HLT]: "Level 2 halted",
+    [Errno.EBADE]: "Invalid exchange",
+    [Errno.EBADR]: "Invalid request descriptor",
+    [Errno.EXFULL]: "Exchange full",
+    [Errno.ENOANO]: "No anode",
+    [Errno.EBADRQC]: "Invalid request code",
+    [Errno.EBADSLT]: "Invalid slot",
+    [Errno.EBFONT]: "Bad font file format",
+    [Errno.ENOSTR]: "Device not a stream",
+    [Errno.ENODATA]: "No data available",
+    [Errno.ETIME]: "Timer expired",
+    [Errno.ENOSR]: "Out of streams resources",
+    [Errno.ENONET]: "Machine is not on the network",
+    [Errno.ENOPKG]: "Package not installed",
+    [Errno.EREMOTE]: "Object is remote",
+    [Errno.ENOLINK]: "Link has been severed",
+    [Errno.EADV]: "Advertise error",
+    [Errno.ESRMNT]: "Srmount error",
+    [Errno.ECOMM]: "Communication error on send",
+    [Errno.EPROTO]: "Protocol error",
+    [Errno.EMULTIHOP]: "Multihop attempted",
+    [Errno.EDOTDOT]: "RFS specific error",
+    [Errno.EBADMSG]: "Bad message",
+    [Errno.EOVERFLOW]: "Value too large for defined data type",
+    [Errno.ENOTUNIQ]: "Name not unique on network",
+    [Errno.EBADFD]: "File descriptor in bad state",
+    [Errno.EREMCHG]: "Remote address changed",
+    [Errno.ELIBACC]: "Can not access a needed shared library",
+    [Errno.ELIBBAD]: "Accessing a corrupted shared library",
+    [Errno.ELIBSCN]: ".lib section in a.out corrupted",
+    [Errno.ELIBMAX]: "Attempting to link in too many shared libraries",
+    [Errno.ELIBEXEC]: "Cannot exec a shared library directly",
+    [Errno.EILSEQ]: "Invalid or incomplete multibyte or wide character",
+    [Errno.ERESTART]: "Interrupted system call should be restarted",
+    [Errno.ESTRPIPE]: "Streams pipe error",
+    [Errno.EUSERS]: "Too many users",
+    [Errno.ENOTSOCK]: "Socket operation on non-socket",
+    [Errno.EDESTADDRREQ]: "Destination address required",
+    [Errno.EMSGSIZE]: "Message too long",
+    [Errno.EPROTOTYPE]: "Protocol wrong type for socket",
+    [Errno.ENOPROTOOPT]: "Protocol not available",
+    [Errno.EPROTONOSUPPORT]: "Protocol not supported",
+    [Errno.ESOCKTNOSUPPORT]: "Socket type not supported",
+    [Errno.ENOTSUP]: "Operation is not supported",
+    [Errno.EPFNOSUPPORT]: "Protocol family not supported",
+    [Errno.EAFNOSUPPORT]: "Address family not supported by protocol",
+    [Errno.EADDRINUSE]: "Address already in use",
+    [Errno.EADDRNOTAVAIL]: "Cannot assign requested address",
+    [Errno.ENETDOWN]: "Network is down",
+    [Errno.ENETUNREACH]: "Network is unreachable",
+    [Errno.ENETRESET]: "Network dropped connection on reset",
+    [Errno.ECONNABORTED]: "Software caused connection abort",
+    [Errno.ECONNRESET]: "Connection reset by peer",
+    [Errno.ENOBUFS]: "No buffer space available",
+    [Errno.EISCONN]: "Transport endpoint is already connected",
+    [Errno.ENOTCONN]: "Transport endpoint is not connected",
+    [Errno.ESHUTDOWN]: "Cannot send after transport endpoint shutdown",
+    [Errno.ETOOMANYREFS]: "Too many references: cannot splice",
+    [Errno.ETIMEDOUT]: "Connection timed out",
+    [Errno.ECONNREFUSED]: "Connection refused",
+    [Errno.EHOSTDOWN]: "Host is down",
+    [Errno.EHOSTUNREACH]: "No route to host",
+    [Errno.EALREADY]: "Operation already in progress",
+    [Errno.EINPROGRESS]: "Operation now in progress",
+    [Errno.ESTALE]: "Stale file handle",
+    [Errno.EEUCLEAN]: "Structure needs cleaning",
+    [Errno.ENOTNAM]: "Not a XENIX named type file",
+    [Errno.ENAVAIL]: "No XENIX semaphores available",
+    [Errno.EISNAM]: "Is a named type file",
+    [Errno.EREMOTEIO]: "Remote I/O error",
+    [Errno.EDQUOT]: "Disk quota exceeded",
+    [Errno.ENOMEDIUM]: "No medium found",
+    [Errno.EMEDIUMTYPE]: "Wrong medium type",
+    [Errno.ECANCELED]: "Operation canceled",
+    [Errno.ENOKEY]: "Required key not available",
+    [Errno.EKEYEXPIRED]: "Key has expired",
+    [Errno.EKEYREVOKED]: "Key has been revoked",
+    [Errno.EKEYREJECTED]: "Key was rejected by service",
+    [Errno.EOWNERDEAD]: "Owner died",
+    [Errno.ENOTRECOVERABLE]: "State not recoverable",
+    [Errno.ERFKILL]: "Operation not possible due to RF-kill",
+    [Errno.EHWPOISON]: "Memory page has hardware error"
+  };
+  function setUVMessage(ex) {
+    let message = `${ex.code}: ${errnoMessages[ex.errno]}, ${ex.syscall}`;
+    if (ex.path)
+      message += ` '${ex.path}'`;
+    if (ex.dest)
+      message += ` -> '${ex.dest}'`;
+    if (ex.message && !ex.message.startsWith(errnoMessages[ex.errno]))
+      message += ` (${ex.message})`;
+    ex.message = message;
+    return ex;
+  }
+  var Exception = class _Exception extends Error {
+    errno;
+    code;
+    path;
+    dest;
+    syscall;
+    constructor(errno, message, ctx = {}) {
+      const code = Errno[errno];
+      super(message || "");
+      this.errno = errno;
+      this.code = code;
+      Object.assign(this, omit(ctx, "message"));
+      if (!message)
+        setUVMessage(this);
+      Error.captureStackTrace?.(this, this.constructor);
+    }
+    toString() {
+      return this.message;
+    }
+    toJSON() {
+      const json = {
+        errno: this.errno,
+        code: this.code,
+        stack: this.stack,
+        message: this.message
+      };
+      if (this.path)
+        json.path = this.path;
+      if (this.dest)
+        json.dest = this.dest;
+      if (this.syscall)
+        json.syscall = this.syscall;
+      return json;
+    }
+    static fromJSON(json) {
+      const err2 = json.syscall ? new _Exception(json.errno, false, json) : new _Exception(json.errno, json.message);
+      err2.stack = json.stack;
+      return err2;
+    }
+  };
+  function UV(code, context, path, dest) {
+    if (typeof context === "string")
+      context = { syscall: context, path, dest };
+    const err2 = new Exception(Errno[code], false, context ?? {});
+    Error.captureStackTrace?.(err2, UV);
+    return err2;
+  }
+  function withErrno(code, message) {
+    const err2 = new Exception(Errno[code], message ?? errnoMessages[Errno[code]]);
+    Error.captureStackTrace?.(err2, withErrno);
+    return err2;
+  }
+  function rethrow(extra, path, dest) {
+    const ctx = typeof extra === "string" ? { syscall: extra } : extra;
+    if (path)
+      ctx.path = path;
+    if (dest)
+      ctx.dest = dest;
+    return function(e) {
+      Object.assign(e, ctx);
+      setUVMessage(e);
+      throw e;
+    };
+  }
+
+  // node_modules/.pnpm/kerium@1.3.5/node_modules/kerium/dist/log.js
+  var log_exports = {};
+  __export(log_exports, {
+    Level: () => Level,
+    alert: () => alert,
+    configure: () => configure,
+    crit: () => crit,
+    debug: () => debug,
+    deprecated: () => deprecated,
+    emerg: () => emerg,
+    entries: () => entries,
+    err: () => err,
+    fancy: () => fancy,
+    format: () => format,
+    info: () => info,
+    isEnabled: () => isEnabled,
+    levelOf: () => levelOf,
+    levels: () => levels,
+    log: () => log,
+    notice: () => notice,
+    warn: () => warn
+  });
+  var Level;
+  (function(Level2) {
+    Level2[Level2["EMERG"] = 0] = "EMERG";
+    Level2[Level2["ALERT"] = 1] = "ALERT";
+    Level2[Level2["CRIT"] = 2] = "CRIT";
+    Level2[Level2["ERR"] = 3] = "ERR";
+    Level2[Level2["WARN"] = 4] = "WARN";
+    Level2[Level2["NOTICE"] = 5] = "NOTICE";
+    Level2[Level2["INFO"] = 6] = "INFO";
+    Level2[Level2["DEBUG"] = 7] = "DEBUG";
+  })(Level || (Level = {}));
+  var levels = [
+    "emergency",
+    "alert",
+    "critical",
+    "error",
+    "warning",
+    "notice",
+    "info",
+    "debug"
+  ];
+  function levelOf(value) {
+    return levels.indexOf(value);
+  }
+  var entries = new List();
+  function log(level, message) {
+    if (!isEnabled)
+      return;
+    const entry = {
+      level,
+      message,
+      timestamp: /* @__PURE__ */ new Date(),
+      elapsedMs: performance.now()
+    };
+    entries.add(entry);
+    output(entry);
+  }
+  function _shortcut(level) {
+    return function(message) {
+      log(level, message.toString());
+      return message;
+    };
+  }
+  var emerg = _shortcut(Level.EMERG);
+  var alert = _shortcut(Level.ALERT);
+  var crit = _shortcut(Level.CRIT);
+  var err = _shortcut(Level.ERR);
+  var warn = _shortcut(Level.WARN);
+  var notice = _shortcut(Level.NOTICE);
+  var info = _shortcut(Level.INFO);
+  var debug = _shortcut(Level.DEBUG);
+  function deprecated(symbol) {
+    log(Level.WARN, symbol + " is deprecated and should not be used.");
+  }
+  function ansi(text, format4) {
+    return `\x1B[${format4}m${text}\x1B[0m`;
+  }
+  function _prettyMs(entry, style) {
+    const text = "[" + (entry.elapsedMs / 1e3).toFixed(3).padStart(10) + "] ";
+    switch (style) {
+      case "ansi":
+        return [ansi(text, "2;37")];
+      case "css":
+        return ["%c" + text, "opacity: 0.8; color: white;"];
+      default:
+        return [text];
+    }
+  }
+  var levelColor = {
+    ansi: {
+      [Level.EMERG]: "1;4;37;41",
+      [Level.ALERT]: "1;37;41",
+      [Level.CRIT]: "1;35",
+      [Level.ERR]: "1;31",
+      [Level.WARN]: "1;33",
+      [Level.NOTICE]: "1;36",
+      [Level.INFO]: "1;37",
+      [Level.DEBUG]: "0;2;37"
+    },
+    css: {
+      [Level.EMERG]: "font-weight: bold; text-decoration: underline; color: white; background-color: red;",
+      [Level.ALERT]: "font-weight: bold; color: white; background-color: red;",
+      [Level.CRIT]: "font-weight: bold; color: magenta;",
+      [Level.ERR]: "font-weight: bold; color: red;",
+      [Level.WARN]: "font-weight: bold; color: yellow;",
+      [Level.NOTICE]: "font-weight: bold; color: cyan;",
+      [Level.INFO]: "font-weight: bold; color: white;",
+      [Level.DEBUG]: "opacity: 0.8; color: white;"
+    }
+  };
+  var messageColor = {
+    ansi: {
+      [Level.EMERG]: "1;31",
+      [Level.ALERT]: "1;31",
+      [Level.CRIT]: "1;31",
+      [Level.ERR]: "31",
+      [Level.WARN]: "33",
+      [Level.NOTICE]: "1;37",
+      [Level.INFO]: "37",
+      [Level.DEBUG]: "2;37"
+    },
+    css: {
+      [Level.EMERG]: "font-weight: bold; color: red;",
+      [Level.ALERT]: "font-weight: bold; color: red;",
+      [Level.CRIT]: "font-weight: bold; color: red;",
+      [Level.ERR]: "color: red;",
+      [Level.WARN]: "color: yellow;",
+      [Level.NOTICE]: "font-weight: bold; color: white;",
+      [Level.INFO]: "color: white;",
+      [Level.DEBUG]: "opacity: 0.8; color: white;"
+    }
+  };
+  function fancy({ style, colorize }) {
+    return function* (entry) {
+      yield* _prettyMs(entry, style);
+      const levelText = style == "ansi" ? [ansi(levels[entry.level].toUpperCase(), levelColor.ansi[entry.level])] : ["%c" + levels[entry.level].toUpperCase(), levelColor.css[entry.level]];
+      if (colorize == "level") {
+        yield* levelText;
+        yield entry.message;
+        return;
+      }
+      if (entry.level < Level.CRIT) {
+        yield* levelText;
+        yield ": ";
+      }
+      if (colorize == "message")
+        yield ansi(entry.message, messageColor.ansi[entry.level]);
+      else
+        yield* ["%c" + entry.message, messageColor.css[entry.level]];
+    };
+  }
+  var _format = (entry) => [..._prettyMs(entry), entry.message];
+  function format(entry) {
+    const formatted = _format(entry);
+    return typeof formatted == "string" ? [formatted] : Array.from(formatted);
+  }
+  var _output = console.error;
+  function output(entry) {
+    if (entry.level > minLevel)
+      return;
+    _output(...format(entry));
+  }
+  var minLevel = Level.ALERT;
+  var includeStack = false;
+  var isEnabled = true;
+  function configure(options) {
+    _format = options.format ?? _format;
+    _output = options.output ?? _output;
+    minLevel = typeof options.level == "string" ? levelOf(options.level) : options.level ?? minLevel;
+    isEnabled = options.enabled ?? isEnabled;
+    includeStack = options.stack ?? includeStack;
+    if (!options.dumpBacklog)
+      return;
+    for (const entry of entries) {
+      output(entry);
+    }
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/backends/backend.js
+  function isBackend(arg) {
+    return arg != null && typeof arg == "object" && "create" in arg && typeof arg.create == "function";
+  }
+  function _fnOpt(name, fn) {
+    Object.defineProperty(fn, "prototype", { value: void 0 });
+    if (name)
+      Object.defineProperty(fn, "name", { value: name });
+    return fn;
+  }
+  function checkOptions(backend, options) {
+    if (typeof options != "object" || options === null) {
+      throw err(withErrno("EINVAL", "Invalid options"));
+    }
+    for (const [optName, opt] of Object.entries(backend.options)) {
+      const value = options === null || options === void 0 ? void 0 : options[optName];
+      if (value === void 0 || value === null) {
+        if (!opt.required) {
+          debug("Using default for option: " + optName);
+          continue;
+        }
+        throw err(withErrno("EINVAL", "Missing required option: " + optName));
+      }
+      const isType2 = (type2, _ = value) => {
+        var _a2;
+        return typeof type2 == "function" ? Symbol.hasInstance in type2 && type2.prototype ? value instanceof type2 : type2(value) : typeof value === type2 || ((_a2 = value === null || value === void 0 ? void 0 : value.constructor) === null || _a2 === void 0 ? void 0 : _a2.name) === type2;
+      };
+      if (Array.isArray(opt.type) ? opt.type.some((v) => isType2(v)) : isType2(opt.type))
+        continue;
+      const type = typeof value == "object" && "constructor" in value ? value.constructor.name : typeof value;
+      const name = (type2) => typeof type2 == "function" ? type2.name != "type" ? type2.name : type2.toString() : type2;
+      const expected = Array.isArray(opt.type) ? `one of ${opt.type.map(name).join(", ")}` : name(opt.type);
+      throw err(withErrno("EINVAL", `Incorrect type for "${optName}": ${type} (expected ${expected})`));
+    }
+  }
+  function isBackendConfig(arg) {
+    return arg != null && typeof arg == "object" && "backend" in arg && isBackend(arg.backend);
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/internal/credentials.js
+  function createCredentials(source) {
+    return {
+      suid: source.uid,
+      sgid: source.gid,
+      euid: source.uid,
+      egid: source.gid,
+      groups: [],
+      ...source
+    };
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/internal/contexts.js
+  var defaultContext = {
+    id: 0,
+    root: "/",
+    pwd: "/",
+    credentials: createCredentials({ uid: 0, gid: 0 }),
+    descriptors: /* @__PURE__ */ new Map(),
+    parent: null,
+    children: []
+  };
+
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/constants.js
+  var constants_exports = {};
+  __export(constants_exports, {
+    COPYFILE_EXCL: () => COPYFILE_EXCL,
+    COPYFILE_FICLONE: () => COPYFILE_FICLONE,
+    COPYFILE_FICLONE_FORCE: () => COPYFILE_FICLONE_FORCE,
+    F_OK: () => F_OK,
+    O_APPEND: () => O_APPEND,
+    O_CREAT: () => O_CREAT,
+    O_DIRECT: () => O_DIRECT,
+    O_DIRECTORY: () => O_DIRECTORY,
+    O_DSYNC: () => O_DSYNC,
+    O_EXCL: () => O_EXCL,
+    O_NOATIME: () => O_NOATIME,
+    O_NOCTTY: () => O_NOCTTY,
+    O_NOFOLLOW: () => O_NOFOLLOW,
+    O_NONBLOCK: () => O_NONBLOCK,
+    O_RDONLY: () => O_RDONLY,
+    O_RDWR: () => O_RDWR,
+    O_SYMLINK: () => O_SYMLINK,
+    O_SYNC: () => O_SYNC,
+    O_TRUNC: () => O_TRUNC,
+    O_WRONLY: () => O_WRONLY,
+    R_OK: () => R_OK,
+    S_IFBLK: () => S_IFBLK,
+    S_IFCHR: () => S_IFCHR,
+    S_IFDIR: () => S_IFDIR,
+    S_IFIFO: () => S_IFIFO,
+    S_IFLNK: () => S_IFLNK,
+    S_IFMT: () => S_IFMT,
+    S_IFREG: () => S_IFREG,
+    S_IFSOCK: () => S_IFSOCK,
+    S_IRGRP: () => S_IRGRP,
+    S_IROTH: () => S_IROTH,
+    S_IRUSR: () => S_IRUSR,
+    S_IRWXG: () => S_IRWXG,
+    S_IRWXO: () => S_IRWXO,
+    S_IRWXU: () => S_IRWXU,
+    S_ISGID: () => S_ISGID,
+    S_ISUID: () => S_ISUID,
+    S_ISVTX: () => S_ISVTX,
+    S_IWGRP: () => S_IWGRP,
+    S_IWOTH: () => S_IWOTH,
+    S_IWUSR: () => S_IWUSR,
+    S_IXGRP: () => S_IXGRP,
+    S_IXOTH: () => S_IXOTH,
+    S_IXUSR: () => S_IXUSR,
+    UV_FS_O_FILEMAP: () => UV_FS_O_FILEMAP,
+    W_OK: () => W_OK,
+    X_OK: () => X_OK,
+    size_max: () => size_max
+  });
+  var F_OK = 0;
+  var R_OK = 4;
+  var W_OK = 2;
+  var X_OK = 1;
+  var COPYFILE_EXCL = 1;
+  var COPYFILE_FICLONE = 2;
+  var COPYFILE_FICLONE_FORCE = 4;
+  var O_RDONLY = 0;
+  var O_WRONLY = 1;
+  var O_RDWR = 2;
+  var O_CREAT = 64;
+  var O_EXCL = 128;
+  var O_NOCTTY = 256;
+  var O_TRUNC = 512;
+  var O_APPEND = 1024;
+  var O_DIRECTORY = 65536;
+  var O_NOATIME = 262144;
+  var O_NOFOLLOW = 131072;
+  var O_SYNC = 1052672;
+  var O_DSYNC = 4096;
+  var O_SYMLINK = 32768;
+  var O_DIRECT = 16384;
+  var O_NONBLOCK = 2048;
+  var S_IFMT = 61440;
+  var S_IFSOCK = 49152;
+  var S_IFLNK = 40960;
+  var S_IFREG = 32768;
+  var S_IFBLK = 24576;
+  var S_IFDIR = 16384;
+  var S_IFCHR = 8192;
+  var S_IFIFO = 4096;
+  var S_ISUID = 2048;
+  var S_ISGID = 1024;
+  var S_ISVTX = 512;
+  var S_IRWXU = 448;
+  var S_IRUSR = 256;
+  var S_IWUSR = 128;
+  var S_IXUSR = 64;
+  var S_IRWXG = 56;
+  var S_IRGRP = 32;
+  var S_IWGRP = 16;
+  var S_IXGRP = 8;
+  var S_IRWXO = 7;
+  var S_IROTH = 4;
+  var S_IWOTH = 2;
+  var S_IXOTH = 1;
+  var UV_FS_O_FILEMAP = 0;
+  var size_max = 4294967295;
+
+  // node_modules/.pnpm/memium@0.2.0/node_modules/memium/dist/internal.js
+  Symbol.metadata ??= Symbol.for("Symbol.metadata");
+  function initMetadata(context) {
+    context.metadata ??= {};
+    const existing = context.metadata.structInit ?? {};
+    context.metadata.structInit = {
+      fields: [...existing.fields ?? []]
+    };
+    return context.metadata.structInit;
+  }
+  function isValidMetadata(arg) {
+    return arg != null && typeof arg == "object" && "struct" in arg;
+  }
+  function isStatic(arg) {
+    return typeof arg == "function" && Symbol.metadata in arg && isValidMetadata(arg[Symbol.metadata]);
+  }
+  function isInstance(arg) {
+    return arg != null && typeof arg == "object" && isStatic(arg.constructor);
+  }
+  function isStruct(arg) {
+    return isInstance(arg) || isStatic(arg);
+  }
+  function checkStruct(arg) {
+    if (isStruct(arg))
+      return;
+    throw new TypeError((typeof arg == "function" ? arg.name : typeof arg == "object" && arg ? arg.constructor.name : arg) + " is not a struct");
+  }
+
+  // node_modules/.pnpm/memium@0.2.0/node_modules/memium/dist/types.js
+  function isType(type) {
+    return (typeof type == "object" || typeof type == "function") && type != null && "name" in type && "size" in type && "get" in type && "set" in type && typeof type.name == "string" && typeof type.size == "number" && typeof type.get == "function" && typeof type.set == "function" && typeRegistry.has(type.name) && typeRegistry.get(type.name)?.name === type.name;
+  }
+  var typeRegistry = /* @__PURE__ */ new Map();
+  function registerType(t) {
+    if (typeRegistry.has(t.name))
+      throw new ReferenceError(`Type is already registered: ${t.name}`);
+    typeRegistry.set(t.name, t);
+  }
+
+  // node_modules/.pnpm/memium@0.2.0/node_modules/memium/dist/primitives.js
+  var __view__ = Symbol("DataView");
+  function view(buffer) {
+    buffer[__view__] ??= new DataView(buffer);
+    return buffer[__view__];
+  }
+  var types = {
+    int8: {
+      name: "int8",
+      size: 1,
+      array: Int8Array,
+      get: (buffer, offset) => view(buffer).getInt8(offset),
+      set: (buffer, offset, value) => view(buffer).setInt8(offset, value)
+    },
+    uint8: {
+      name: "uint8",
+      size: 1,
+      array: Uint8Array,
+      get: (buffer, offset) => view(buffer).getUint8(offset),
+      set: (buffer, offset, value) => view(buffer).setUint8(offset, value)
+    },
+    int16: {
+      name: "int16",
+      size: 2,
+      array: Int16Array,
+      get: (buffer, offset) => view(buffer).getInt16(offset, true),
+      set: (buffer, offset, value) => view(buffer).setInt16(offset, value, true)
+    },
+    uint16: {
+      name: "uint16",
+      size: 2,
+      array: Uint16Array,
+      get: (buffer, offset) => view(buffer).getUint16(offset, true),
+      set: (buffer, offset, value) => view(buffer).setUint16(offset, value, true)
+    },
+    int32: {
+      name: "int32",
+      size: 4,
+      array: Int32Array,
+      get: (buffer, offset) => view(buffer).getInt32(offset, true),
+      set: (buffer, offset, value) => view(buffer).setInt32(offset, value, true)
+    },
+    uint32: {
+      name: "uint32",
+      size: 4,
+      array: Uint32Array,
+      get: (buffer, offset) => view(buffer).getUint32(offset, true),
+      set: (buffer, offset, value) => view(buffer).setUint32(offset, value, true)
+    },
+    int64: {
+      name: "int64",
+      size: 8,
+      array: BigInt64Array,
+      get: (buffer, offset) => view(buffer).getBigInt64(offset, true),
+      set: (buffer, offset, value) => view(buffer).setBigInt64(offset, value, true)
+    },
+    uint64: {
+      name: "uint64",
+      size: 8,
+      array: BigUint64Array,
+      get: (buffer, offset) => view(buffer).getBigUint64(offset, true),
+      set: (buffer, offset, value) => view(buffer).setBigUint64(offset, value, true)
+    },
+    float32: {
+      name: "float32",
+      size: 4,
+      array: Float32Array,
+      get: (buffer, offset) => view(buffer).getFloat32(offset, true),
+      set: (buffer, offset, value) => view(buffer).setFloat32(offset, value, true)
+    },
+    float64: {
+      name: "float64",
+      size: 8,
+      array: Float64Array,
+      get: (buffer, offset) => view(buffer).getFloat64(offset, true),
+      set: (buffer, offset, value) => view(buffer).setFloat64(offset, value, true)
+    }
+  };
+  var typeNames = Object.keys(types);
+  for (const t of Object.values(types))
+    registerType(t);
+  var validNames = [...typeNames, ...typeNames.map((t) => capitalize(t)), "char"];
+  function isValid(type) {
+    return validNames.includes(type.toString());
+  }
+  function checkValid(type) {
+    if (!isValid(type))
+      throw withErrno("EINVAL", "Not a valid primitive type: " + type);
+  }
+  function normalize(type) {
+    return type == "char" ? "uint8" : type.toLowerCase();
+  }
+
+  // node_modules/.pnpm/memium@0.2.0/node_modules/memium/dist/misc.js
+  function sizeof(type) {
+    if (isType(type))
+      return type.size;
+    if (type === void 0 || type === null)
+      return 0;
+    if (typeof type == "object" && isType(type.constructor))
+      return type.constructor.size;
+    if (Array.isArray(type)) {
+      let size = 0;
+      for (let i = 0; i < type.length; i++)
+        size += sizeof(type[i]);
+      return size;
+    }
+    if (typeof type == "string") {
+      checkValid(type);
+      return types[normalize(type)].size;
+    }
+    throw new TypeError(`Unable to resolve size of \`${type.toString()}\``);
+  }
+  function offsetof(type, fieldName) {
+    checkStruct(type);
+    const constructor = isStatic(type) ? type : type.constructor;
+    const { fields } = constructor[Symbol.metadata].struct;
+    if (!(fieldName in fields))
+      throw withErrno("EINVAL", "Struct does not have field: " + fieldName);
+    return fields[fieldName].offset;
+  }
+
+  // node_modules/.pnpm/memium@0.2.0/node_modules/memium/dist/struct.js
+  var packed = { isPacked: true };
+  function struct(...options) {
+    return function __decorateStruct(target, context) {
+      const opts = options.reduce((acc, opt) => ({ ...acc, ...opt }), {});
+      const init = initMetadata(context);
+      let fieldAlignment = 1;
+      const fields = {};
+      let size = 0;
+      const align = (to) => {
+        size = Math.ceil(size / to) * to;
+      };
+      for (const field2 of init.fields) {
+        if (!opts.isPacked)
+          align(field2.alignment);
+        if (opts.isUnion)
+          size = Math.max(size, field2.size);
+        else {
+          field2.offset = size;
+          size += field2.size * (field2.length ?? 1);
+        }
+        fields[field2.name] = field2;
+        fieldAlignment = Math.max(fieldAlignment, field2.alignment);
+      }
+      opts.alignment ??= fieldAlignment;
+      if (!opts.isPacked)
+        align(opts.alignment);
+      context.metadata.struct = {
+        fields,
+        size,
+        alignment: opts.isPacked ? 1 : opts.alignment,
+        isUnion: opts.isUnion ?? false
+      };
+      const struct2 = new Function("target", `return class ${target.name} extends target {
+				constructor(...args) {
+					if (!args.length) args = [new ArrayBuffer(${size}), 0, ${size}];
+					super(...args);
+				}
+			}`)(target);
+      const fix = (value) => ({
+        writable: false,
+        enumerable: false,
+        configurable: false,
+        value
+      });
+      Object.defineProperties(struct2, {
+        size: fix(size),
+        get: fix((buffer, offset) => new struct2(buffer, offset)),
+        set: fix((buffer, offset, value) => {
+          const source = new Uint8Array(value.buffer, value.byteOffset, size);
+          const target2 = new Uint8Array(buffer, offset, size);
+          if (value.buffer === buffer && value.byteOffset === offset)
+            return;
+          for (let i = 0; i < size; i++)
+            target2[i] = source[i];
+        })
+      });
+      registerType(struct2);
+      return struct2;
+    };
+  }
+  function field(type, opt = {}) {
+    return function __decorateField(value, context) {
+      if (context.kind != "accessor")
+        throw withErrno("EINVAL", "Field must be an accessor");
+      const init = initMetadata(context);
+      let name = context.name;
+      if (typeof name == "symbol") {
+        console.warn("Symbol used for struct field name will be coerced to string: " + name.toString());
+        name = name.toString();
+      }
+      if (!name)
+        throw withErrno("EINVAL", "Invalid name for struct field");
+      if (!isType(type))
+        throw withErrno("EINVAL", "Not a valid type: " + type.name);
+      if (opt.countedBy)
+        opt.length ??= 0;
+      const field2 = {
+        name,
+        offset: 0,
+        // set when `@struct` is run
+        type,
+        length: opt.length,
+        countedBy: opt.countedBy,
+        size: type.size,
+        alignment: opt.align ?? type.size,
+        decl: `${opt.typeName ?? type.name} ${name}${typeof opt.length === "number" ? `[${opt.length}]` : opt.countedBy ? `[${opt.countedBy}]` : ""}`,
+        littleEndian: !opt.bigEndian
+      };
+      init.fields.push(field2);
+      return {
+        get() {
+          return _get(this, field2);
+        },
+        set(value2) {
+          _set(this, field2, value2);
+        }
+      };
+    };
+  }
+  function _fieldLength(instance, length, countedBy) {
+    if (length === void 0)
+      return -1;
+    if (typeof countedBy == "string")
+      length = Math.min(length, instance[countedBy]);
+    return Number.isSafeInteger(length) && length >= 0 ? length : _throw(withErrno("EINVAL", "Array lengths must be natural numbers"));
+  }
+  function _set(instance, field2, value, index) {
+    const { type, length: maxLength, countedBy } = field2;
+    const length = _fieldLength(instance, maxLength, countedBy);
+    if (length === -1 || typeof index === "number") {
+      if (typeof value == "string")
+        value = value.charCodeAt(0);
+      type.set(instance.buffer, instance.byteOffset + field2.offset + (index ?? 0) * type.size, value);
+      return;
+    }
+    for (let i = 0; i < Math.min(length, value.length); i++) {
+      const offset = field2.offset + i * type.size;
+      type.set(instance.buffer, instance.byteOffset + offset, value[i]);
+    }
+  }
+  function _get(instance, field2, index) {
+    const { type, length: maxLength, countedBy } = field2;
+    const length = _fieldLength(instance, maxLength, countedBy);
+    const offset = instance.byteOffset + field2.offset + (index ?? 0) * field2.size;
+    if (length === -1 || typeof index === "number") {
+      return type.get(instance.buffer, offset);
+    }
+    if (length !== 0 && type.array) {
+      return new type.array(instance.buffer, offset, length * type.size);
+    }
+    return new Proxy({
+      get length() {
+        return _fieldLength(instance, field2.length, field2.countedBy);
+      },
+      *[Symbol.iterator]() {
+        for (let i = 0; i < this.length; i++)
+          yield this[i];
+      }
+    }, {
+      get(target, index2) {
+        if (Object.hasOwn(target, index2))
+          return target[index2];
+        const i = parseInt(index2.toString());
+        if (!Number.isSafeInteger(i))
+          throw withErrno("EINVAL", "Invalid index: " + index2.toString());
+        return _get(instance, field2, i);
+      },
+      set(target, index2, value) {
+        const i = parseInt(index2.toString());
+        if (!Number.isSafeInteger(i))
+          throw withErrno("EINVAL", "Invalid index: " + index2.toString());
+        _set(instance, field2, i, value);
+        return true;
+      }
+    });
+  }
+  function _shortcut2(typeName) {
+    const type = types[normalize(typeName)];
+    function __decoratePrimitiveField(valueOrLength, context) {
+      return typeof valueOrLength == "number" ? field(type, { typeName, length: valueOrLength, ...context }) : field(type, { typeName })(valueOrLength, context && "name" in context ? context : _throw(withErrno("EINVAL", "Invalid decorator context object")));
+    }
+    return __decoratePrimitiveField;
+  }
+  var types2 = Object.fromEntries(validNames.map((t) => [t, _shortcut2(t)]));
+
+  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/buffer.js
   function extendBuffer(buffer, newByteLength) {
     if (buffer.byteLength >= newByteLength)
       return buffer;
@@ -8895,365 +9708,36 @@
       return newBuffer;
     }
   }
-  function toUint8Array(buffer) {
-    if (buffer instanceof Uint8Array)
-      return buffer;
-    if (!ArrayBuffer.isView(buffer))
-      return new Uint8Array(buffer);
-    return new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-  }
-
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/debugging.js
-  var U_DEBUG = "process" in globalThis && "env" in globalThis.process && globalThis.process.env.U_DEBUG == "true";
-  function _debugLog(...text) {
-    if (U_DEBUG)
-      console.debug("[U]", ...text);
-  }
-
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/internal/primitives.js
-  var typeNames = [
-    "int8",
-    "uint8",
-    "int16",
-    "uint16",
-    "int32",
-    "uint32",
-    "int64",
-    "uint64",
-    "int128",
-    "uint128",
-    "float32",
-    "float64",
-    "float128"
-  ];
-  var validNames = [...typeNames, ...typeNames.map((t) => capitalize(t)), "char"];
-  var regex = /^(u?int|float)(8|16|32|64|128)$/i;
-  function normalize(type) {
-    return type == "char" ? "uint8" : type.toLowerCase();
-  }
-  function isType(type) {
-    return regex.test(type.toString());
-  }
-  function isValid(type) {
-    return type == "char" || regex.test(type.toString().toLowerCase());
-  }
-  function checkValid(type) {
-    if (!isValid(type)) {
-      throw new TypeError("Not a valid primitive type: " + type);
+  var BufferView = class extends DataView {
+    constructor(_buffer, _byteOffset, _byteLength) {
+      const { buffer, byteOffset, byteLength } = new Uint8Array(_buffer, _byteOffset, _byteLength);
+      super(buffer, byteOffset, byteLength);
     }
-  }
-  var mask64 = BigInt("0xffffffffffffffff");
-
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/internal/struct.js
-  Symbol.metadata ??= Symbol.for("Symbol.metadata");
-  Object.assign(Symbol, {
-    size: Symbol("uSize"),
-    serialize: Symbol("uSerialize"),
-    deserialize: Symbol("uDeserialize")
-  });
-  function initMetadata(context) {
-    context.metadata ??= {};
-    context.metadata.structInit = [...context.metadata.structInit ?? []];
-    return context.metadata.structInit;
-  }
-  function isValidMetadata(arg) {
-    return arg != null && typeof arg == "object" && "struct" in arg;
-  }
-  function _polyfill_metadata(target) {
-    if (Symbol.metadata in target)
-      return;
-    Object.defineProperty(target, Symbol.metadata, {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: /* @__PURE__ */ Object.create(null)
+  };
+  for (const key of Object.getOwnPropertyNames(DataView.prototype)) {
+    if (!key.startsWith("get") && !key.startsWith("set"))
+      continue;
+    Object.defineProperty(BufferView.prototype, key, {
+      value: () => {
+        throw new ReferenceError("Do not use DataView methods on a BufferView.");
+      },
+      writable: false,
+      enumerable: false,
+      configurable: false
     });
   }
-  function isStatic(arg) {
-    return typeof arg == "function" && Symbol.metadata in arg && isValidMetadata(arg[Symbol.metadata]);
-  }
-  function isInstance(arg) {
-    return arg != null && typeof arg == "object" && isStatic(arg.constructor);
-  }
-  function checkInstance(arg) {
-    if (isInstance(arg))
-      return;
-    throw new TypeError((typeof arg == "function" ? arg.name : typeof arg == "object" && arg ? arg.constructor.name : arg) + " is not a struct instance");
-  }
-  function isStruct(arg) {
-    return isInstance(arg) || isStatic(arg);
-  }
-  function checkStruct(arg) {
-    if (isStruct(arg))
-      return;
-    throw new TypeError((typeof arg == "function" ? arg.name : typeof arg == "object" && arg ? arg.constructor.name : arg) + " is not a struct");
-  }
-  function isCustom(arg) {
-    return typeof arg == "object" && arg != null && Symbol.size in arg;
-  }
 
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/struct.js
-  function sizeof(type) {
-    if (type === void 0 || type === null)
-      return 0;
-    if (Array.isArray(type)) {
-      let size2 = 0;
-      for (let i = 0; i < type.length; i++) {
-        size2 += sizeof(type[i]);
-      }
-      return size2;
-    }
-    if (typeof type == "string") {
-      checkValid(type);
-      return +normalize(type).match(regex)[2] / 8;
-    }
-    if (isCustom(type))
-      return type[Symbol.size];
-    checkStruct(type);
-    const constructor = isStatic(type) ? type : type.constructor;
-    _polyfill_metadata(constructor);
-    const { struct: struct2 } = constructor[Symbol.metadata];
-    let size = struct2.staticSize;
-    if (isStatic(type))
-      return size;
-    for (const member2 of struct2.members.values()) {
-      const value = type[member2.name];
-      if (isInstance(value) && value.constructor[Symbol.metadata].struct.isDynamic) {
-        if (struct2.isUnion)
-          size = Math.max(size, sizeof(value));
-        else
-          size += sizeof(value);
-        continue;
-      }
-      if (typeof member2.length != "string")
-        continue;
-      let subSize = 0;
-      for (let i = 0; i < type[member2.length]; i++) {
-        subSize += sizeof(isStruct(value[i]) ? value[i] : member2.type);
-      }
-      if (struct2.isUnion)
-        size = Math.max(size, subSize);
-      else
-        size += subSize;
-    }
-    return size;
-  }
-  function offsetof(type, memberName) {
-    checkStruct(type);
-    const constructor = isStatic(type) ? type : type.constructor;
-    _polyfill_metadata(constructor);
-    const { struct: struct2 } = constructor[Symbol.metadata];
-    if (isStatic(type) || !struct2.isDynamic) {
-      return struct2.members.get(memberName)?.staticOffset ?? _throw(new Error("Struct does not have member: " + memberName));
-    }
-    let offset = 0;
-    for (const member2 of struct2.members.values()) {
-      if (member2.name == memberName)
-        return offset;
-      const value = type[member2.name];
-      offset += sizeof(isStruct(value) ? value : member2.type);
-    }
-    throw new Error("Struct does not have member: " + memberName);
-  }
-  function align(value, alignment) {
-    return Math.ceil(value / alignment) * alignment;
-  }
-  function struct(options = {}) {
-    return function _decorateStruct(target, context) {
-      const members = /* @__PURE__ */ new Map();
-      let staticSize = 0, isDynamic = false;
-      for (const { name, type, length } of initMetadata(context)) {
-        if (!isValid(type) && !isStatic(type))
-          throw new TypeError("Not a valid type: " + type);
-        if (typeof length == "string") {
-          const countedBy = members.get(length);
-          if (!countedBy)
-            throw new Error(`"${length}" is undefined or declared after "${name}"`);
-          if (!isType(countedBy.type))
-            throw new Error(`"${length}" is not a number and cannot be used to count "${name}"`);
-        }
-        let decl = `${typeof type == "string" ? type : type.name} ${name}`;
-        if (length !== void 0)
-          decl += `[${length}]`;
-        members.set(name, {
-          name,
-          staticOffset: options.isUnion ? 0 : staticSize,
-          type: isValid(type) ? normalize(type) : type,
-          length,
-          decl
-        });
-        const memberSize = typeof length == "string" || isStatic(type) && type[Symbol.metadata].struct.isDynamic ? 0 : sizeof(type) * (length || 1);
-        isDynamic ||= isStatic(type) ? type[Symbol.metadata].struct.isDynamic : typeof length == "string";
-        staticSize = options.isUnion ? Math.max(staticSize, memberSize) : staticSize + memberSize;
-        staticSize = align(staticSize, options.align || 1);
-        _debugLog("define", target.name + "." + name);
-      }
-      context.metadata.struct = {
-        options,
-        members,
-        staticSize,
-        isDynamic,
-        isUnion: options.isUnion ?? false
-      };
-      return target;
-    };
-  }
-  function member(type, length) {
-    return function(value, context) {
-      let name = context.name;
-      if (typeof name == "symbol") {
-        console.warn("Symbol used for struct member name will be coerced to string: " + name.toString());
-        name = name.toString();
-      }
-      if (!name)
-        throw new ReferenceError("Invalid name for struct member");
-      initMetadata(context).push({ name, type, length });
-      return value;
-    };
-  }
-  function _memberLength(instance, member2) {
-    if (member2.length === void 0)
-      return -1;
-    if (typeof member2.length == "string")
-      return instance[member2.length];
-    return Number.isSafeInteger(member2.length) && member2.length >= 0 ? member2.length : _throw(new Error("Array lengths must be natural numbers"));
-  }
-  function serialize(instance) {
-    if (isCustom(instance) && typeof instance[Symbol.serialize] == "function")
-      return instance[Symbol.serialize]();
-    checkInstance(instance);
-    _polyfill_metadata(instance.constructor);
-    const { options, members } = instance.constructor[Symbol.metadata].struct;
-    const size = sizeof(instance);
-    const buffer = new Uint8Array(size);
-    const view = new DataView(buffer.buffer);
-    _debugLog("serialize", instance.constructor.name);
-    let offset = 0, nextOffset = 0;
-    for (const member2 of members.values()) {
-      const length = _memberLength(instance, member2);
-      _debugLog("	", member2.decl);
-      for (let i = 0; i < Math.abs(length); i++) {
-        let value = length != -1 ? instance[member2.name][i] : instance[member2.name];
-        if (typeof value == "string") {
-          value = value.charCodeAt(0);
-        }
-        offset = nextOffset;
-        nextOffset += isInstance(value) ? sizeof(value) : sizeof(member2.type);
-        if (!isType(member2.type)) {
-          buffer.set(value ? serialize(value) : new Uint8Array(sizeof(member2.type)), offset);
-          continue;
-        }
-        const fn = `set${capitalize(member2.type)}`;
-        if (fn == "setInt64") {
-          view.setBigInt64(offset, BigInt(value), !options.bigEndian);
-          continue;
-        }
-        if (fn == "setUint64") {
-          view.setBigUint64(offset, BigInt(value), !options.bigEndian);
-          continue;
-        }
-        if (fn == "setInt128") {
-          view.setBigUint64(offset + (!options.bigEndian ? 0 : 8), value & mask64, !options.bigEndian);
-          view.setBigInt64(offset + (!options.bigEndian ? 8 : 0), value >> BigInt(64), !options.bigEndian);
-          continue;
-        }
-        if (fn == "setUint128") {
-          view.setBigUint64(offset + (!options.bigEndian ? 0 : 8), value & mask64, !options.bigEndian);
-          view.setBigUint64(offset + (!options.bigEndian ? 8 : 0), value >> BigInt(64), !options.bigEndian);
-          continue;
-        }
-        if (fn == "setFloat128") {
-          view.setFloat64(offset + (!options.bigEndian ? 0 : 8), Number(value), !options.bigEndian);
-          view.setBigUint64(offset + (!options.bigEndian ? 8 : 0), BigInt(0), !options.bigEndian);
-          continue;
-        }
-        view[fn](offset, Number(value), !options.bigEndian);
-      }
-    }
-    return buffer;
-  }
-  function deserialize(instance, _buffer) {
-    const buffer = toUint8Array(_buffer);
-    if (isCustom(instance) && typeof instance[Symbol.deserialize] == "function")
-      return instance[Symbol.deserialize](buffer);
-    checkInstance(instance);
-    _polyfill_metadata(instance.constructor);
-    const { options, members } = instance.constructor[Symbol.metadata].struct;
-    const view = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-    _debugLog("deserialize", instance.constructor.name);
-    let offset = 0, nextOffset = 0;
-    for (const member2 of members.values()) {
-      const length = _memberLength(instance, member2);
-      _debugLog("	", member2.decl);
-      for (let i = 0; i < Math.abs(length); i++) {
-        let object = length != -1 ? instance[member2.name] : instance;
-        const key = length != -1 ? i : member2.name;
-        const isNullish = object[key] === null || object[key] === void 0;
-        const needsAllocation = isNullish && isStatic(member2.type) && member2.type[Symbol.metadata].struct.isDynamic;
-        offset = nextOffset;
-        if (!isInstance(object[key]) && !needsAllocation)
-          nextOffset += sizeof(member2.type);
-        if (typeof instance[member2.name] == "string") {
-          instance[member2.name] = instance[member2.name].slice(0, i) + String.fromCharCode(view.getUint8(offset)) + instance[member2.name].slice(i + 1);
-          continue;
-        }
-        if (!isType(member2.type)) {
-          if (needsAllocation && isStatic(member2.type))
-            object[key] ??= new member2.type();
-          else if (isNullish)
-            continue;
-          deserialize(object[key], new Uint8Array(buffer.subarray(offset)));
-          nextOffset += sizeof(object[key]);
-          continue;
-        }
-        if (length && length != -1)
-          object ||= [];
-        const fn = `get${capitalize(member2.type)}`;
-        if (fn == "getInt64") {
-          object[key] = view.getBigInt64(offset, !options.bigEndian);
-          continue;
-        }
-        if (fn == "getUint64") {
-          object[key] = view.getBigUint64(offset, !options.bigEndian);
-          continue;
-        }
-        if (fn == "getInt128") {
-          object[key] = view.getBigInt64(offset + (!options.bigEndian ? 8 : 0), !options.bigEndian) << BigInt(64) | view.getBigUint64(offset + (!options.bigEndian ? 0 : 8), !options.bigEndian);
-          continue;
-        }
-        if (fn == "getUint128") {
-          object[key] = view.getBigUint64(offset + (!options.bigEndian ? 8 : 0), !options.bigEndian) << BigInt(64) | view.getBigUint64(offset + (!options.bigEndian ? 0 : 8), !options.bigEndian);
-          continue;
-        }
-        if (fn == "getFloat128") {
-          object[key] = view.getFloat64(offset + (!options.bigEndian ? 0 : 8), !options.bigEndian);
-          continue;
-        }
-        object[key] = view[fn](offset, !options.bigEndian);
-      }
-    }
-  }
-  function _member(type) {
-    function _structMemberDecorator(valueOrLength, context) {
-      if (typeof valueOrLength == "number" || typeof valueOrLength == "string") {
-        return member(type, valueOrLength);
-      }
-      return member(type)(valueOrLength, context);
-    }
-    return _structMemberDecorator;
-  }
-  var types = Object.fromEntries(validNames.map((t) => [t, _member(t)]));
-
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/path.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/path.js
   var path_exports = {};
   __export(path_exports, {
     basename: () => basename,
     dirname: () => dirname,
     extname: () => extname,
-    format: () => format,
+    format: () => format2,
     formatExt: () => formatExt,
     isAbsolute: () => isAbsolute,
     join: () => join,
+    matchesGlob: () => matchesGlob,
     normalize: () => normalize2,
     normalizeString: () => normalizeString,
     parse: () => parse,
@@ -9262,30 +9746,73 @@
     sep: () => sep
   });
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/credentials.js
-  function createCredentials(source) {
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/utils.js
+  function decodeDirListing(data) {
+    return JSON.parse(decodeUTF8(data), (k, v) => k == "" ? v : typeof v == "string" ? BigInt(v).toString(16).slice(0, Math.min(v.length, 8)) : v);
+  }
+  function encodeDirListing(data) {
+    return encodeUTF8(JSON.stringify(data));
+  }
+  function normalizeMode(mode, def) {
+    if (typeof mode == "number")
+      return mode;
+    if (typeof mode == "string") {
+      const parsed = parseInt(mode, 8);
+      if (!isNaN(parsed)) {
+        return parsed;
+      }
+    }
+    if (typeof def == "number")
+      return def;
+    throw withErrno("EINVAL", "Invalid mode: " + (mode === null || mode === void 0 ? void 0 : mode.toString()));
+  }
+  function normalizeTime(time) {
+    if (time instanceof Date)
+      return time.getTime();
+    try {
+      return Number(time);
+    } catch {
+      throw withErrno("EINVAL", "Invalid time.");
+    }
+  }
+  function __assertType(value) {
+  }
+  function normalizePath(p, noResolve = false) {
+    if (p instanceof URL) {
+      if (p.protocol != "file:")
+        throw withErrno("EINVAL", "URLs must use the file: protocol");
+      p = p.pathname;
+    }
+    p = p.toString();
+    if (p.startsWith("file://"))
+      p = p.slice("file://".length);
+    if (p.includes("\0"))
+      throw withErrno("EINVAL", "Path can not contain null character");
+    if (p.length == 0)
+      throw withErrno("EINVAL", "Path can not be empty");
+    p = p.replaceAll(/[/\\]+/g, "/");
+    return noResolve ? p : resolve(p);
+  }
+  function normalizeOptions(options, encoding = "utf8", flag, mode = 0) {
+    if (typeof options != "object" || options === null) {
+      return {
+        encoding: typeof options == "string" ? options : encoding !== null && encoding !== void 0 ? encoding : null,
+        flag,
+        mode
+      };
+    }
     return {
-      suid: source.uid,
-      sgid: source.gid,
-      euid: source.uid,
-      egid: source.gid,
-      groups: [],
-      ...source
+      encoding: typeof (options === null || options === void 0 ? void 0 : options.encoding) == "string" ? options.encoding : encoding !== null && encoding !== void 0 ? encoding : null,
+      flag: typeof (options === null || options === void 0 ? void 0 : options.flag) == "string" ? options.flag : flag,
+      mode: normalizeMode("mode" in options ? options === null || options === void 0 ? void 0 : options.mode : null, mode)
     };
   }
+  function globToRegex(pattern2) {
+    pattern2 = pattern2.replace(/([.?+^$(){}|[\]/])/g, "$1").replace(/\*\*/g, ".*").replace(/\*/g, "[^/]*").replace(/\?/g, ".");
+    return new RegExp(`^${pattern2}$`);
+  }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/contexts.js
-  var defaultContext = {
-    id: 0,
-    root: "/",
-    pwd: "/",
-    credentials: createCredentials({ uid: 0, gid: 0 }),
-    descriptors: /* @__PURE__ */ new Map(),
-    parent: null,
-    children: []
-  };
-
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/path.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/path.js
   var sep = "/";
   function validateObject(str, name) {
     if (typeof str != "object") {
@@ -9551,7 +10078,7 @@
     }
     return path.slice(startDot, end);
   }
-  function format(pathObject) {
+  function format2(pathObject) {
     validateObject(pathObject, "pathObject");
     const dir = pathObject.dir || pathObject.root;
     const base = pathObject.base || `${pathObject.name || ""}${formatExt(pathObject.ext)}`;
@@ -9609,318 +10136,11 @@
       ret.dir = "/";
     return ret;
   }
-
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/log.js
-  var Level;
-  (function(Level2) {
-    Level2[Level2["EMERG"] = 0] = "EMERG";
-    Level2[Level2["ALERT"] = 1] = "ALERT";
-    Level2[Level2["CRIT"] = 2] = "CRIT";
-    Level2[Level2["ERR"] = 3] = "ERR";
-    Level2[Level2["WARN"] = 4] = "WARN";
-    Level2[Level2["NOTICE"] = 5] = "NOTICE";
-    Level2[Level2["INFO"] = 6] = "INFO";
-    Level2[Level2["DEBUG"] = 7] = "DEBUG";
-  })(Level || (Level = {}));
-  var levels = {
-    [Level.EMERG]: "emergency",
-    [Level.ALERT]: "alert",
-    [Level.CRIT]: "critical",
-    [Level.ERR]: "error",
-    [Level.WARN]: "warning",
-    [Level.NOTICE]: "notice",
-    [Level.INFO]: "info",
-    [Level.DEBUG]: "debug"
-  };
-  function levelOf(value) {
-    return Object.values(levels).indexOf(value);
-  }
-  var entries = new List();
-  function log(level, message) {
-    if (!isEnabled)
-      return;
-    const entry = {
-      level,
-      message,
-      timestamp: /* @__PURE__ */ new Date(),
-      elapsedMs: performance.now()
-    };
-    entries.add(entry);
-    output(entry);
-  }
-  function _messageString(msg, options) {
-    var _a2, _b2;
-    if (!(msg instanceof ErrnoError))
-      return msg.toString();
-    const beforePath = msg.code + ": " + msg.message;
-    if (!msg.path)
-      return beforePath;
-    const mountPoint = typeof options.fs == "string" ? options.fs : (_b2 = (_a2 = options.fs) === null || _a2 === void 0 ? void 0 : _a2._mountPoint) !== null && _b2 !== void 0 ? _b2 : "<unknown>";
-    return beforePath + ": " + join(mountPoint, msg.path) + (includeStack ? "\n" + msg.stack.split("\n").map((line) => "	" + line).slice(1).join("\n") : "");
-  }
-  function _shortcut(level) {
-    return function(message, options = {}) {
-      log(level, _messageString(message, options));
-      return message;
-    };
-  }
-  var emerg = _shortcut(Level.EMERG);
-  var alert = _shortcut(Level.ALERT);
-  var crit = _shortcut(Level.CRIT);
-  var err = _shortcut(Level.ERR);
-  var warn = _shortcut(Level.WARN);
-  var notice = _shortcut(Level.NOTICE);
-  var info = _shortcut(Level.INFO);
-  var debug = _shortcut(Level.DEBUG);
-  function log_deprecated(symbol) {
-    log(Level.WARN, symbol + " is deprecated and should not be used.");
-  }
-  function ansi(text, format3) {
-    return `\x1B[${format3}m${text}\x1B[0m`;
-  }
-  function _prettyMs(entry, style) {
-    const text = "[" + (entry.elapsedMs / 1e3).toFixed(3).padStart(10) + "] ";
-    switch (style) {
-      case "ansi":
-        return [ansi(text, "2;37")];
-      case "css":
-        return ["%c" + text, "opacity: 0.8; color: white;"];
-      default:
-        return [text];
-    }
-  }
-  var levelColor = {
-    ansi: {
-      [Level.EMERG]: "1;4;37;41",
-      [Level.ALERT]: "1;37;41",
-      [Level.CRIT]: "1;35",
-      [Level.ERR]: "1;31",
-      [Level.WARN]: "1;33",
-      [Level.NOTICE]: "1;36",
-      [Level.INFO]: "1;37",
-      [Level.DEBUG]: "0;2;37"
-    },
-    css: {
-      [Level.EMERG]: "font-weight: bold; text-decoration: underline; color: white; background-color: red;",
-      [Level.ALERT]: "font-weight: bold; color: white; background-color: red;",
-      [Level.CRIT]: "font-weight: bold; color: magenta;",
-      [Level.ERR]: "font-weight: bold; color: red;",
-      [Level.WARN]: "font-weight: bold; color: yellow;",
-      [Level.NOTICE]: "font-weight: bold; color: cyan;",
-      [Level.INFO]: "font-weight: bold; color: white;",
-      [Level.DEBUG]: "opacity: 0.8; color: white;"
-    }
-  };
-  var messageColor = {
-    ansi: {
-      [Level.EMERG]: "1;31",
-      [Level.ALERT]: "1;31",
-      [Level.CRIT]: "1;31",
-      [Level.ERR]: "31",
-      [Level.WARN]: "33",
-      [Level.NOTICE]: "1;37",
-      [Level.INFO]: "37",
-      [Level.DEBUG]: "2;37"
-    },
-    css: {
-      [Level.EMERG]: "font-weight: bold; color: red;",
-      [Level.ALERT]: "font-weight: bold; color: red;",
-      [Level.CRIT]: "font-weight: bold; color: red;",
-      [Level.ERR]: "color: red;",
-      [Level.WARN]: "color: yellow;",
-      [Level.NOTICE]: "font-weight: bold; color: white;",
-      [Level.INFO]: "color: white;",
-      [Level.DEBUG]: "opacity: 0.8; color: white;"
-    }
-  };
-  function fancy({ style, colorize }) {
-    return function* (entry) {
-      yield* _prettyMs(entry, style);
-      const levelText = style == "ansi" ? [ansi(levels[entry.level].toUpperCase(), levelColor.ansi[entry.level])] : ["%c" + levels[entry.level].toUpperCase(), levelColor.css[entry.level]];
-      if (colorize == "level") {
-        yield* levelText;
-        yield entry.message;
-        return;
-      }
-      if (entry.level < Level.CRIT) {
-        yield* levelText;
-        yield ": ";
-      }
-      if (colorize == "message")
-        yield ansi(entry.message, messageColor.ansi[entry.level]);
-      else
-        yield* ["%c" + entry.message, messageColor.css[entry.level]];
-    };
-  }
-  var _format = (entry) => [..._prettyMs(entry), entry.message];
-  function format2(entry) {
-    const formatted = _format(entry);
-    return typeof formatted == "string" ? [formatted] : Array.from(formatted);
-  }
-  var _output = console.error;
-  function output(entry) {
-    if (entry.level > minLevel)
-      return;
-    _output(...format2(entry));
-  }
-  var minLevel = Level.ALERT;
-  var includeStack = false;
-  var isEnabled = true;
-  function configure(options) {
-    var _a2, _b2, _c2, _d, _e;
-    _format = (_a2 = options.format) !== null && _a2 !== void 0 ? _a2 : _format;
-    _output = (_b2 = options.output) !== null && _b2 !== void 0 ? _b2 : _output;
-    minLevel = typeof options.level == "string" ? levelOf(options.level) : (_c2 = options.level) !== null && _c2 !== void 0 ? _c2 : minLevel;
-    isEnabled = (_d = options.enabled) !== null && _d !== void 0 ? _d : isEnabled;
-    includeStack = (_e = options.stack) !== null && _e !== void 0 ? _e : includeStack;
-    if (!options.dumpBacklog)
-      return;
-    for (const entry of entries) {
-      output(entry);
-    }
+  function matchesGlob(pattern2, str) {
+    return globToRegex(pattern2).test(str);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/backend.js
-  function isBackend(arg) {
-    return arg != null && typeof arg == "object" && "create" in arg && typeof arg.create == "function";
-  }
-  function _fnOpt(name, fn) {
-    Object.defineProperty(fn, "prototype", { value: void 0 });
-    if (name)
-      Object.defineProperty(fn, "name", { value: name });
-    return fn;
-  }
-  function checkOptions(backend, options) {
-    if (typeof options != "object" || options === null) {
-      throw err(new ErrnoError(Errno.EINVAL, "Invalid options"));
-    }
-    for (const [optName, opt] of Object.entries(backend.options)) {
-      const value = options === null || options === void 0 ? void 0 : options[optName];
-      if (value === void 0 || value === null) {
-        if (!opt.required) {
-          debug("Using default for option: " + optName);
-          continue;
-        }
-        throw err(new ErrnoError(Errno.EINVAL, "Missing required option: " + optName));
-      }
-      const isType2 = (type2, _ = value) => {
-        var _a2;
-        return typeof type2 == "function" ? Symbol.hasInstance in type2 && type2.prototype ? value instanceof type2 : type2(value) : typeof value === type2 || ((_a2 = value === null || value === void 0 ? void 0 : value.constructor) === null || _a2 === void 0 ? void 0 : _a2.name) === type2;
-      };
-      if (Array.isArray(opt.type) ? opt.type.some((v) => isType2(v)) : isType2(opt.type))
-        continue;
-      const type = typeof value == "object" && "constructor" in value ? value.constructor.name : typeof value;
-      const name = (type2) => typeof type2 == "function" ? type2.name != "type" ? type2.name : type2.toString() : type2;
-      const expected = Array.isArray(opt.type) ? `one of ${opt.type.map(name).join(", ")}` : name(opt.type);
-      throw err(new ErrnoError(Errno.EINVAL, `Incorrect type for "${optName}": ${type} (expected ${expected})`));
-    }
-  }
-  function isBackendConfig(arg) {
-    return arg != null && typeof arg == "object" && "backend" in arg && isBackend(arg.backend);
-  }
-
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/constants.js
-  var constants_exports = {};
-  __export(constants_exports, {
-    COPYFILE_EXCL: () => COPYFILE_EXCL,
-    COPYFILE_FICLONE: () => COPYFILE_FICLONE,
-    COPYFILE_FICLONE_FORCE: () => COPYFILE_FICLONE_FORCE,
-    F_OK: () => F_OK,
-    O_APPEND: () => O_APPEND,
-    O_CREAT: () => O_CREAT,
-    O_DIRECT: () => O_DIRECT,
-    O_DIRECTORY: () => O_DIRECTORY,
-    O_DSYNC: () => O_DSYNC,
-    O_EXCL: () => O_EXCL,
-    O_NOATIME: () => O_NOATIME,
-    O_NOCTTY: () => O_NOCTTY,
-    O_NOFOLLOW: () => O_NOFOLLOW,
-    O_NONBLOCK: () => O_NONBLOCK,
-    O_RDONLY: () => O_RDONLY,
-    O_RDWR: () => O_RDWR,
-    O_SYMLINK: () => O_SYMLINK,
-    O_SYNC: () => O_SYNC,
-    O_TRUNC: () => O_TRUNC,
-    O_WRONLY: () => O_WRONLY,
-    R_OK: () => R_OK,
-    S_IFBLK: () => S_IFBLK,
-    S_IFCHR: () => S_IFCHR,
-    S_IFDIR: () => S_IFDIR,
-    S_IFIFO: () => S_IFIFO,
-    S_IFLNK: () => S_IFLNK,
-    S_IFMT: () => S_IFMT,
-    S_IFREG: () => S_IFREG,
-    S_IFSOCK: () => S_IFSOCK,
-    S_IRGRP: () => S_IRGRP,
-    S_IROTH: () => S_IROTH,
-    S_IRUSR: () => S_IRUSR,
-    S_IRWXG: () => S_IRWXG,
-    S_IRWXO: () => S_IRWXO,
-    S_IRWXU: () => S_IRWXU,
-    S_ISGID: () => S_ISGID,
-    S_ISUID: () => S_ISUID,
-    S_ISVTX: () => S_ISVTX,
-    S_IWGRP: () => S_IWGRP,
-    S_IWOTH: () => S_IWOTH,
-    S_IWUSR: () => S_IWUSR,
-    S_IXGRP: () => S_IXGRP,
-    S_IXOTH: () => S_IXOTH,
-    S_IXUSR: () => S_IXUSR,
-    UV_FS_O_FILEMAP: () => UV_FS_O_FILEMAP,
-    W_OK: () => W_OK,
-    X_OK: () => X_OK,
-    size_max: () => size_max
-  });
-  var F_OK = 0;
-  var R_OK = 4;
-  var W_OK = 2;
-  var X_OK = 1;
-  var COPYFILE_EXCL = 1;
-  var COPYFILE_FICLONE = 2;
-  var COPYFILE_FICLONE_FORCE = 4;
-  var O_RDONLY = 0;
-  var O_WRONLY = 1;
-  var O_RDWR = 2;
-  var O_CREAT = 64;
-  var O_EXCL = 128;
-  var O_NOCTTY = 256;
-  var O_TRUNC = 512;
-  var O_APPEND = 1024;
-  var O_DIRECTORY = 65536;
-  var O_NOATIME = 262144;
-  var O_NOFOLLOW = 131072;
-  var O_SYNC = 1052672;
-  var O_DSYNC = 4096;
-  var O_SYMLINK = 32768;
-  var O_DIRECT = 16384;
-  var O_NONBLOCK = 2048;
-  var S_IFMT = 61440;
-  var S_IFSOCK = 49152;
-  var S_IFLNK = 40960;
-  var S_IFREG = 32768;
-  var S_IFBLK = 24576;
-  var S_IFDIR = 16384;
-  var S_IFCHR = 8192;
-  var S_IFIFO = 4096;
-  var S_ISUID = 2048;
-  var S_ISGID = 1024;
-  var S_ISVTX = 512;
-  var S_IRWXU = 448;
-  var S_IRUSR = 256;
-  var S_IWUSR = 128;
-  var S_IXUSR = 64;
-  var S_IRWXG = 56;
-  var S_IRGRP = 32;
-  var S_IWGRP = 16;
-  var S_IXGRP = 8;
-  var S_IRWXO = 7;
-  var S_IROTH = 4;
-  var S_IWOTH = 2;
-  var S_IXOTH = 1;
-  var UV_FS_O_FILEMAP = 0;
-  var size_max = 4294967295;
-
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/stats.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/stats.js
   var n1000 = BigInt(1e3);
   var StatsCommon = class {
     _convert(arg) {
@@ -10078,7 +10298,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/inode.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/internal/inode.js
   var __esDecorate = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) {
       if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
@@ -10122,72 +10342,94 @@
     if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
     return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
   };
+  var __classPrivateFieldGet = function(receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+  };
+  var __classPrivateFieldSet = function(receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
+  };
   var rootIno = 0;
-  var maxAttributeValueSize = 1024;
+  var maxDynamicData = 3968;
   var Attribute = (() => {
+    var _Attribute_keySize_accessor_storage, _Attribute_valueSize_accessor_storage;
     var _a2, _b2;
-    let _classDecorators = [struct()];
+    let _classDecorators = [struct(packed)];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
+    let _classSuper = Uint8Array;
     let _keySize_decorators;
     let _keySize_initializers = [];
     let _keySize_extraInitializers = [];
     let _valueSize_decorators;
     let _valueSize_initializers = [];
     let _valueSize_extraInitializers = [];
-    let __key_decorators;
-    let __key_initializers = [];
-    let __key_extraInitializers = [];
-    let __value_decorators;
-    let __value_initializers = [];
-    let __value_extraInitializers = [];
-    var Attribute2 = _classThis = class {
-      get key() {
-        return this._key;
+    var Attribute2 = _classThis = class extends _classSuper {
+      get keySize() {
+        return __classPrivateFieldGet(this, _Attribute_keySize_accessor_storage, "f");
       }
-      set key(value) {
-        this._key = value;
-        this.keySize = value.length;
+      set keySize(value) {
+        __classPrivateFieldSet(this, _Attribute_keySize_accessor_storage, value, "f");
+      }
+      get valueSize() {
+        return __classPrivateFieldGet(this, _Attribute_valueSize_accessor_storage, "f");
+      }
+      set valueSize(value) {
+        __classPrivateFieldSet(this, _Attribute_valueSize_accessor_storage, value, "f");
+      }
+      get name() {
+        return decodeUTF8(this.subarray(8, 8 + this.keySize));
+      }
+      /**
+       * Note that this does not handle moving the data.
+       * Changing the name after setting the value is undefined behavior and will lead to corruption.
+       * This should only be used when creating a new attribute.
+       */
+      set name(value) {
+        const buf = encodeUTF8(value);
+        if (8 + buf.length + this.valueSize > maxDynamicData)
+          throw withErrno("EOVERFLOW");
+        this.set(buf, 8);
+        this.keySize = buf.length;
       }
       get value() {
-        return this._value.subarray(0, this.valueSize);
+        return this.subarray(8 + this.keySize, this.size);
       }
       set value(value) {
-        this._value = value;
+        if (8 + this.keySize + value.length > maxDynamicData)
+          throw withErrno("EOVERFLOW");
         this.valueSize = value.length;
+        this.set(value, 8 + this.keySize);
       }
-      constructor(key, value) {
-        this.keySize = __runInitializers(this, _keySize_initializers, 0);
-        this.valueSize = (__runInitializers(this, _keySize_extraInitializers), __runInitializers(this, _valueSize_initializers, 0));
-        this._key = (__runInitializers(this, _valueSize_extraInitializers), __runInitializers(this, __key_initializers, ""));
-        this._value = (__runInitializers(this, __key_extraInitializers), __runInitializers(this, __value_initializers, new Uint8Array(maxAttributeValueSize)));
-        __runInitializers(this, __value_extraInitializers);
-        if (key)
-          this.key = key;
-        if (value)
-          this.value = value;
+      get size() {
+        return 8 + this.keySize + this.valueSize;
+      }
+      constructor() {
+        super(...arguments);
+        _Attribute_keySize_accessor_storage.set(this, __runInitializers(this, _keySize_initializers, void 0));
+        _Attribute_valueSize_accessor_storage.set(this, (__runInitializers(this, _keySize_extraInitializers), __runInitializers(this, _valueSize_initializers, void 0)));
+        __runInitializers(this, _valueSize_extraInitializers);
       }
     };
+    _Attribute_keySize_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Attribute_valueSize_accessor_storage = /* @__PURE__ */ new WeakMap();
     __setFunctionName(_classThis, "Attribute");
     (() => {
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-      _keySize_decorators = [(_a2 = types).uint32.bind(_a2)];
-      _valueSize_decorators = [(_b2 = types).uint32.bind(_b2)];
-      __key_decorators = [types.char("keySize")];
-      __value_decorators = [types.uint8("valueSize")];
-      __esDecorate(null, null, _keySize_decorators, { kind: "field", name: "keySize", static: false, private: false, access: { has: (obj) => "keySize" in obj, get: (obj) => obj.keySize, set: (obj, value) => {
+      var _a3;
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
+      _keySize_decorators = [(_a3 = types2).uint32.bind(_a3)];
+      _valueSize_decorators = [(_b2 = types2).uint32.bind(_b2)];
+      __esDecorate(_classThis, null, _keySize_decorators, { kind: "accessor", name: "keySize", static: false, private: false, access: { has: (obj) => "keySize" in obj, get: (obj) => obj.keySize, set: (obj, value) => {
         obj.keySize = value;
       } }, metadata: _metadata }, _keySize_initializers, _keySize_extraInitializers);
-      __esDecorate(null, null, _valueSize_decorators, { kind: "field", name: "valueSize", static: false, private: false, access: { has: (obj) => "valueSize" in obj, get: (obj) => obj.valueSize, set: (obj, value) => {
+      __esDecorate(_classThis, null, _valueSize_decorators, { kind: "accessor", name: "valueSize", static: false, private: false, access: { has: (obj) => "valueSize" in obj, get: (obj) => obj.valueSize, set: (obj, value) => {
         obj.valueSize = value;
       } }, metadata: _metadata }, _valueSize_initializers, _valueSize_extraInitializers);
-      __esDecorate(null, null, __key_decorators, { kind: "field", name: "_key", static: false, private: false, access: { has: (obj) => "_key" in obj, get: (obj) => obj._key, set: (obj, value) => {
-        obj._key = value;
-      } }, metadata: _metadata }, __key_initializers, __key_extraInitializers);
-      __esDecorate(null, null, __value_decorators, { kind: "field", name: "_value", static: false, private: false, access: { has: (obj) => "_value" in obj, get: (obj) => obj._value, set: (obj, value) => {
-        obj._value = value;
-      } }, metadata: _metadata }, __value_initializers, __value_extraInitializers);
       __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
       Attribute2 = _classThis = _classDescriptor.value;
       if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
@@ -10196,67 +10438,133 @@
     return Attribute2 = _classThis;
   })();
   var Attributes = (() => {
+    var _Attributes_size_accessor_storage;
     var _a2;
-    let _classDecorators = [struct()];
+    let _classDecorators = [struct(packed)];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
+    let _classSuper = BufferView;
     let _size_decorators;
     let _size_initializers = [];
     let _size_extraInitializers = [];
-    let _data_decorators;
-    let _data_initializers = [];
-    let _data_extraInitializers = [];
-    var Attributes2 = _classThis = class {
+    var Attributes2 = _classThis = class extends _classSuper {
+      get size() {
+        return __classPrivateFieldGet(this, _Attributes_size_accessor_storage, "f");
+      }
+      set size(value) {
+        __classPrivateFieldSet(this, _Attributes_size_accessor_storage, value, "f");
+      }
+      get byteSize() {
+        let offset = this.byteOffset + sizeof(this);
+        for (let i = 0; i < this.size; i++) {
+          const entry = new Attribute(this.buffer, offset);
+          offset += entry.size;
+        }
+        return offset;
+      }
       has(name) {
-        return this.data.some((entry) => entry.key == name);
+        let offset = this.byteOffset + sizeof(this);
+        for (let i = 0; i < this.size; i++) {
+          const entry = new Attribute(this.buffer, offset);
+          if (entry.name == name)
+            return true;
+          offset += entry.size;
+        }
+        return false;
       }
       get(name) {
-        return this.data.find((entry) => entry.key == name);
+        let offset = this.byteOffset + sizeof(this);
+        for (let i = 0; i < this.size; i++) {
+          const entry = new Attribute(this.buffer, offset);
+          if (entry.name == name)
+            return entry.value;
+          offset += entry.size;
+        }
       }
       set(name, value) {
-        const attr = this.get(name);
-        if (attr) {
-          attr.value = value;
-          return;
+        let offset = this.byteOffset + sizeof(this);
+        let remove3;
+        for (let i = 0; i < this.size; i++) {
+          const entry = new Attribute(this.buffer, offset);
+          if (entry.name == name)
+            remove3 = [offset, entry.size];
+          offset += entry.size;
         }
-        this.data.push(new Attribute(name, value));
+        const buf = new Uint8Array(this.buffer);
+        if (remove3) {
+          const [start, size] = remove3;
+          offset -= size;
+          buf.copyWithin(start, start + size, offset + size);
+          buf.fill(0, offset, offset + size);
+          this.size--;
+        }
+        const attr = new Attribute(this.buffer, offset);
+        attr.name = name;
+        attr.value = value;
         this.size++;
       }
       remove(name) {
-        const index = this.data.findIndex((entry) => entry.key == name);
-        if (index === -1)
+        let offset = this.byteOffset + sizeof(this);
+        let remove3;
+        for (let i = 0; i < this.size; i++) {
+          const entry = new Attribute(this.buffer, offset);
+          if (entry.name == name)
+            remove3 = [offset, entry.size];
+          offset += entry.size;
+        }
+        if (!remove3)
           return false;
-        this.data.splice(index, 1);
+        const [start, size] = remove3;
+        const buf = new Uint8Array(this.buffer);
+        buf.copyWithin(start, start + size, offset);
+        buf.fill(0, offset - size, offset);
         this.size--;
         return true;
       }
-      keys() {
-        return this.data.map((entry) => entry.key);
+      copyFrom(other) {
+        const { byteSize } = other;
+        new Uint8Array(this.buffer, this.byteOffset, byteSize).set(new Uint8Array(other.buffer, other.byteOffset, byteSize));
       }
-      values() {
-        return this.data.map((entry) => entry.value);
+      *keys() {
+        let offset = this.byteOffset + sizeof(this);
+        for (let i = 0; i < this.size; i++) {
+          const entry = new Attribute(this.buffer, offset);
+          yield entry.name;
+          offset += entry.size;
+        }
       }
-      entries() {
-        return this.data.map((entry) => [entry.key, entry.value]);
+      *values() {
+        let offset = this.byteOffset + sizeof(this);
+        for (let i = 0; i < this.size; i++) {
+          const entry = new Attribute(this.buffer, offset);
+          yield entry.value;
+          offset += entry.size;
+        }
+      }
+      *entries() {
+        let offset = this.byteOffset + sizeof(this);
+        for (let i = 0; i < this.size; i++) {
+          const entry = new Attribute(this.buffer, offset);
+          yield [entry.name, entry.value];
+          offset += entry.size;
+        }
       }
       constructor() {
-        this.size = __runInitializers(this, _size_initializers, 0);
-        this.data = (__runInitializers(this, _size_extraInitializers), __runInitializers(this, _data_initializers, []));
-        __runInitializers(this, _data_extraInitializers);
+        super(...arguments);
+        _Attributes_size_accessor_storage.set(this, __runInitializers(this, _size_initializers, void 0));
+        __runInitializers(this, _size_extraInitializers);
       }
     };
+    _Attributes_size_accessor_storage = /* @__PURE__ */ new WeakMap();
     __setFunctionName(_classThis, "Attributes");
     (() => {
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-      _size_decorators = [(_a2 = types).uint32.bind(_a2)];
-      _data_decorators = [member(Attribute, "size")];
-      __esDecorate(null, null, _size_decorators, { kind: "field", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
+      var _a3;
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
+      _size_decorators = [(_a3 = types2).uint32.bind(_a3)];
+      __esDecorate(_classThis, null, _size_decorators, { kind: "accessor", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
         obj.size = value;
       } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
-      __esDecorate(null, null, _data_decorators, { kind: "field", name: "data", static: false, private: false, access: { has: (obj) => "data" in obj, get: (obj) => obj.data, set: (obj, value) => {
-        obj.data = value;
-      } }, metadata: _metadata }, _data_initializers, _data_extraInitializers);
       __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
       Attributes2 = _classThis = _classDescriptor.value;
       if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
@@ -10279,48 +10587,38 @@
     "ctimeMs",
     "version"
   ];
-  var _inode_version = 4;
+  var _inode_version = 5;
   var InodeFlags;
   (function(InodeFlags2) {
-    InodeFlags2[InodeFlags2["SecureRm"] = 1] = "SecureRm";
-    InodeFlags2[InodeFlags2["Undelete"] = 2] = "Undelete";
-    InodeFlags2[InodeFlags2["Compress"] = 4] = "Compress";
-    InodeFlags2[InodeFlags2["Sync"] = 8] = "Sync";
-    InodeFlags2[InodeFlags2["Immutable"] = 16] = "Immutable";
-    InodeFlags2[InodeFlags2["Append"] = 32] = "Append";
-    InodeFlags2[InodeFlags2["NoDump"] = 64] = "NoDump";
-    InodeFlags2[InodeFlags2["NoAtime"] = 128] = "NoAtime";
-    InodeFlags2[InodeFlags2["Dirty"] = 256] = "Dirty";
-    InodeFlags2[InodeFlags2["CompressBlk"] = 512] = "CompressBlk";
-    InodeFlags2[InodeFlags2["NoCompress"] = 1024] = "NoCompress";
-    InodeFlags2[InodeFlags2["Encrypt"] = 2048] = "Encrypt";
-    InodeFlags2[InodeFlags2["Btree"] = 4096] = "Btree";
-    InodeFlags2[InodeFlags2["Index"] = 4096] = "Index";
-    InodeFlags2[InodeFlags2["IMagic"] = 8192] = "IMagic";
-    InodeFlags2[InodeFlags2["JournalData"] = 16384] = "JournalData";
-    InodeFlags2[InodeFlags2["NoTail"] = 32768] = "NoTail";
-    InodeFlags2[InodeFlags2["DirSync"] = 65536] = "DirSync";
-    InodeFlags2[InodeFlags2["TopDir"] = 131072] = "TopDir";
-    InodeFlags2[InodeFlags2["HugeFile"] = 262144] = "HugeFile";
-    InodeFlags2[InodeFlags2["Extent"] = 524288] = "Extent";
-    InodeFlags2[InodeFlags2["Verity"] = 1048576] = "Verity";
-    InodeFlags2[InodeFlags2["EaInode"] = 2097152] = "EaInode";
-    InodeFlags2[InodeFlags2["EofBlocks"] = 4194304] = "EofBlocks";
-    InodeFlags2[InodeFlags2["NoCow"] = 8388608] = "NoCow";
-    InodeFlags2[InodeFlags2["Dax"] = 33554432] = "Dax";
-    InodeFlags2[InodeFlags2["InlineData"] = 268435456] = "InlineData";
-    InodeFlags2[InodeFlags2["ProjInherit"] = 536870912] = "ProjInherit";
-    InodeFlags2[InodeFlags2["CaseFold"] = 1073741824] = "CaseFold";
-    InodeFlags2[InodeFlags2["Reserved"] = 2147483648] = "Reserved";
+    InodeFlags2[InodeFlags2["Sync"] = 1] = "Sync";
+    InodeFlags2[InodeFlags2["NoAtime"] = 2] = "NoAtime";
+    InodeFlags2[InodeFlags2["Append"] = 4] = "Append";
+    InodeFlags2[InodeFlags2["Immutable"] = 8] = "Immutable";
+    InodeFlags2[InodeFlags2["Dead"] = 16] = "Dead";
+    InodeFlags2[InodeFlags2["NoQuota"] = 32] = "NoQuota";
+    InodeFlags2[InodeFlags2["Dirsync"] = 64] = "Dirsync";
+    InodeFlags2[InodeFlags2["NoCMtime"] = 128] = "NoCMtime";
+    InodeFlags2[InodeFlags2["SwapFile"] = 256] = "SwapFile";
+    InodeFlags2[InodeFlags2["Private"] = 512] = "Private";
+    InodeFlags2[InodeFlags2["IMA"] = 1024] = "IMA";
+    InodeFlags2[InodeFlags2["AutoMount"] = 2048] = "AutoMount";
+    InodeFlags2[InodeFlags2["NoSec"] = 4096] = "NoSec";
+    InodeFlags2[InodeFlags2["DAX"] = 8192] = "DAX";
+    InodeFlags2[InodeFlags2["Encrypted"] = 16384] = "Encrypted";
+    InodeFlags2[InodeFlags2["CaseFold"] = 32768] = "CaseFold";
+    InodeFlags2[InodeFlags2["Verity"] = 65536] = "Verity";
+    InodeFlags2[InodeFlags2["KernelFile"] = 131072] = "KernelFile";
   })(InodeFlags || (InodeFlags = {}));
   var userVisibleFlags = 253951;
   var userModifiableFlags = 229631;
   var Inode = (() => {
+    var _Inode_data_accessor_storage, _Inode___data_old_accessor_storage, _Inode_size_accessor_storage, _Inode_mode_accessor_storage, _Inode_nlink_accessor_storage, _Inode_uid_accessor_storage, _Inode_gid_accessor_storage, _Inode_atimeMs_accessor_storage, _Inode_birthtimeMs_accessor_storage, _Inode_mtimeMs_accessor_storage, _Inode_ctimeMs_accessor_storage, _Inode_ino_accessor_storage, _Inode___ino_old_accessor_storage, _Inode_flags_accessor_storage, _Inode___after_flags_accessor_storage, _Inode_version_accessor_storage, _Inode___padding_accessor_storage, _Inode_attributes_accessor_storage, _Inode___data_accessor_storage;
     var _a2, _b2, _c2, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
-    let _classDecorators = [struct()];
+    let _classDecorators = [struct(packed)];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
+    let _classSuper = BufferView;
     let _data_decorators;
     let _data_initializers = [];
     let _data_extraInitializers = [];
@@ -10375,36 +10673,184 @@
     let _attributes_decorators;
     let _attributes_initializers = [];
     let _attributes_extraInitializers = [];
-    var Inode2 = _classThis = class {
-      constructor(data) {
-        this.data = __runInitializers(this, _data_initializers, randomInt(0, size_max));
-        this.__data_old = (__runInitializers(this, _data_extraInitializers), __runInitializers(this, ___data_old_initializers, 0));
-        this.size = (__runInitializers(this, ___data_old_extraInitializers), __runInitializers(this, _size_initializers, 0));
-        this.mode = (__runInitializers(this, _size_extraInitializers), __runInitializers(this, _mode_initializers, 0));
-        this.nlink = (__runInitializers(this, _mode_extraInitializers), __runInitializers(this, _nlink_initializers, 1));
-        this.uid = (__runInitializers(this, _nlink_extraInitializers), __runInitializers(this, _uid_initializers, 0));
-        this.gid = (__runInitializers(this, _uid_extraInitializers), __runInitializers(this, _gid_initializers, 0));
-        this.atimeMs = (__runInitializers(this, _gid_extraInitializers), __runInitializers(this, _atimeMs_initializers, Date.now()));
-        this.birthtimeMs = (__runInitializers(this, _atimeMs_extraInitializers), __runInitializers(this, _birthtimeMs_initializers, Date.now()));
-        this.mtimeMs = (__runInitializers(this, _birthtimeMs_extraInitializers), __runInitializers(this, _mtimeMs_initializers, Date.now()));
-        this.ctimeMs = (__runInitializers(this, _mtimeMs_extraInitializers), __runInitializers(this, _ctimeMs_initializers, Date.now()));
-        this.ino = (__runInitializers(this, _ctimeMs_extraInitializers), __runInitializers(this, _ino_initializers, randomInt(0, size_max)));
-        this.__ino_old = (__runInitializers(this, _ino_extraInitializers), __runInitializers(this, ___ino_old_initializers, 0));
-        this.flags = (__runInitializers(this, ___ino_old_extraInitializers), __runInitializers(this, _flags_initializers, 0));
-        this.__after_flags = (__runInitializers(this, _flags_extraInitializers), __runInitializers(this, ___after_flags_initializers, 0));
-        this.version = (__runInitializers(this, ___after_flags_extraInitializers), __runInitializers(this, _version_initializers, 0));
-        this.__padding = (__runInitializers(this, _version_extraInitializers), __runInitializers(this, ___padding_initializers, []));
-        this.attributes = (__runInitializers(this, ___padding_extraInitializers), __runInitializers(this, _attributes_initializers, new Attributes()));
-        __runInitializers(this, _attributes_extraInitializers);
-        if (!data)
-          return;
-        if (!("byteLength" in data)) {
-          Object.assign(this, data);
-          return;
+    let ___data_decorators;
+    let ___data_initializers = [];
+    let ___data_extraInitializers = [];
+    var Inode2 = _classThis = class extends _classSuper {
+      constructor(...args) {
+        let data = {};
+        if (typeof args[0] === "object" && args[0] !== null && !ArrayBuffer.isView(args[0])) {
+          data = args[0];
+          args = [sizeof(Inode2)];
         }
-        if (data.byteLength < sizeof(Inode2))
-          throw crit(new ErrnoError(Errno.EIO, "Buffer is too small to create an inode"));
-        deserialize(this, data);
+        super(...args);
+        _Inode_data_accessor_storage.set(this, __runInitializers(this, _data_initializers, void 0));
+        _Inode___data_old_accessor_storage.set(this, (__runInitializers(this, _data_extraInitializers), __runInitializers(this, ___data_old_initializers, void 0)));
+        _Inode_size_accessor_storage.set(this, (__runInitializers(this, ___data_old_extraInitializers), __runInitializers(this, _size_initializers, void 0)));
+        _Inode_mode_accessor_storage.set(this, (__runInitializers(this, _size_extraInitializers), __runInitializers(this, _mode_initializers, void 0)));
+        _Inode_nlink_accessor_storage.set(this, (__runInitializers(this, _mode_extraInitializers), __runInitializers(this, _nlink_initializers, void 0)));
+        _Inode_uid_accessor_storage.set(this, (__runInitializers(this, _nlink_extraInitializers), __runInitializers(this, _uid_initializers, void 0)));
+        _Inode_gid_accessor_storage.set(this, (__runInitializers(this, _uid_extraInitializers), __runInitializers(this, _gid_initializers, void 0)));
+        _Inode_atimeMs_accessor_storage.set(this, (__runInitializers(this, _gid_extraInitializers), __runInitializers(this, _atimeMs_initializers, void 0)));
+        _Inode_birthtimeMs_accessor_storage.set(this, (__runInitializers(this, _atimeMs_extraInitializers), __runInitializers(this, _birthtimeMs_initializers, void 0)));
+        _Inode_mtimeMs_accessor_storage.set(this, (__runInitializers(this, _birthtimeMs_extraInitializers), __runInitializers(this, _mtimeMs_initializers, void 0)));
+        _Inode_ctimeMs_accessor_storage.set(this, (__runInitializers(this, _mtimeMs_extraInitializers), __runInitializers(this, _ctimeMs_initializers, void 0)));
+        _Inode_ino_accessor_storage.set(this, (__runInitializers(this, _ctimeMs_extraInitializers), __runInitializers(this, _ino_initializers, void 0)));
+        _Inode___ino_old_accessor_storage.set(this, (__runInitializers(this, _ino_extraInitializers), __runInitializers(this, ___ino_old_initializers, void 0)));
+        _Inode_flags_accessor_storage.set(this, (__runInitializers(this, ___ino_old_extraInitializers), __runInitializers(this, _flags_initializers, void 0)));
+        _Inode___after_flags_accessor_storage.set(this, (__runInitializers(this, _flags_extraInitializers), __runInitializers(this, ___after_flags_initializers, void 0)));
+        _Inode_version_accessor_storage.set(this, (__runInitializers(this, ___after_flags_extraInitializers), __runInitializers(this, _version_initializers, void 0)));
+        _Inode___padding_accessor_storage.set(this, (__runInitializers(this, _version_extraInitializers), __runInitializers(this, ___padding_initializers, void 0)));
+        _Inode_attributes_accessor_storage.set(this, (__runInitializers(this, ___padding_extraInitializers), __runInitializers(this, _attributes_initializers, void 0)));
+        _Inode___data_accessor_storage.set(this, (__runInitializers(this, _attributes_extraInitializers), __runInitializers(this, ___data_initializers, void 0)));
+        __runInitializers(this, ___data_extraInitializers);
+        if (this.byteLength < sizeof(Inode2)) {
+          throw crit(withErrno("EIO", `Buffer is too small to create an inode (${this.byteLength} bytes)`));
+        }
+        Object.assign(this, data);
+        this.atimeMs || (this.atimeMs = Date.now());
+        this.mtimeMs || (this.mtimeMs = Date.now());
+        this.ctimeMs || (this.ctimeMs = Date.now());
+        this.birthtimeMs || (this.birthtimeMs = Date.now());
+        if (this.ino && !this.nlink) {
+          warn(`Inode ${this.ino} has an nlink of 0`);
+        }
+      }
+      get data() {
+        return __classPrivateFieldGet(this, _Inode_data_accessor_storage, "f");
+      }
+      set data(value) {
+        __classPrivateFieldSet(this, _Inode_data_accessor_storage, value, "f");
+      }
+      /** For future use */
+      get __data_old() {
+        return __classPrivateFieldGet(this, _Inode___data_old_accessor_storage, "f");
+      }
+      set __data_old(value) {
+        __classPrivateFieldSet(this, _Inode___data_old_accessor_storage, value, "f");
+      }
+      get size() {
+        return __classPrivateFieldGet(this, _Inode_size_accessor_storage, "f");
+      }
+      set size(value) {
+        __classPrivateFieldSet(this, _Inode_size_accessor_storage, value, "f");
+      }
+      get mode() {
+        return __classPrivateFieldGet(this, _Inode_mode_accessor_storage, "f");
+      }
+      set mode(value) {
+        __classPrivateFieldSet(this, _Inode_mode_accessor_storage, value, "f");
+      }
+      get nlink() {
+        return __classPrivateFieldGet(this, _Inode_nlink_accessor_storage, "f");
+      }
+      set nlink(value) {
+        __classPrivateFieldSet(this, _Inode_nlink_accessor_storage, value, "f");
+      }
+      get uid() {
+        return __classPrivateFieldGet(this, _Inode_uid_accessor_storage, "f");
+      }
+      set uid(value) {
+        __classPrivateFieldSet(this, _Inode_uid_accessor_storage, value, "f");
+      }
+      get gid() {
+        return __classPrivateFieldGet(this, _Inode_gid_accessor_storage, "f");
+      }
+      set gid(value) {
+        __classPrivateFieldSet(this, _Inode_gid_accessor_storage, value, "f");
+      }
+      get atimeMs() {
+        return __classPrivateFieldGet(this, _Inode_atimeMs_accessor_storage, "f");
+      }
+      set atimeMs(value) {
+        __classPrivateFieldSet(this, _Inode_atimeMs_accessor_storage, value, "f");
+      }
+      get birthtimeMs() {
+        return __classPrivateFieldGet(this, _Inode_birthtimeMs_accessor_storage, "f");
+      }
+      set birthtimeMs(value) {
+        __classPrivateFieldSet(this, _Inode_birthtimeMs_accessor_storage, value, "f");
+      }
+      get mtimeMs() {
+        return __classPrivateFieldGet(this, _Inode_mtimeMs_accessor_storage, "f");
+      }
+      set mtimeMs(value) {
+        __classPrivateFieldSet(this, _Inode_mtimeMs_accessor_storage, value, "f");
+      }
+      /**
+       * The time the inode was changed.
+       *
+       * This is automatically updated whenever changed are made using `update()`.
+       */
+      get ctimeMs() {
+        return __classPrivateFieldGet(this, _Inode_ctimeMs_accessor_storage, "f");
+      }
+      set ctimeMs(value) {
+        __classPrivateFieldSet(this, _Inode_ctimeMs_accessor_storage, value, "f");
+      }
+      get ino() {
+        return __classPrivateFieldGet(this, _Inode_ino_accessor_storage, "f");
+      }
+      set ino(value) {
+        __classPrivateFieldSet(this, _Inode_ino_accessor_storage, value, "f");
+      }
+      /** For future use */
+      get __ino_old() {
+        return __classPrivateFieldGet(this, _Inode___ino_old_accessor_storage, "f");
+      }
+      set __ino_old(value) {
+        __classPrivateFieldSet(this, _Inode___ino_old_accessor_storage, value, "f");
+      }
+      get flags() {
+        return __classPrivateFieldGet(this, _Inode_flags_accessor_storage, "f");
+      }
+      set flags(value) {
+        __classPrivateFieldSet(this, _Inode_flags_accessor_storage, value, "f");
+      }
+      /** For future use */
+      get __after_flags() {
+        return __classPrivateFieldGet(this, _Inode___after_flags_accessor_storage, "f");
+      }
+      set __after_flags(value) {
+        __classPrivateFieldSet(this, _Inode___after_flags_accessor_storage, value, "f");
+      }
+      /**
+       * The "version" of the inode/data.
+       * Unrelated to the inode format!
+       */
+      get version() {
+        return __classPrivateFieldGet(this, _Inode_version_accessor_storage, "f");
+      }
+      set version(value) {
+        __classPrivateFieldSet(this, _Inode_version_accessor_storage, value, "f");
+      }
+      /**
+       * Padding up to 128 bytes.
+       * This ensures there is enough room for expansion without breaking the ABI.
+       * @internal
+       */
+      get __padding() {
+        return __classPrivateFieldGet(this, _Inode___padding_accessor_storage, "f");
+      }
+      set __padding(value) {
+        __classPrivateFieldSet(this, _Inode___padding_accessor_storage, value, "f");
+      }
+      get attributes() {
+        return __classPrivateFieldGet(this, _Inode_attributes_accessor_storage, "f");
+      }
+      set attributes(value) {
+        __classPrivateFieldSet(this, _Inode_attributes_accessor_storage, value, "f");
+      }
+      /**
+       * Since the attribute data uses dynamic arrays,
+       * it is necessary to add this so attributes can be added.
+       * @internal @hidden
+       */
+      get __data() {
+        return __classPrivateFieldGet(this, _Inode___data_accessor_storage, "f");
+      }
+      set __data(value) {
+        __classPrivateFieldSet(this, _Inode___data_accessor_storage, value, "f");
       }
       toString() {
         return `<Inode ${this.ino}>`;
@@ -10448,7 +10894,7 @@
           hasChanged = true;
         }
         if (data.attributes) {
-          this.attributes = data.attributes;
+          this.attributes.copyFrom(data.attributes);
           hasChanged = true;
         }
         if (hasChanged)
@@ -10456,81 +10902,105 @@
         return hasChanged;
       }
     };
+    _Inode_data_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode___data_old_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_size_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_mode_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_nlink_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_uid_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_gid_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_atimeMs_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_birthtimeMs_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_mtimeMs_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_ctimeMs_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_ino_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode___ino_old_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_flags_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode___after_flags_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_version_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode___padding_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode_attributes_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _Inode___data_accessor_storage = /* @__PURE__ */ new WeakMap();
     __setFunctionName(_classThis, "Inode");
     (() => {
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-      _data_decorators = [(_a2 = types).uint32.bind(_a2)];
-      ___data_old_decorators = [(_b2 = types).uint32.bind(_b2)];
-      _size_decorators = [(_c2 = types).uint32.bind(_c2)];
-      _mode_decorators = [(_d = types).uint16.bind(_d)];
-      _nlink_decorators = [(_e = types).uint32.bind(_e)];
-      _uid_decorators = [(_f = types).uint32.bind(_f)];
-      _gid_decorators = [(_g = types).uint32.bind(_g)];
-      _atimeMs_decorators = [(_h = types).float64.bind(_h)];
-      _birthtimeMs_decorators = [(_j = types).float64.bind(_j)];
-      _mtimeMs_decorators = [(_k = types).float64.bind(_k)];
-      _ctimeMs_decorators = [(_l = types).float64.bind(_l)];
-      _ino_decorators = [(_m = types).uint32.bind(_m)];
-      ___ino_old_decorators = [(_o = types).uint32.bind(_o)];
-      _flags_decorators = [(_p = types).uint32.bind(_p)];
-      ___after_flags_decorators = [(_q = types).uint16.bind(_q)];
-      _version_decorators = [(_r = types).uint32.bind(_r)];
-      ___padding_decorators = [types.uint8(48)];
-      _attributes_decorators = [member(Attributes)];
-      __esDecorate(null, null, _data_decorators, { kind: "field", name: "data", static: false, private: false, access: { has: (obj) => "data" in obj, get: (obj) => obj.data, set: (obj, value) => {
+      var _a3;
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
+      _data_decorators = [(_a3 = types2).uint32.bind(_a3)];
+      ___data_old_decorators = [(_b2 = types2).uint32.bind(_b2)];
+      _size_decorators = [(_c2 = types2).uint32.bind(_c2)];
+      _mode_decorators = [(_d = types2).uint16.bind(_d)];
+      _nlink_decorators = [(_e = types2).uint32.bind(_e)];
+      _uid_decorators = [(_f = types2).uint32.bind(_f)];
+      _gid_decorators = [(_g = types2).uint32.bind(_g)];
+      _atimeMs_decorators = [(_h = types2).float64.bind(_h)];
+      _birthtimeMs_decorators = [(_j = types2).float64.bind(_j)];
+      _mtimeMs_decorators = [(_k = types2).float64.bind(_k)];
+      _ctimeMs_decorators = [(_l = types2).float64.bind(_l)];
+      _ino_decorators = [(_m = types2).uint32.bind(_m)];
+      ___ino_old_decorators = [(_o = types2).uint32.bind(_o)];
+      _flags_decorators = [(_p = types2).uint32.bind(_p)];
+      ___after_flags_decorators = [(_q = types2).uint16.bind(_q)];
+      _version_decorators = [(_r = types2).uint32.bind(_r)];
+      ___padding_decorators = [types2.uint8(48)];
+      _attributes_decorators = [field(Attributes)];
+      ___data_decorators = [types2.uint8(maxDynamicData)];
+      __esDecorate(_classThis, null, _data_decorators, { kind: "accessor", name: "data", static: false, private: false, access: { has: (obj) => "data" in obj, get: (obj) => obj.data, set: (obj, value) => {
         obj.data = value;
       } }, metadata: _metadata }, _data_initializers, _data_extraInitializers);
-      __esDecorate(null, null, ___data_old_decorators, { kind: "field", name: "__data_old", static: false, private: false, access: { has: (obj) => "__data_old" in obj, get: (obj) => obj.__data_old, set: (obj, value) => {
+      __esDecorate(_classThis, null, ___data_old_decorators, { kind: "accessor", name: "__data_old", static: false, private: false, access: { has: (obj) => "__data_old" in obj, get: (obj) => obj.__data_old, set: (obj, value) => {
         obj.__data_old = value;
       } }, metadata: _metadata }, ___data_old_initializers, ___data_old_extraInitializers);
-      __esDecorate(null, null, _size_decorators, { kind: "field", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
+      __esDecorate(_classThis, null, _size_decorators, { kind: "accessor", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
         obj.size = value;
       } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
-      __esDecorate(null, null, _mode_decorators, { kind: "field", name: "mode", static: false, private: false, access: { has: (obj) => "mode" in obj, get: (obj) => obj.mode, set: (obj, value) => {
+      __esDecorate(_classThis, null, _mode_decorators, { kind: "accessor", name: "mode", static: false, private: false, access: { has: (obj) => "mode" in obj, get: (obj) => obj.mode, set: (obj, value) => {
         obj.mode = value;
       } }, metadata: _metadata }, _mode_initializers, _mode_extraInitializers);
-      __esDecorate(null, null, _nlink_decorators, { kind: "field", name: "nlink", static: false, private: false, access: { has: (obj) => "nlink" in obj, get: (obj) => obj.nlink, set: (obj, value) => {
+      __esDecorate(_classThis, null, _nlink_decorators, { kind: "accessor", name: "nlink", static: false, private: false, access: { has: (obj) => "nlink" in obj, get: (obj) => obj.nlink, set: (obj, value) => {
         obj.nlink = value;
       } }, metadata: _metadata }, _nlink_initializers, _nlink_extraInitializers);
-      __esDecorate(null, null, _uid_decorators, { kind: "field", name: "uid", static: false, private: false, access: { has: (obj) => "uid" in obj, get: (obj) => obj.uid, set: (obj, value) => {
+      __esDecorate(_classThis, null, _uid_decorators, { kind: "accessor", name: "uid", static: false, private: false, access: { has: (obj) => "uid" in obj, get: (obj) => obj.uid, set: (obj, value) => {
         obj.uid = value;
       } }, metadata: _metadata }, _uid_initializers, _uid_extraInitializers);
-      __esDecorate(null, null, _gid_decorators, { kind: "field", name: "gid", static: false, private: false, access: { has: (obj) => "gid" in obj, get: (obj) => obj.gid, set: (obj, value) => {
+      __esDecorate(_classThis, null, _gid_decorators, { kind: "accessor", name: "gid", static: false, private: false, access: { has: (obj) => "gid" in obj, get: (obj) => obj.gid, set: (obj, value) => {
         obj.gid = value;
       } }, metadata: _metadata }, _gid_initializers, _gid_extraInitializers);
-      __esDecorate(null, null, _atimeMs_decorators, { kind: "field", name: "atimeMs", static: false, private: false, access: { has: (obj) => "atimeMs" in obj, get: (obj) => obj.atimeMs, set: (obj, value) => {
+      __esDecorate(_classThis, null, _atimeMs_decorators, { kind: "accessor", name: "atimeMs", static: false, private: false, access: { has: (obj) => "atimeMs" in obj, get: (obj) => obj.atimeMs, set: (obj, value) => {
         obj.atimeMs = value;
       } }, metadata: _metadata }, _atimeMs_initializers, _atimeMs_extraInitializers);
-      __esDecorate(null, null, _birthtimeMs_decorators, { kind: "field", name: "birthtimeMs", static: false, private: false, access: { has: (obj) => "birthtimeMs" in obj, get: (obj) => obj.birthtimeMs, set: (obj, value) => {
+      __esDecorate(_classThis, null, _birthtimeMs_decorators, { kind: "accessor", name: "birthtimeMs", static: false, private: false, access: { has: (obj) => "birthtimeMs" in obj, get: (obj) => obj.birthtimeMs, set: (obj, value) => {
         obj.birthtimeMs = value;
       } }, metadata: _metadata }, _birthtimeMs_initializers, _birthtimeMs_extraInitializers);
-      __esDecorate(null, null, _mtimeMs_decorators, { kind: "field", name: "mtimeMs", static: false, private: false, access: { has: (obj) => "mtimeMs" in obj, get: (obj) => obj.mtimeMs, set: (obj, value) => {
+      __esDecorate(_classThis, null, _mtimeMs_decorators, { kind: "accessor", name: "mtimeMs", static: false, private: false, access: { has: (obj) => "mtimeMs" in obj, get: (obj) => obj.mtimeMs, set: (obj, value) => {
         obj.mtimeMs = value;
       } }, metadata: _metadata }, _mtimeMs_initializers, _mtimeMs_extraInitializers);
-      __esDecorate(null, null, _ctimeMs_decorators, { kind: "field", name: "ctimeMs", static: false, private: false, access: { has: (obj) => "ctimeMs" in obj, get: (obj) => obj.ctimeMs, set: (obj, value) => {
+      __esDecorate(_classThis, null, _ctimeMs_decorators, { kind: "accessor", name: "ctimeMs", static: false, private: false, access: { has: (obj) => "ctimeMs" in obj, get: (obj) => obj.ctimeMs, set: (obj, value) => {
         obj.ctimeMs = value;
       } }, metadata: _metadata }, _ctimeMs_initializers, _ctimeMs_extraInitializers);
-      __esDecorate(null, null, _ino_decorators, { kind: "field", name: "ino", static: false, private: false, access: { has: (obj) => "ino" in obj, get: (obj) => obj.ino, set: (obj, value) => {
+      __esDecorate(_classThis, null, _ino_decorators, { kind: "accessor", name: "ino", static: false, private: false, access: { has: (obj) => "ino" in obj, get: (obj) => obj.ino, set: (obj, value) => {
         obj.ino = value;
       } }, metadata: _metadata }, _ino_initializers, _ino_extraInitializers);
-      __esDecorate(null, null, ___ino_old_decorators, { kind: "field", name: "__ino_old", static: false, private: false, access: { has: (obj) => "__ino_old" in obj, get: (obj) => obj.__ino_old, set: (obj, value) => {
+      __esDecorate(_classThis, null, ___ino_old_decorators, { kind: "accessor", name: "__ino_old", static: false, private: false, access: { has: (obj) => "__ino_old" in obj, get: (obj) => obj.__ino_old, set: (obj, value) => {
         obj.__ino_old = value;
       } }, metadata: _metadata }, ___ino_old_initializers, ___ino_old_extraInitializers);
-      __esDecorate(null, null, _flags_decorators, { kind: "field", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
+      __esDecorate(_classThis, null, _flags_decorators, { kind: "accessor", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
         obj.flags = value;
       } }, metadata: _metadata }, _flags_initializers, _flags_extraInitializers);
-      __esDecorate(null, null, ___after_flags_decorators, { kind: "field", name: "__after_flags", static: false, private: false, access: { has: (obj) => "__after_flags" in obj, get: (obj) => obj.__after_flags, set: (obj, value) => {
+      __esDecorate(_classThis, null, ___after_flags_decorators, { kind: "accessor", name: "__after_flags", static: false, private: false, access: { has: (obj) => "__after_flags" in obj, get: (obj) => obj.__after_flags, set: (obj, value) => {
         obj.__after_flags = value;
       } }, metadata: _metadata }, ___after_flags_initializers, ___after_flags_extraInitializers);
-      __esDecorate(null, null, _version_decorators, { kind: "field", name: "version", static: false, private: false, access: { has: (obj) => "version" in obj, get: (obj) => obj.version, set: (obj, value) => {
+      __esDecorate(_classThis, null, _version_decorators, { kind: "accessor", name: "version", static: false, private: false, access: { has: (obj) => "version" in obj, get: (obj) => obj.version, set: (obj, value) => {
         obj.version = value;
       } }, metadata: _metadata }, _version_initializers, _version_extraInitializers);
-      __esDecorate(null, null, ___padding_decorators, { kind: "field", name: "__padding", static: false, private: false, access: { has: (obj) => "__padding" in obj, get: (obj) => obj.__padding, set: (obj, value) => {
+      __esDecorate(_classThis, null, ___padding_decorators, { kind: "accessor", name: "__padding", static: false, private: false, access: { has: (obj) => "__padding" in obj, get: (obj) => obj.__padding, set: (obj, value) => {
         obj.__padding = value;
       } }, metadata: _metadata }, ___padding_initializers, ___padding_extraInitializers);
-      __esDecorate(null, null, _attributes_decorators, { kind: "field", name: "attributes", static: false, private: false, access: { has: (obj) => "attributes" in obj, get: (obj) => obj.attributes, set: (obj, value) => {
+      __esDecorate(_classThis, null, _attributes_decorators, { kind: "accessor", name: "attributes", static: false, private: false, access: { has: (obj) => "attributes" in obj, get: (obj) => obj.attributes, set: (obj, value) => {
         obj.attributes = value;
       } }, metadata: _metadata }, _attributes_initializers, _attributes_extraInitializers);
+      __esDecorate(_classThis, null, ___data_decorators, { kind: "accessor", name: "__data", static: false, private: false, access: { has: (obj) => "__data" in obj, get: (obj) => obj.__data, set: (obj, value) => {
+        obj.__data = value;
+      } }, metadata: _metadata }, ___data_initializers, ___data_extraInitializers);
       __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
       Inode2 = _classThis = _classDescriptor.value;
       if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
@@ -10589,7 +11059,7 @@
     return (perm & access3) === access3;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/file_index.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/internal/file_index.js
   var version = 1;
   var Index = class _Index extends Map {
     constructor() {
@@ -10646,9 +11116,9 @@
     directoryEntries(path) {
       const node = this.get(path);
       if (!node)
-        throw ErrnoError.With("ENOENT", path);
+        throw withErrno("ENOENT");
       if ((node.mode & S_IFMT) != S_IFDIR)
-        throw ErrnoError.With("ENOTDIR", path);
+        throw withErrno("ENOTDIR");
       const entries2 = {};
       for (const entry of this.keys()) {
         if (dirname(entry) == path && entry != path) {
@@ -10687,9 +11157,8 @@
      */
     fromJSON(json) {
       var _a2;
-      if (json.version != version) {
-        throw new ErrnoError(Errno.EINVAL, "Index version mismatch");
-      }
+      if (json.version != version)
+        throw withErrno("EINVAL", "Index version mismatch");
       this.clear();
       for (const [path, node] of Object.entries(json.entries)) {
         (_a2 = node.data) !== null && _a2 !== void 0 ? _a2 : node.data = randomInt(1, size_max);
@@ -10704,7 +11173,7 @@
      */
     static parse(data) {
       if (!isJSON(data))
-        throw new ErrnoError(Errno.EINVAL, "Invalid JSON");
+        throw withErrno("EINVAL", "Invalid JSON");
       const json = JSON.parse(data);
       const index = new _Index();
       index.fromJSON(json);
@@ -10712,7 +11181,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/filesystem.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/internal/filesystem.js
   var _chunkSize = 4096;
   var FileSystem = class _FileSystem {
     get uuid() {
@@ -10729,8 +11198,7 @@
         this.attributes.set("default_stream_write");
     }
     toString() {
-      var _a2;
-      return `${this.name} ${(_a2 = this.label) !== null && _a2 !== void 0 ? _a2 : ""} (${this._mountPoint ? "mounted on " + this._mountPoint : "unmounted"})`;
+      return `${this.name} ${this.label ? JSON.stringify(this.label) : ""} (${this._mountPoint ? "mounted on " + this._mountPoint : "unmounted"})`;
     }
     /**
      * Default implementation.
@@ -10812,76 +11280,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/utils.js
-  function decodeDirListing(data) {
-    return JSON.parse(decodeUTF8(data), (k, v) => k == "" ? v : typeof v == "string" ? BigInt(v).toString(16).slice(0, Math.min(v.length, 8)) : v);
-  }
-  function encodeDirListing(data) {
-    return encodeUTF8(JSON.stringify(data));
-  }
-  function normalizeMode(mode, def) {
-    if (typeof mode == "number")
-      return mode;
-    if (typeof mode == "string") {
-      const parsed = parseInt(mode, 8);
-      if (!isNaN(parsed)) {
-        return parsed;
-      }
-    }
-    if (typeof def == "number")
-      return def;
-    throw new ErrnoError(Errno.EINVAL, "Invalid mode: " + (mode === null || mode === void 0 ? void 0 : mode.toString()));
-  }
-  function normalizeTime(time) {
-    if (time instanceof Date)
-      return time.getTime();
-    try {
-      return Number(time);
-    } catch {
-      throw new ErrnoError(Errno.EINVAL, "Invalid time.");
-    }
-  }
-  function normalizePath(p, noResolve = false) {
-    if (p instanceof URL) {
-      if (p.protocol != "file:")
-        throw new ErrnoError(Errno.EINVAL, "URLs must use the file: protocol");
-      p = p.pathname;
-    }
-    p = p.toString();
-    if (p.startsWith("file://"))
-      p = p.slice("file://".length);
-    if (p.includes("\0")) {
-      throw new ErrnoError(Errno.EINVAL, "Path can not contain null character");
-    }
-    if (p.length == 0) {
-      throw new ErrnoError(Errno.EINVAL, "Path can not be empty");
-    }
-    p = p.replaceAll(/[/\\]+/g, "/");
-    return noResolve ? p : resolve(p);
-  }
-  function normalizeOptions(options, encoding = "utf8", flag, mode = 0) {
-    if (typeof options != "object" || options === null) {
-      return {
-        encoding: typeof options == "string" ? options : encoding !== null && encoding !== void 0 ? encoding : null,
-        flag,
-        mode
-      };
-    }
-    return {
-      encoding: typeof (options === null || options === void 0 ? void 0 : options.encoding) == "string" ? options.encoding : encoding !== null && encoding !== void 0 ? encoding : null,
-      flag: typeof (options === null || options === void 0 ? void 0 : options.flag) == "string" ? options.flag : flag,
-      mode: normalizeMode("mode" in options ? options === null || options === void 0 ? void 0 : options.mode : null, mode)
-    };
-  }
-  function stringifyUUID(uuid) {
-    const hex = uuid.toString(16).padStart(32, "0");
-    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
-  }
-  function parseUUID(uuid) {
-    return BigInt(`0x${uuid.replace(/-/g, "")}`);
-  }
-
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/cache.js
+  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/cache.js
   var Resource = class {
     id;
     _size;
@@ -11045,7 +11444,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/polyfills.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/polyfills.js
   var _a;
   var _b;
   var _c;
@@ -11060,7 +11459,7 @@
   (_b = Symbol["dispose"]) !== null && _b !== void 0 ? _b : Symbol["dispose"] = (warn("Using a polyfill of Symbol.dispose"), Symbol("Symbol.dispose"));
   (_c = Symbol["asyncDispose"]) !== null && _c !== void 0 ? _c : Symbol["asyncDispose"] = (warn("Using a polyfill of Symbol.asyncDispose"), Symbol("Symbol.asyncDispose"));
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/store/store.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/backends/store/store.js
   var Transaction = class {
     constructor(store) {
       this.store = store;
@@ -11107,7 +11506,6 @@
       return resource;
     }
     getSync(id, offset, end) {
-      var _a2;
       const resource = this._cached(id);
       if (!resource)
         return;
@@ -11117,7 +11515,7 @@
         this.async(this.get(id, start, end2));
       }
       if (missing.length)
-        throw err(ErrnoError.With("EAGAIN", (_a2 = this.store._fs) === null || _a2 === void 0 ? void 0 : _a2._path(id)));
+        throw withErrno("EAGAIN");
       const region = resource.regionAt(offset);
       if (!region) {
         warn("Missing cache region for " + id);
@@ -11159,13 +11557,15 @@
       this.stash(id);
       return data;
     }
-    async set(id, data, offset = 0) {
-      await this.markModified(id, offset, data.byteLength);
-      await this.raw.set(id, data, offset);
+    async set(id, view2, offset = 0) {
+      await this.markModified(id, offset, view2.byteLength);
+      const buffer = view2 instanceof Uint8Array ? view2 : new Uint8Array(view2.buffer, view2.byteOffset, view2.byteLength);
+      await this.raw.set(id, buffer, offset);
     }
-    setSync(id, data, offset = 0) {
-      this.markModifiedSync(id, offset, data.byteLength);
-      this.raw.setSync(id, data, offset);
+    setSync(id, view2, offset = 0) {
+      this.markModifiedSync(id, offset, view2.byteLength);
+      const buffer = view2 instanceof Uint8Array ? view2 : new Uint8Array(view2.buffer, view2.byteOffset, view2.byteLength);
+      this.raw.setSync(id, buffer, offset);
     }
     async remove(id) {
       await this.markModified(id, 0, void 0);
@@ -11279,7 +11679,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/store/fs.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/backends/store/fs.js
   var __addDisposableResource = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -11407,8 +11807,9 @@
       this._ids = /* @__PURE__ */ new Map([["/", 0]]);
       this._paths = /* @__PURE__ */ new Map([[0, new Set("/")]]);
       this._initialized = false;
-      store._fs = this;
+      store.fs = this;
       this._uuid = (_b2 = store.uuid) !== null && _b2 !== void 0 ? _b2 : this.uuid;
+      this.label = store.label;
       debug(this.name + ": supports features: " + ((_c2 = this.store.flags) === null || _c2 === void 0 ? void 0 : _c2.join(", ")));
     }
     /**
@@ -11432,7 +11833,7 @@
         const dirs = index.directories();
         for (const [path, inode] of index) {
           this._add(inode.ino, path);
-          await tx.set(inode.ino, serialize(inode));
+          await tx.set(inode.ino, inode);
           if (dirs.has(path))
             await tx.set(inode.data, encodeDirListing(dirs.get(path)));
         }
@@ -11457,7 +11858,7 @@
         const dirs = index.directories();
         for (const [path, inode] of index) {
           this._add(inode.ino, path);
-          tx.setSync(inode.ino, serialize(inode));
+          tx.setSync(inode.ino, inode);
           if (dirs.has(path))
             tx.setSync(inode.data, encodeDirListing(dirs.get(path)));
         }
@@ -11476,13 +11877,13 @@
         const index = new Index();
         const tx = __addDisposableResource(env_3, this.transaction(), true);
         const queue = [["/", 0]];
-        const silence = canary(ErrnoError.With("EDEADLK"));
+        const silence = canary(withErrno("EDEADLK"));
         while (queue.length) {
           const [path, ino] = queue.shift();
           const inode = new Inode(await tx.get(ino));
           index.set(path, inode);
           if (inode.mode & S_IFDIR) {
-            const dir = decodeDirListing((_a2 = await tx.get(inode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENODATA", path)));
+            const dir = decodeDirListing((_a2 = await tx.get(inode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA")));
             for (const [name, id] of Object.entries(dir)) {
               queue.push([join(path, name), id]);
             }
@@ -11506,13 +11907,13 @@
         const index = new Index();
         const tx = __addDisposableResource(env_4, this.transaction(), false);
         const queue = [["/", 0]];
-        const silence = canary(ErrnoError.With("EDEADLK"));
+        const silence = canary(withErrno("EDEADLK"));
         while (queue.length) {
           const [path, ino] = queue.shift();
           const inode = new Inode(tx.getSync(ino));
           index.set(path, inode);
           if (inode.mode & S_IFDIR) {
-            const dir = decodeDirListing((_a2 = tx.getSync(inode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENODATA", path)));
+            const dir = decodeDirListing((_a2 = tx.getSync(inode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA")));
             for (const [name, id] of Object.entries(dir)) {
               queue.push([join(path, name), id]);
             }
@@ -11535,22 +11936,22 @@
       const env_5 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_5, this.transaction(), true);
-        const _old = parse(oldPath), _new = parse(newPath), oldDirNode = await this.findInode(tx, _old.dir, "rename"), oldDirList = decodeDirListing((_a2 = await tx.get(oldDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENODATA", _old.dir, "rename")));
+        const _old = parse(oldPath), _new = parse(newPath), oldDirNode = await this.findInode(tx, _old.dir), oldDirList = decodeDirListing((_a2 = await tx.get(oldDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA")));
         if (!oldDirList[_old.base])
-          throw ErrnoError.With("ENOENT", oldPath, "rename");
+          throw withErrno("ENOENT");
         const ino = oldDirList[_old.base];
         if (ino != this._ids.get(oldPath))
           err(`Ino mismatch while renaming ${oldPath} to ${newPath}`);
         delete oldDirList[_old.base];
         if ((_new.dir + "/").startsWith(oldPath + "/"))
-          throw new ErrnoError(Errno.EBUSY, _old.dir);
+          throw withErrno("EBUSY");
         const sameParent = _new.dir == _old.dir;
-        const newDirNode = sameParent ? oldDirNode : await this.findInode(tx, _new.dir, "rename");
-        const newDirList = sameParent ? oldDirList : decodeDirListing((_b2 = await tx.get(newDirNode.data)) !== null && _b2 !== void 0 ? _b2 : _throw(ErrnoError.With("ENODATA", _new.dir, "rename")));
+        const newDirNode = sameParent ? oldDirNode : await this.findInode(tx, _new.dir);
+        const newDirList = sameParent ? oldDirList : decodeDirListing((_b2 = await tx.get(newDirNode.data)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENODATA")));
         if (newDirList[_new.base]) {
-          const existing = new Inode((_c2 = await tx.get(newDirList[_new.base])) !== null && _c2 !== void 0 ? _c2 : _throw(ErrnoError.With("ENOENT", newPath, "rename")));
+          const existing = new Inode((_c2 = await tx.get(newDirList[_new.base])) !== null && _c2 !== void 0 ? _c2 : _throw(withErrno("ENOENT")));
           if (!existing.toStats().isFile())
-            throw ErrnoError.With("EPERM", newPath, "rename");
+            throw withErrno("EISDIR");
           await tx.remove(existing.data);
           await tx.remove(newDirList[_new.base]);
         }
@@ -11573,22 +11974,22 @@
       const env_6 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_6, this.transaction(), false);
-        const _old = parse(oldPath), _new = parse(newPath), oldDirNode = this.findInodeSync(tx, _old.dir, "rename"), oldDirList = decodeDirListing((_a2 = tx.getSync(oldDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENODATA", _old.dir, "rename")));
+        const _old = parse(oldPath), _new = parse(newPath), oldDirNode = this.findInodeSync(tx, _old.dir), oldDirList = decodeDirListing((_a2 = tx.getSync(oldDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA")));
         if (!oldDirList[_old.base])
-          throw ErrnoError.With("ENOENT", oldPath, "rename");
+          throw withErrno("ENOENT");
         const ino = oldDirList[_old.base];
         if (ino != this._ids.get(oldPath))
           err(`Ino mismatch while renaming ${oldPath} to ${newPath}`);
         delete oldDirList[_old.base];
         if ((_new.dir + "/").startsWith(oldPath + "/"))
-          throw new ErrnoError(Errno.EBUSY, _old.dir);
+          throw withErrno("EBUSY");
         const sameParent = _new.dir === _old.dir;
-        const newDirNode = sameParent ? oldDirNode : this.findInodeSync(tx, _new.dir, "rename");
-        const newDirList = sameParent ? oldDirList : decodeDirListing((_b2 = tx.getSync(newDirNode.data)) !== null && _b2 !== void 0 ? _b2 : _throw(ErrnoError.With("ENODATA", _new.dir, "rename")));
+        const newDirNode = sameParent ? oldDirNode : this.findInodeSync(tx, _new.dir);
+        const newDirList = sameParent ? oldDirList : decodeDirListing((_b2 = tx.getSync(newDirNode.data)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENODATA")));
         if (newDirList[_new.base]) {
-          const existing = new Inode((_c2 = tx.getSync(newDirList[_new.base])) !== null && _c2 !== void 0 ? _c2 : _throw(ErrnoError.With("ENOENT", newPath, "rename")));
+          const existing = new Inode((_c2 = tx.getSync(newDirList[_new.base])) !== null && _c2 !== void 0 ? _c2 : _throw(withErrno("ENOENT")));
           if (!existing.toStats().isFile())
-            throw ErrnoError.With("EPERM", newPath, "rename");
+            throw withErrno("EISDIR");
           tx.removeSync(existing.data);
           tx.removeSync(newDirList[_new.base]);
         }
@@ -11608,7 +12009,7 @@
       const env_7 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_7, this.transaction(), true);
-        return await this.findInode(tx, path, "stat");
+        return await this.findInode(tx, path);
       } catch (e_7) {
         env_7.error = e_7;
         env_7.hasError = true;
@@ -11622,7 +12023,7 @@
       const env_8 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_8, this.transaction(), false);
-        return this.findInodeSync(tx, path, "stat");
+        return this.findInodeSync(tx, path);
       } catch (e_8) {
         env_8.error = e_8;
         env_8.hasError = true;
@@ -11634,10 +12035,10 @@
       const env_9 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_9, this.transaction(), true);
-        const inode = await this.findInode(tx, path, "touch");
+        const inode = await this.findInode(tx, path);
         if (inode.update(metadata)) {
           this._add(inode.ino, path);
-          tx.setSync(inode.ino, serialize(inode));
+          tx.setSync(inode.ino, inode);
         }
         await tx.commit();
       } catch (e_9) {
@@ -11653,10 +12054,10 @@
       const env_10 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_10, this.transaction(), false);
-        const inode = this.findInodeSync(tx, path, "touch");
+        const inode = this.findInodeSync(tx, path);
         if (inode.update(metadata)) {
           this._add(inode.ino, path);
-          tx.setSync(inode.ino, serialize(inode));
+          tx.setSync(inode.ino, inode);
         }
         tx.commitSync();
       } catch (e_10) {
@@ -11668,11 +12069,11 @@
     }
     async createFile(path, options) {
       options.mode |= S_IFREG;
-      return await this.commitNew(path, options, new Uint8Array(), "createFile");
+      return await this.commitNew(path, options, new Uint8Array());
     }
     createFileSync(path, options) {
       options.mode |= S_IFREG;
-      return this.commitNewSync(path, options, new Uint8Array(), "createFile");
+      return this.commitNewSync(path, options, new Uint8Array());
     }
     async unlink(path) {
       return this.remove(path, false);
@@ -11681,32 +12082,30 @@
       this.removeSync(path, false);
     }
     async rmdir(path) {
-      if ((await this.readdir(path)).length) {
-        throw ErrnoError.With("ENOTEMPTY", path, "rmdir");
-      }
+      if ((await this.readdir(path)).length)
+        throw withErrno("ENOTEMPTY");
       await this.remove(path, true);
     }
     rmdirSync(path) {
-      if (this.readdirSync(path).length) {
-        throw ErrnoError.With("ENOTEMPTY", path, "rmdir");
-      }
+      if (this.readdirSync(path).length)
+        throw withErrno("ENOTEMPTY");
       this.removeSync(path, true);
     }
     async mkdir(path, options) {
       options.mode |= S_IFDIR;
-      return await this.commitNew(path, options, encodeUTF8("{}"), "mkdir");
+      return await this.commitNew(path, options, encodeUTF8("{}"));
     }
     mkdirSync(path, options) {
       options.mode |= S_IFDIR;
-      return this.commitNewSync(path, options, encodeUTF8("{}"), "mkdir");
+      return this.commitNewSync(path, options, encodeUTF8("{}"));
     }
     async readdir(path) {
       var _a2;
       const env_11 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_11, this.transaction(), true);
-        const node = await this.findInode(tx, path, "readdir");
-        return Object.keys(decodeDirListing((_a2 = await tx.get(node.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", path, "readdir"))));
+        const node = await this.findInode(tx, path);
+        return Object.keys(decodeDirListing((_a2 = await tx.get(node.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT"))));
       } catch (e_11) {
         env_11.error = e_11;
         env_11.hasError = true;
@@ -11721,8 +12120,8 @@
       const env_12 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_12, this.transaction(), false);
-        const node = this.findInodeSync(tx, path, "readdir");
-        return Object.keys(decodeDirListing((_a2 = tx.getSync(node.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", path, "readdir"))));
+        const node = this.findInodeSync(tx, path);
+        return Object.keys(decodeDirListing((_a2 = tx.getSync(node.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT"))));
       } catch (e_12) {
         env_12.error = e_12;
         env_12.hasError = true;
@@ -11733,17 +12132,25 @@
     /**
      * Updated the inode and data node at `path`
      */
-    async sync(path, data, metadata) {
+    async sync() {
+    }
+    /**
+     * Updated the inode and data node at `path`
+     */
+    syncSync() {
+    }
+    async link(target, link3) {
+      var _a2;
       const env_13 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_13, this.transaction(), true);
-        const inode = await this.findInode(tx, path, "sync");
-        if (data)
-          await tx.set(inode.data, data);
-        if (inode.update(metadata)) {
-          this._add(inode.ino, path);
-          await tx.set(inode.ino, serialize(inode));
-        }
+        const newDir = dirname(link3), newDirNode = await this.findInode(tx, newDir), listing = decodeDirListing((_a2 = await tx.get(newDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+        const inode = await this.findInode(tx, target);
+        inode.nlink++;
+        listing[basename(link3)] = inode.ino;
+        this._add(inode.ino, link3);
+        await tx.set(inode.ino, inode);
+        await tx.set(newDirNode.data, encodeDirListing(listing));
         await tx.commit();
       } catch (e_13) {
         env_13.error = e_13;
@@ -11754,20 +12161,18 @@
           await result_7;
       }
     }
-    /**
-     * Updated the inode and data node at `path`
-     */
-    syncSync(path, data, metadata) {
+    linkSync(target, link3) {
+      var _a2;
       const env_14 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_14, this.transaction(), false);
-        const inode = this.findInodeSync(tx, path, "sync");
-        if (data)
-          tx.setSync(inode.data, data);
-        if (inode.update(metadata)) {
-          this._add(inode.ino, path);
-          tx.setSync(inode.ino, serialize(inode));
-        }
+        const newDir = dirname(link3), newDirNode = this.findInodeSync(tx, newDir), listing = decodeDirListing((_a2 = tx.getSync(newDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+        const inode = this.findInodeSync(tx, target);
+        inode.nlink++;
+        listing[basename(link3)] = inode.ino;
+        this._add(inode.ino, link3);
+        tx.setSync(inode.ino, inode);
+        tx.setSync(newDirNode.data, encodeDirListing(listing));
         tx.commitSync();
       } catch (e_14) {
         env_14.error = e_14;
@@ -11776,19 +12181,19 @@
         __disposeResources(env_14);
       }
     }
-    async link(target, link3) {
+    async read(path, buffer, offset, end) {
       var _a2;
       const env_15 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_15, this.transaction(), true);
-        const newDir = dirname(link3), newDirNode = await this.findInode(tx, newDir, "link"), listing = decodeDirListing((_a2 = await tx.get(newDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", newDir, "link")));
-        const inode = await this.findInode(tx, target, "link");
-        inode.nlink++;
-        listing[basename(link3)] = inode.ino;
-        this._add(inode.ino, link3);
-        await tx.set(inode.ino, serialize(inode));
-        await tx.set(newDirNode.data, encodeDirListing(listing));
-        await tx.commit();
+        const inode = await this.findInode(tx, path);
+        if (inode.size == 0)
+          return;
+        const data = (_a2 = await tx.get(inode.data, offset, end)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA"));
+        const _ = tx.flag("partial") ? data : data.subarray(offset, end);
+        if (_.byteLength > buffer.byteLength)
+          err(`Trying to place ${_.byteLength} bytes into a ${buffer.byteLength} byte buffer on read`);
+        buffer.set(_);
       } catch (e_15) {
         env_15.error = e_15;
         env_15.hasError = true;
@@ -11798,19 +12203,19 @@
           await result_8;
       }
     }
-    linkSync(target, link3) {
+    readSync(path, buffer, offset, end) {
       var _a2;
       const env_16 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_16, this.transaction(), false);
-        const newDir = dirname(link3), newDirNode = this.findInodeSync(tx, newDir, "link"), listing = decodeDirListing((_a2 = tx.getSync(newDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", newDir, "link")));
-        const inode = this.findInodeSync(tx, target, "link");
-        inode.nlink++;
-        listing[basename(link3)] = inode.ino;
-        this._add(inode.ino, link3);
-        tx.setSync(inode.ino, serialize(inode));
-        tx.setSync(newDirNode.data, encodeDirListing(listing));
-        tx.commitSync();
+        const inode = this.findInodeSync(tx, path);
+        if (inode.size == 0)
+          return;
+        const data = (_a2 = tx.getSync(inode.data, offset, end)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA"));
+        const _ = tx.flag("partial") ? data : data.subarray(offset, end);
+        if (_.byteLength > buffer.byteLength)
+          err(`Trying to place ${_.byteLength} bytes into a ${buffer.byteLength} byte buffer on read`);
+        buffer.set(_);
       } catch (e_16) {
         env_16.error = e_16;
         env_16.hasError = true;
@@ -11818,54 +12223,12 @@
         __disposeResources(env_16);
       }
     }
-    async read(path, buffer, offset, end) {
+    async write(path, data, offset) {
       var _a2;
       const env_17 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_17, this.transaction(), true);
-        const inode = await this.findInode(tx, path, "read");
-        if (inode.size == 0)
-          return;
-        const data = (_a2 = await tx.get(inode.data, offset, end)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENODATA", path, "read"));
-        const _ = tx.flag("partial") ? data : data.subarray(offset, end);
-        if (_.byteLength > buffer.byteLength)
-          err(`Trying to place ${_.byteLength} bytes into a ${buffer.byteLength} byte buffer on read`);
-        buffer.set(_);
-      } catch (e_17) {
-        env_17.error = e_17;
-        env_17.hasError = true;
-      } finally {
-        const result_9 = __disposeResources(env_17);
-        if (result_9)
-          await result_9;
-      }
-    }
-    readSync(path, buffer, offset, end) {
-      var _a2;
-      const env_18 = { stack: [], error: void 0, hasError: false };
-      try {
-        const tx = __addDisposableResource(env_18, this.transaction(), false);
-        const inode = this.findInodeSync(tx, path, "read");
-        if (inode.size == 0)
-          return;
-        const data = (_a2 = tx.getSync(inode.data, offset, end)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENODATA", path, "read"));
-        const _ = tx.flag("partial") ? data : data.subarray(offset, end);
-        if (_.byteLength > buffer.byteLength)
-          err(`Trying to place ${_.byteLength} bytes into a ${buffer.byteLength} byte buffer on read`);
-        buffer.set(_);
-      } catch (e_18) {
-        env_18.error = e_18;
-        env_18.hasError = true;
-      } finally {
-        __disposeResources(env_18);
-      }
-    }
-    async write(path, data, offset) {
-      var _a2;
-      const env_19 = { stack: [], error: void 0, hasError: false };
-      try {
-        const tx = __addDisposableResource(env_19, this.transaction(), true);
-        const inode = await this.findInode(tx, path, "write");
+        const inode = await this.findInode(tx, path);
         let buffer = data;
         if (!tx.flag("partial")) {
           buffer = extendBuffer((_a2 = await tx.get(inode.data)) !== null && _a2 !== void 0 ? _a2 : new Uint8Array(), offset + data.byteLength);
@@ -11875,21 +12238,21 @@
         await tx.set(inode.data, buffer, offset);
         this._add(inode.ino, path);
         await tx.commit();
-      } catch (e_19) {
-        env_19.error = e_19;
-        env_19.hasError = true;
+      } catch (e_17) {
+        env_17.error = e_17;
+        env_17.hasError = true;
       } finally {
-        const result_10 = __disposeResources(env_19);
-        if (result_10)
-          await result_10;
+        const result_9 = __disposeResources(env_17);
+        if (result_9)
+          await result_9;
       }
     }
     writeSync(path, data, offset) {
       var _a2;
-      const env_20 = { stack: [], error: void 0, hasError: false };
+      const env_18 = { stack: [], error: void 0, hasError: false };
       try {
-        const tx = __addDisposableResource(env_20, this.transaction(), false);
-        const inode = this.findInodeSync(tx, path, "write");
+        const tx = __addDisposableResource(env_18, this.transaction(), false);
+        const inode = this.findInodeSync(tx, path);
         let buffer = data;
         if (!tx.flag("partial")) {
           buffer = extendBuffer((_a2 = tx.getSync(inode.data)) !== null && _a2 !== void 0 ? _a2 : new Uint8Array(), offset + data.byteLength);
@@ -11899,11 +12262,11 @@
         tx.setSync(inode.data, buffer, offset);
         this._add(inode.ino, path);
         tx.commitSync();
-      } catch (e_20) {
-        env_20.error = e_20;
-        env_20.hasError = true;
+      } catch (e_18) {
+        env_18.error = e_18;
+        env_18.hasError = true;
       } finally {
-        __disposeResources(env_20);
+        __disposeResources(env_18);
       }
     }
     /**
@@ -11917,65 +12280,65 @@
      * Checks if the root directory exists. Creates it if it doesn't.
      */
     async checkRoot() {
-      const env_21 = { stack: [], error: void 0, hasError: false };
+      const env_19 = { stack: [], error: void 0, hasError: false };
       try {
-        const tx = __addDisposableResource(env_21, this.transaction(), true);
+        const tx = __addDisposableResource(env_19, this.transaction(), true);
         if (await tx.get(rootIno))
           return;
         const inode = new Inode({ ino: rootIno, data: 1, mode: 511 | S_IFDIR });
         await tx.set(inode.data, encodeUTF8("{}"));
         this._add(rootIno, "/");
-        await tx.set(rootIno, serialize(inode));
+        await tx.set(rootIno, inode);
         await tx.commit();
-      } catch (e_21) {
-        env_21.error = e_21;
-        env_21.hasError = true;
+      } catch (e_19) {
+        env_19.error = e_19;
+        env_19.hasError = true;
       } finally {
-        const result_11 = __disposeResources(env_21);
-        if (result_11)
-          await result_11;
+        const result_10 = __disposeResources(env_19);
+        if (result_10)
+          await result_10;
       }
     }
     /**
      * Checks if the root directory exists. Creates it if it doesn't.
      */
     checkRootSync() {
-      const env_22 = { stack: [], error: void 0, hasError: false };
+      const env_20 = { stack: [], error: void 0, hasError: false };
       try {
-        const tx = __addDisposableResource(env_22, this.transaction(), false);
+        const tx = __addDisposableResource(env_20, this.transaction(), false);
         if (tx.getSync(rootIno))
           return;
         const inode = new Inode({ ino: rootIno, data: 1, mode: 511 | S_IFDIR });
         tx.setSync(inode.data, encodeUTF8("{}"));
         this._add(rootIno, "/");
-        tx.setSync(rootIno, serialize(inode));
+        tx.setSync(rootIno, inode);
         tx.commitSync();
-      } catch (e_22) {
-        env_22.error = e_22;
-        env_22.hasError = true;
+      } catch (e_20) {
+        env_20.error = e_20;
+        env_20.hasError = true;
       } finally {
-        __disposeResources(env_22);
+        __disposeResources(env_20);
       }
     }
     /**
      * Populates the `_ids` and `_paths` maps with all existing files stored in the underlying `Store`.
      */
     async _populate() {
-      const env_23 = { stack: [], error: void 0, hasError: false };
+      const env_21 = { stack: [], error: void 0, hasError: false };
       try {
         if (this._initialized) {
           warn("Attempted to populate tables after initialization");
           return;
         }
         debug("Populating tables with existing store metadata");
-        const tx = __addDisposableResource(env_23, this.transaction(), true);
+        const tx = __addDisposableResource(env_21, this.transaction(), true);
         const rootData = await tx.get(rootIno);
         if (!rootData) {
           notice("Store does not have a root inode");
           const inode = new Inode({ ino: rootIno, data: 1, mode: 511 | S_IFDIR });
           await tx.set(inode.data, encodeUTF8("{}"));
           this._add(rootIno, "/");
-          await tx.set(rootIno, serialize(inode));
+          await tx.set(rootIno, inode);
           await tx.commit();
           return;
         }
@@ -12015,26 +12378,62 @@
           }
         }
         debug(`Added ${i} existing inode(s) from store`);
-      } catch (e_23) {
-        env_23.error = e_23;
-        env_23.hasError = true;
+      } catch (e_21) {
+        env_21.error = e_21;
+        env_21.hasError = true;
       } finally {
-        const result_12 = __disposeResources(env_23);
-        if (result_12)
-          await result_12;
+        const result_11 = __disposeResources(env_21);
+        if (result_11)
+          await result_11;
       }
+    }
+    /**
+     * Find an inode without using the ID tables
+     */
+    async _findInode(tx, path, visited = /* @__PURE__ */ new Set()) {
+      var _a2, _b2, _c2;
+      if (visited.has(path))
+        throw crit(withErrno("EIO", "Infinite loop detected while finding inode"));
+      visited.add(path);
+      if (path == "/")
+        return new Inode((_a2 = await tx.get(rootIno)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA")));
+      const { dir: parent, base: filename } = parse(path);
+      const inode = await this._findInode(tx, parent, visited);
+      const dirList = decodeDirListing((_b2 = await tx.get(inode.data)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENODATA")));
+      if (!(filename in dirList))
+        throw withErrno("ENOENT");
+      return new Inode((_c2 = await tx.get(dirList[filename])) !== null && _c2 !== void 0 ? _c2 : _throw(withErrno("ENODATA")));
+    }
+    /**
+     * Find an inode without using the ID tables
+     */
+    _findInodeSync(tx, path, visited = /* @__PURE__ */ new Set()) {
+      var _a2, _b2, _c2;
+      if (visited.has(path))
+        throw crit(withErrno("EIO", "Infinite loop detected while finding inode"));
+      visited.add(path);
+      if (path == "/")
+        return new Inode((_a2 = tx.getSync(rootIno)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+      const { dir: parent, base: filename } = parse(path);
+      const inode = this._findInodeSync(tx, parent, visited);
+      const dir = decodeDirListing((_b2 = tx.getSync(inode.data)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENODATA")));
+      if (!(filename in dir))
+        throw withErrno("ENOENT");
+      return new Inode((_c2 = tx.getSync(dir[filename])) !== null && _c2 !== void 0 ? _c2 : _throw(withErrno("ENODATA")));
     }
     /**
      * Finds the Inode of `path`.
      * @param path The path to look up.
      * @todo memoize/cache
      */
-    async findInode(tx, path, syscall) {
+    async findInode(tx, path) {
       var _a2;
+      if (this.attributes.has("no_id_tables"))
+        return await this._findInode(tx, path);
       const ino = this._ids.get(path);
       if (ino === void 0)
-        throw ErrnoError.With("ENOENT", path, syscall);
-      return new Inode((_a2 = await tx.get(ino)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", path, syscall)));
+        throw withErrno("ENOENT");
+      return new Inode((_a2 = await tx.get(ino)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
     }
     /**
      * Finds the Inode of `path`.
@@ -12042,23 +12441,23 @@
      * @return The Inode of the path p.
      * @todo memoize/cache
      */
-    findInodeSync(tx, path, syscall) {
+    findInodeSync(tx, path) {
       var _a2;
+      if (this.attributes.has("no_id_tables"))
+        return this._findInodeSync(tx, path);
       const ino = this._ids.get(path);
       if (ino === void 0)
-        throw ErrnoError.With("ENOENT", path, syscall);
-      return new Inode((_a2 = tx.getSync(ino)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", path, syscall)));
+        throw withErrno("ENOENT");
+      return new Inode((_a2 = tx.getSync(ino)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
     }
-    /**
-     * Allocates a new ID and adds the ID/path
-     */
-    allocNew(path, syscall) {
+    /** Allocates a new ID and adds the ID/path */
+    allocNew(path) {
       var _a2;
       (_a2 = this._lastID) !== null && _a2 !== void 0 ? _a2 : this._lastID = Math.max(...this._paths.keys());
       this._lastID += 2;
       const id = this._lastID;
       if (id > size_max)
-        throw err(new ErrnoError(Errno.ENOSPC, "No IDs available", path, syscall), { fs: this });
+        throw err(withErrno("ENOSPC", "No IDs available"));
       this._add(id, path);
       return id;
     }
@@ -12069,38 +12468,39 @@
      * @param options The options to create the new file with.
      * @param data The data to store at the file's data node.
      */
-    async commitNew(path, options, data, syscall) {
+    async commitNew(path, options, data) {
       var _a2;
-      const env_24 = { stack: [], error: void 0, hasError: false };
+      const env_22 = { stack: [], error: void 0, hasError: false };
       try {
         if (path == "/")
-          throw ErrnoError.With("EEXIST", path, syscall);
-        const tx = __addDisposableResource(env_24, this.transaction(), true);
+          throw withErrno("EEXIST");
+        const tx = __addDisposableResource(env_22, this.transaction(), true);
         const { dir: parentPath, base: fname } = parse(path);
-        const parent = await this.findInode(tx, parentPath, syscall);
-        const listing = decodeDirListing((_a2 = await tx.get(parent.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", parentPath, syscall)));
+        const parent = await this.findInode(tx, parentPath);
+        const listing = decodeDirListing((_a2 = await tx.get(parent.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
         if (listing[fname])
-          throw ErrnoError.With("EEXIST", path, syscall);
-        const id = this.allocNew(path, syscall);
+          throw withErrno("EEXIST");
+        const id = this.allocNew(path);
         const inode = new Inode({
           ...options,
           ino: id,
           data: id + 1,
-          size: data.byteLength
+          size: data.byteLength,
+          nlink: 1
         });
-        await tx.set(inode.ino, serialize(inode));
+        await tx.set(inode.ino, inode);
         await tx.set(inode.data, data);
         listing[fname] = inode.ino;
         await tx.set(parent.data, encodeDirListing(listing));
         await tx.commit();
         return inode;
-      } catch (e_24) {
-        env_24.error = e_24;
-        env_24.hasError = true;
+      } catch (e_22) {
+        env_22.error = e_22;
+        env_22.hasError = true;
       } finally {
-        const result_13 = __disposeResources(env_24);
-        if (result_13)
-          await result_13;
+        const result_12 = __disposeResources(env_22);
+        if (result_12)
+          await result_12;
       }
     }
     /**
@@ -12111,36 +12511,37 @@
      * @param data The data to store at the file's data node.
      * @return The Inode for the new file.
      */
-    commitNewSync(path, options, data, syscall) {
+    commitNewSync(path, options, data) {
       var _a2;
-      const env_25 = { stack: [], error: void 0, hasError: false };
+      const env_23 = { stack: [], error: void 0, hasError: false };
       try {
         if (path == "/")
-          throw ErrnoError.With("EEXIST", path, syscall);
-        const tx = __addDisposableResource(env_25, this.transaction(), false);
+          throw withErrno("EEXIST");
+        const tx = __addDisposableResource(env_23, this.transaction(), false);
         const { dir: parentPath, base: fname } = parse(path);
-        const parent = this.findInodeSync(tx, parentPath, syscall);
-        const listing = decodeDirListing((_a2 = tx.getSync(parent.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", parentPath, syscall)));
+        const parent = this.findInodeSync(tx, parentPath);
+        const listing = decodeDirListing((_a2 = tx.getSync(parent.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
         if (listing[fname])
-          throw ErrnoError.With("EEXIST", path, syscall);
-        const id = this.allocNew(path, syscall);
+          throw withErrno("EEXIST");
+        const id = this.allocNew(path);
         const inode = new Inode({
           ...options,
           ino: id,
           data: id + 1,
-          size: data.byteLength
+          size: data.byteLength,
+          nlink: 1
         });
-        tx.setSync(inode.ino, serialize(inode));
+        tx.setSync(inode.ino, inode);
         tx.setSync(inode.data, data);
         listing[fname] = inode.ino;
         tx.setSync(parent.data, encodeDirListing(listing));
         tx.commitSync();
         return inode;
-      } catch (e_25) {
-        env_25.error = e_25;
-        env_25.hasError = true;
+      } catch (e_23) {
+        env_23.error = e_23;
+        env_23.hasError = true;
       } finally {
-        __disposeResources(env_25);
+        __disposeResources(env_23);
       }
     }
     /**
@@ -12150,36 +12551,34 @@
      */
     async remove(path, isDir) {
       var _a2, _b2;
-      const env_26 = { stack: [], error: void 0, hasError: false };
+      const env_24 = { stack: [], error: void 0, hasError: false };
       try {
-        const syscall = isDir ? "rmdir" : "unlink";
-        const tx = __addDisposableResource(env_26, this.transaction(), true);
-        const { dir: parent, base: fileName } = parse(path), parentNode = await this.findInode(tx, parent, syscall), listing = decodeDirListing((_a2 = await tx.get(parentNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", parent, syscall)));
-        if (!listing[fileName]) {
-          throw ErrnoError.With("ENOENT", path, syscall);
-        }
+        const tx = __addDisposableResource(env_24, this.transaction(), true);
+        const { dir: parent, base: fileName } = parse(path), parentNode = await this.findInode(tx, parent), listing = decodeDirListing((_a2 = await tx.get(parentNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+        if (!listing[fileName])
+          throw withErrno("ENOENT");
         const ino = listing[fileName];
-        const inode = new Inode((_b2 = await tx.get(ino)) !== null && _b2 !== void 0 ? _b2 : _throw(ErrnoError.With("ENOENT", path, syscall)));
+        const inode = new Inode((_b2 = await tx.get(ino)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENOENT")));
         delete listing[fileName];
         if (!isDir && isDirectory(inode))
-          throw ErrnoError.With("EISDIR", path, syscall);
+          throw withErrno("EISDIR");
         await tx.set(parentNode.data, encodeDirListing(listing));
         if (inode.nlink > 1) {
           inode.update({ nlink: inode.nlink - 1 });
-          await tx.set(inode.ino, serialize(inode));
+          await tx.set(inode.ino, inode);
         } else {
           await tx.remove(inode.data);
           await tx.remove(ino);
           this._remove(ino);
         }
         await tx.commit();
-      } catch (e_26) {
-        env_26.error = e_26;
-        env_26.hasError = true;
+      } catch (e_24) {
+        env_24.error = e_24;
+        env_24.hasError = true;
       } finally {
-        const result_14 = __disposeResources(env_26);
-        if (result_14)
-          await result_14;
+        const result_13 = __disposeResources(env_24);
+        if (result_13)
+          await result_13;
       }
     }
     /**
@@ -12189,38 +12588,36 @@
      */
     removeSync(path, isDir) {
       var _a2, _b2;
-      const env_27 = { stack: [], error: void 0, hasError: false };
+      const env_25 = { stack: [], error: void 0, hasError: false };
       try {
-        const syscall = isDir ? "rmdir" : "unlink";
-        const tx = __addDisposableResource(env_27, this.transaction(), false);
-        const { dir: parent, base: fileName } = parse(path), parentNode = this.findInodeSync(tx, parent, syscall), listing = decodeDirListing((_a2 = tx.getSync(parentNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", parent, syscall))), ino = listing[fileName];
+        const tx = __addDisposableResource(env_25, this.transaction(), false);
+        const { dir: parent, base: fileName } = parse(path), parentNode = this.findInodeSync(tx, parent), listing = decodeDirListing((_a2 = tx.getSync(parentNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT"))), ino = listing[fileName];
         if (!ino)
-          throw ErrnoError.With("ENOENT", path, syscall);
-        const inode = new Inode((_b2 = tx.getSync(ino)) !== null && _b2 !== void 0 ? _b2 : _throw(ErrnoError.With("ENOENT", path, syscall)));
+          throw withErrno("ENOENT");
+        const inode = new Inode((_b2 = tx.getSync(ino)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENOENT")));
         delete listing[fileName];
-        if (!isDir && isDirectory(inode)) {
-          throw ErrnoError.With("EISDIR", path, syscall);
-        }
+        if (!isDir && isDirectory(inode))
+          throw withErrno("EISDIR");
         tx.setSync(parentNode.data, encodeDirListing(listing));
         if (inode.nlink > 1) {
           inode.update({ nlink: inode.nlink - 1 });
-          tx.setSync(inode.ino, serialize(inode));
+          tx.setSync(inode.ino, inode);
         } else {
           tx.removeSync(inode.data);
           tx.removeSync(ino);
           this._remove(ino);
         }
         tx.commitSync();
-      } catch (e_27) {
-        env_27.error = e_27;
-        env_27.hasError = true;
+      } catch (e_25) {
+        env_25.error = e_25;
+        env_25.hasError = true;
       } finally {
-        __disposeResources(env_27);
+        __disposeResources(env_25);
       }
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/store/map.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/backends/store/map.js
   var SyncMapTransaction = class extends SyncTransaction {
     // eslint-disable-next-line @typescript-eslint/require-await
     async keys() {
@@ -12262,7 +12659,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/memory.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/backends/memory.js
   var InMemoryStore = class extends Map {
     constructor(maxSize = size_max, label) {
       super();
@@ -12303,11 +12700,11 @@
   };
   var InMemory = _InMemory;
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/devices.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/internal/devices.js
   var DeviceFS = class extends StoreFS {
     devicesWithDriver(driver, forceIdentity) {
       if (forceIdentity && typeof driver == "string") {
-        throw err(new ErrnoError(Errno.EINVAL, "Can not fetch devices using only a driver name"), { fs: this });
+        throw err(withErrno("EINVAL", "Can not fetch devices using only a driver name"));
       }
       const devs = [];
       for (const device of this.devices.values()) {
@@ -12342,7 +12739,7 @@
       };
       const path = "/" + (dev.name || driver.name) + (driver.singleton ? "" : this.devicesWithDriver(driver).length);
       if (this.existsSync(path))
-        throw ErrnoError.With("EEXIST", path, "mknod");
+        throw withErrno("EEXIST");
       this.devices.set(path, dev);
       info("Initialized device: " + this._mountPoint + path);
       return dev;
@@ -12363,21 +12760,17 @@
       this.devices = /* @__PURE__ */ new Map();
     }
     async rename(oldPath, newPath) {
-      if (this.devices.has(oldPath)) {
-        throw ErrnoError.With("EPERM", oldPath, "rename");
-      }
-      if (this.devices.has(newPath)) {
-        throw ErrnoError.With("EEXIST", newPath, "rename");
-      }
+      if (this.devices.has(oldPath))
+        throw withErrno("EPERM");
+      if (this.devices.has(newPath))
+        throw withErrno("EEXIST");
       return super.rename(oldPath, newPath);
     }
     renameSync(oldPath, newPath) {
-      if (this.devices.has(oldPath)) {
-        throw ErrnoError.With("EPERM", oldPath, "rename");
-      }
-      if (this.devices.has(newPath)) {
-        throw ErrnoError.With("EEXIST", newPath, "rename");
-      }
+      if (this.devices.has(oldPath))
+        throw withErrno("EPERM");
+      if (this.devices.has(newPath))
+        throw withErrno("EEXIST");
       return super.renameSync(oldPath, newPath);
     }
     async stat(path) {
@@ -12408,24 +12801,22 @@
     }
     async createFile(path, options) {
       if (this.devices.has(path))
-        throw ErrnoError.With("EEXIST", path, "createFile");
+        throw withErrno("EEXIST");
       return super.createFile(path, options);
     }
     createFileSync(path, options) {
       if (this.devices.has(path))
-        throw ErrnoError.With("EEXIST", path, "createFile");
+        throw withErrno("EEXIST");
       return super.createFileSync(path, options);
     }
     async unlink(path) {
-      if (this.devices.has(path)) {
-        throw ErrnoError.With("EPERM", path, "unlink");
-      }
+      if (this.devices.has(path))
+        throw withErrno("EPERM");
       return super.unlink(path);
     }
     unlinkSync(path) {
-      if (this.devices.has(path)) {
-        throw ErrnoError.With("EPERM", path, "unlink");
-      }
+      if (this.devices.has(path))
+        throw withErrno("EPERM");
       return super.unlinkSync(path);
     }
     async rmdir(path) {
@@ -12436,12 +12827,12 @@
     }
     async mkdir(path, options) {
       if (this.devices.has(path))
-        throw ErrnoError.With("EEXIST", path, "mkdir");
+        throw withErrno("EEXIST");
       return super.mkdir(path, options);
     }
     mkdirSync(path, options) {
       if (this.devices.has(path))
-        throw ErrnoError.With("EEXIST", path, "mkdir");
+        throw withErrno("EEXIST");
       return super.mkdirSync(path, options);
     }
     async readdir(path) {
@@ -12463,36 +12854,32 @@
       return entries2;
     }
     async link(target, link3) {
-      if (this.devices.has(target)) {
-        throw ErrnoError.With("EPERM", target, "rmdir");
-      }
-      if (this.devices.has(link3)) {
-        throw ErrnoError.With("EEXIST", link3, "link");
-      }
+      if (this.devices.has(target))
+        throw withErrno("EPERM");
+      if (this.devices.has(link3))
+        throw withErrno("EEXIST");
       return super.link(target, link3);
     }
     linkSync(target, link3) {
-      if (this.devices.has(target)) {
-        throw ErrnoError.With("EPERM", target, "rmdir");
-      }
-      if (this.devices.has(link3)) {
-        throw ErrnoError.With("EEXIST", link3, "link");
-      }
+      if (this.devices.has(target))
+        throw withErrno("EPERM");
+      if (this.devices.has(link3))
+        throw withErrno("EEXIST");
       return super.linkSync(target, link3);
     }
-    async sync(path) {
+    async sync() {
       var _a2, _b2;
-      const device = this.devices.get(path);
-      if (device)
-        return (_b2 = (_a2 = device.driver).sync) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, device);
-      return super.sync(path);
+      for (const device of this.devices.values()) {
+        (_b2 = (_a2 = device.driver).sync) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, device);
+      }
+      return super.sync();
     }
-    syncSync(path) {
+    syncSync() {
       var _a2, _b2;
-      const device = this.devices.get(path);
-      if (device)
-        return (_b2 = (_a2 = device.driver).sync) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, device);
-      return super.syncSync(path);
+      for (const device of this.devices.values()) {
+        (_b2 = (_a2 = device.driver).sync) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, device);
+      }
+      return super.syncSync();
     }
     async read(path, buffer, offset, end) {
       const device = this.devices.get(path);
@@ -12562,7 +12949,7 @@
       buffer.fill(0, offset, end);
     },
     write() {
-      throw ErrnoError.With("ENOSPC", void 0, "write");
+      throw withErrno("ENOSPC");
     }
   };
   var randomDevice = {
@@ -12602,13 +12989,13 @@
     console: consoleDevice
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/config.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/config.js
   var checkAccess = true;
   function _setAccessChecks(value) {
     checkAccess = value;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/index.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/index.js
   var vfs_exports = {};
   __export(vfs_exports, {
     BigIntStatsFs: () => BigIntStatsFs,
@@ -12723,10 +13110,10 @@
     xattr: () => xattr_exports
   });
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/async.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/async.js
   var import_buffer6 = __toESM(require_buffer(), 1);
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/promises.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/promises.js
   var promises_exports = {};
   __export(promises_exports, {
     FileHandle: () => FileHandle,
@@ -12766,7 +13153,7 @@
   });
   var import_buffer5 = __toESM(require_buffer(), 1);
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/readline.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/readline.js
   var Interface = class extends import_index.default {
     get cursor() {
       return this._cursor;
@@ -13127,6 +13514,9 @@
         }
       };
     }
+    [Symbol.dispose]() {
+      this.close();
+    }
     async [Symbol.asyncDispose]() {
       if (this._closed)
         return;
@@ -13165,7 +13555,29 @@
     return true;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/file.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/sync.js
+  var import_buffer4 = __toESM(require_buffer(), 1);
+
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/internal/error.js
+  var ErrnoError = Exception;
+  function withPath(e, path) {
+    e.path = path;
+    return e;
+  }
+  function wrap(fs, prop, path, dest) {
+    const fn = fs[prop];
+    if (typeof fn !== "function")
+      throw new TypeError(`${prop} is not a function`);
+    return function(...args) {
+      try {
+        return fn.call(fs, ...args);
+      } catch (e) {
+        throw setUVMessage(Object.assign(e, { path, dest, syscall: prop.endsWith("Sync") ? prop.slice(0, -4) : prop }));
+      }
+    };
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/file.js
   var SyncHandle = class {
     /**
      * Get the current file position.
@@ -13201,11 +13613,11 @@
       this.close();
     }
     get _isSync() {
-      return !!(this.flag & O_SYNC || this.inode.flags & InodeFlags.Sync);
+      return !!(this.flag & O_SYNC || this.inode.flags & InodeFlags.Sync || this.fs.attributes.has("sync"));
     }
     sync() {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "sync");
+        throw UV("EBADF", "sync", this.path);
       if (!this.dirty)
         return;
       if (!this.fs.attributes.has("no_write"))
@@ -13220,7 +13632,7 @@
     }
     close() {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "close");
+        throw UV("EBADF", "close", this.path);
       this.sync();
       this.dispose();
     }
@@ -13229,23 +13641,28 @@
      */
     dispose(force) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "dispose");
+        throw UV("EBADF", "close", this.path);
       if (this.dirty && !force)
-        throw ErrnoError.With("EBUSY", this.path, "dispose");
+        throw UV("EBUSY", "close", this.path);
       this.closed = true;
     }
     stat() {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "stat");
+        throw UV("EBADF", "stat", this.path);
       return this.inode;
     }
     truncate(length) {
+      if (length < 0)
+        throw UV("EINVAL", "truncate", this.path);
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "truncate");
+        throw UV("EBADF", "truncate", this.path);
+      if (!(this.flag & O_WRONLY || this.flag & O_RDWR))
+        throw UV("EBADF", "truncate", this.path);
+      if (this.fs.attributes.has("readonly"))
+        throw UV("EROFS", "truncate", this.path);
+      if (this.inode.flags & InodeFlags.Immutable)
+        throw UV("EPERM", "truncate", this.path);
       this.dirty = true;
-      if (!(this.flag & O_WRONLY || this.flag & O_RDWR)) {
-        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode", this.path, "truncate");
-      }
       this.inode.mtimeMs = Date.now();
       this.inode.size = length;
       this.inode.ctimeMs = Date.now();
@@ -13263,11 +13680,13 @@
      */
     write(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "write");
+        throw UV("EBADF", "write", this.path);
       if (!(this.flag & O_WRONLY || this.flag & O_RDWR))
-        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode");
+        throw UV("EBADF", "write", this.path);
+      if (this.fs.attributes.has("readonly"))
+        throw UV("EROFS", "write", this.path);
       if (this.inode.flags & InodeFlags.Immutable)
-        throw new ErrnoError(Errno.EPERM, "File is immutable", this.path, "write");
+        throw UV("EPERM", "write", this.path);
       this.dirty = true;
       const end = position + length;
       const slice = buffer.subarray(offset, offset + length);
@@ -13292,10 +13711,10 @@
      */
     read(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "read");
+        throw UV("EBADF", "read", this.path);
       if (this.flag & O_WRONLY)
-        throw new ErrnoError(Errno.EPERM, "File not opened with a readable mode");
-      if (!(this.inode.flags & InodeFlags.NoAtime)) {
+        throw UV("EBADF", "read", this.path);
+      if (!(this.inode.flags & InodeFlags.NoAtime) && !this.fs.attributes.has("no_atime")) {
         this.dirty = true;
         this.inode.atimeMs = Date.now();
       }
@@ -13312,7 +13731,7 @@
     }
     chmod(mode) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chmod");
+        throw UV("EBADF", "chmod", this.path);
       this.dirty = true;
       this.inode.mode = this.inode.mode & (mode > S_IFMT ? ~S_IFMT : S_IFMT) | mode;
       if (this._isSync || mode > S_IFMT)
@@ -13320,7 +13739,7 @@
     }
     chown(uid, gid) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chown");
+        throw UV("EBADF", "chmod", this.path);
       this.dirty = true;
       _chown(this.inode, uid, gid);
       if (this._isSync)
@@ -13331,7 +13750,7 @@
      */
     utimes(atime, mtime) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "utimes");
+        throw UV("EBADF", "utimes", this.path);
       this.dirty = true;
       this.inode.atimeMs = atime;
       this.inode.mtimeMs = mtime;
@@ -13343,7 +13762,7 @@
      */
     streamRead(options) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "streamRead");
+        throw UV("EBADF", "streamRead", this.path);
       return this.fs.streamRead(this.internalPath, options);
     }
     /**
@@ -13351,9 +13770,11 @@
      */
     streamWrite(options) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "streamWrite");
+        throw UV("EBADF", "write", this.path);
       if (this.inode.flags & InodeFlags.Immutable)
-        throw new ErrnoError(Errno.EPERM, "File is immutable", this.path, "streamWrite");
+        throw UV("EPERM", "write", this.path);
+      if (this.fs.attributes.has("readonly"))
+        throw UV("EROFS", "write", this.path);
       return this.fs.streamWrite(this.internalPath, options);
     }
   };
@@ -13369,7 +13790,7 @@
     const map = (_a2 = $ === null || $ === void 0 ? void 0 : $.descriptors) !== null && _a2 !== void 0 ? _a2 : defaultContext.descriptors;
     const value = map.get(fd);
     if (!value)
-      throw new ErrnoError(Errno.EBADF);
+      throw withErrno("EBADF");
     return value;
   }
   function deleteFD($, fd) {
@@ -13377,22 +13798,19 @@
     return ((_a2 = $ === null || $ === void 0 ? void 0 : $.descriptors) !== null && _a2 !== void 0 ? _a2 : defaultContext.descriptors).delete(fd);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/sync.js
-  var import_buffer4 = __toESM(require_buffer(), 1);
-
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/flags.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/flags.js
   var pattern = /[rwasx]{1,2}\+?/;
   function parse2(flag) {
     if (typeof flag == "number")
       return flag;
     if (!pattern.test(flag)) {
-      throw new ErrnoError(Errno.EINVAL, "Invalid flag string: " + flag);
+      throw withErrno("EINVAL", "Invalid flag string: " + flag);
     }
     return toNumber(flag);
   }
   function toNumber(flag) {
     if (!flag.includes("r") && !flag.includes("w") && !flag.includes("a")) {
-      throw new ErrnoError(Errno.EINVAL, "Invalid flag string: " + flag);
+      throw withErrno("EINVAL", "Invalid flag string: " + flag);
     }
     let n = flag.includes("r") ? O_RDONLY : O_CREAT;
     if (flag.includes("w"))
@@ -13418,7 +13836,7 @@
     return mode;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/shared.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/shared.js
   var mounts = /* @__PURE__ */ new Map();
   mount("/", InMemory.create({ label: "root" }));
   function mount(mountPoint, fs) {
@@ -13426,7 +13844,7 @@
       mountPoint = "/" + mountPoint;
     mountPoint = resolve.call(this, mountPoint);
     if (mounts.has(mountPoint))
-      throw err(new ErrnoError(Errno.EINVAL, "Mount point is already in use: " + mountPoint));
+      throw err(withErrno("EINVAL", "Mount point is already in use: " + mountPoint));
     fs._mountPoint = mountPoint;
     mounts.set(mountPoint, fs);
     info(`Mounted ${fs.name} on ${mountPoint}`);
@@ -13448,32 +13866,19 @@
     path = normalizePath(join(root, path));
     const sortedMounts = [...mounts].sort((a, b) => a[0].length > b[0].length ? -1 : 1);
     for (const [mountPoint, fs] of sortedMounts) {
-      if (_isParentOf(mountPoint, path)) {
-        path = path.slice(mountPoint.length > 1 ? mountPoint.length : 0);
-        if (path === "")
-          path = root;
-        return { fs, path, mountPoint, root };
-      }
+      if (!_isParentOf(mountPoint, path))
+        continue;
+      path = path.slice(mountPoint.length > 1 ? mountPoint.length : 0);
+      if (path === "")
+        path = root;
+      const case_fold = fs.attributes.get("case_fold");
+      if (case_fold === "lower")
+        path = path.toLowerCase();
+      if (case_fold === "upper")
+        path = path.toUpperCase();
+      return { fs, path, mountPoint, root };
     }
-    throw alert(new ErrnoError(Errno.EIO, "No file system", path));
-  }
-  function fixPaths(text, paths) {
-    for (const [from, to] of Object.entries(paths)) {
-      text = text === null || text === void 0 ? void 0 : text.replaceAll(from, to);
-    }
-    return text;
-  }
-  function fixError(e, paths) {
-    if (typeof e.stack == "string") {
-      e.stack = fixPaths(e.stack, paths);
-    }
-    try {
-      e.message = fixPaths(e.message, paths);
-    } catch {
-    }
-    if (e.path)
-      e.path = fixPaths(e.path, paths);
-    return e;
+    throw alert(new Exception(Errno.EIO, "No file system for " + path));
   }
   function _statfs(fs, bigint) {
     const md = fs.usage();
@@ -13492,16 +13897,16 @@
     var _a2, _b2, _c2, _d, _e, _f, _g;
     const $ = this !== null && this !== void 0 ? this : defaultContext;
     if (((_a2 = $.credentials) === null || _a2 === void 0 ? void 0 : _a2.uid) !== 0 && ((_b2 = $.credentials) === null || _b2 === void 0 ? void 0 : _b2.gid) !== 0 && ((_c2 = $.credentials) === null || _c2 === void 0 ? void 0 : _c2.euid) !== 0 && ((_d = $.credentials) === null || _d === void 0 ? void 0 : _d.egid) !== 0)
-      throw new ErrnoError(Errno.EPERM, "Can not chroot() as non-root user");
+      throw withErrno("EPERM", "Can not chroot() as non-root user");
     (_e = $.root) !== null && _e !== void 0 ? _e : $.root = "/";
     const newRoot = join($.root, path);
     for (const handle of (_g = (_f = $.descriptors) === null || _f === void 0 ? void 0 : _f.values()) !== null && _g !== void 0 ? _g : []) {
       if (!handle.path.startsWith($.root))
-        throw ErrnoError.With("EBUSY", handle.path, "chroot");
+        throw UV("EBUSY", "chroot", handle.path);
       handle.path = handle.path.slice($.root.length);
     }
     if (newRoot.length > $.root.length)
-      throw new ErrnoError(Errno.EPERM, "Can not chroot() outside of current root");
+      throw withErrno("EPERM", "Can not chroot() outside of current root");
     $.root = newRoot;
   }
   function _isParentOf(parent, child) {
@@ -13512,7 +13917,7 @@
     return child.startsWith(parent);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/watchers.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/watchers.js
   var Watcher = class extends import_index.default {
     /* eslint-disable @typescript-eslint/no-explicit-any */
     off(event, fn, context, once) {
@@ -13528,19 +13933,19 @@
       this.path = path;
     }
     setMaxListeners() {
-      throw ErrnoError.With("ENOSYS", this.path, "Watcher.setMaxListeners");
+      throw UV("ENOSYS", "Watcher.setMaxListeners");
     }
     getMaxListeners() {
-      throw ErrnoError.With("ENOSYS", this.path, "Watcher.getMaxListeners");
+      throw UV("ENOSYS", "Watcher.getMaxListeners");
     }
     prependListener() {
-      throw ErrnoError.With("ENOSYS", this.path, "Watcher.prependListener");
+      throw UV("ENOSYS", "Watcher.prependListener");
     }
     prependOnceListener() {
-      throw ErrnoError.With("ENOSYS", this.path, "Watcher.prependOnceListener");
+      throw UV("ENOSYS", "Watcher.prependOnceListener");
     }
     rawListeners() {
-      throw ErrnoError.With("ENOSYS", this.path, "Watcher.rawListeners");
+      throw UV("ENOSYS", "Watcher.rawListeners");
     }
     ref() {
       return this;
@@ -13637,7 +14042,7 @@
     }
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/sync.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/sync.js
   var __addDisposableResource2 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -13698,25 +14103,40 @@
   });
   function renameSync(oldPath, newPath) {
     oldPath = normalizePath(oldPath);
+    __assertType(oldPath);
     newPath = normalizePath(newPath);
-    const oldMount = resolveMount(oldPath, this);
-    const newMount = resolveMount(newPath, this);
-    if (checkAccess && !statSync.call(this, dirname(oldPath)).hasAccess(W_OK, this)) {
-      throw ErrnoError.With("EACCES", oldPath, "rename");
-    }
+    __assertType(newPath);
+    const src = resolveMount(oldPath, this);
+    const dst = resolveMount(newPath, this);
+    const $ex = { syscall: "rename", path: oldPath, dest: newPath };
+    if (src.fs !== dst.fs)
+      throw UV("EXDEV", $ex);
+    if (dst.path.startsWith(src.path + "/"))
+      throw UV("EBUSY", $ex);
+    const oldStats = statSync.call(this, oldPath);
+    const oldParent = statSync.call(this, dirname(oldPath));
+    const newParent = statSync.call(this, dirname(newPath));
+    let newStats;
     try {
-      if (oldMount === newMount) {
-        oldMount.fs.renameSync(oldMount.path, newMount.path);
-        emitChange(this, "rename", oldPath.toString());
-        emitChange(this, "change", newPath.toString());
-        return;
-      }
-      writeFileSync.call(this, newPath, readFileSync(oldPath));
-      unlinkSync.call(this, oldPath);
-      emitChange(this, "rename", oldPath.toString());
+      newStats = statSync.call(this, newPath);
     } catch (e) {
-      throw fixError(e, { [oldMount.path]: oldPath, [newMount.path]: newPath });
+      setUVMessage(Object.assign(e, $ex));
+      if (e.code != "ENOENT")
+        throw e;
     }
+    if (checkAccess && (!oldParent.hasAccess(R_OK, this) || !newParent.hasAccess(W_OK, this)))
+      throw UV("EACCES", $ex);
+    if (newStats && !isDirectory(oldStats) && isDirectory(newStats))
+      throw UV("EISDIR", $ex);
+    if (newStats && isDirectory(oldStats) && !isDirectory(newStats))
+      throw UV("ENOTDIR", $ex);
+    try {
+      src.fs.renameSync(src.path, dst.path);
+    } catch (e) {
+      throw setUVMessage(Object.assign(e, $ex));
+    }
+    emitChange(this, "rename", oldPath);
+    emitChange(this, "change", newPath);
   }
   function existsSync(path) {
     path = normalizePath(path);
@@ -13724,46 +14144,39 @@
       const { fs, path: resolvedPath } = resolveMount(realpathSync.call(this, path), this);
       return fs.existsSync(resolvedPath);
     } catch (e) {
-      if (e.errno == Errno.ENOENT) {
+      if (e.errno == Errno.ENOENT)
         return false;
-      }
       throw e;
     }
   }
   function statSync(path, options) {
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(realpathSync.call(this, path), this);
+    let stats;
     try {
-      const stats = fs.statSync(resolved);
-      if (checkAccess && !hasAccess(this, stats, R_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "stat");
-      }
-      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
+      stats = fs.statSync(resolved);
     } catch (e) {
-      throw fixError(e, { [resolved]: path });
+      throw setUVMessage(Object.assign(e, { path }));
     }
+    if (checkAccess && !hasAccess(this, stats, R_OK))
+      throw UV("EACCES", { syscall: "stat", path });
+    return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
   }
   function lstatSync(path, options) {
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
-    try {
-      const stats = fs.statSync(resolved);
-      if (checkAccess && !hasAccess(this, stats, R_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "lstat");
-      }
-      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
-    } catch (e) {
-      throw fixError(e, { [resolved]: path });
-    }
+    const stats = wrap(fs, "statSync", path)(resolved);
+    if (checkAccess && !hasAccess(this, stats, R_OK))
+      throw UV("EACCES", { syscall: "lstat", path });
+    return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
   }
   function truncateSync(path, len = 0) {
     const env_1 = { stack: [], error: void 0, hasError: false };
     try {
       const file = __addDisposableResource2(env_1, _openSync.call(this, path, { flag: "r+" }), false);
       len || (len = 0);
-      if (len < 0) {
-        throw new ErrnoError(Errno.EINVAL);
-      }
+      if (len < 0)
+        throw UV("EINVAL", "truncate", path.toString());
       file.truncate(len);
     } catch (e_1) {
       env_1.error = e_1;
@@ -13777,13 +14190,13 @@
     const { fs, path: resolved } = resolveMount(path, this);
     try {
       if (checkAccess && !hasAccess(this, fs.statSync(resolved), W_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "unlink");
+        throw UV("EACCES", "unlink");
       }
       fs.unlinkSync(resolved);
-      emitChange(this, "rename", path.toString());
     } catch (e) {
-      throw fixError(e, { [resolved]: path });
+      throw setUVMessage(Object.assign(e, { path }));
     }
+    emitChange(this, "rename", path.toString());
   }
   function _openSync(path, opt) {
     var _a2;
@@ -13798,19 +14211,19 @@
     }
     if (!stats) {
       if (!(flag & O_CREAT)) {
-        throw ErrnoError.With("ENOENT", path, "_open");
+        throw UV("ENOENT", "open", path);
       }
       const parentStats = fs.statSync(dirname(resolved));
       if (checkAccess && !hasAccess(this, parentStats, W_OK)) {
-        throw ErrnoError.With("EACCES", dirname(path), "_open");
+        throw UV("EACCES", "open", path);
       }
       if (!isDirectory(parentStats)) {
-        throw ErrnoError.With("ENOTDIR", dirname(path), "_open");
+        throw UV("ENOTDIR", "open", path);
       }
       if (!opt.allowDirectory && mode & S_IFDIR)
-        throw ErrnoError.With("EISDIR", path, "_open");
+        throw UV("EISDIR", "open", path);
       if (checkAccess && !hasAccess(this, parentStats, W_OK)) {
-        throw ErrnoError.With("EACCES", dirname(resolved), "_open");
+        throw UV("EACCES", "open", path);
       }
       const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
       const inode = fs.createFileSync(resolved, {
@@ -13821,15 +14234,15 @@
       return new SyncHandle(this, path, fs, resolved, flag, inode);
     }
     if (checkAccess && (!hasAccess(this, stats, mode) || !hasAccess(this, stats, toMode(flag)))) {
-      throw ErrnoError.With("EACCES", path, "_open");
+      throw UV("EACCES", "open", path);
     }
     if (flag & O_EXCL)
-      throw ErrnoError.With("EEXIST", path, "_open");
+      throw UV("EEXIST", "open", path);
     const file = new SyncHandle(this, path, fs, resolved, flag, stats);
+    if (!opt.allowDirectory && stats.mode & S_IFDIR)
+      throw UV("EISDIR", "open", path);
     if (flag & O_TRUNC)
       file.truncate(0);
-    if (!opt.allowDirectory && stats.mode & S_IFDIR)
-      throw ErrnoError.With("EISDIR", path, "_open");
     return file;
   }
   function openSync(path, flag, mode = F_OK) {
@@ -13838,14 +14251,18 @@
   function lopenSync(path, flag, mode) {
     return toFD(_openSync.call(this, path, { flag, mode, preserveSymlinks: true }));
   }
-  function _readFileSync(path, flag, preserveSymlinks) {
+  function readFileSync(path, _options = {}) {
     const env_2 = { stack: [], error: void 0, hasError: false };
     try {
-      const file = __addDisposableResource2(env_2, typeof path == "number" ? fromFD(this, path) : _openSync.call(this, path.toString(), { flag, mode: 420, preserveSymlinks }), false);
+      const options = normalizeOptions(_options, null, "r", 420);
+      const flag = parse2(options.flag);
+      if (flag & O_WRONLY)
+        throw UV("EBADF", "read", path.toString());
+      const file = __addDisposableResource2(env_2, typeof path == "number" ? fromFD(this, path) : _openSync.call(this, path.toString(), { flag: options.flag, mode: 420, preserveSymlinks: false }), false);
       const { size } = file.stat();
-      const data = new Uint8Array(size);
+      const data = import_buffer4.Buffer.alloc(size);
       file.read(data, 0, size, 0);
-      return data;
+      return options.encoding ? data.toString(options.encoding) : data;
     } catch (e_2) {
       env_2.error = e_2;
       env_2.hasError = true;
@@ -13853,29 +14270,20 @@
       __disposeResources2(env_2);
     }
   }
-  function readFileSync(path, _options = {}) {
-    const options = normalizeOptions(_options, null, "r", 420);
-    const flag = parse2(options.flag);
-    if (flag & O_WRONLY) {
-      throw new ErrnoError(Errno.EINVAL, "Flag passed to readFile must allow for reading");
-    }
-    const data = import_buffer4.Buffer.from(_readFileSync.call(this, path, options.flag, false));
-    return options.encoding ? data.toString(options.encoding) : data;
-  }
   function writeFileSync(path, data, _options = {}) {
     const env_3 = { stack: [], error: void 0, hasError: false };
     try {
       const options = normalizeOptions(_options, "utf8", "w+", 420);
       const flag = parse2(options.flag);
       if (!(flag & O_WRONLY || flag & O_RDWR)) {
-        throw new ErrnoError(Errno.EINVAL, "Flag passed to writeFile must allow for writing");
+        throw new Exception(Errno.EINVAL, "Flag passed to writeFile must allow for writing");
       }
       if (typeof data != "string" && !options.encoding) {
-        throw new ErrnoError(Errno.EINVAL, "Encoding not specified");
+        throw new Exception(Errno.EINVAL, "Encoding not specified");
       }
       const encodedData = typeof data == "string" ? import_buffer4.Buffer.from(data, options.encoding) : new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
       if (!encodedData) {
-        throw new ErrnoError(Errno.EINVAL, "Data not specified");
+        throw new Exception(Errno.EINVAL, "Data not specified");
       }
       const file = __addDisposableResource2(env_3, typeof path == "number" ? fromFD(this, path) : _openSync.call(this, path.toString(), {
         flag,
@@ -13897,10 +14305,10 @@
       const options = normalizeOptions(_options, "utf8", "a+", 420);
       const flag = parse2(options.flag);
       if (!(flag & O_APPEND)) {
-        throw new ErrnoError(Errno.EINVAL, "Flag passed to appendFile must allow for appending");
+        throw new Exception(Errno.EINVAL, "Flag passed to appendFile must allow for appending");
       }
       if (typeof data != "string" && !options.encoding) {
-        throw new ErrnoError(Errno.EINVAL, "Encoding not specified");
+        throw new Exception(Errno.EINVAL, "Encoding not specified");
       }
       const encodedData = typeof data == "string" ? import_buffer4.Buffer.from(data, options.encoding) : new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
       const file = __addDisposableResource2(env_4, _openSync.call(this, typeof filename == "number" ? fromFD(this, filename).path : filename.toString(), {
@@ -13927,7 +14335,7 @@
   function ftruncateSync(fd, len = 0) {
     len || (len = 0);
     if (len < 0) {
-      throw new ErrnoError(Errno.EINVAL);
+      throw new Exception(Errno.EINVAL);
     }
     fromFD(this, fd).truncate(len);
   }
@@ -13976,7 +14384,7 @@
   function fchmodSync(fd, mode) {
     const numMode = normalizeMode(mode, -1);
     if (numMode < 0) {
-      throw new ErrnoError(Errno.EINVAL, `Invalid mode.`);
+      throw new Exception(Errno.EINVAL, `Invalid mode.`);
     }
     fromFD(this, fd).chmod(numMode);
   }
@@ -13986,33 +14394,25 @@
   function rmdirSync(path) {
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(realpathSync.call(this, path), this);
-    try {
-      const stats = fs.statSync(resolved);
-      if (!isDirectory(stats)) {
-        throw ErrnoError.With("ENOTDIR", resolved, "rmdir");
-      }
-      if (checkAccess && !hasAccess(this, stats, W_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "rmdir");
-      }
-      fs.rmdirSync(resolved);
-      emitChange(this, "rename", path.toString());
-    } catch (e) {
-      throw fixError(e, { [resolved]: path });
-    }
+    const stats = wrap(fs, "statSync", path)(resolved);
+    if (!isDirectory(stats))
+      throw UV("ENOTDIR", "rmdir", path);
+    if (checkAccess && !hasAccess(this, stats, W_OK))
+      throw UV("EACCES", "rmdir", path);
+    wrap(fs, "rmdirSync", path)(resolved);
+    emitChange(this, "rename", path.toString());
   }
   function mkdirSync(path, options) {
-    var _a2, _b2;
+    var _a2;
     const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
     options = typeof options === "object" ? options : { mode: options };
     const mode = normalizeMode(options === null || options === void 0 ? void 0 : options.mode, 511);
     path = realpathSync.call(this, path);
-    const { fs, path: resolved, root } = resolveMount(path, this);
-    const errorPaths = { [resolved]: path };
-    const __create2 = (path2, parent) => {
-      if (checkAccess && !hasAccess(this, parent, W_OK)) {
-        throw ErrnoError.With("EACCES", dirname(path2), "mkdir");
-      }
-      const inode = fs.mkdirSync(path2, {
+    const { fs, path: resolved } = resolveMount(path, this);
+    const __create2 = (path2, resolved2, parent) => {
+      if (checkAccess && !hasAccess(this, parent, W_OK))
+        throw UV("EACCES", "mkdir", dirname(path2));
+      const inode = wrap(fs, "mkdirSync", path2)(resolved2, {
         mode,
         uid: parent.mode & S_ISUID ? parent.uid : uid,
         gid: parent.mode & S_ISGID ? parent.gid : gid
@@ -14020,44 +14420,32 @@
       emitChange(this, "rename", path2);
       return inode;
     };
-    try {
-      if (!(options === null || options === void 0 ? void 0 : options.recursive)) {
-        __create2(resolved, fs.statSync(dirname(resolved)));
-        return;
-      }
-      const dirs = [];
-      for (let dir = resolved, original = path; !fs.existsSync(dir); dir = dirname(dir), original = dirname(original)) {
-        dirs.unshift(dir);
-        errorPaths[dir] = original;
-      }
-      if (!dirs.length)
-        return;
-      const stats = [fs.statSync(dirname(dirs[0]))];
-      for (const [i, dir] of dirs.entries()) {
-        stats.push(__create2(dir, stats[i]));
-      }
-      return root.length == 1 ? dirs[0] : (_b2 = dirs[0]) === null || _b2 === void 0 ? void 0 : _b2.slice(root.length);
-    } catch (e) {
-      throw fixError(e, errorPaths);
+    if (!(options === null || options === void 0 ? void 0 : options.recursive)) {
+      __create2(path, resolved, wrap(fs, "statSync", dirname(path))(dirname(resolved)));
+      return;
     }
+    const dirs = [];
+    for (let dir = resolved, original = path; !wrap(fs, "existsSync", original)(dir); dir = dirname(dir), original = dirname(original)) {
+      dirs.unshift({ resolved: dir, original });
+    }
+    if (!dirs.length)
+      return;
+    const stats = [wrap(fs, "statSync", dirname(dirs[0].original))(dirname(dirs[0].resolved))];
+    for (const [i, dir] of dirs.entries()) {
+      stats.push(__create2(dir.original, dir.resolved, stats[i]));
+    }
+    return dirs[0].original;
   }
   function readdirSync(path, options) {
     options = typeof options === "object" ? options : { encoding: options };
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(realpathSync.call(this, path), this);
-    let entries2;
-    try {
-      const stats = fs.statSync(resolved);
-      if (checkAccess && !hasAccess(this, stats, R_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "readdir");
-      }
-      if (!isDirectory(stats)) {
-        throw ErrnoError.With("ENOTDIR", resolved, "readdir");
-      }
-      entries2 = fs.readdirSync(resolved);
-    } catch (e) {
-      throw fixError(e, { [resolved]: path });
-    }
+    const stats = wrap(fs, "statSync", path)(resolved);
+    if (checkAccess && !hasAccess(this, stats, R_OK))
+      throw UV("EACCES", "readdir", path);
+    if (!isDirectory(stats))
+      throw UV("ENOTDIR", "readdir", path);
+    const entries2 = wrap(fs, "readdirSync", path)(resolved);
     const values = [];
     for (const entry of entries2) {
       let entryStat;
@@ -14091,32 +14479,27 @@
   function linkSync(targetPath, linkPath) {
     targetPath = normalizePath(targetPath);
     if (checkAccess && !statSync(dirname(targetPath)).hasAccess(R_OK, this)) {
-      throw ErrnoError.With("EACCES", dirname(targetPath), "link");
+      throw UV("EACCES", "link", dirname(targetPath));
     }
     linkPath = normalizePath(linkPath);
     if (checkAccess && !statSync(dirname(linkPath)).hasAccess(W_OK, this)) {
-      throw ErrnoError.With("EACCES", dirname(linkPath), "link");
+      throw UV("EACCES", "link", dirname(linkPath));
     }
     const { fs, path } = resolveMount(targetPath, this);
     const link3 = resolveMount(linkPath, this);
     if (fs != link3.fs) {
-      throw ErrnoError.With("EXDEV", linkPath, "link");
+      throw UV("EXDEV", "link", linkPath);
     }
-    try {
-      if (checkAccess && !hasAccess(this, fs.statSync(path), R_OK)) {
-        throw ErrnoError.With("EACCES", path, "link");
-      }
-      return fs.linkSync(path, link3.path);
-    } catch (e) {
-      throw fixError(e, { [path]: targetPath, [link3.path]: linkPath });
-    }
+    const stats = wrap(fs, "statSync", targetPath)(path);
+    if (checkAccess && !hasAccess(this, stats, R_OK))
+      throw UV("EACCES", "link", path);
+    return wrap(fs, "linkSync", targetPath, linkPath)(path, link3.path);
   }
   function symlinkSync(target, path, type = "file") {
     const env_5 = { stack: [], error: void 0, hasError: false };
     try {
-      if (!["file", "dir", "junction"].includes(type)) {
-        throw new ErrnoError(Errno.EINVAL, "Invalid type: " + type);
-      }
+      if (!["file", "dir", "junction"].includes(type))
+        throw new TypeError("Invalid symlink type: " + type);
       path = normalizePath(path);
       const file = __addDisposableResource2(env_5, _openSync.call(this, path, { flag: "wx", mode: 420 }), false);
       file.write(encodeUTF8(normalizePath(target, true)));
@@ -14129,12 +14512,25 @@
     }
   }
   function readlinkSync(path, options) {
-    const value = import_buffer4.Buffer.from(_readFileSync.call(this, path, "r", true));
-    const encoding = typeof options == "object" ? options === null || options === void 0 ? void 0 : options.encoding : options;
-    if (encoding == "buffer") {
-      return value;
+    const env_6 = { stack: [], error: void 0, hasError: false };
+    try {
+      const handle = __addDisposableResource2(env_6, _openSync.call(this, normalizePath(path), { flag: "r", mode: 420, preserveSymlinks: true }), false);
+      if (!isSymbolicLink(handle.inode))
+        throw new Exception(Errno.EINVAL, "Not a symbolic link: " + path);
+      const size = handle.inode.size;
+      const data = import_buffer4.Buffer.alloc(size);
+      handle.read(data, 0, size, 0);
+      const encoding = typeof options == "object" ? options === null || options === void 0 ? void 0 : options.encoding : options;
+      if (encoding == "buffer") {
+        return data;
+      }
+      return data.toString(encoding !== null && encoding !== void 0 ? encoding : "utf-8");
+    } catch (e_6) {
+      env_6.error = e_6;
+      env_6.hasError = true;
+    } finally {
+      __disposeResources2(env_6);
     }
-    return value.toString(encoding !== null && encoding !== void 0 ? encoding : "utf-8");
   }
   function chownSync(path, uid, gid) {
     const fd = openSync.call(this, path, "r+");
@@ -14169,36 +14565,36 @@
   function _resolveSync($, path, preserveSymlinks) {
     if (preserveSymlinks) {
       const resolved2 = resolveMount(path, $);
-      const stats = resolved2.fs.statSync(resolved2.path);
-      return { ...resolved2, fullPath: path, stats };
+      const stats2 = resolved2.fs.statSync(resolved2.path);
+      return { ...resolved2, fullPath: path, stats: stats2 };
     }
     try {
       const resolved2 = resolveMount(path, $);
-      const stats = resolved2.fs.statSync(resolved2.path);
-      if (!isSymbolicLink(stats)) {
-        return { ...resolved2, fullPath: path, stats };
+      const stats2 = resolved2.fs.statSync(resolved2.path);
+      if (!isSymbolicLink(stats2)) {
+        return { ...resolved2, fullPath: path, stats: stats2 };
       }
-      const target = resolve.call($, dirname(path), readlinkSync.call($, path).toString());
-      return _resolveSync($, target);
+      const target2 = resolve.call($, dirname(path), readlinkSync.call($, path).toString());
+      return _resolveSync($, target2);
     } catch {
     }
     const { base, dir } = parse(path);
     const realDir = dir == "/" ? "/" : realpathSync.call($, dir);
     const maybePath = join(realDir, base);
     const resolved = resolveMount(maybePath, $);
+    let stats;
     try {
-      const stats = resolved.fs.statSync(resolved.path);
-      if (!isSymbolicLink(stats)) {
-        return { ...resolved, fullPath: maybePath, stats };
-      }
-      const target = resolve.call($, realDir, readlinkSync.call($, maybePath).toString());
-      return _resolveSync($, target);
+      stats = resolved.fs.statSync(resolved.path);
     } catch (e) {
-      if (e.code == "ENOENT") {
+      if (e.code === "ENOENT")
         return { ...resolved, fullPath: path };
-      }
-      throw fixError(e, { [resolved.path]: maybePath });
+      throw setUVMessage(Object.assign(e, { syscall: "stat", path: maybePath }));
     }
+    if (!isSymbolicLink(stats)) {
+      return { ...resolved, fullPath: maybePath, stats };
+    }
+    const target = resolve.call($, realDir, readlinkSync.call($, maybePath).toString());
+    return _resolveSync($, target);
   }
   function realpathSync(path, options) {
     var _a2;
@@ -14216,7 +14612,7 @@
     if (!checkAccess)
       return;
     if (!hasAccess(this, statSync.call(this, path), mode)) {
-      throw new ErrnoError(Errno.EACCES);
+      throw new Exception(Errno.EACCES);
     }
   }
   function rmSync(path, options) {
@@ -14248,7 +14644,7 @@
       case S_IFIFO:
       case S_IFSOCK:
       default:
-        throw new ErrnoError(Errno.EPERM, "File type not supported", path, "rm");
+        throw UV("ENOSYS", "rm", path);
     }
   }
   function mkdtempSync(prefix, options) {
@@ -14261,9 +14657,8 @@
   function copyFileSync(source, destination, flags) {
     source = normalizePath(source);
     destination = normalizePath(destination);
-    if (flags && flags & COPYFILE_EXCL && existsSync(destination)) {
-      throw new ErrnoError(Errno.EEXIST, "Destination file already exists", destination, "copyFile");
-    }
+    if (flags && flags & COPYFILE_EXCL && existsSync(destination))
+      throw UV("EEXIST", "copyFile", destination);
     writeFileSync.call(this, destination, readFileSync(source));
     emitChange(this, "rename", destination.toString());
   }
@@ -14291,14 +14686,12 @@
     source = normalizePath(source);
     destination = normalizePath(destination);
     const srcStats = lstatSync.call(this, source);
-    if ((opts === null || opts === void 0 ? void 0 : opts.errorOnExist) && existsSync.call(this, destination)) {
-      throw new ErrnoError(Errno.EEXIST, "Destination file or directory already exists", destination, "cp");
-    }
+    if ((opts === null || opts === void 0 ? void 0 : opts.errorOnExist) && existsSync.call(this, destination))
+      throw UV("EEXIST", "cp", destination);
     switch (srcStats.mode & S_IFMT) {
       case S_IFDIR:
-        if (!(opts === null || opts === void 0 ? void 0 : opts.recursive)) {
-          throw new ErrnoError(Errno.EISDIR, source + " is a directory (not copied)", source, "cp");
-        }
+        if (!(opts === null || opts === void 0 ? void 0 : opts.recursive))
+          throw UV("EISDIR", "cp", source);
         mkdirSync.call(this, destination, { recursive: true });
         for (const dirent of readdirSync.call(this, source, { withFileTypes: true })) {
           if (opts.filter && !opts.filter(join(source, dirent.name), join(destination, dirent.name))) {
@@ -14316,7 +14709,7 @@
       case S_IFIFO:
       case S_IFSOCK:
       default:
-        throw new ErrnoError(Errno.EPERM, "File type not supported", source, "rm");
+        throw UV("ENOSYS", "cp", source);
     }
     if (opts === null || opts === void 0 ? void 0 : opts.preserveTimestamps) {
       utimesSync.call(this, destination, srcStats.atime, srcStats.mtime);
@@ -14330,16 +14723,13 @@
   function globSync(pattern2, options = {}) {
     pattern2 = Array.isArray(pattern2) ? pattern2 : [pattern2];
     const { cwd = "/", withFileTypes = false, exclude = () => false } = options;
-    const regexPatterns = pattern2.map((p) => {
-      p = p.replace(/([.?+^$(){}|[\]/])/g, "\\$1").replace(/\*\*/g, ".*").replace(/\*/g, "[^/]*").replace(/\?/g, ".");
-      return new RegExp(`^${p}$`);
-    });
+    const regexPatterns = pattern2.map(globToRegex);
     const results = [];
     function recursiveList(dir) {
       const entries2 = readdirSync(dir, { withFileTypes, encoding: "utf8" });
       for (const entry of entries2) {
         const fullPath = withFileTypes ? entry.path : dir + "/" + entry;
-        if (exclude(withFileTypes ? entry : fullPath))
+        if (typeof exclude != "function" ? exclude.some((p) => matchesGlob(p, fullPath)) : exclude(withFileTypes ? entry : fullPath))
           continue;
         if (statSync(fullPath).isDirectory() && regexPatterns.some((pattern3) => pattern3.source.includes(".*"))) {
           recursiveList(fullPath);
@@ -14353,7 +14743,7 @@
     return results;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/dir.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/dir.js
   var Dirent = class {
     get name() {
       return basename(this.path);
@@ -14389,9 +14779,8 @@
   };
   var Dir = class {
     checkClosed() {
-      if (this.closed) {
-        throw new ErrnoError(Errno.EBADF, "Can not use closed Dir");
-      }
+      if (this.closed)
+        throw withErrno("EBADF", "Can not use closed Dir");
     }
     constructor(path, context) {
       this.path = path;
@@ -14460,7 +14849,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/streams.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/streams.js
   var import_readable_stream = __toESM(require_browser3(), 1);
   var ReadStream = class extends import_readable_stream.Readable {
     constructor(opts = {}, handleOrPromise) {
@@ -14491,7 +14880,7 @@
         this._bytesRead += value.byteLength;
         this.push(value);
       } catch (err2) {
-        this.destroy(new ErrnoError(Errno.EIO, err2.toString()));
+        this.destroy(new Exception(Errno.EIO, err2.toString()));
       }
     }
     close(callback = () => null) {
@@ -14500,7 +14889,7 @@
         this.emit("close");
         callback(null);
       } catch (err2) {
-        callback(new ErrnoError(Errno.EIO, err2.toString()));
+        callback(new Exception(Errno.EIO, err2.toString()));
       }
     }
     get path() {
@@ -14530,16 +14919,16 @@
     async _write(chunk, encoding, callback) {
       await this.ready;
       if (!this.writer)
-        return callback(warn(new ErrnoError(Errno.EAGAIN, "Underlying writable stream not ready", this._path)));
+        return callback(warn(UV("EAGAIN", "write", this._path)));
       if (encoding != "buffer")
-        return callback(warn(new ErrnoError(Errno.ENOTSUP, "Unsupported encoding for stream", this._path)));
+        return callback(warn(UV("ENOTSUP", "write", this._path)));
       const data = new Uint8Array(chunk.buffer, chunk.byteOffset, chunk.byteLength);
       try {
         await this.writer.write(data);
         this._bytesWritten += chunk.byteLength;
         callback();
       } catch (error) {
-        callback(new ErrnoError(Errno.EIO, error.toString()));
+        callback(new Exception(Errno.EIO, error.toString()));
       }
     }
     async _final(callback) {
@@ -14550,7 +14939,7 @@
         await this.writer.close();
         callback();
       } catch (error) {
-        callback(new ErrnoError(Errno.EIO, error.toString()));
+        callback(new Exception(Errno.EIO, error.toString()));
       }
     }
     close(callback = () => null) {
@@ -14559,7 +14948,7 @@
         this.emit("close");
         callback(null);
       } catch (error) {
-        callback(new ErrnoError(Errno.EIO, error.toString()));
+        callback(new Exception(Errno.EIO, error.toString()));
       }
     }
     get path() {
@@ -14570,7 +14959,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/promises.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/promises.js
   var __addDisposableResource3 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -14665,7 +15054,7 @@
      */
     async chown(uid, gid) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chown");
+        throw UV("EBADF", "chown", this.path);
       this.dirty = true;
       _chown(this.inode, uid, gid);
       if (this._isSync)
@@ -14679,9 +15068,9 @@
     async chmod(mode) {
       const numMode = normalizeMode(mode, -1);
       if (numMode < 0)
-        throw new ErrnoError(Errno.EINVAL, "Invalid mode");
+        throw UV("EINVAL", "chmod", this.path);
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "chmod");
+        throw UV("EBADF", "chmod", this.path);
       this.dirty = true;
       this.inode.mode = this.inode.mode & (numMode > S_IFMT ? ~S_IFMT : S_IFMT) | numMode;
       if (this._isSync || numMode > S_IFMT)
@@ -14699,7 +15088,7 @@
      */
     async sync() {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "sync");
+        throw UV("EBADF", "sync", this.path);
       if (!this.dirty)
         return;
       if (!this.fs.attributes.has("no_write"))
@@ -14712,13 +15101,18 @@
      */
     async truncate(length = 0) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "truncate");
+        throw UV("EBADF", "truncate", this.path);
       if (length < 0)
-        throw new ErrnoError(Errno.EINVAL);
+        throw UV("EINVAL", "truncate", this.path);
+      if (!(this.flag & O_WRONLY || this.flag & O_RDWR))
+        throw UV("EBADF", "truncate", this.path);
+      if (this.fs.attributes.has("readonly"))
+        throw UV("EROFS", "truncate", this.path);
+      if (this.inode.flags & InodeFlags.Immutable)
+        throw UV("EPERM", "truncate", this.path);
       this.dirty = true;
-      if (!(this.flag & O_WRONLY || this.flag & O_RDWR)) {
-        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode", this.path, "truncate");
-      }
+      if (!(this.flag & O_WRONLY || this.flag & O_RDWR))
+        throw UV("EBADF", "truncate", this.path);
       this.inode.mtimeMs = Date.now();
       this.inode.size = length;
       if (this._isSync)
@@ -14732,7 +15126,7 @@
      */
     async utimes(atime, mtime) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "utimes");
+        throw UV("EBADF", "utimes", this.path);
       this.dirty = true;
       this.inode.atimeMs = normalizeTime(atime);
       this.inode.mtimeMs = normalizeTime(mtime);
@@ -14752,12 +15146,8 @@
     async appendFile(data, _options = {}) {
       const options = normalizeOptions(_options, "utf8", "a", 420);
       const flag = parse2(options.flag);
-      if (!(flag & O_APPEND)) {
-        throw new ErrnoError(Errno.EINVAL, "Flag passed to appendFile must allow for appending");
-      }
-      if (typeof data != "string" && !options.encoding) {
-        throw new ErrnoError(Errno.EINVAL, "Encoding not specified");
-      }
+      if (!(flag & O_APPEND))
+        throw UV("EBADF", "write", this.path);
       const encodedData = typeof data == "string" ? import_buffer5.Buffer.from(data, options.encoding) : data;
       await this._write(encodedData, 0, encodedData.length);
       this._emitChange();
@@ -14772,10 +15162,10 @@
      */
     async _read(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "read");
+        throw UV("EBADF", "read", this.path);
       if (this.flag & O_WRONLY)
-        throw new ErrnoError(Errno.EPERM, "File not opened with a readable mode");
-      if (!(this.inode.flags & InodeFlags.NoAtime)) {
+        throw UV("EBADF", "read", this.path);
+      if (!(this.inode.flags & InodeFlags.NoAtime) && !this.fs.attributes.has("no_atime")) {
         this.dirty = true;
         this.inode.atimeMs = Date.now();
       }
@@ -14810,11 +15200,11 @@
     async readFile(_options) {
       const options = normalizeOptions(_options, null, "r", 292);
       const flag = parse2(options.flag);
-      if (flag & O_WRONLY) {
-        throw new ErrnoError(Errno.EINVAL, "Flag passed must allow for reading", this.path, "readFile");
-      }
+      if (flag & O_WRONLY)
+        throw UV("EBADF", "read", this.path);
       const { size } = await this.stat();
-      const { buffer: data } = await this._read(new Uint8Array(size), 0, size, 0);
+      const data = new Uint8Array(size);
+      await this._read(data, 0, size, 0);
       const buffer = import_buffer5.Buffer.from(data);
       return options.encoding ? buffer.toString(options.encoding) : buffer;
     }
@@ -14824,7 +15214,7 @@
      */
     readableWebStream(options = {}) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "readableWebStream");
+        throw UV("EBADF", "readableWebStream", this.path);
       return this.fs.streamRead(this.internalPath, options);
     }
     /**
@@ -14836,9 +15226,9 @@
      */
     writableWebStream(options = {}) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "writableWebStream");
+        throw UV("EBADF", "writableWebStream", this.path);
       if (this.inode.flags & InodeFlags.Immutable)
-        throw new ErrnoError(Errno.EPERM, "File is immutable", this.path, "writableWebStream");
+        throw UV("EPERM", "writableWebStream", this.path);
       return this.fs.streamWrite(this.internalPath, options);
     }
     /**
@@ -14848,7 +15238,7 @@
      */
     readLines(options) {
       if (this.closed || this.flag & O_WRONLY)
-        throw ErrnoError.With("EBADF", this.path, "readLines");
+        throw UV("EBADF", "read", this.path);
       return createInterface({ input: this.createReadStream(options), crlfDelay: Infinity });
     }
     [Symbol.asyncDispose]() {
@@ -14856,10 +15246,9 @@
     }
     async stat(opts) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "stat");
-      if (checkAccess && !hasAccess(this.context, this.inode, R_OK)) {
-        throw ErrnoError.With("EACCES", this.path, "stat");
-      }
+        throw UV("EBADF", "stat", this.path);
+      if (checkAccess && !hasAccess(this.context, this.inode, R_OK))
+        throw UV("EACCES", "stat", this.path);
       return (opts === null || opts === void 0 ? void 0 : opts.bigint) ? new BigIntStats(this.inode) : new Stats(this.inode);
     }
     /**
@@ -14872,11 +15261,13 @@
      */
     async _write(buffer, offset = 0, length = buffer.byteLength - offset, position = this.position) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "write");
+        throw UV("EBADF", "write", this.path);
       if (this.inode.flags & InodeFlags.Immutable)
-        throw new ErrnoError(Errno.EPERM, "File is immutable", this.path, "write");
+        throw UV("EPERM", "write", this.path);
       if (!(this.flag & O_WRONLY || this.flag & O_RDWR))
-        throw new ErrnoError(Errno.EPERM, "File not opened with a writeable mode", this.path, "write");
+        throw UV("EBADF", "write", this.path);
+      if (this.fs.attributes.has("readonly"))
+        throw UV("EROFS", "write", this.path);
       this.dirty = true;
       const end = position + length;
       const slice = buffer.subarray(offset, offset + length);
@@ -14932,12 +15323,8 @@
     async writeFile(data, _options = {}) {
       const options = normalizeOptions(_options, "utf8", "w", 420);
       const flag = parse2(options.flag);
-      if (!(flag & O_WRONLY || flag & O_RDWR)) {
-        throw new ErrnoError(Errno.EINVAL, "Flag passed must allow for writing", this.path, "writeFile");
-      }
-      if (typeof data != "string" && !options.encoding) {
-        throw new ErrnoError(Errno.EINVAL, "Encoding not specified");
-      }
+      if (!(flag & O_WRONLY || flag & O_RDWR))
+        throw UV("EBADF", "writeFile", this.path);
       const encodedData = typeof data == "string" ? import_buffer5.Buffer.from(data, options.encoding) : data;
       await this._write(encodedData, 0, encodedData.length, 0);
       this._emitChange();
@@ -14947,7 +15334,7 @@
      */
     async close() {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "close");
+        throw UV("EBADF", "close", this.path);
       await this.sync();
       this.dispose();
       deleteFD(this.context, this.fd);
@@ -14957,9 +15344,9 @@
      */
     dispose(force) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "dispose");
+        throw UV("EBADF", "close", this.path);
       if (this.dirty && !force)
-        throw ErrnoError.With("EBUSY", this.path, "dispose");
+        throw UV("EBUSY", "close", this.path);
       this.closed = true;
     }
     /**
@@ -14998,7 +15385,7 @@
      */
     createReadStream(options = {}) {
       if (this.closed || this.flag & O_WRONLY)
-        throw ErrnoError.With("EBADF", this.path, "createReadStream");
+        throw UV("EBADF", "createReadStream", this.path);
       return new ReadStream(options, this);
     }
     /**
@@ -15007,40 +15394,50 @@
      */
     createWriteStream(options = {}) {
       if (this.closed)
-        throw ErrnoError.With("EBADF", this.path, "createWriteStream");
+        throw UV("EBADF", "createWriteStream", this.path);
       if (this.inode.flags & InodeFlags.Immutable)
-        throw new ErrnoError(Errno.EPERM, "File is immutable", this.path, "createWriteStream");
+        throw UV("EPERM", "createWriteStream", this.path);
+      if (this.fs.attributes.has("readonly"))
+        throw UV("EROFS", "createWriteStream", this.path);
       return new WriteStream(options, this);
     }
   };
   async function rename(oldPath, newPath) {
     oldPath = normalizePath(oldPath);
+    __assertType(oldPath);
     newPath = normalizePath(newPath);
+    __assertType(newPath);
+    const $ex = { syscall: "rename", path: oldPath, dest: newPath };
     const src = resolveMount(oldPath, this);
     const dst = resolveMount(newPath, this);
-    if (checkAccess && !(await stat.call(this, dirname(oldPath))).hasAccess(W_OK, this)) {
-      throw ErrnoError.With("EACCES", oldPath, "rename");
-    }
-    try {
-      if (src.mountPoint == dst.mountPoint) {
-        await src.fs.rename(src.path, dst.path);
-        emitChange(this, "rename", oldPath.toString());
-        emitChange(this, "change", newPath.toString());
-        return;
-      }
-      await writeFile.call(this, newPath, await readFile(oldPath));
-      await unlink.call(this, oldPath);
-      emitChange(this, "rename", oldPath.toString());
-    } catch (e) {
-      throw fixError(e, { [src.path]: oldPath, [dst.path]: newPath });
-    }
+    if (src.fs !== dst.fs)
+      throw UV("EXDEV", $ex);
+    if (dst.path.startsWith(src.path + "/"))
+      throw UV("EBUSY", $ex);
+    const parent = await stat.call(this, dirname(oldPath)).catch(rethrow($ex));
+    const stats = await stat.call(this, oldPath).catch(rethrow($ex));
+    const newParent = await stat.call(this, dirname(newPath)).catch(rethrow($ex));
+    const newStats = await stat.call(this, newPath).catch((e) => {
+      if (e.code == "ENOENT")
+        return null;
+      throw setUVMessage(Object.assign(e, $ex));
+    });
+    if (checkAccess && (!parent.hasAccess(R_OK, this) || !newParent.hasAccess(W_OK, this)))
+      throw UV("EACCES", $ex);
+    if (newStats && !isDirectory(stats) && isDirectory(newStats))
+      throw UV("EISDIR", $ex);
+    if (newStats && isDirectory(stats) && !isDirectory(newStats))
+      throw UV("ENOTDIR", $ex);
+    await src.fs.rename(src.path, dst.path).catch(rethrow($ex));
+    emitChange(this, "rename", oldPath);
+    emitChange(this, "change", newPath);
   }
   async function exists(path) {
     try {
       const { fs, path: resolved } = resolveMount(await realpath.call(this, path), this);
       return await fs.exists(resolved);
     } catch (e) {
-      if (e instanceof ErrnoError && e.code == "ENOENT") {
+      if (e instanceof Exception && e.code == "ENOENT") {
         return false;
       }
       throw e;
@@ -15049,28 +15446,20 @@
   async function stat(path, options) {
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(await realpath.call(this, path), this);
-    try {
-      const stats = await fs.stat(resolved);
-      if (checkAccess && !hasAccess(this, stats, R_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "stat");
-      }
-      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
-    } catch (e) {
-      throw fixError(e, { [resolved]: path });
-    }
+    const $ex = { syscall: "stat", path };
+    const stats = await fs.stat(resolved).catch(rethrow($ex));
+    if (checkAccess && !hasAccess(this, stats, R_OK))
+      throw UV("EACCES", $ex);
+    return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
   }
   async function lstat(path, options) {
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
-    try {
-      const stats = await fs.stat(resolved);
-      if (checkAccess && !hasAccess(this, stats, R_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "lstat");
-      }
-      return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
-    } catch (e) {
-      throw fixError(e, { [resolved]: path });
-    }
+    const $ex = { syscall: "lstat", path };
+    const stats = await fs.stat(resolved).catch(rethrow($ex));
+    if (checkAccess && !hasAccess(this, stats, R_OK))
+      throw UV("EACCES", $ex);
+    return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
   }
   async function truncate(path, len = 0) {
     const env_1 = { stack: [], error: void 0, hasError: false };
@@ -15089,32 +15478,29 @@
   async function unlink(path) {
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
-    try {
-      if (checkAccess && !hasAccess(this, await fs.stat(resolved), W_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "unlink");
-      }
-      await fs.unlink(resolved);
-      emitChange(this, "rename", path.toString());
-    } catch (e) {
-      throw fixError(e, { [resolved]: path });
-    }
+    const $ex = { syscall: "unlink", path };
+    const stats = await fs.stat(resolved).catch(rethrow($ex));
+    if (checkAccess && !hasAccess(this, stats, W_OK))
+      throw UV("EACCES", $ex);
+    await fs.unlink(resolved).catch(rethrow($ex));
+    emitChange(this, "rename", path.toString());
   }
   async function _open($, path, opt) {
     var _a2;
     path = normalizePath(path);
     const mode = normalizeMode(opt.mode, 420), flag = parse2(opt.flag);
-    const { fullPath, fs, path: resolved, stats } = await _resolve($, path.toString(), opt.preserveSymlinks);
+    const $ex = { syscall: "open", path };
+    const { fs, path: resolved, stats } = await _resolve($, path.toString(), opt.preserveSymlinks);
     if (!stats) {
-      if (!(flag & O_CREAT)) {
-        throw ErrnoError.With("ENOENT", fullPath, "_open");
-      }
+      if (!(flag & O_CREAT))
+        throw UV("ENOENT", $ex);
       const parentStats = await fs.stat(dirname(resolved));
-      if (checkAccess && !hasAccess($, parentStats, W_OK)) {
-        throw ErrnoError.With("EACCES", dirname(fullPath), "_open");
-      }
-      if (!isDirectory(parentStats)) {
-        throw ErrnoError.With("ENOTDIR", dirname(fullPath), "_open");
-      }
+      if (checkAccess && !hasAccess($, parentStats, W_OK))
+        throw UV("EACCES", "open", dirname(path));
+      if (!isDirectory(parentStats))
+        throw UV("ENOTDIR", "open", dirname(path));
+      if (!opt.allowDirectory && mode & S_IFDIR)
+        throw UV("EISDIR", "open", path);
       const { euid: uid, egid: gid } = (_a2 = $ === null || $ === void 0 ? void 0 : $.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
       const inode = await fs.createFile(resolved, {
         mode,
@@ -15123,12 +15509,13 @@
       });
       return new FileHandle($, toFD(new SyncHandle($, path, fs, resolved, flag, inode)));
     }
-    if (checkAccess && !hasAccess($, stats, toMode(flag))) {
-      throw ErrnoError.With("EACCES", fullPath, "_open");
-    }
+    if (checkAccess && !hasAccess($, stats, toMode(flag)))
+      throw UV("EACCES", $ex);
     if (flag & O_EXCL)
-      throw ErrnoError.With("EEXIST", fullPath, "_open");
+      throw UV("EEXIST", $ex);
     const handle = new FileHandle($, toFD(new SyncHandle($, path, fs, resolved, flag, stats)));
+    if (!opt.allowDirectory && mode & S_IFDIR)
+      throw UV("EISDIR", "open", path);
     if (flag & O_TRUNC)
       await handle.truncate(0);
     return handle;
@@ -15157,9 +15544,8 @@
       const options = normalizeOptions(_options, "utf8", "w+", 420);
       const handle = __addDisposableResource3(env_3, path instanceof FileHandle ? path : await open.call(this, path.toString(), options.flag, options.mode), true);
       const _data = typeof data == "string" ? data : data instanceof DataView ? new Uint8Array(data.buffer, data.byteOffset, data.byteLength) : data;
-      if (typeof _data != "string" && !(_data instanceof Uint8Array)) {
-        throw new ErrnoError(Errno.EINVAL, 'The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received ' + typeof data, handle.path, "writeFile");
-      }
+      if (typeof _data != "string" && !(_data instanceof Uint8Array))
+        throw new TypeError('The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received ' + typeof data);
       await handle.writeFile(_data, options);
     } catch (e_3) {
       env_3.error = e_3;
@@ -15175,12 +15561,9 @@
     try {
       const options = normalizeOptions(_options, "utf8", "a", 420);
       const flag = parse2(options.flag);
-      if (!(flag & O_APPEND)) {
-        throw new ErrnoError(Errno.EINVAL, "Flag passed to appendFile must allow for appending");
-      }
-      if (typeof data != "string" && !options.encoding) {
-        throw new ErrnoError(Errno.EINVAL, "Encoding not specified");
-      }
+      const $ex = { syscall: "write", path: path instanceof FileHandle ? path.path : path.toString() };
+      if (!(flag & O_APPEND))
+        throw UV("EBADF", $ex);
       const encodedData = typeof data == "string" ? import_buffer5.Buffer.from(data, options.encoding) : new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
       const handle = __addDisposableResource3(env_4, typeof path == "object" && "fd" in path ? path : await open.call(this, path, options.flag, options.mode), true);
       await handle.appendFile(encodedData, options);
@@ -15196,73 +15579,65 @@
   async function rmdir(path) {
     path = await realpath.call(this, path);
     const { fs, path: resolved } = resolveMount(path, this);
-    try {
-      const stats = await fs.stat(resolved);
-      if (!stats)
-        throw ErrnoError.With("ENOENT", path, "rmdir");
-      if (!isDirectory(stats))
-        throw ErrnoError.With("ENOTDIR", resolved, "rmdir");
-      if (checkAccess && !hasAccess(this, stats, W_OK))
-        throw ErrnoError.With("EACCES", resolved, "rmdir");
-      await fs.rmdir(resolved);
-      emitChange(this, "rename", path.toString());
-    } catch (e) {
-      throw fixError(e, { [resolved]: path });
-    }
+    const $ex = { syscall: "rmdir", path };
+    const stats = await fs.stat(resolved).catch(rethrow($ex));
+    if (!stats)
+      throw UV("ENOENT", $ex);
+    if (!isDirectory(stats))
+      throw UV("ENOTDIR", $ex);
+    if (checkAccess && !hasAccess(this, stats, W_OK))
+      throw UV("EACCES", $ex);
+    await fs.rmdir(resolved).catch(rethrow($ex));
+    emitChange(this, "rename", path.toString());
   }
   async function mkdir(path, options) {
-    var _a2, _b2;
+    var _a2;
     const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
     options = typeof options === "object" ? options : { mode: options };
     const mode = normalizeMode(options === null || options === void 0 ? void 0 : options.mode, 511);
     path = await realpath.call(this, path);
-    const { fs, path: resolved, root } = resolveMount(path, this);
-    const errorPaths = { [resolved]: path };
-    const __create2 = async (path2, parent) => {
+    const { fs, path: resolved } = resolveMount(path, this);
+    const __create2 = async (path2, resolved2, parent) => {
       if (checkAccess && !hasAccess(this, parent, W_OK))
-        throw ErrnoError.With("EACCES", dirname(path2), "mkdir");
-      const inode = await fs.mkdir(path2, {
+        throw UV("EACCES", "mkdir", dirname(path2));
+      const inode = await fs.mkdir(resolved2, {
         mode,
         uid: parent.mode & S_ISUID ? parent.uid : uid,
         gid: parent.mode & S_ISGID ? parent.gid : gid
-      });
+      }).catch(rethrow({ syscall: "mkdir", path: path2 }));
       emitChange(this, "rename", path2);
       return inode;
     };
-    try {
-      if (!(options === null || options === void 0 ? void 0 : options.recursive)) {
-        await __create2(resolved, await fs.stat(dirname(resolved)));
-        return;
-      }
-      const dirs = [];
-      for (let dir = resolved, origDir = path; !await fs.exists(dir); dir = dirname(dir), origDir = dirname(origDir)) {
-        dirs.unshift(dir);
-        errorPaths[dir] = origDir;
-      }
-      if (!dirs.length)
-        return;
-      const stats = [await fs.stat(dirname(dirs[0]))];
-      for (const [i, dir] of dirs.entries()) {
-        stats.push(await __create2(dir, stats[i]));
-      }
-      return root.length == 1 ? dirs[0] : (_b2 = dirs[0]) === null || _b2 === void 0 ? void 0 : _b2.slice(root.length);
-    } catch (e) {
-      throw fixError(e, errorPaths);
+    if (!(options === null || options === void 0 ? void 0 : options.recursive)) {
+      await __create2(path, resolved, await fs.stat(dirname(resolved)).catch(rethrow({ path: dirname(path) })));
+      return;
     }
+    const dirs = [];
+    let origDir = path;
+    for (let dir = resolved; !await fs.exists(dir).catch(rethrow({ syscall: "exists", path: origDir })); dir = dirname(dir), origDir = dirname(origDir)) {
+      dirs.unshift([origDir, dir]);
+    }
+    if (!dirs.length)
+      return;
+    const stats = [await fs.stat(dirname(dirs[0][1])).catch(rethrow({ syscall: "stat", path: dirname(dirs[0][0]) }))];
+    for (const [i, [path2, resolved2]] of dirs.entries()) {
+      stats.push(await __create2(path2, resolved2, stats[i]));
+    }
+    return dirs[0][0];
   }
   async function readdir(path, options) {
     options = typeof options === "object" ? options : { encoding: options };
     path = await realpath.call(this, path);
     const { fs, path: resolved } = resolveMount(path, this);
-    const stats = await fs.stat(resolved).catch((e) => _throw(fixError(e, { [resolved]: path })));
-    if (!stats) {
-      throw ErrnoError.With("ENOENT", path, "readdir");
-    }
+    const $ex = { syscall: "readdir", path };
+    const stats = await fs.stat(resolved).catch(rethrow({ syscall: "stat", path }));
+    if (!stats)
+      throw UV("ENOENT", $ex);
     if (checkAccess && !hasAccess(this, stats, R_OK))
-      throw ErrnoError.With("EACCES", path, "readdir");
+      throw UV("EACCES", $ex);
     if (!isDirectory(stats))
-      throw ErrnoError.With("ENOTDIR", path, "readdir");
-    const entries2 = await fs.readdir(resolved).catch((e) => _throw(fixError(e, { [resolved]: path })));
+      throw UV("ENOTDIR", $ex);
+    const entries2 = await fs.readdir(resolved).catch(rethrow($ex));
     const values = [];
     const addEntry = async (entry) => {
       let entryStats;
@@ -15270,7 +15645,7 @@
         entryStats = await fs.stat(join(resolved, entry)).catch((e) => {
           if (e.code == "ENOENT")
             return;
-          throw fixError(e, { [resolved]: path });
+          throw setUVMessage(Object.assign(e, { syscall: "stat", path: join(path, entry) }));
         });
         if (!entryStats)
           return;
@@ -15298,40 +15673,33 @@
     await Promise.all(entries2.map(addEntry));
     return values;
   }
-  async function link(targetPath, linkPath) {
-    targetPath = normalizePath(targetPath);
-    linkPath = normalizePath(linkPath);
-    const { fs, path } = resolveMount(targetPath, this);
-    const link3 = resolveMount(linkPath, this);
-    if (fs != link3.fs) {
-      throw ErrnoError.With("EXDEV", linkPath, "link");
-    }
-    try {
-      if (checkAccess && !hasAccess(this, await fs.stat(dirname(path)), R_OK)) {
-        throw ErrnoError.With("EACCES", dirname(path), "link");
-      }
-      if (checkAccess && !(await stat.call(this, dirname(linkPath))).hasAccess(W_OK, this)) {
-        throw ErrnoError.With("EACCES", dirname(linkPath), "link");
-      }
-      if (checkAccess && !hasAccess(this, await fs.stat(path), R_OK)) {
-        throw ErrnoError.With("EACCES", path, "link");
-      }
-      return await fs.link(path, link3.path);
-    } catch (e) {
-      throw fixError(e, { [link3.path]: linkPath, [path]: targetPath });
-    }
+  async function link(path, dest) {
+    path = normalizePath(path);
+    dest = normalizePath(dest);
+    const { fs, path: resolved } = resolveMount(path, this);
+    const dst = resolveMount(dest, this);
+    const $ex = { syscall: "link", path };
+    if (fs != dst.fs)
+      throw UV("EXDEV", $ex);
+    const stats = await fs.stat(dirname(resolved)).catch(rethrow({ syscall: "stat", path: dirname(path) }));
+    if (checkAccess && !hasAccess(this, stats, R_OK))
+      throw UV("EACCES", "link", dirname(path));
+    if (checkAccess && !(await stat.call(this, dirname(dest))).hasAccess(W_OK, this))
+      throw UV("EACCES", "link", dirname(dest));
+    if (checkAccess && !hasAccess(this, await fs.stat(resolved).catch(rethrow($ex)), R_OK))
+      throw UV("EACCES", $ex);
+    return await fs.link(resolved, dst.path).catch(rethrow($ex));
   }
-  async function symlink(target, path, type = "file") {
+  async function symlink(dest, path, type = "file") {
     const env_5 = { stack: [], error: void 0, hasError: false };
     try {
-      if (!["file", "dir", "junction"].includes(type)) {
-        throw new ErrnoError(Errno.EINVAL, "Invalid symlink type: " + type);
-      }
+      if (!["file", "dir", "junction"].includes(type))
+        throw new TypeError("Invalid symlink type: " + type);
       path = normalizePath(path);
       if (await exists.call(this, path))
-        throw ErrnoError.With("EEXIST", path, "symlink");
+        throw UV("EEXIST", "symlink", path);
       const handle = __addDisposableResource3(env_5, await _open(this, path, { flag: "w+", mode: 420, preserveSymlinks: true }), true);
-      await handle.writeFile(normalizePath(target, true));
+      await handle.writeFile(normalizePath(dest, true));
       await handle.chmod(S_IFLNK);
     } catch (e_5) {
       env_5.error = e_5;
@@ -15345,7 +15713,11 @@
   async function readlink(path, options) {
     const env_6 = { stack: [], error: void 0, hasError: false };
     try {
-      const handle = __addDisposableResource3(env_6, await _open(this, normalizePath(path), { flag: "r", mode: 420, preserveSymlinks: true }), true);
+      path = normalizePath(path);
+      __assertType(path);
+      const handle = __addDisposableResource3(env_6, await _open(this, path, { flag: "r", mode: 420, preserveSymlinks: true }), true);
+      if (!isSymbolicLink(handle.inode))
+        throw UV("EINVAL", "readlink", path);
       const value = await handle.readFile();
       const encoding = typeof options == "object" ? options === null || options === void 0 ? void 0 : options.encoding : options;
       return encoding == "buffer" ? value : value.toString(encoding !== null && encoding !== void 0 ? encoding : "utf-8");
@@ -15460,36 +15832,35 @@
   async function _resolve($, path, preserveSymlinks) {
     if (preserveSymlinks) {
       const resolved2 = resolveMount(path, $);
-      const stats = await resolved2.fs.stat(resolved2.path).catch(() => void 0);
-      return { ...resolved2, fullPath: path, stats };
+      const stats2 = await resolved2.fs.stat(resolved2.path).catch(() => void 0);
+      return { ...resolved2, fullPath: path, stats: stats2 };
     }
     try {
       const resolved2 = resolveMount(path, $);
-      const stats = await resolved2.fs.stat(resolved2.path);
-      if (!isSymbolicLink(stats)) {
-        return { ...resolved2, fullPath: path, stats };
+      const stats2 = await resolved2.fs.stat(resolved2.path);
+      if (!isSymbolicLink(stats2)) {
+        return { ...resolved2, fullPath: path, stats: stats2 };
       }
-      const target = resolve.call($, dirname(path), (await readlink.call($, path)).toString());
-      return await _resolve($, target);
+      const target2 = resolve.call($, dirname(path), (await readlink.call($, path)).toString());
+      return await _resolve($, target2);
     } catch {
     }
     const { base, dir } = parse(path);
     const realDir = dir == "/" ? "/" : await realpath.call($, dir);
     const maybePath = join(realDir, base);
     const resolved = resolveMount(maybePath, $);
-    try {
-      const stats = await resolved.fs.stat(resolved.path);
-      if (!isSymbolicLink(stats)) {
-        return { ...resolved, fullPath: maybePath, stats };
-      }
-      const target = resolve.call($, realDir, (await readlink.call($, maybePath)).toString());
-      return await _resolve($, target);
-    } catch (e) {
-      if (e.code == "ENOENT") {
-        return { ...resolved, fullPath: path };
-      }
-      throw fixError(e, { [resolved.path]: maybePath });
+    const stats = await resolved.fs.stat(resolved.path).catch((e) => {
+      if (e.code == "ENOENT")
+        return;
+      throw setUVMessage(Object.assign(e, { syscall: "stat", path: maybePath }));
+    });
+    if (!stats)
+      return { ...resolved, fullPath: path };
+    if (!isSymbolicLink(stats)) {
+      return { ...resolved, fullPath: maybePath, stats };
     }
+    const target = resolve.call($, realDir, (await readlink.call($, maybePath)).toString());
+    return await _resolve($, target);
   }
   async function realpath(path, options) {
     var _a2;
@@ -15542,9 +15913,8 @@
     if (!checkAccess)
       return;
     const stats = await stat.call(this, path);
-    if (!stats.hasAccess(mode, this)) {
-      throw new ErrnoError(Errno.EACCES);
-    }
+    if (!stats.hasAccess(mode, this))
+      throw UV("EACCES", "access", path.toString());
   }
   async function rm(path, options) {
     path = normalizePath(path);
@@ -15573,7 +15943,7 @@
       case S_IFIFO:
       case S_IFSOCK:
       default:
-        throw new ErrnoError(Errno.EPERM, "File type not supported", path, "rm");
+        throw UV("ENOSYS", "rm", path);
     }
   }
   async function mkdtemp(prefix, options) {
@@ -15586,9 +15956,8 @@
   async function copyFile(src, dest, mode) {
     src = normalizePath(src);
     dest = normalizePath(dest);
-    if (mode && mode & COPYFILE_EXCL && await exists.call(this, dest)) {
-      throw new ErrnoError(Errno.EEXIST, "Destination file already exists", dest, "copyFile");
-    }
+    if (mode && mode & COPYFILE_EXCL && await exists.call(this, dest))
+      throw UV("EEXIST", "copyFile", dest);
     await writeFile.call(this, dest, await readFile.call(this, src));
     emitChange(this, "rename", dest.toString());
   }
@@ -15600,14 +15969,12 @@
     source = normalizePath(source);
     destination = normalizePath(destination);
     const srcStats = await lstat.call(this, source);
-    if ((opts === null || opts === void 0 ? void 0 : opts.errorOnExist) && await exists.call(this, destination)) {
-      throw new ErrnoError(Errno.EEXIST, "Destination file or directory already exists", destination, "cp");
-    }
+    if ((opts === null || opts === void 0 ? void 0 : opts.errorOnExist) && await exists.call(this, destination))
+      throw UV("EEXIST", "cp", destination);
     switch (srcStats.mode & S_IFMT) {
       case S_IFDIR: {
-        if (!(opts === null || opts === void 0 ? void 0 : opts.recursive)) {
-          throw new ErrnoError(Errno.EISDIR, source + " is a directory (not copied)", source, "cp");
-        }
+        if (!(opts === null || opts === void 0 ? void 0 : opts.recursive))
+          throw UV("EISDIR", "cp", source);
         const [entries2] = await Promise.all(
           [
             readdir.call(this, source, { withFileTypes: true }),
@@ -15633,7 +16000,7 @@
       case S_IFIFO:
       case S_IFSOCK:
       default:
-        throw new ErrnoError(Errno.EPERM, "File type not supported", source, "rm");
+        throw UV("ENOSYS", "cp", source);
     }
     if (opts === null || opts === void 0 ? void 0 : opts.preserveTimestamps) {
       await utimes.call(this, destination, srcStats.atime, srcStats.mtime);
@@ -15647,15 +16014,12 @@
   function glob(pattern2, opt) {
     pattern2 = Array.isArray(pattern2) ? pattern2 : [pattern2];
     const { cwd = "/", withFileTypes = false, exclude = () => false } = opt || {};
-    const regexPatterns = pattern2.map((p) => {
-      p = p.replace(/([.?+^$(){}|[\]/])/g, "$1").replace(/\*\*/g, ".*").replace(/\*/g, "[^/]*").replace(/\?/g, ".");
-      return new RegExp(`^${p}$`);
-    });
+    const regexPatterns = pattern2.map(globToRegex);
     async function* recursiveList(dir) {
       const entries2 = await readdir(dir, { withFileTypes, encoding: "utf8" });
       for (const entry of entries2) {
         const fullPath = withFileTypes ? entry.path : dir + "/" + entry;
-        if (exclude(withFileTypes ? entry : fullPath))
+        if (typeof exclude != "function" ? exclude.some((p) => matchesGlob(p, fullPath)) : exclude(withFileTypes ? entry : fullPath))
           continue;
         if ((await stat(fullPath)).isDirectory() && regexPatterns.some((pattern3) => pattern3.source.includes(".*"))) {
           yield* recursiveList(fullPath);
@@ -15668,7 +16032,7 @@
     return recursiveList(cwd);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/async.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/async.js
   var nop = () => {
   };
   async function collectAsyncIterator(it) {
@@ -15729,9 +16093,8 @@
     const length = typeof lenOrCB === "number" ? lenOrCB : 0;
     cb = typeof lenOrCB === "function" ? lenOrCB : cb;
     const file = new FileHandle(this, fd);
-    if (length < 0) {
-      throw new ErrnoError(Errno.EINVAL);
-    }
+    if (length < 0)
+      throw withErrno("EINVAL");
     file.truncate(length).then(() => cb()).catch(cb);
   }
   function fsync(fd, cb = nop) {
@@ -15756,7 +16119,7 @@
           break;
         default:
           cb = typeof cbLenEnc === "function" ? cbLenEnc : typeof cbPosEnc === "function" ? cbPosEnc : cb;
-          cb(new ErrnoError(Errno.EINVAL, "Invalid arguments"));
+          cb(withErrno("EINVAL"));
           return;
       }
       buffer = import_buffer6.Buffer.from(data);
@@ -15842,9 +16205,8 @@
     if (typeof options == "function") {
       listener = options;
     }
-    if (!listener) {
-      throw new ErrnoError(Errno.EINVAL, "No listener specified", path.toString(), "watchFile");
-    }
+    if (!listener)
+      throw UV("EINVAL", "watch", path.toString());
     if (statWatchers.has(normalizedPath)) {
       const entry = statWatchers.get(normalizedPath);
       if (entry) {
@@ -15942,7 +16304,7 @@
     }).catch((e) => callback(e));
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/ioctl.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/ioctl.js
   var __esDecorate2 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) {
       if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
@@ -15986,6 +16348,17 @@
     if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
     return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
   };
+  var __classPrivateFieldGet2 = function(receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+  };
+  var __classPrivateFieldSet2 = function(receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
+  };
   var XFlag;
   (function(XFlag2) {
     XFlag2[XFlag2["RealTime"] = 1] = "RealTime";
@@ -16007,11 +16380,13 @@
     XFlag2[XFlag2["HasAttr"] = 2147483648] = "HasAttr";
   })(XFlag || (XFlag = {}));
   var fsxattr = (() => {
+    var _fsxattr_xflags_accessor_storage, _fsxattr_extsize_accessor_storage, _fsxattr_nextents_accessor_storage, _fsxattr_projid_accessor_storage, _fsxattr_cowextsize_accessor_storage, _fsxattr_pad_accessor_storage;
     var _a2, _b2, _c2, _d, _e;
     let _classDecorators = [struct()];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
+    let _classSuper = BufferView;
     let _xflags_decorators;
     let _xflags_initializers = [];
     let _xflags_extraInitializers = [];
@@ -16030,14 +16405,56 @@
     let _pad_decorators;
     let _pad_initializers = [];
     let _pad_extraInitializers = [];
-    var fsxattr2 = _classThis = class {
-      constructor(inode = _throw(new ErrnoError(Errno.EINVAL, "fsxattr must be initialized with an inode"))) {
-        this.xflags = __runInitializers2(this, _xflags_initializers, 0);
-        this.extsize = (__runInitializers2(this, _xflags_extraInitializers), __runInitializers2(this, _extsize_initializers, 0));
-        this.nextents = (__runInitializers2(this, _extsize_extraInitializers), __runInitializers2(this, _nextents_initializers, 0));
-        this.projid = (__runInitializers2(this, _nextents_extraInitializers), __runInitializers2(this, _projid_initializers, 0));
-        this.cowextsize = (__runInitializers2(this, _projid_extraInitializers), __runInitializers2(this, _cowextsize_initializers, 0));
-        this.pad = (__runInitializers2(this, _cowextsize_extraInitializers), __runInitializers2(this, _pad_initializers, []));
+    var fsxattr2 = _classThis = class extends _classSuper {
+      /** xflags field value */
+      get xflags() {
+        return __classPrivateFieldGet2(this, _fsxattr_xflags_accessor_storage, "f");
+      }
+      set xflags(value) {
+        __classPrivateFieldSet2(this, _fsxattr_xflags_accessor_storage, value, "f");
+      }
+      /** extsize field value */
+      get extsize() {
+        return __classPrivateFieldGet2(this, _fsxattr_extsize_accessor_storage, "f");
+      }
+      set extsize(value) {
+        __classPrivateFieldSet2(this, _fsxattr_extsize_accessor_storage, value, "f");
+      }
+      /** nextents field value */
+      get nextents() {
+        return __classPrivateFieldGet2(this, _fsxattr_nextents_accessor_storage, "f");
+      }
+      set nextents(value) {
+        __classPrivateFieldSet2(this, _fsxattr_nextents_accessor_storage, value, "f");
+      }
+      /** project identifier */
+      get projid() {
+        return __classPrivateFieldGet2(this, _fsxattr_projid_accessor_storage, "f");
+      }
+      set projid(value) {
+        __classPrivateFieldSet2(this, _fsxattr_projid_accessor_storage, value, "f");
+      }
+      /** CoW extsize field value */
+      get cowextsize() {
+        return __classPrivateFieldGet2(this, _fsxattr_cowextsize_accessor_storage, "f");
+      }
+      set cowextsize(value) {
+        __classPrivateFieldSet2(this, _fsxattr_cowextsize_accessor_storage, value, "f");
+      }
+      get pad() {
+        return __classPrivateFieldGet2(this, _fsxattr_pad_accessor_storage, "f");
+      }
+      set pad(value) {
+        __classPrivateFieldSet2(this, _fsxattr_pad_accessor_storage, value, "f");
+      }
+      constructor(inode = _throw(new Exception(Errno.EINVAL, "fsxattr must be initialized with an inode"))) {
+        super(new ArrayBuffer(sizeof(fsxattr2)));
+        _fsxattr_xflags_accessor_storage.set(this, __runInitializers2(this, _xflags_initializers, void 0));
+        _fsxattr_extsize_accessor_storage.set(this, (__runInitializers2(this, _xflags_extraInitializers), __runInitializers2(this, _extsize_initializers, void 0)));
+        _fsxattr_nextents_accessor_storage.set(this, (__runInitializers2(this, _extsize_extraInitializers), __runInitializers2(this, _nextents_initializers, void 0)));
+        _fsxattr_projid_accessor_storage.set(this, (__runInitializers2(this, _nextents_extraInitializers), __runInitializers2(this, _projid_initializers, void 0)));
+        _fsxattr_cowextsize_accessor_storage.set(this, (__runInitializers2(this, _projid_extraInitializers), __runInitializers2(this, _cowextsize_initializers, void 0)));
+        _fsxattr_pad_accessor_storage.set(this, (__runInitializers2(this, _cowextsize_extraInitializers), __runInitializers2(this, _pad_initializers, [])));
         __runInitializers2(this, _pad_extraInitializers);
         this.extsize = inode.size;
         this.nextents = 1;
@@ -16051,31 +16468,38 @@
         }
       }
     };
+    _fsxattr_xflags_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _fsxattr_extsize_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _fsxattr_nextents_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _fsxattr_projid_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _fsxattr_cowextsize_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _fsxattr_pad_accessor_storage = /* @__PURE__ */ new WeakMap();
     __setFunctionName2(_classThis, "fsxattr");
     (() => {
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-      _xflags_decorators = [(_a2 = types).uint32.bind(_a2)];
-      _extsize_decorators = [(_b2 = types).uint32.bind(_b2)];
-      _nextents_decorators = [(_c2 = types).uint32.bind(_c2)];
-      _projid_decorators = [(_d = types).uint32.bind(_d)];
-      _cowextsize_decorators = [(_e = types).uint32.bind(_e)];
-      _pad_decorators = [types.char(8)];
-      __esDecorate2(null, null, _xflags_decorators, { kind: "field", name: "xflags", static: false, private: false, access: { has: (obj) => "xflags" in obj, get: (obj) => obj.xflags, set: (obj, value) => {
+      var _a3;
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
+      _xflags_decorators = [(_a3 = types2).uint32.bind(_a3)];
+      _extsize_decorators = [(_b2 = types2).uint32.bind(_b2)];
+      _nextents_decorators = [(_c2 = types2).uint32.bind(_c2)];
+      _projid_decorators = [(_d = types2).uint32.bind(_d)];
+      _cowextsize_decorators = [(_e = types2).uint32.bind(_e)];
+      _pad_decorators = [types2.char(8)];
+      __esDecorate2(_classThis, null, _xflags_decorators, { kind: "accessor", name: "xflags", static: false, private: false, access: { has: (obj) => "xflags" in obj, get: (obj) => obj.xflags, set: (obj, value) => {
         obj.xflags = value;
       } }, metadata: _metadata }, _xflags_initializers, _xflags_extraInitializers);
-      __esDecorate2(null, null, _extsize_decorators, { kind: "field", name: "extsize", static: false, private: false, access: { has: (obj) => "extsize" in obj, get: (obj) => obj.extsize, set: (obj, value) => {
+      __esDecorate2(_classThis, null, _extsize_decorators, { kind: "accessor", name: "extsize", static: false, private: false, access: { has: (obj) => "extsize" in obj, get: (obj) => obj.extsize, set: (obj, value) => {
         obj.extsize = value;
       } }, metadata: _metadata }, _extsize_initializers, _extsize_extraInitializers);
-      __esDecorate2(null, null, _nextents_decorators, { kind: "field", name: "nextents", static: false, private: false, access: { has: (obj) => "nextents" in obj, get: (obj) => obj.nextents, set: (obj, value) => {
+      __esDecorate2(_classThis, null, _nextents_decorators, { kind: "accessor", name: "nextents", static: false, private: false, access: { has: (obj) => "nextents" in obj, get: (obj) => obj.nextents, set: (obj, value) => {
         obj.nextents = value;
       } }, metadata: _metadata }, _nextents_initializers, _nextents_extraInitializers);
-      __esDecorate2(null, null, _projid_decorators, { kind: "field", name: "projid", static: false, private: false, access: { has: (obj) => "projid" in obj, get: (obj) => obj.projid, set: (obj, value) => {
+      __esDecorate2(_classThis, null, _projid_decorators, { kind: "accessor", name: "projid", static: false, private: false, access: { has: (obj) => "projid" in obj, get: (obj) => obj.projid, set: (obj, value) => {
         obj.projid = value;
       } }, metadata: _metadata }, _projid_initializers, _projid_extraInitializers);
-      __esDecorate2(null, null, _cowextsize_decorators, { kind: "field", name: "cowextsize", static: false, private: false, access: { has: (obj) => "cowextsize" in obj, get: (obj) => obj.cowextsize, set: (obj, value) => {
+      __esDecorate2(_classThis, null, _cowextsize_decorators, { kind: "accessor", name: "cowextsize", static: false, private: false, access: { has: (obj) => "cowextsize" in obj, get: (obj) => obj.cowextsize, set: (obj, value) => {
         obj.cowextsize = value;
       } }, metadata: _metadata }, _cowextsize_initializers, _cowextsize_extraInitializers);
-      __esDecorate2(null, null, _pad_decorators, { kind: "field", name: "pad", static: false, private: false, access: { has: (obj) => "pad" in obj, get: (obj) => obj.pad, set: (obj, value) => {
+      __esDecorate2(_classThis, null, _pad_decorators, { kind: "accessor", name: "pad", static: false, private: false, access: { has: (obj) => "pad" in obj, get: (obj) => obj.pad, set: (obj, value) => {
         obj.pad = value;
       } }, metadata: _metadata }, _pad_initializers, _pad_extraInitializers);
       __esDecorate2(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
@@ -16085,6 +16509,39 @@
     })();
     return fsxattr2 = _classThis;
   })();
+  var FileFlag;
+  (function(FileFlag2) {
+    FileFlag2[FileFlag2["SecureRm"] = 1] = "SecureRm";
+    FileFlag2[FileFlag2["Undelete"] = 2] = "Undelete";
+    FileFlag2[FileFlag2["Compress"] = 4] = "Compress";
+    FileFlag2[FileFlag2["Sync"] = 8] = "Sync";
+    FileFlag2[FileFlag2["Immutable"] = 16] = "Immutable";
+    FileFlag2[FileFlag2["Append"] = 32] = "Append";
+    FileFlag2[FileFlag2["NoDump"] = 64] = "NoDump";
+    FileFlag2[FileFlag2["NoAtime"] = 128] = "NoAtime";
+    FileFlag2[FileFlag2["Dirty"] = 256] = "Dirty";
+    FileFlag2[FileFlag2["CompressBlk"] = 512] = "CompressBlk";
+    FileFlag2[FileFlag2["NoCompress"] = 1024] = "NoCompress";
+    FileFlag2[FileFlag2["Encrypt"] = 2048] = "Encrypt";
+    FileFlag2[FileFlag2["Btree"] = 4096] = "Btree";
+    FileFlag2[FileFlag2["Index"] = 4096] = "Index";
+    FileFlag2[FileFlag2["IMagic"] = 8192] = "IMagic";
+    FileFlag2[FileFlag2["JournalData"] = 16384] = "JournalData";
+    FileFlag2[FileFlag2["NoTail"] = 32768] = "NoTail";
+    FileFlag2[FileFlag2["DirSync"] = 65536] = "DirSync";
+    FileFlag2[FileFlag2["TopDir"] = 131072] = "TopDir";
+    FileFlag2[FileFlag2["HugeFile"] = 262144] = "HugeFile";
+    FileFlag2[FileFlag2["Extent"] = 524288] = "Extent";
+    FileFlag2[FileFlag2["Verity"] = 1048576] = "Verity";
+    FileFlag2[FileFlag2["EaInode"] = 2097152] = "EaInode";
+    FileFlag2[FileFlag2["EofBlocks"] = 4194304] = "EofBlocks";
+    FileFlag2[FileFlag2["NoCow"] = 8388608] = "NoCow";
+    FileFlag2[FileFlag2["Dax"] = 33554432] = "Dax";
+    FileFlag2[FileFlag2["InlineData"] = 268435456] = "InlineData";
+    FileFlag2[FileFlag2["ProjInherit"] = 536870912] = "ProjInherit";
+    FileFlag2[FileFlag2["CaseFold"] = 1073741824] = "CaseFold";
+    FileFlag2[FileFlag2["Reserved"] = 2147483648] = "Reserved";
+  })(FileFlag || (FileFlag = {}));
   var IOC;
   (function(IOC2) {
     IOC2[IOC2["GetFlags"] = 2148034049] = "GetFlags";
@@ -16145,9 +16602,9 @@
           return `/sys/fs/${fs.name}/${fs.uuid}`;
       }
     } catch (e) {
-      throw fixError(e, { [resolved]: path });
+      throw setUVMessage(Object.assign(e, { syscall: "ioctl", path }));
     }
-    throw new ErrnoError(Errno.ENOTSUP, "Unsupported command: " + command, path, "ioctl");
+    throw UV("ENOTSUP", "ioctl", path);
   }
   function ioctlSync(path, command, ...args) {
     path = normalizePath(path);
@@ -16188,12 +16645,12 @@
           return `/sys/fs/${fs.name}/${fs.uuid}`;
       }
     } catch (e) {
-      throw fixError(e, { [resolved]: path });
+      throw setUVMessage(Object.assign(e, { syscall: "ioctl", path }));
     }
-    throw new ErrnoError(Errno.ENOTSUP, "Unsupported command: " + command, path, "ioctl");
+    throw UV("ENOTSUP", "ioctl", path);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/vfs/xattr.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/vfs/xattr.js
   var xattr_exports = {};
   __export(xattr_exports, {
     get: () => get,
@@ -16205,98 +16662,88 @@
     set: () => set,
     setSync: () => setSync
   });
-  var import_buffer7 = __toESM(require_buffer(), 1);
+  var import_buffer8 = __toESM(require_buffer(), 1);
   var _allowedRestrictedNames = [];
   function checkName($, name, path, syscall) {
     if (!name.startsWith("user.") && !_allowedRestrictedNames.includes(name))
-      throw new ErrnoError(Errno.EPERM, "Only attributes in the user namespace are supported", path, syscall);
+      throw UV("ENOTSUP", syscall, path);
   }
   async function get(path, name, opt = {}) {
     var _a2;
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     checkName(this, name, path, "xattr.get");
-    try {
-      const inode = await fs.stat(resolved);
-      if (checkAccess && !hasAccess(this, inode, R_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "xattr.get");
-      }
-      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
-      const attr = inode.attributes.get(name);
-      if (!attr)
-        throw ErrnoError.With("ENODATA", resolved, "xattr.get");
-      const buffer = import_buffer7.Buffer.from(attr.value);
-      return opt.encoding == "buffer" || !opt.encoding ? buffer : buffer.toString(opt.encoding);
-    } catch (e) {
-      throw fixError(e, { [resolved]: path });
-    }
+    const inode = await fs.stat(resolved).catch(rethrow("xattr.get", path));
+    if (checkAccess && !hasAccess(this, inode, R_OK))
+      throw UV("EACCES", "xattr.get", path);
+    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    const value = inode.attributes.get(name);
+    if (!value)
+      throw UV("ENODATA", "xattr.get", path);
+    const buffer = import_buffer8.Buffer.from(value);
+    return opt.encoding == "buffer" || !opt.encoding ? buffer : buffer.toString(opt.encoding);
   }
   function getSync(path, name, opt = {}) {
     var _a2;
     path = normalizePath(path);
     checkName(this, name, path, "xattr.get");
     const { fs, path: resolved } = resolveMount(path, this);
+    let inode;
     try {
-      const inode = fs.statSync(resolved);
-      if (checkAccess && !hasAccess(this, inode, R_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "xattr.get");
-      }
-      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
-      const attr = inode.attributes.get(name);
-      if (!attr)
-        throw ErrnoError.With("ENODATA", resolved, "xattr.get");
-      const buffer = import_buffer7.Buffer.from(attr.value);
-      return opt.encoding == "buffer" || !opt.encoding ? buffer : buffer.toString(opt.encoding);
+      inode = fs.statSync(resolved);
     } catch (e) {
-      throw fixError(e, { [resolved]: path });
+      throw setUVMessage(Object.assign(e, { path }));
     }
+    if (checkAccess && !hasAccess(this, inode, R_OK))
+      throw UV("EACCES", "xattr.get", path);
+    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    const value = inode.attributes.get(name);
+    if (!value)
+      throw UV("ENODATA", "xattr.get", path);
+    const buffer = import_buffer8.Buffer.from(value);
+    return opt.encoding == "buffer" || !opt.encoding ? buffer : buffer.toString(opt.encoding);
   }
   async function set(path, name, value, opt = {}) {
     var _a2;
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     checkName(this, name, path, "xattr.set");
-    try {
-      const inode = await fs.stat(resolved);
-      if (checkAccess && !hasAccess(this, inode, W_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "xattr.set");
-      }
-      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
-      const attr = inode.attributes.get(name);
-      if (opt.create && attr) {
-        throw ErrnoError.With("EEXIST", resolved, "xattr.set");
-      }
-      if (opt.replace && !attr) {
-        throw ErrnoError.With("ENODATA", resolved, "xattr.set");
-      }
-      inode.attributes.set(name, import_buffer7.Buffer.from(value));
-      await fs.touch(resolved, pick(inode, "attributes"));
-    } catch (e) {
-      throw fixError(e, { [resolved]: path });
-    }
+    const inode = await fs.stat(resolved).catch(rethrow("xattr.set", path));
+    if (checkAccess && !hasAccess(this, inode, W_OK))
+      throw UV("EACCES", "xattr.set", path);
+    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    const attr = inode.attributes.get(name);
+    if (opt.create && attr)
+      throw UV("EEXIST", "xattr.set", path);
+    if (opt.replace && !attr)
+      throw UV("ENODATA", "xattr.set", path);
+    inode.attributes.set(name, import_buffer8.Buffer.from(value));
+    await fs.touch(resolved, inode).catch(rethrow("xattr.set", path));
   }
   function setSync(path, name, value, opt = {}) {
     var _a2;
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     checkName(this, name, path, "xattr.set");
+    let inode;
     try {
-      const inode = fs.statSync(resolved);
-      if (checkAccess && !hasAccess(this, inode, W_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "xattr.set");
-      }
-      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
-      const attr = inode.attributes.get(name);
-      if (opt.create && attr) {
-        throw ErrnoError.With("EEXIST", resolved, "xattr.set");
-      }
-      if (opt.replace && !attr) {
-        throw ErrnoError.With("ENODATA", resolved, "xattr.set");
-      }
-      inode.attributes.set(name, import_buffer7.Buffer.from(value));
-      fs.touchSync(resolved, pick(inode, "attributes"));
+      inode = fs.statSync(resolved);
     } catch (e) {
-      throw fixError(e, { [resolved]: path });
+      throw setUVMessage(Object.assign(e, { path }));
+    }
+    if (checkAccess && !hasAccess(this, inode, W_OK))
+      throw UV("EACCES", "xattr.set", path);
+    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    const attr = inode.attributes.get(name);
+    if (opt.create && attr)
+      throw UV("EEXIST", "xattr.set", path);
+    if (opt.replace && !attr)
+      throw UV("ENODATA", "xattr.set", path);
+    inode.attributes.set(name, import_buffer8.Buffer.from(value));
+    try {
+      fs.touchSync(resolved, inode);
+    } catch (e) {
+      throw setUVMessage(Object.assign(e, { path }));
     }
   }
   async function remove(path, name) {
@@ -16304,76 +16751,78 @@
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     checkName(this, name, path, "xattr.remove");
-    try {
-      const inode = await fs.stat(resolved);
-      if (checkAccess && !hasAccess(this, inode, W_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "xattr.remove");
-      }
-      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
-      const attr = inode.attributes.get(name);
-      if (!attr)
-        throw ErrnoError.With("ENODATA", resolved, "xattr.remove");
-      inode.attributes.remove(name);
-      await fs.touch(resolved, pick(inode, "attributes"));
-    } catch (e) {
-      throw fixError(e, { [resolved]: path });
-    }
+    const inode = await fs.stat(resolved).catch(rethrow("xattr.remove", path));
+    if (checkAccess && !hasAccess(this, inode, W_OK))
+      throw UV("EACCES", "xattr.remove", path);
+    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    const attr = inode.attributes.get(name);
+    if (!attr)
+      throw UV("ENODATA", "xattr.remove", path);
+    inode.attributes.remove(name);
+    await fs.touch(resolved, inode);
   }
   function removeSync(path, name) {
     var _a2;
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     checkName(this, name, path, "xattr.remove");
+    let inode;
     try {
-      const inode = fs.statSync(resolved);
-      if (checkAccess && !hasAccess(this, inode, W_OK)) {
-        throw ErrnoError.With("EACCES", resolved, "xattr.remove");
-      }
-      (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
-      const attr = inode.attributes.get(name);
-      if (!attr)
-        throw ErrnoError.With("ENODATA", resolved, "xattr.remove");
-      inode.attributes.remove(name);
-      fs.touchSync(resolved, pick(inode, "attributes"));
+      inode = fs.statSync(resolved);
     } catch (e) {
-      throw fixError(e, { [resolved]: path });
+      throw setUVMessage(Object.assign(e, { path }));
+    }
+    if (checkAccess && !hasAccess(this, inode, W_OK))
+      throw UV("EACCES", "xattr.remove", path);
+    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    const attr = inode.attributes.get(name);
+    if (!attr)
+      throw UV("ENODATA", "xattr.remove", path);
+    inode.attributes.remove(name);
+    try {
+      fs.touchSync(resolved, inode);
+    } catch (e) {
+      throw setUVMessage(Object.assign(e, { path }));
     }
   }
   async function list(path) {
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
-    try {
-      const inode = await fs.stat(resolved);
-      if (!inode.attributes)
-        return [];
-      return inode.attributes.keys();
-    } catch (e) {
-      throw fixError(e, { [resolved]: path });
-    }
+    const inode = await fs.stat(resolved).catch(rethrow("xattr.list", path));
+    if (!inode.attributes)
+      return [];
+    return inode.attributes.keys().toArray();
   }
   function listSync(path) {
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
+    let inode;
     try {
-      const inode = fs.statSync(resolved);
-      if (!inode.attributes)
-        return [];
-      return inode.attributes.keys();
+      inode = fs.statSync(resolved);
     } catch (e) {
-      throw fixError(e, { [resolved]: path });
+      throw setUVMessage(Object.assign(e, { path }));
     }
+    if (!inode.attributes)
+      return [];
+    return inode.attributes.keys().toArray();
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/config.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/config.js
+  function configureFileSystem(fs, config) {
+    if (config.disableAsyncCache)
+      fs.attributes.set("no_async_preload");
+    if (config.caseFold)
+      fs.attributes.set("case_fold", config.caseFold);
+  }
   function isMountConfig(arg) {
     return isBackendConfig(arg) || isBackend(arg) || arg instanceof FileSystem;
   }
   async function resolveMountConfig(configuration, _depth = 0) {
     if (typeof configuration !== "object" || configuration == null) {
-      throw err(new ErrnoError(Errno.EINVAL, "Invalid options on mount configuration"));
+      throw log_exports.err(withErrno("EINVAL", "Invalid options on mount configuration"));
     }
     if (!isMountConfig(configuration)) {
-      throw err(new ErrnoError(Errno.EINVAL, "Invalid mount configuration"));
+      throw log_exports.err(withErrno("EINVAL", "Invalid mount configuration"));
     }
     if (configuration instanceof FileSystem) {
       await configuration.ready();
@@ -16387,20 +16836,19 @@
         continue;
       if (!isMountConfig(value))
         continue;
-      info("Resolving nested mount configuration: " + key);
+      log_exports.info("Resolving nested mount configuration: " + key);
       if (_depth > 10) {
-        throw err(new ErrnoError(Errno.EINVAL, "Invalid configuration, too deep and possibly infinite"));
+        throw log_exports.err(withErrno("EINVAL", "Invalid configuration, too deep and possibly infinite"));
       }
       configuration[key] = await resolveMountConfig(value, ++_depth);
     }
     const { backend } = configuration;
     if (typeof backend.isAvailable == "function" && !await backend.isAvailable(configuration)) {
-      throw err(new ErrnoError(Errno.EPERM, "Backend not available: " + backend.name));
+      throw log_exports.err(withErrno("EPERM", "Backend not available: " + backend.name));
     }
     checkOptions(backend, configuration);
     const mount3 = await backend.create(configuration);
-    if (configuration.disableAsyncCache)
-      mount3.attributes.set("no_async");
+    configureFileSystem(mount3, configuration);
     await mount3.ready();
     return mount3;
   }
@@ -16421,36 +16869,41 @@
     if (!stats) {
       await promises_exports.mkdir(path, { recursive: true });
     } else if (!stats.isDirectory()) {
-      throw ErrnoError.With("ENOTDIR", path, "configure");
+      throw withErrno("ENOTDIR", "Missing directory at mount point: " + path);
     }
     mount(path, mount3);
   }
   function addDevice(driver, options) {
     const devfs = mounts.get("/dev");
     if (!(devfs instanceof DeviceFS))
-      throw crit(new ErrnoError(Errno.ENOTSUP, "/dev does not exist or is not a device file system"));
+      throw log_exports.crit(withErrno("ENOTSUP", "/dev does not exist or is not a device file system"));
     return devfs._createDevice(driver, options);
   }
   async function configure2(configuration) {
-    var _a2;
-    const uid = "uid" in configuration ? configuration.uid || 0 : 0;
-    const gid = "gid" in configuration ? configuration.gid || 0 : 0;
-    Object.assign(defaultContext.credentials, createCredentials({ uid, gid }));
+    var _a2, _b2;
+    Object.assign(defaultContext.credentials, createCredentials({
+      uid: configuration.uid || 0,
+      gid: configuration.gid || 0
+    }));
     _setAccessChecks(!configuration.disableAccessChecks);
     if (configuration.log)
-      configure(configuration.log);
+      log_exports.configure(configuration.log);
     if (configuration.mounts) {
       for (const [_point, mountConfig] of Object.entries(configuration.mounts).sort(([a], [b]) => a.length > b.length ? 1 : -1)) {
         const point = _point.startsWith("/") ? _point : "/" + _point;
         if (isBackendConfig(mountConfig)) {
           (_a2 = mountConfig.disableAsyncCache) !== null && _a2 !== void 0 ? _a2 : mountConfig.disableAsyncCache = configuration.disableAsyncCache || false;
+          (_b2 = mountConfig.caseFold) !== null && _b2 !== void 0 ? _b2 : mountConfig.caseFold = configuration.caseFold;
         }
         if (point == "/")
           umount("/");
         await mount2(point, await resolveMountConfig(mountConfig));
       }
     }
-    if (configuration.addDevices) {
+    for (const fs of mounts.values()) {
+      configureFileSystem(fs, configuration);
+    }
+    if (configuration.addDevices && !mounts.has("/dev")) {
       const devfs = new DeviceFS();
       devfs.addDefaults();
       await devfs.ready();
@@ -16458,7 +16911,7 @@
     }
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/cow.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/backends/cow.js
   var journalOperations = ["delete"];
   function isJournalOp(op) {
     return journalOperations.includes(op);
@@ -16478,7 +16931,7 @@
      */
     fromString(value) {
       if (!value.startsWith(journalMagicString))
-        throw err(new ErrnoError(Errno.EINVAL, "Invalid journal contents, refusing to parse"));
+        throw err(withErrno("EINVAL", "Invalid journal contents, refusing to parse"));
       for (const line of value.split("\n")) {
         if (line.startsWith("#"))
           continue;
@@ -16527,7 +16980,7 @@
       this.writable = writable;
       this.journal = journal;
       if (writable.attributes.has("no_write")) {
-        throw err(new ErrnoError(Errno.EINVAL, "Writable file system can not be written to"));
+        throw err(withErrno("EINVAL", "Writable file system can not be written to"));
       }
       readable.attributes.set("no_write");
     }
@@ -16540,13 +16993,11 @@
     usage() {
       return this.readable.usage();
     }
-    async sync(path) {
-      await this.copyForWrite(path);
-      await this.writable.sync(path);
+    async sync() {
+      await this.writable.sync();
     }
-    syncSync(path) {
-      this.copyForWriteSync(path);
-      this.writable.syncSync(path);
+    syncSync() {
+      this.writable.syncSync();
     }
     async read(path, buffer, offset, end) {
       return await this.writable.exists(path) ? await this.writable.read(path, buffer, offset, end) : await this.readable.read(path, buffer, offset, end);
@@ -16567,9 +17018,8 @@
       try {
         await this.writable.rename(oldPath, newPath);
       } catch {
-        if (this.isDeleted(oldPath)) {
-          throw ErrnoError.With("ENOENT", oldPath, "rename");
-        }
+        if (this.isDeleted(oldPath))
+          throw withErrno("ENOENT");
       }
     }
     renameSync(oldPath, newPath) {
@@ -16577,9 +17027,8 @@
       try {
         this.writable.renameSync(oldPath, newPath);
       } catch {
-        if (this.isDeleted(oldPath)) {
-          throw ErrnoError.With("ENOENT", oldPath, "rename");
-        }
+        if (this.isDeleted(oldPath))
+          throw withErrno("ENOENT");
       }
     }
     async stat(path) {
@@ -16587,10 +17036,8 @@
         return await this.writable.stat(path);
       } catch {
         if (this.isDeleted(path))
-          throw ErrnoError.With("ENOENT", path, "stat");
-        const oldStat = await this.readable.stat(path);
-        oldStat.mode |= 146;
-        return oldStat;
+          throw withErrno("ENOENT");
+        return await this.readable.stat(path);
       }
     }
     statSync(path) {
@@ -16598,10 +17045,8 @@
         return this.writable.statSync(path);
       } catch {
         if (this.isDeleted(path))
-          throw ErrnoError.With("ENOENT", path, "stat");
-        const oldStat = this.readable.statSync(path);
-        oldStat.mode |= 146;
-        return oldStat;
+          throw withErrno("ENOENT");
+        return this.readable.statSync(path);
       }
     }
     async touch(path, metadata) {
@@ -16629,9 +17074,8 @@
       this.writable.linkSync(srcpath, dstpath);
     }
     async unlink(path) {
-      if (!await this.exists(path)) {
-        throw ErrnoError.With("ENOENT", path, "unlink");
-      }
+      if (!await this.exists(path))
+        throw withErrno("ENOENT");
       if (await this.writable.exists(path)) {
         await this.writable.unlink(path);
       }
@@ -16641,7 +17085,7 @@
     }
     unlinkSync(path) {
       if (!this.existsSync(path))
-        throw ErrnoError.With("ENOENT", path, "unlink");
+        throw withErrno("ENOENT");
       if (this.writable.existsSync(path)) {
         this.writable.unlinkSync(path);
       }
@@ -16650,50 +17094,46 @@
       }
     }
     async rmdir(path) {
-      if (!await this.exists(path)) {
-        throw ErrnoError.With("ENOENT", path, "rmdir");
-      }
+      if (!await this.exists(path))
+        throw withErrno("ENOENT");
       if (await this.writable.exists(path)) {
         await this.writable.rmdir(path);
       }
       if (!await this.exists(path)) {
         return;
       }
-      if ((await this.readdir(path)).length) {
-        throw ErrnoError.With("ENOTEMPTY", path, "rmdir");
-      }
+      if ((await this.readdir(path)).length)
+        throw withErrno("ENOTEMPTY");
       this.journal.add("delete", path);
     }
     rmdirSync(path) {
-      if (!this.existsSync(path)) {
-        throw ErrnoError.With("ENOENT", path, "rmdir");
-      }
+      if (!this.existsSync(path))
+        throw withErrno("ENOENT");
       if (this.writable.existsSync(path)) {
         this.writable.rmdirSync(path);
       }
       if (!this.existsSync(path)) {
         return;
       }
-      if (this.readdirSync(path).length) {
-        throw ErrnoError.With("ENOTEMPTY", path, "rmdir");
-      }
+      if (this.readdirSync(path).length)
+        throw withErrno("ENOTEMPTY");
       this.journal.add("delete", path);
     }
     async mkdir(path, options) {
       if (await this.exists(path))
-        throw ErrnoError.With("EEXIST", path, "mkdir");
+        throw withErrno("EEXIST");
       await this.createParentDirectories(path);
       return await this.writable.mkdir(path, options);
     }
     mkdirSync(path, options) {
       if (this.existsSync(path))
-        throw ErrnoError.With("EEXIST", path, "mkdir");
+        throw withErrno("EEXIST");
       this.createParentDirectoriesSync(path);
       return this.writable.mkdirSync(path, options);
     }
     async readdir(path) {
       if (this.isDeleted(path) || !await this.exists(path))
-        throw ErrnoError.With("ENOENT", path, "readdir");
+        throw withErrno("ENOENT");
       const entries2 = await this.readable.exists(path) ? await this.readable.readdir(path) : [];
       if (await this.writable.exists(path))
         for (const entry of await this.writable.readdir(path)) {
@@ -16704,7 +17144,7 @@
     }
     readdirSync(path) {
       if (this.isDeleted(path) || !this.existsSync(path))
-        throw ErrnoError.With("ENOENT", path, "readdir");
+        throw withErrno("ENOENT");
       const entries2 = this.readable.existsSync(path) ? this.readable.readdirSync(path) : [];
       if (this.writable.existsSync(path))
         for (const entry of this.writable.readdirSync(path)) {
@@ -16726,7 +17166,7 @@
      */
     createParentDirectoriesSync(path) {
       const toCreate = [];
-      const silence = canary(ErrnoError.With("EDEADLK", path));
+      const silence = canary(withErrno("EDEADLK"));
       for (let parent = dirname(path); !this.writable.existsSync(parent); parent = dirname(parent)) {
         toCreate.push(parent);
       }
@@ -16743,7 +17183,7 @@
      */
     async createParentDirectories(path) {
       const toCreate = [];
-      const silence = canary(ErrnoError.With("EDEADLK", path));
+      const silence = canary(withErrno("EDEADLK", path));
       for (let parent = dirname(path); !await this.writable.exists(parent); parent = dirname(parent)) {
         toCreate.push(parent);
       }
@@ -16760,9 +17200,8 @@
      * - Calls f to perform operation on writable.
      */
     copyForWriteSync(path) {
-      if (!this.existsSync(path)) {
-        throw ErrnoError.With("ENOENT", path, "[copyForWrite]");
-      }
+      if (!this.existsSync(path))
+        throw withErrno("ENOENT");
       if (!this.writable.existsSync(dirname(path))) {
         this.createParentDirectoriesSync(path);
       }
@@ -16771,9 +17210,8 @@
       }
     }
     async copyForWrite(path) {
-      if (!await this.exists(path)) {
-        throw ErrnoError.With("ENOENT", path, "[copyForWrite]");
-      }
+      if (!await this.exists(path))
+        throw withErrno("ENOENT");
       if (!await this.writable.exists(dirname(path))) {
         await this.createParentDirectories(path);
       }
@@ -16786,8 +17224,7 @@
      * PRECONDITION: File does not exist on writable storage.
      */
     copyToWritableSync(path) {
-      const stats = this.statSync(path);
-      stats.mode |= 146;
+      const stats = this.readable.statSync(path);
       if (isDirectory(stats)) {
         this.writable.mkdirSync(path, stats);
         for (const k of this.readable.readdirSync(path)) {
@@ -16802,8 +17239,7 @@
       this.writable.writeSync(path, data, 0);
     }
     async copyToWritable(path) {
-      const stats = await this.stat(path);
-      stats.mode |= 146;
+      const stats = await this.readable.stat(path);
       if (isDirectory(stats)) {
         await this.writable.mkdir(path, stats);
         for (const k of await this.readable.readdir(path)) {
@@ -16833,7 +17269,7 @@
   };
   var CopyOnWrite = _CopyOnWrite;
 
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/requests.js
+  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/requests.js
   var resourcesCache = /* @__PURE__ */ new Map();
   async function _fetch(input, init = {}, bodyOptional = false) {
     const response = await fetch(input, init).catch((error) => {
@@ -16928,7 +17364,7 @@
     resourcesCache.delete(url);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/internal/index_fs.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/internal/index_fs.js
   var IndexFS = class extends FileSystem {
     constructor(id, name, index = new Index()) {
       super(id, name);
@@ -16942,9 +17378,9 @@
      */
     pathsForRename(oldPath, newPath) {
       if (!this.index.has(oldPath))
-        throw ErrnoError.With("ENOENT", oldPath, "rename");
+        throw withErrno("ENOENT");
       if ((dirname(newPath) + "/").startsWith(oldPath + "/"))
-        throw ErrnoError.With("EBUSY", dirname(oldPath), "rename");
+        throw withErrno("EBUSY");
       const toRename = [];
       for (const [from, inode] of this.index.entries()) {
         const rel = relative(oldPath, from);
@@ -16984,35 +17420,36 @@
     async stat(path) {
       const inode = this.index.get(path);
       if (!inode)
-        throw ErrnoError.With("ENOENT", path, "stat");
+        throw withErrno("ENOENT");
       return inode;
     }
     statSync(path) {
       const inode = this.index.get(path);
       if (!inode)
-        throw ErrnoError.With("ENOENT", path, "stat");
+        throw withErrno("ENOENT");
       return inode;
     }
     async touch(path, metadata) {
       var _a2;
-      const inode = (_a2 = this.index.get(path)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", path, "touch"));
+      const inode = (_a2 = this.index.get(path)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT"));
       inode.update(metadata);
     }
     touchSync(path, metadata) {
       var _a2;
-      const inode = (_a2 = this.index.get(path)) !== null && _a2 !== void 0 ? _a2 : _throw(ErrnoError.With("ENOENT", path, "touch"));
+      const inode = (_a2 = this.index.get(path)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT"));
       inode.update(metadata);
     }
     _remove(path, isUnlink) {
-      const syscall = isUnlink ? "unlink" : "rmdir";
       const inode = this.index.get(path);
       if (!inode)
-        throw ErrnoError.With("ENOENT", path, syscall);
+        throw withErrno("ENOENT");
       const isDir = (inode.mode & S_IFMT) == S_IFDIR;
       if (!isDir && !isUnlink)
-        throw ErrnoError.With("ENOTDIR", path, syscall);
+        throw withErrno("ENOTDIR");
       if (isDir && isUnlink)
-        throw ErrnoError.With("EISDIR", path, syscall);
+        throw withErrno("EISDIR");
+      if (isDir && this.readdirSync(path).length)
+        throw withErrno("ENOTEMPTY");
       this.index.delete(path);
     }
     async unlink(path) {
@@ -17032,12 +17469,11 @@
       this.removeSync(path);
     }
     create(path, options) {
-      const syscall = (options.mode & S_IFMT) == S_IFDIR ? "mkdir" : "createFile";
       if (this.index.has(path))
-        throw ErrnoError.With("EEXIST", path, syscall);
+        throw withErrno("EEXIST");
       const parent = this.index.get(dirname(path));
       if (!parent)
-        throw ErrnoError.With("ENOENT", dirname(path), syscall);
+        throw withErrno("ENOENT");
       const id = this.index._alloc();
       const inode = new Inode({
         ino: id,
@@ -17045,7 +17481,8 @@
         mode: options.mode,
         size: 0,
         uid: parent.mode & S_ISUID ? parent.uid : options.uid,
-        gid: parent.mode & S_ISGID ? parent.gid : options.gid
+        gid: parent.mode & S_ISGID ? parent.gid : options.gid,
+        nlink: 1
       });
       this.index.set(path, inode);
       return inode;
@@ -17067,10 +17504,10 @@
       return this.create(path, options);
     }
     link(target, link3) {
-      throw ErrnoError.With("ENOSYS", link3, "link");
+      throw withErrno("ENOSYS");
     }
     linkSync(target, link3) {
-      throw ErrnoError.With("ENOSYS", link3, "link");
+      throw withErrno("ENOSYS");
     }
     async readdir(path) {
       return Object.keys(this.index.directoryEntries(path));
@@ -17078,28 +17515,26 @@
     readdirSync(path) {
       return Object.keys(this.index.directoryEntries(path));
     }
-    async sync(path) {
+    async sync() {
     }
-    syncSync(path) {
+    syncSync() {
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/fetch.js
-  function parseError(path, fs) {
-    return (error) => {
-      if (!("tag" in error))
-        throw err(new ErrnoError(Errno.EIO, error.stack, path), { fs });
-      switch (error.tag) {
-        case "fetch":
-          throw err(new ErrnoError(Errno.EREMOTEIO, error.message, path), { fs });
-        case "status":
-          throw err(new ErrnoError(error.response.status > 500 ? Errno.EREMOTEIO : Errno.EIO, "Response status code is " + error.response.status, path), { fs });
-        case "size":
-          throw err(new ErrnoError(Errno.EBADE, error.message, path), { fs });
-        case "buffer":
-          throw err(new ErrnoError(Errno.EIO, "Failed to decode buffer", path), { fs });
-      }
-    };
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/backends/fetch.js
+  function parseError(error) {
+    if (!("tag" in error))
+      throw err(withErrno("EIO", error.stack));
+    switch (error.tag) {
+      case "fetch":
+        throw err(withErrno("EREMOTEIO", error.message));
+      case "status":
+        throw err(withErrno(error.response.status > 500 ? "EREMOTEIO" : "EIO", "Response status code is " + error.response.status));
+      case "size":
+        throw err(withErrno("EBADE", error.message));
+      case "buffer":
+        throw err(withErrno("EIO", "Failed to decode buffer"));
+    }
   }
   var FetchFS = class extends IndexFS {
     _async(p) {
@@ -17121,42 +17556,42 @@
     async read(path, buffer, offset = 0, end) {
       const inode = this.index.get(path);
       if (!inode)
-        throw ErrnoError.With("ENOENT", path, "read");
+        throw withErrno("ENOENT");
       if (end - offset == 0)
         return;
-      const data = await get2(this.baseUrl + path, { start: offset, end, size: inode.size, warn }, this.requestInit).catch(parseError(path, this)).catch(() => void 0);
+      const data = await get2(this.baseUrl + path, { start: offset, end, size: inode.size, warn }, this.requestInit).catch(parseError).catch(() => void 0);
       if (!data)
-        throw ErrnoError.With("ENODATA", path, "read");
+        throw withErrno("ENODATA");
       buffer.set(data);
     }
     readSync(path, buffer, offset = 0, end) {
       const inode = this.index.get(path);
       if (!inode)
-        throw ErrnoError.With("ENOENT", path, "read");
+        throw withErrno("ENOENT");
       if (end - offset == 0)
         return;
       const { data, missing } = getCached(this.baseUrl + path, { start: offset, end, size: inode.size, warn });
       if (!data)
-        throw ErrnoError.With("ENODATA", path, "read");
+        throw withErrno("ENODATA");
       if (missing.length) {
         this._async(get2(this.baseUrl + path, { start: offset, end, size: inode.size, warn }));
-        throw ErrnoError.With("EAGAIN", path, "read");
+        throw withErrno("EAGAIN");
       }
       buffer.set(data);
     }
     async write(path, data, offset) {
       const inode = this.index.get(path);
       if (!inode)
-        throw ErrnoError.With("ENOENT", path, "write");
+        throw withErrno("ENOENT");
       inode.update({ mtimeMs: Date.now(), size: Math.max(inode.size, data.byteLength + offset) });
-      await set2(this.baseUrl + path, data, { offset, warn, cacheOnly: !this.remoteWrite }, this.requestInit).catch(parseError(path, this));
+      await set2(this.baseUrl + path, data, { offset, warn, cacheOnly: !this.remoteWrite }, this.requestInit).catch(parseError);
     }
     writeSync(path, data, offset) {
       const inode = this.index.get(path);
       if (!inode)
-        throw ErrnoError.With("ENOENT", path, "write");
+        throw withErrno("ENOENT");
       inode.update({ mtimeMs: Date.now(), size: Math.max(inode.size, data.byteLength + offset) });
-      this._async(set2(this.baseUrl + path, data, { offset, warn, cacheOnly: !this.remoteWrite }, this.requestInit).catch(parseError(path, this)));
+      this._async(set2(this.baseUrl + path, data, { offset, warn, cacheOnly: !this.remoteWrite }, this.requestInit).catch(parseError));
     }
   };
   var _Fetch = {
@@ -17182,7 +17617,7 @@
       if (typeof options.index != "string") {
         index.fromJSON(options.index);
       } else {
-        const data = await get2(options.index, { warn }, options.requestInit).catch(parseError());
+        const data = await get2(options.index, { warn }, options.requestInit).catch(parseError);
         index.fromJSON(JSON.parse(decodeUTF8(data)));
       }
       const fs = new FetchFS(index, baseUrl, options.requestInit, options.remoteWrite);
@@ -17191,14 +17626,14 @@
       for (const [path, node] of index) {
         if (!(node.mode & S_IFREG))
           continue;
-        await get2(baseUrl + path, { warn }, options.requestInit).catch(parseError(path, fs));
+        await get2(baseUrl + path, { warn }, options.requestInit).catch(parseError);
       }
       return fs;
     }
   };
   var Fetch = _Fetch;
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/passthrough.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/backends/passthrough.js
   var __addDisposableResource4 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -17273,293 +17708,201 @@
     path(path) {
       return this.prefix + path;
     }
-    error(err2, path) {
-      const error = err2;
-      throw ErrnoError.With(error.code, path, error.syscall);
-    }
     /**
      * Rename a file or directory.
      */
     async rename(oldPath, newPath) {
-      try {
-        await this.nodeFS.promises.rename(this.path(oldPath), this.path(newPath));
-      } catch (err2) {
-        this.error(err2, oldPath);
-      }
+      await this.nodeFS.promises.rename(this.path(oldPath), this.path(newPath));
     }
     /**
      * Rename a file or directory synchronously.
      */
     renameSync(oldPath, newPath) {
-      try {
-        this.nodeFS.renameSync(this.path(oldPath), this.path(newPath));
-      } catch (err2) {
-        this.error(err2, oldPath);
-      }
+      this.nodeFS.renameSync(this.path(oldPath), this.path(newPath));
     }
     /**
      * Get file statistics.
      */
     async stat(path) {
-      try {
-        return await this.nodeFS.promises.stat(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
-      }
+      return await this.nodeFS.promises.stat(this.path(path));
     }
     /**
      * Get file statistics synchronously.
      */
     statSync(path) {
-      try {
-        return this.nodeFS.statSync(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
-      }
+      return this.nodeFS.statSync(this.path(path));
     }
     async touch(path, metadata) {
+      const env_1 = { stack: [], error: void 0, hasError: false };
       try {
-        const env_1 = { stack: [], error: void 0, hasError: false };
-        try {
-          const handle = __addDisposableResource4(env_1, await this.nodeFS.promises.open(this.path(path), "w"), true);
-          await handle.chmod(metadata.mode);
-          await handle.chown(metadata.uid, metadata.gid);
-          await handle.utimes(metadata.atimeMs, metadata.mtimeMs);
-        } catch (e_1) {
-          env_1.error = e_1;
-          env_1.hasError = true;
-        } finally {
-          const result_1 = __disposeResources4(env_1);
-          if (result_1)
-            await result_1;
-        }
-      } catch (err2) {
-        this.error(err2, path);
+        const handle = __addDisposableResource4(env_1, await this.nodeFS.promises.open(this.path(path), "w"), true);
+        await handle.chmod(metadata.mode);
+        await handle.chown(metadata.uid, metadata.gid);
+        await handle.utimes(metadata.atimeMs, metadata.mtimeMs);
+      } catch (e_1) {
+        env_1.error = e_1;
+        env_1.hasError = true;
+      } finally {
+        const result_1 = __disposeResources4(env_1);
+        if (result_1)
+          await result_1;
       }
     }
     touchSync(path, metadata) {
-      try {
-        this.nodeFS.chmodSync(this.path(path), metadata.mode);
-        this.nodeFS.chownSync(this.path(path), metadata.uid, metadata.gid);
-        this.nodeFS.utimesSync(this.path(path), metadata.atimeMs, metadata.mtimeMs);
-      } catch (err2) {
-        this.error(err2, path);
-      }
+      this.nodeFS.chmodSync(this.path(path), metadata.mode);
+      this.nodeFS.chownSync(this.path(path), metadata.uid, metadata.gid);
+      this.nodeFS.utimesSync(this.path(path), metadata.atimeMs, metadata.mtimeMs);
     }
     /**
      * Unlink (delete) a file.
      */
     async unlink(path) {
-      try {
-        await this.nodeFS.promises.unlink(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
-      }
+      await this.nodeFS.promises.unlink(this.path(path));
     }
     /**
      * Unlink (delete) a file synchronously.
      */
     unlinkSync(path) {
-      try {
-        this.nodeFS.unlinkSync(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
-      }
+      this.nodeFS.unlinkSync(this.path(path));
     }
     /**
      * Create a directory.
      */
     async mkdir(path, options) {
-      try {
-        await this.nodeFS.promises.mkdir(this.path(path), options);
-        return await this.nodeFS.promises.stat(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
-      }
+      await this.nodeFS.promises.mkdir(this.path(path), options);
+      return await this.nodeFS.promises.stat(this.path(path));
     }
     /**
      * Create a directory synchronously.
      */
     mkdirSync(path, options) {
-      try {
-        this.nodeFS.mkdirSync(this.path(path), options);
-        return this.nodeFS.statSync(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
-      }
+      this.nodeFS.mkdirSync(this.path(path), options);
+      return this.nodeFS.statSync(this.path(path));
     }
     /**
      * Read the contents of a directory.
      */
     async readdir(path) {
-      try {
-        return await this.nodeFS.promises.readdir(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
-      }
+      return await this.nodeFS.promises.readdir(this.path(path));
     }
     /**
      * Read the contents of a directory synchronously.
      */
     readdirSync(path) {
-      try {
-        return this.nodeFS.readdirSync(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
-      }
+      return this.nodeFS.readdirSync(this.path(path));
     }
     /**
      * Create a file.
      */
     async createFile(path, options) {
-      try {
-        if (isDirectory(options)) {
-          await this.nodeFS.promises.mkdir(this.path(path), { mode: options.mode });
-        } else {
-          const env_2 = { stack: [], error: void 0, hasError: false };
-          try {
-            const handle = __addDisposableResource4(env_2, await this.nodeFS.promises.open(this.path(path), "wx"), true);
-            await handle.close();
-          } catch (e_2) {
-            env_2.error = e_2;
-            env_2.hasError = true;
-          } finally {
-            const result_2 = __disposeResources4(env_2);
-            if (result_2)
-              await result_2;
-          }
+      if (isDirectory(options)) {
+        await this.nodeFS.promises.mkdir(this.path(path), { mode: options.mode });
+      } else {
+        const env_2 = { stack: [], error: void 0, hasError: false };
+        try {
+          const handle = __addDisposableResource4(env_2, await this.nodeFS.promises.open(this.path(path), "wx"), true);
+          await handle.close();
+        } catch (e_2) {
+          env_2.error = e_2;
+          env_2.hasError = true;
+        } finally {
+          const result_2 = __disposeResources4(env_2);
+          if (result_2)
+            await result_2;
         }
-        return await this.nodeFS.promises.stat(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
       }
+      return await this.nodeFS.promises.stat(this.path(path));
     }
     /**
      * Create a file synchronously.
      */
     createFileSync(path, options) {
-      try {
-        if (isDirectory(options)) {
-          this.nodeFS.mkdirSync(this.path(path), { mode: options.mode });
-        } else {
-          const fd = this.nodeFS.openSync(this.path(path), "wx");
-          this.nodeFS.closeSync(fd);
-        }
-        return this.nodeFS.statSync(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
+      if (isDirectory(options)) {
+        this.nodeFS.mkdirSync(this.path(path), { mode: options.mode });
+      } else {
+        const fd = this.nodeFS.openSync(this.path(path), "wx");
+        this.nodeFS.closeSync(fd);
       }
+      return this.nodeFS.statSync(this.path(path));
     }
     /**
      * Remove a directory.
      */
     async rmdir(path) {
-      try {
-        await this.nodeFS.promises.rmdir(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
-      }
+      await this.nodeFS.promises.rmdir(this.path(path));
     }
     /**
      * Remove a directory synchronously.
      */
     rmdirSync(path) {
-      try {
-        this.nodeFS.rmdirSync(this.path(path));
-      } catch (err2) {
-        this.error(err2, path);
-      }
+      this.nodeFS.rmdirSync(this.path(path));
     }
     /**
      * Synchronize data to the file system.
      */
-    async sync(path) {
+    async sync() {
       warn("Sync on passthrough is unnecessary");
     }
     /**
      * Synchronize data to the file system synchronously.
      */
-    syncSync(path) {
+    syncSync() {
       warn("Sync on passthrough is unnecessary");
     }
     /**
      * Create a hard link.
      */
     async link(target, link3) {
-      try {
-        await this.nodeFS.promises.link(this.path(target), this.path(link3));
-      } catch (err2) {
-        this.error(err2, target);
-      }
+      await this.nodeFS.promises.link(this.path(target), this.path(link3));
     }
     /**
      * Create a hard link synchronously.
      */
     linkSync(target, link3) {
-      try {
-        this.nodeFS.linkSync(this.path(target), this.path(link3));
-      } catch (err2) {
-        this.error(err2, target);
-      }
+      this.nodeFS.linkSync(this.path(target), this.path(link3));
     }
     async read(path, buffer, offset, end) {
+      const env_3 = { stack: [], error: void 0, hasError: false };
       try {
-        const env_3 = { stack: [], error: void 0, hasError: false };
-        try {
-          const handle = __addDisposableResource4(env_3, await this.nodeFS.promises.open(this.path(path), "r"), true);
-          await handle.read({ buffer, offset, length: end - offset });
-        } catch (e_3) {
-          env_3.error = e_3;
-          env_3.hasError = true;
-        } finally {
-          const result_3 = __disposeResources4(env_3);
-          if (result_3)
-            await result_3;
-        }
-      } catch (err2) {
-        this.error(err2, path);
+        const handle = __addDisposableResource4(env_3, await this.nodeFS.promises.open(this.path(path), "r"), true);
+        await handle.read({ buffer, offset, length: end - offset });
+      } catch (e_3) {
+        env_3.error = e_3;
+        env_3.hasError = true;
+      } finally {
+        const result_3 = __disposeResources4(env_3);
+        if (result_3)
+          await result_3;
       }
     }
     readSync(path, buffer, offset, end) {
-      let fd;
+      const fd = this.nodeFS.openSync(this.path(path), "r");
       try {
-        fd = this.nodeFS.openSync(this.path(path), "r");
         this.nodeFS.readSync(fd, buffer, { offset, length: end - offset });
-      } catch (err2) {
-        this.error(err2, path);
       } finally {
-        if (fd)
-          this.nodeFS.closeSync(fd);
+        this.nodeFS.closeSync(fd);
       }
     }
     async write(path, buffer, offset) {
+      const env_4 = { stack: [], error: void 0, hasError: false };
       try {
-        const env_4 = { stack: [], error: void 0, hasError: false };
-        try {
-          const handle = __addDisposableResource4(env_4, await this.nodeFS.promises.open(this.path(path), "w"), true);
-          await handle.write(buffer, offset);
-        } catch (e_4) {
-          env_4.error = e_4;
-          env_4.hasError = true;
-        } finally {
-          const result_4 = __disposeResources4(env_4);
-          if (result_4)
-            await result_4;
-        }
-      } catch (err2) {
-        this.error(err2, path);
+        const handle = __addDisposableResource4(env_4, await this.nodeFS.promises.open(this.path(path), "w"), true);
+        await handle.write(buffer, offset);
+      } catch (e_4) {
+        env_4.error = e_4;
+        env_4.hasError = true;
+      } finally {
+        const result_4 = __disposeResources4(env_4);
+        if (result_4)
+          await result_4;
       }
     }
     writeSync(path, buffer, offset) {
-      let fd;
+      const fd = this.nodeFS.openSync(this.path(path), "w");
       try {
-        fd = this.nodeFS.openSync(this.path(path), "w");
         this.nodeFS.writeSync(fd, buffer, offset);
-      } catch (err2) {
-        this.error(err2, path);
       } finally {
-        if (fd)
-          this.nodeFS.closeSync(fd);
+        this.nodeFS.closeSync(fd);
       }
     }
   };
@@ -17575,14 +17918,37 @@
   };
   var Passthrough = _Passthrough;
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/mixins/async.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/mixins/shared.js
+  var _asyncFSKeys = [
+    "rename",
+    "stat",
+    "touch",
+    "createFile",
+    "unlink",
+    "rmdir",
+    "mkdir",
+    "readdir",
+    "exists",
+    "link",
+    "sync",
+    "read",
+    "write"
+  ];
+
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/mixins/async.js
   function Async(FS) {
     class AsyncFS extends FS {
+      /**
+       * @deprecated Use {@link sync | `sync`} instead
+       */
       async done() {
-        await this._promise;
+        return this.sync();
       }
+      /**
+       * @deprecated Use {@link sync | `sync`} instead
+       */
       queueDone() {
-        return this.done();
+        return this.sync();
       }
       _async(promise) {
         this._promise = this._promise.then(() => promise);
@@ -17596,8 +17962,8 @@
       }
       async ready() {
         await super.ready();
-        await this.queueDone();
-        if (this._isInitialized || this.attributes.has("no_async"))
+        await this._promise;
+        if (this._isInitialized || this.attributes.has("no_async_preload"))
           return;
         this.checkSync();
         await this._sync.ready();
@@ -17618,80 +17984,84 @@
           this._isInitialized = true;
         } catch (e) {
           this._isInitialized = false;
-          throw crit(e, { fs: this });
+          throw crit(e);
         }
       }
-      checkSync(path, syscall) {
-        if (this.attributes.has("no_async")) {
-          throw new ErrnoError(Errno.ENOTSUP, "Sync preloading has been disabled for this async file system", path, syscall);
+      checkSync() {
+        if (this.attributes.has("no_async_preload")) {
+          throw withErrno("ENOTSUP", "Sync preloading has been disabled for this async file system");
         }
         if (!this._sync) {
-          throw crit(new ErrnoError(Errno.ENOTSUP, "No sync cache is attached to this async file system", path, syscall), { fs: this });
+          throw crit(withErrno("ENOTSUP", "No sync cache is attached to this async file system"));
         }
       }
       renameSync(oldPath, newPath) {
-        this.checkSync(oldPath, "rename");
+        this.checkSync();
         this._sync.renameSync(oldPath, newPath);
         this._async(this.rename(oldPath, newPath));
       }
       statSync(path) {
-        this.checkSync(path, "stat");
+        this.checkSync();
         return this._sync.statSync(path);
       }
       touchSync(path, metadata) {
-        this.checkSync(path, "touch");
+        this.checkSync();
         this._sync.touchSync(path, metadata);
         this._async(this.touch(path, metadata));
       }
       createFileSync(path, options) {
-        this.checkSync(path, "createFile");
+        this.checkSync();
         this._async(this.createFile(path, options));
         return this._sync.createFileSync(path, options);
       }
       unlinkSync(path) {
-        this.checkSync(path, "unlinkSync");
-        this._sync.unlinkSync(path);
+        this.checkSync();
         this._async(this.unlink(path));
+        this._sync.unlinkSync(path);
       }
       rmdirSync(path) {
-        this.checkSync(path, "rmdir");
+        this.checkSync();
         this._sync.rmdirSync(path);
         this._async(this.rmdir(path));
       }
       mkdirSync(path, options) {
-        this.checkSync(path, "mkdir");
+        this.checkSync();
         this._async(this.mkdir(path, options));
         return this._sync.mkdirSync(path, options);
       }
       readdirSync(path) {
-        this.checkSync(path, "readdir");
+        this.checkSync();
         return this._sync.readdirSync(path);
       }
       linkSync(srcpath, dstpath) {
-        this.checkSync(srcpath, "link");
+        this.checkSync();
         this._sync.linkSync(srcpath, dstpath);
         this._async(this.link(srcpath, dstpath));
       }
-      syncSync(path) {
-        this.checkSync(path, "sync");
-        this._sync.syncSync(path);
-        this._async(this.sync(path));
+      async sync() {
+        if (!this.attributes.has("no_async_preload") && this._sync)
+          this._sync.syncSync();
+        await this._promise;
+      }
+      syncSync() {
+        this.checkSync();
+        this._sync.syncSync();
       }
       existsSync(path) {
-        this.checkSync(path, "exists");
+        this.checkSync();
         return this._sync.existsSync(path);
       }
       readSync(path, buffer, offset, end) {
-        this.checkSync(path, "read");
+        this.checkSync();
         this._sync.readSync(path, buffer, offset, end);
       }
       writeSync(path, buffer, offset) {
-        this.checkSync(path, "write");
+        this.checkSync();
         this._sync.writeSync(path, buffer, offset);
         this._async(this.write(path, buffer, offset));
       }
       streamWrite(path, options) {
-        this.checkSync(path, "streamWrite");
+        this.checkSync();
         const sync = this._sync.streamWrite(path, options).getWriter();
         const async = super.streamWrite(path, options).getWriter();
         return new WritableStream({
@@ -17710,7 +18080,7 @@
        * @internal
        */
       async crossCopy(path) {
-        this.checkSync(path, "crossCopy");
+        this.checkSync();
         const stats = await this.stat(path);
         if (!isDirectory(stats)) {
           this._sync.createFileSync(path, stats);
@@ -17735,24 +18105,27 @@
        * Patch all async methods to also call their synchronous counterparts unless called from themselves (either sync or async)
        */
       _patchAsync() {
-        const methods = Array.from(getAllPrototypes(this)).flatMap(Object.getOwnPropertyNames).filter((key) => typeof this[key] == "function" && `${key}Sync` in this);
-        debug("Async: patching methods: " + methods.join(", "));
-        for (const key of methods) {
-          const originalMethod = this[key];
+        debug(`Async: patched ${_asyncFSKeys.length} methods`);
+        for (const key of _asyncFSKeys) {
+          const originalMethod = this[key].bind(this);
           this[key] = async (...args) => {
-            var _a2, _b2, _c2;
-            const result = await originalMethod.apply(this, args);
-            const stack = (_a2 = new Error().stack) === null || _a2 === void 0 ? void 0 : _a2.split("\n").slice(2).join("\n");
-            if ((stack === null || stack === void 0 ? void 0 : stack.includes(`at <computed> [as ${key}]`)) || (stack === null || stack === void 0 ? void 0 : stack.includes(`${key}Sync `)) || !stack)
+            var _a2, _b2;
+            const result = await originalMethod(...args);
+            const stack = new Error().stack.split("\n").slice(2).join("\n");
+            if (!stack || stack.includes(`at <computed> [as ${key}]`) || stack.includes(`at async <computed> [as ${key}]`) || stack.includes(`${key}Sync `))
               return result;
             if (!this._isInitialized) {
               this._skippedCacheUpdates++;
               return result;
             }
             try {
-              (_c2 = (_b2 = this._sync) === null || _b2 === void 0 ? void 0 : _b2[`${key}Sync`]) === null || _c2 === void 0 ? void 0 : _c2.call(_b2, ...args);
+              (_b2 = (_a2 = this._sync) === null || _a2 === void 0 ? void 0 : _a2[`${key}Sync`]) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, ...args);
             } catch (e) {
-              throw err(new ErrnoError(e.errno, e.message + " (Out of sync!)", e.path, key), { fs: this });
+              const stack2 = e.stack.split("\n").slice(3).join("\n");
+              if (stack2.includes(`at <computed> [as ${key}]`) || stack2.includes(`at async <computed> [as ${key}]`) || stack2.includes(`${key}Sync `))
+                return result;
+              e.message += " (Out of sync!)";
+              throw err(e);
             }
             return result;
           };
@@ -17762,28 +18135,39 @@
     return AsyncFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/port.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/backends/port.js
   function isRPCMessage(arg) {
     return typeof arg == "object" && arg != null && "_zenfs" in arg && !!arg._zenfs;
   }
+  function disposeExecutors(id) {
+    const executor = executors.get(id);
+    if (!executor)
+      return;
+    if (executor.timeout) {
+      clearTimeout(executor.timeout);
+      if (typeof executor.timeout == "object")
+        executor.timeout.unref();
+    }
+    executor.fs._executors.delete(id);
+    executors.delete(id);
+  }
   var executors = /* @__PURE__ */ new Map();
-  function request(request2, { port, timeout = 1e3, fs } = {}) {
+  function request(request2, { port, timeout: ms = 1e3, fs }) {
     const stack = "\n" + new Error().stack.slice("Error:".length);
     if (!port)
-      throw err(new ErrnoError(Errno.EINVAL, "Can not make an RPC request without a port"));
+      throw err(withErrno("EINVAL", "Can not make an RPC request without a port"));
     const { resolve: resolve2, reject, promise } = Promise.withResolvers();
     const id = Math.random().toString(16).slice(10);
-    executors.set(id, { resolve: resolve2, reject, promise, fs });
-    port.postMessage({ ...request2, _zenfs: true, id, stack });
-    const _ = setTimeout(() => {
-      const error = err(new ErrnoError(Errno.EIO, "RPC Failed", typeof request2.args[0] == "string" ? request2.args[0] : "", request2.method), {
-        fs
-      });
+    const timeout = setTimeout(() => {
+      const error = err(withErrno("EIO", "RPC Failed"));
       error.stack += stack;
+      disposeExecutors(id);
       reject(error);
-      if (typeof _ == "object")
-        _.unref();
-    }, timeout);
+    }, ms);
+    const executor = { resolve: resolve2, reject, promise, fs, timeout };
+    fs._executors.set(id, executor);
+    executors.set(id, executor);
+    port.postMessage({ ...request2, _zenfs: true, id, stack });
     return promise;
   }
   function __requestMethod(req) {
@@ -17795,25 +18179,25 @@
     if (!isRPCMessage(response))
       return;
     if (!executors.has(response.id)) {
-      const error = err(new ErrnoError(Errno.EIO, "Invalid RPC id:" + response.id));
+      const error = err(withErrno("EIO", "Invalid RPC id: " + response.id));
       error.stack += response.stack;
       throw error;
     }
     const { resolve: resolve2, reject } = executors.get(response.id);
     if (response.error) {
-      const e = ErrnoError.fromJSON({ code: "EIO", errno: Errno.EIO, ...response.error });
+      const e = Exception.fromJSON({ code: "EIO", errno: Errno.EIO, ...response.error });
       e.stack += response.stack;
+      disposeExecutors(response.id);
       reject(e);
-      executors.delete(response.id);
       return;
     }
+    disposeExecutors(response.id);
     resolve2(__responseMethod(response, "stat", "createFile", "mkdir") ? new Inode(response.value) : response.value);
-    executors.delete(response.id);
     return;
   }
   function attach(port, handler) {
     if (!port)
-      throw err(new ErrnoError(Errno.EINVAL, "Cannot attach to non-existent port"));
+      throw err(withErrno("EINVAL", "Cannot attach to non-existent port"));
     info("Attached handler to port: " + handler.name);
     port["on" in port ? "on" : "addEventListener"]("message", (message) => {
       handler(typeof message == "object" && message !== null && "data" in message ? message.data : message);
@@ -17821,7 +18205,7 @@
   }
   function detach(port, handler) {
     if (!port)
-      throw err(new ErrnoError(Errno.EINVAL, "Cannot detach from non-existent port"));
+      throw err(withErrno("EINVAL", "Cannot detach from non-existent port"));
     info("Detached handler from port: " + handler.name);
     port["off" in port ? "off" : "removeEventListener"]("message", (message) => {
       handler(typeof message == "object" && message !== null && "data" in message ? message.data : message);
@@ -17854,6 +18238,7 @@
     constructor(options) {
       super(1886351988, "portfs");
       this.options = options;
+      this._executors = /* @__PURE__ */ new Map();
       this._sync = InMemory.create({ label: "tmpfs:port" });
       this.port = options.port;
       attach(this.port, handleResponse);
@@ -17872,16 +18257,25 @@
       return this.rpc("rename", oldPath, newPath);
     }
     async stat(path) {
-      return new Inode(await this.rpc("stat", path));
+      const result = await this.rpc("stat", path);
+      return result instanceof Inode ? result : new Inode(result);
     }
     async touch(path, metadata) {
-      await this.rpc("touch", path, serialize(metadata instanceof Inode ? metadata : new Inode(metadata)));
+      const inode = metadata instanceof Inode ? metadata : new Inode(metadata);
+      await this.rpc("touch", path, new Uint8Array(inode.buffer, inode.byteOffset, inode.byteLength));
     }
-    sync(path) {
-      return this.rpc("sync", path);
+    async sync() {
+      await this.rpc("sync");
+      for (const executor of this._executors.values()) {
+        await executor.promise.catch(() => {
+        });
+      }
     }
     async createFile(path, options) {
-      return new Inode(await this.rpc("createFile", path, options));
+      if (options instanceof Inode)
+        options = options.toJSON();
+      const result = await this.rpc("createFile", path, options);
+      return result instanceof Inode ? result : new Inode(result);
     }
     unlink(path) {
       return this.rpc("unlink", path);
@@ -17890,7 +18284,10 @@
       return this.rpc("rmdir", path);
     }
     async mkdir(path, options) {
-      return new Inode(await this.rpc("mkdir", path, options));
+      if (options instanceof Inode)
+        options = options.toJSON();
+      const result = await this.rpc("mkdir", path, options);
+      return result instanceof Inode ? result : new Inode(result);
     }
     readdir(path) {
       return this.rpc("readdir", path);
@@ -17926,8 +18323,9 @@
         case "createFile":
         case "mkdir": {
           __requestMethod(request2);
-          const inode = await fs[request2.method](...request2.args);
-          value = serialize(inode instanceof Inode ? inode : new Inode(inode));
+          const md = await fs[request2.method](...request2.args);
+          const inode = md instanceof Inode ? md : new Inode(md);
+          value = new Uint8Array(inode.buffer, inode.byteOffset, inode.byteLength);
           break;
         }
         case "touch": {
@@ -17941,7 +18339,7 @@
           value = await fs[request2.method](...request2.args);
       }
     } catch (e) {
-      error = e instanceof ErrnoError ? e.toJSON() : pick(e, "message", "stack");
+      error = e instanceof Exception ? e.toJSON() : pick(e, "message", "stack");
     }
     port.postMessage({ _zenfs: true, ...pick(request2, "id", "method", "stack"), error, value }, transferList);
   }
@@ -17974,7 +18372,7 @@
     return fs;
   }
 
-  // node_modules/.pnpm/utilium@1.10.1/node_modules/utilium/dist/checksum.js
+  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/checksum.js
   var crc32cTable = new Uint32Array(256);
   for (let i = 0; i < 256; i++) {
     let value = i;
@@ -17991,7 +18389,7 @@
     return (crc ^ 4294967295) >>> 0;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/backends/single_buffer.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/backends/single_buffer.js
   var __esDecorate3 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) {
       if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
@@ -18031,16 +18429,93 @@
     }
     return useValue ? value : void 0;
   };
+  var __addDisposableResource5 = function(env, value, async) {
+    if (value !== null && value !== void 0) {
+      if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
+      var dispose, inner;
+      if (async) {
+        if (!Symbol.asyncDispose) throw new TypeError("Symbol.asyncDispose is not defined.");
+        dispose = value[Symbol.asyncDispose];
+      }
+      if (dispose === void 0) {
+        if (!Symbol.dispose) throw new TypeError("Symbol.dispose is not defined.");
+        dispose = value[Symbol.dispose];
+        if (async) inner = dispose;
+      }
+      if (typeof dispose !== "function") throw new TypeError("Object not disposable.");
+      if (inner) dispose = function() {
+        try {
+          inner.call(this);
+        } catch (e) {
+          return Promise.reject(e);
+        }
+      };
+      env.stack.push({ value, dispose, async });
+    } else if (async) {
+      env.stack.push({ async: true });
+    }
+    return value;
+  };
+  var __disposeResources5 = /* @__PURE__ */ function(SuppressedError2) {
+    return function(env) {
+      function fail(e) {
+        env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
+        env.hasError = true;
+      }
+      var r, s = 0;
+      function next() {
+        while (r = env.stack.pop()) {
+          try {
+            if (!r.async && s === 1) return s = 0, env.stack.push(r), Promise.resolve().then(next);
+            if (r.dispose) {
+              var result = r.dispose.call(r.value);
+              if (r.async) return s |= 2, Promise.resolve(result).then(next, function(e) {
+                fail(e);
+                return next();
+              });
+            } else s |= 1;
+          } catch (e) {
+            fail(e);
+          }
+        }
+        if (s === 1) return env.hasError ? Promise.reject(env.error) : Promise.resolve();
+        if (env.hasError) throw env.error;
+      }
+      return next();
+    };
+  }(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+    var e = new Error(message);
+    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+  });
   var __setFunctionName3 = function(f, name, prefix) {
     if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
     return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
   };
+  var __classPrivateFieldGet3 = function(receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+  };
+  var __classPrivateFieldSet3 = function(receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
+  };
+  var { format: format3 } = new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    maximumFractionDigits: 2,
+    unit: "byte",
+    unitDisplay: "narrow"
+  });
   var MetadataEntry = (() => {
+    var _MetadataEntry_id_accessor_storage, _MetadataEntry_offset__accessor_storage, _MetadataEntry_offset_accessor_storage, _MetadataEntry_size_accessor_storage;
     var _a2, _b2, _c2, _d;
-    let _classDecorators = [struct()];
+    let _classDecorators = [struct(packed)];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
+    let _classSuper = BufferView;
     let _id_decorators;
     let _id_initializers = [];
     let _id_extraInitializers = [];
@@ -18053,32 +18528,69 @@
     let _size_decorators;
     let _size_initializers = [];
     let _size_extraInitializers = [];
-    var MetadataEntry2 = _classThis = class {
+    var MetadataEntry2 = _classThis = class extends _classSuper {
+      /** Inode or data ID */
+      get id() {
+        return __classPrivateFieldGet3(this, _MetadataEntry_id_accessor_storage, "f");
+      }
+      set id(value) {
+        __classPrivateFieldSet3(this, _MetadataEntry_id_accessor_storage, value, "f");
+      }
+      /** Reserved for 64-bit offset expansion */
+      get offset_() {
+        return __classPrivateFieldGet3(this, _MetadataEntry_offset__accessor_storage, "f");
+      }
+      set offset_(value) {
+        __classPrivateFieldSet3(this, _MetadataEntry_offset__accessor_storage, value, "f");
+      }
+      /** Offset into the buffer the data is stored at. */
+      get offset() {
+        return __classPrivateFieldGet3(this, _MetadataEntry_offset_accessor_storage, "f");
+      }
+      set offset(value) {
+        __classPrivateFieldSet3(this, _MetadataEntry_offset_accessor_storage, value, "f");
+      }
+      /** The size of the data */
+      get size() {
+        return __classPrivateFieldGet3(this, _MetadataEntry_size_accessor_storage, "f");
+      }
+      set size(value) {
+        __classPrivateFieldSet3(this, _MetadataEntry_size_accessor_storage, value, "f");
+      }
+      toString() {
+        return `<MetadataEntry @ 0x${this.byteOffset.toString(16).padStart(8, "0")}>`;
+      }
       constructor() {
-        this.id = __runInitializers3(this, _id_initializers, 0);
-        this.offset_ = (__runInitializers3(this, _id_extraInitializers), __runInitializers3(this, _offset__initializers, 0));
-        this.offset = (__runInitializers3(this, _offset__extraInitializers), __runInitializers3(this, _offset_initializers, 0));
-        this.size = (__runInitializers3(this, _offset_extraInitializers), __runInitializers3(this, _size_initializers, 0));
+        super(...arguments);
+        _MetadataEntry_id_accessor_storage.set(this, __runInitializers3(this, _id_initializers, void 0));
+        _MetadataEntry_offset__accessor_storage.set(this, (__runInitializers3(this, _id_extraInitializers), __runInitializers3(this, _offset__initializers, void 0)));
+        _MetadataEntry_offset_accessor_storage.set(this, (__runInitializers3(this, _offset__extraInitializers), __runInitializers3(this, _offset_initializers, void 0)));
+        _MetadataEntry_size_accessor_storage.set(this, (__runInitializers3(this, _offset_extraInitializers), __runInitializers3(this, _size_initializers, void 0)));
         __runInitializers3(this, _size_extraInitializers);
       }
     };
+    _MetadataEntry_id_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _MetadataEntry_offset__accessor_storage = /* @__PURE__ */ new WeakMap();
+    _MetadataEntry_offset_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _MetadataEntry_size_accessor_storage = /* @__PURE__ */ new WeakMap();
     __setFunctionName3(_classThis, "MetadataEntry");
     (() => {
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-      _id_decorators = [(_a2 = types).uint32.bind(_a2)];
-      _offset__decorators = [(_b2 = types).uint32.bind(_b2)];
-      _offset_decorators = [(_c2 = types).uint32.bind(_c2)];
-      _size_decorators = [(_d = types).uint32.bind(_d)];
-      __esDecorate3(null, null, _id_decorators, { kind: "field", name: "id", static: false, private: false, access: { has: (obj) => "id" in obj, get: (obj) => obj.id, set: (obj, value) => {
+      var _a3;
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
+      _id_decorators = [(_a3 = types2).uint32.bind(_a3)];
+      _offset__decorators = [(_b2 = types2).uint32.bind(_b2)];
+      _offset_decorators = [(_c2 = types2).uint32.bind(_c2)];
+      _size_decorators = [(_d = types2).uint32.bind(_d)];
+      __esDecorate3(_classThis, null, _id_decorators, { kind: "accessor", name: "id", static: false, private: false, access: { has: (obj) => "id" in obj, get: (obj) => obj.id, set: (obj, value) => {
         obj.id = value;
       } }, metadata: _metadata }, _id_initializers, _id_extraInitializers);
-      __esDecorate3(null, null, _offset__decorators, { kind: "field", name: "offset_", static: false, private: false, access: { has: (obj) => "offset_" in obj, get: (obj) => obj.offset_, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _offset__decorators, { kind: "accessor", name: "offset_", static: false, private: false, access: { has: (obj) => "offset_" in obj, get: (obj) => obj.offset_, set: (obj, value) => {
         obj.offset_ = value;
       } }, metadata: _metadata }, _offset__initializers, _offset__extraInitializers);
-      __esDecorate3(null, null, _offset_decorators, { kind: "field", name: "offset", static: false, private: false, access: { has: (obj) => "offset" in obj, get: (obj) => obj.offset, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _offset_decorators, { kind: "accessor", name: "offset", static: false, private: false, access: { has: (obj) => "offset" in obj, get: (obj) => obj.offset, set: (obj, value) => {
         obj.offset = value;
       } }, metadata: _metadata }, _offset_initializers, _offset_extraInitializers);
-      __esDecorate3(null, null, _size_decorators, { kind: "field", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _size_decorators, { kind: "accessor", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
         obj.size = value;
       } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
       __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
@@ -18089,77 +18601,171 @@
     return MetadataEntry2 = _classThis;
   })();
   var entries_per_block = 255;
+  var max_lock_attempts = 5;
   var MetadataBlock = (() => {
+    var _MetadataBlock_checksum_accessor_storage, _MetadataBlock_timestamp_accessor_storage, _MetadataBlock_previous_offset_accessor_storage, _MetadataBlock_items_accessor_storage, _MetadataBlock_locked_accessor_storage;
     var _a2, _b2, _c2, _d;
-    let _classDecorators = [struct()];
+    let _classDecorators = [struct(packed)];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
+    let _classSuper = Int32Array;
     let _checksum_decorators;
     let _checksum_initializers = [];
     let _checksum_extraInitializers = [];
     let _timestamp_decorators;
     let _timestamp_initializers = [];
     let _timestamp_extraInitializers = [];
-    let _previous_offset__decorators;
-    let _previous_offset__initializers = [];
-    let _previous_offset__extraInitializers = [];
     let _previous_offset_decorators;
     let _previous_offset_initializers = [];
     let _previous_offset_extraInitializers = [];
-    let _entries_decorators;
-    let _entries_initializers = [];
-    let _entries_extraInitializers = [];
-    var MetadataBlock2 = _classThis = class {
-      constructor(superblock = _throw(new ErrnoError(Errno.EINVAL, "Metadata block must be initialized with a superblock")), offset = 0) {
-        this.superblock = superblock;
-        this.offset = offset;
-        this.checksum = __runInitializers3(this, _checksum_initializers, 0);
-        this.timestamp = (__runInitializers3(this, _checksum_extraInitializers), __runInitializers3(this, _timestamp_initializers, Date.now()));
-        this.previous_offset_ = (__runInitializers3(this, _timestamp_extraInitializers), __runInitializers3(this, _previous_offset__initializers, 0));
-        this.previous_offset = (__runInitializers3(this, _previous_offset__extraInitializers), __runInitializers3(this, _previous_offset_initializers, 0));
-        this._previous = __runInitializers3(this, _previous_offset_extraInitializers);
-        this.entries = __runInitializers3(this, _entries_initializers, Array.from({ length: entries_per_block }, () => new MetadataEntry()));
-        __runInitializers3(this, _entries_extraInitializers);
-        this.superblock = superblock;
-        this.offset = offset;
-        if (!offset)
-          return;
-        deserialize(this, superblock.store._buffer.subarray(offset, offset + sizeof(MetadataBlock2)));
-        if (!checksumMatches(this))
-          throw crit(new ErrnoError(Errno.EIO, "SingleBuffer: Checksum mismatch for metadata block at 0x" + offset.toString(16)));
+    let _items_decorators;
+    let _items_initializers = [];
+    let _items_extraInitializers = [];
+    let _locked_decorators;
+    let _locked_initializers = [];
+    let _locked_extraInitializers = [];
+    var MetadataBlock2 = _classThis = class extends _classSuper {
+      /**
+       * The crc32c checksum for the metadata block.
+       * @privateRemarks Keep this first!
+       */
+      get checksum() {
+        return __classPrivateFieldGet3(this, _MetadataBlock_checksum_accessor_storage, "f");
+      }
+      set checksum(value) {
+        __classPrivateFieldSet3(this, _MetadataBlock_checksum_accessor_storage, value, "f");
+      }
+      /** The (last) time this metadata block was updated */
+      get timestamp() {
+        return __classPrivateFieldGet3(this, _MetadataBlock_timestamp_accessor_storage, "f");
+      }
+      set timestamp(value) {
+        __classPrivateFieldSet3(this, _MetadataBlock_timestamp_accessor_storage, value, "f");
+      }
+      /** Offset to the previous metadata block */
+      get previous_offset() {
+        return __classPrivateFieldGet3(this, _MetadataBlock_previous_offset_accessor_storage, "f");
+      }
+      set previous_offset(value) {
+        __classPrivateFieldSet3(this, _MetadataBlock_previous_offset_accessor_storage, value, "f");
       }
       get previous() {
         var _a3;
         if (!this.previous_offset)
           return;
-        (_a3 = this._previous) !== null && _a3 !== void 0 ? _a3 : this._previous = new MetadataBlock2(this.superblock, this.previous_offset);
+        (_a3 = this._previous) !== null && _a3 !== void 0 ? _a3 : this._previous = new MetadataBlock2(this.buffer, this.previous_offset);
         return this._previous;
       }
+      get offsetHex() {
+        return "0x" + this.byteOffset.toString(16).padStart(8, "0");
+      }
+      /** Metadata entries. */
+      get items() {
+        return __classPrivateFieldGet3(this, _MetadataBlock_items_accessor_storage, "f");
+      }
+      set items(value) {
+        __classPrivateFieldSet3(this, _MetadataBlock_items_accessor_storage, value, "f");
+      }
+      toString(long = false) {
+        if (!long)
+          return `<MetadataBlock @ ${this.offsetHex}>`;
+        let text = [
+          `---- Metadata block at ${this.offsetHex} ----`,
+          `Checksum: 0x${this.checksum.toString(16).padStart(8, "0")}`,
+          `Last updated: ${new Date(Number(this.timestamp)).toLocaleString()}`,
+          `Previous block: 0x${this.previous_offset.toString(16).padStart(8, "0")}`,
+          "Entries:"
+        ].join("\n");
+        for (const entry of this.items) {
+          if (!entry.offset)
+            continue;
+          text += `
+	0x${entry.id.toString(16).padStart(8, "0")}: ${format3(entry.size).padStart(5)} at 0x${entry.offset.toString(16).padStart(8, "0")}`;
+        }
+        return text;
+      }
+      /**
+       * If non-zero, this block is locked for writing.
+       * Note a int32 is used for `Atomics.wait`
+       */
+      get locked() {
+        return __classPrivateFieldGet3(this, _MetadataBlock_locked_accessor_storage, "f");
+      }
+      set locked(value) {
+        __classPrivateFieldSet3(this, _MetadataBlock_locked_accessor_storage, value, "f");
+      }
+      /**
+       * Wait for the block to be unlocked.
+       */
+      waitUnlocked(depth = 0) {
+        if (depth > max_lock_attempts)
+          throw crit(withErrno("EBUSY", `sbfs: exceeded max attempts waiting for metadata block at ${this.offsetHex} to be unlocked`));
+        const i = this.length - 1;
+        if (!Atomics.load(this, i))
+          return;
+        switch (Atomics.wait(this, i, 1)) {
+          case "ok":
+            break;
+          case "not-equal":
+            depth++;
+            err(`sbfs: waiting for metadata block at ${this.offsetHex} to be unlocked (${depth}/${max_lock_attempts})`);
+            return this.waitUnlocked(depth);
+          case "timed-out":
+            throw crit(withErrno("EBUSY", `sbfs: timed out waiting for metadata block at ${this.offsetHex} to be unlocked`));
+        }
+      }
+      lock() {
+        this.waitUnlocked();
+        const i = offsetof(this, "locked");
+        Atomics.store(this, i, 1);
+        const release = () => {
+          Atomics.store(this, i, 0);
+          Atomics.notify(this, i, 1);
+        };
+        release[Symbol.dispose] = release;
+        return release;
+      }
+      constructor() {
+        super(...arguments);
+        _MetadataBlock_checksum_accessor_storage.set(this, __runInitializers3(this, _checksum_initializers, void 0));
+        _MetadataBlock_timestamp_accessor_storage.set(this, (__runInitializers3(this, _checksum_extraInitializers), __runInitializers3(this, _timestamp_initializers, BigInt(Date.now()))));
+        _MetadataBlock_previous_offset_accessor_storage.set(this, (__runInitializers3(this, _timestamp_extraInitializers), __runInitializers3(this, _previous_offset_initializers, void 0)));
+        this._previous = __runInitializers3(this, _previous_offset_extraInitializers);
+        _MetadataBlock_items_accessor_storage.set(this, __runInitializers3(this, _items_initializers, void 0));
+        _MetadataBlock_locked_accessor_storage.set(this, (__runInitializers3(this, _items_extraInitializers), __runInitializers3(this, _locked_initializers, void 0)));
+        __runInitializers3(this, _locked_extraInitializers);
+      }
     };
+    _MetadataBlock_checksum_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _MetadataBlock_timestamp_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _MetadataBlock_previous_offset_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _MetadataBlock_items_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _MetadataBlock_locked_accessor_storage = /* @__PURE__ */ new WeakMap();
     __setFunctionName3(_classThis, "MetadataBlock");
     (() => {
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-      _checksum_decorators = [(_a2 = types).uint32.bind(_a2)];
-      _timestamp_decorators = [(_b2 = types).uint32.bind(_b2)];
-      _previous_offset__decorators = [(_c2 = types).uint32.bind(_c2)];
-      _previous_offset_decorators = [(_d = types).uint32.bind(_d)];
-      _entries_decorators = [member(MetadataEntry, entries_per_block)];
-      __esDecorate3(null, null, _checksum_decorators, { kind: "field", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
+      var _a3;
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
+      _checksum_decorators = [(_a3 = types2).uint32.bind(_a3)];
+      _timestamp_decorators = [(_b2 = types2).uint64.bind(_b2)];
+      _previous_offset_decorators = [(_c2 = types2).uint32.bind(_c2)];
+      _items_decorators = [field(MetadataEntry, { length: entries_per_block })];
+      _locked_decorators = [(_d = types2).int32.bind(_d)];
+      __esDecorate3(_classThis, null, _checksum_decorators, { kind: "accessor", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
         obj.checksum = value;
       } }, metadata: _metadata }, _checksum_initializers, _checksum_extraInitializers);
-      __esDecorate3(null, null, _timestamp_decorators, { kind: "field", name: "timestamp", static: false, private: false, access: { has: (obj) => "timestamp" in obj, get: (obj) => obj.timestamp, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _timestamp_decorators, { kind: "accessor", name: "timestamp", static: false, private: false, access: { has: (obj) => "timestamp" in obj, get: (obj) => obj.timestamp, set: (obj, value) => {
         obj.timestamp = value;
       } }, metadata: _metadata }, _timestamp_initializers, _timestamp_extraInitializers);
-      __esDecorate3(null, null, _previous_offset__decorators, { kind: "field", name: "previous_offset_", static: false, private: false, access: { has: (obj) => "previous_offset_" in obj, get: (obj) => obj.previous_offset_, set: (obj, value) => {
-        obj.previous_offset_ = value;
-      } }, metadata: _metadata }, _previous_offset__initializers, _previous_offset__extraInitializers);
-      __esDecorate3(null, null, _previous_offset_decorators, { kind: "field", name: "previous_offset", static: false, private: false, access: { has: (obj) => "previous_offset" in obj, get: (obj) => obj.previous_offset, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _previous_offset_decorators, { kind: "accessor", name: "previous_offset", static: false, private: false, access: { has: (obj) => "previous_offset" in obj, get: (obj) => obj.previous_offset, set: (obj, value) => {
         obj.previous_offset = value;
       } }, metadata: _metadata }, _previous_offset_initializers, _previous_offset_extraInitializers);
-      __esDecorate3(null, null, _entries_decorators, { kind: "field", name: "entries", static: false, private: false, access: { has: (obj) => "entries" in obj, get: (obj) => obj.entries, set: (obj, value) => {
-        obj.entries = value;
-      } }, metadata: _metadata }, _entries_initializers, _entries_extraInitializers);
+      __esDecorate3(_classThis, null, _items_decorators, { kind: "accessor", name: "items", static: false, private: false, access: { has: (obj) => "items" in obj, get: (obj) => obj.items, set: (obj, value) => {
+        obj.items = value;
+      } }, metadata: _metadata }, _items_initializers, _items_extraInitializers);
+      __esDecorate3(_classThis, null, _locked_decorators, { kind: "accessor", name: "locked", static: false, private: false, access: { has: (obj) => "locked" in obj, get: (obj) => obj.locked, set: (obj, value) => {
+        obj.locked = value;
+      } }, metadata: _metadata }, _locked_initializers, _locked_extraInitializers);
       __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
       MetadataBlock2 = _classThis = _classDescriptor.value;
       if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
@@ -18167,13 +18773,15 @@
     })();
     return MetadataBlock2 = _classThis;
   })();
-  var sb_magic = 2049864546;
+  var sb_magic = 1651715706;
   var SuperBlock = (() => {
-    var _a2, _b2, _c2, _d, _e, _f, _g, _h, _j, _k, _l;
-    let _classDecorators = [struct()];
+    var _SuperBlock_checksum_accessor_storage, _SuperBlock_magic_accessor_storage, _SuperBlock_version_accessor_storage, _SuperBlock_inode_format_accessor_storage, _SuperBlock_flags_accessor_storage, _SuperBlock_used_bytes_accessor_storage, _SuperBlock_total_bytes_accessor_storage, _SuperBlock_uuid_accessor_storage, _SuperBlock_metadata_block_size_accessor_storage, _SuperBlock_metadata_offset__accessor_storage, _SuperBlock_metadata_offset_accessor_storage, _SuperBlock_label_accessor_storage, _SuperBlock__padding_accessor_storage;
+    var _a2, _b2, _c2, _d, _e, _f, _g, _h, _j, _k;
+    let _classDecorators = [struct(packed)];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
+    let _classSuper = BufferView;
     let _checksum_decorators;
     let _checksum_initializers = [];
     let _checksum_extraInitializers = [];
@@ -18213,40 +18821,148 @@
     let __padding_decorators;
     let __padding_initializers = [];
     let __padding_extraInitializers = [];
-    var SuperBlock2 = _classThis = class {
-      constructor(store = _throw(new ErrnoError(Errno.EINVAL, "Super block must be initialized with a store"))) {
-        this.store = store;
-        this.checksum = __runInitializers3(this, _checksum_initializers, 0);
-        this.magic = (__runInitializers3(this, _checksum_extraInitializers), __runInitializers3(this, _magic_initializers, sb_magic));
-        this.version = (__runInitializers3(this, _magic_extraInitializers), __runInitializers3(this, _version_initializers, 1));
-        this.inode_format = (__runInitializers3(this, _version_extraInitializers), __runInitializers3(this, _inode_format_initializers, _inode_version));
-        this.flags = (__runInitializers3(this, _inode_format_extraInitializers), __runInitializers3(this, _flags_initializers, 0));
-        this.used_bytes = (__runInitializers3(this, _flags_extraInitializers), __runInitializers3(this, _used_bytes_initializers, BigInt(0)));
-        this.total_bytes = (__runInitializers3(this, _used_bytes_extraInitializers), __runInitializers3(this, _total_bytes_initializers, BigInt(0)));
-        this.uuid = (__runInitializers3(this, _total_bytes_extraInitializers), __runInitializers3(this, _uuid_initializers, BigInt(0)));
-        this.metadata_block_size = (__runInitializers3(this, _uuid_extraInitializers), __runInitializers3(this, _metadata_block_size_initializers, sizeof(MetadataBlock)));
-        this.metadata_offset_ = (__runInitializers3(this, _metadata_block_size_extraInitializers), __runInitializers3(this, _metadata_offset__initializers, 0));
-        this.metadata_offset = (__runInitializers3(this, _metadata_offset__extraInitializers), __runInitializers3(this, _metadata_offset_initializers, 0));
+    var SuperBlock2 = _classThis = class extends _classSuper {
+      constructor(...args) {
+        super(...args);
+        _SuperBlock_checksum_accessor_storage.set(this, __runInitializers3(this, _checksum_initializers, void 0));
+        _SuperBlock_magic_accessor_storage.set(this, (__runInitializers3(this, _checksum_extraInitializers), __runInitializers3(this, _magic_initializers, void 0)));
+        _SuperBlock_version_accessor_storage.set(this, (__runInitializers3(this, _magic_extraInitializers), __runInitializers3(this, _version_initializers, void 0)));
+        _SuperBlock_inode_format_accessor_storage.set(this, (__runInitializers3(this, _version_extraInitializers), __runInitializers3(this, _inode_format_initializers, void 0)));
+        _SuperBlock_flags_accessor_storage.set(this, (__runInitializers3(this, _inode_format_extraInitializers), __runInitializers3(this, _flags_initializers, void 0)));
+        _SuperBlock_used_bytes_accessor_storage.set(this, (__runInitializers3(this, _flags_extraInitializers), __runInitializers3(this, _used_bytes_initializers, void 0)));
+        _SuperBlock_total_bytes_accessor_storage.set(this, (__runInitializers3(this, _used_bytes_extraInitializers), __runInitializers3(this, _total_bytes_initializers, void 0)));
+        _SuperBlock_uuid_accessor_storage.set(this, (__runInitializers3(this, _total_bytes_extraInitializers), __runInitializers3(this, _uuid_initializers, void 0)));
+        _SuperBlock_metadata_block_size_accessor_storage.set(this, (__runInitializers3(this, _uuid_extraInitializers), __runInitializers3(this, _metadata_block_size_initializers, void 0)));
+        _SuperBlock_metadata_offset__accessor_storage.set(this, (__runInitializers3(this, _metadata_block_size_extraInitializers), __runInitializers3(this, _metadata_offset__initializers, void 0)));
+        _SuperBlock_metadata_offset_accessor_storage.set(this, (__runInitializers3(this, _metadata_offset__extraInitializers), __runInitializers3(this, _metadata_offset_initializers, void 0)));
         this.metadata = __runInitializers3(this, _metadata_offset_extraInitializers);
-        this.label = __runInitializers3(this, _label_initializers, "");
-        this._padding = (__runInitializers3(this, _label_extraInitializers), __runInitializers3(this, __padding_initializers, new Array(132).fill(0)));
+        _SuperBlock_label_accessor_storage.set(this, __runInitializers3(this, _label_initializers, void 0));
+        _SuperBlock__padding_accessor_storage.set(this, (__runInitializers3(this, _label_extraInitializers), __runInitializers3(this, __padding_initializers, void 0)));
         __runInitializers3(this, __padding_extraInitializers);
-        this.store = store;
-        if (store._view.getUint32(offsetof(SuperBlock2, "magic"), true) != sb_magic) {
-          warn("SingleBuffer: Invalid magic value, assuming this is a fresh super block");
-          this.metadata = new MetadataBlock(this);
-          this.metadata.offset = sizeof(SuperBlock2);
-          this.metadata_offset = this.metadata.offset;
-          this.used_bytes = BigInt(sizeof(SuperBlock2) + sizeof(MetadataBlock));
-          this.total_bytes = BigInt(store._buffer.byteLength);
-          store._write(this);
-          store._write(this.metadata);
+        if (this.magic != sb_magic) {
+          warn("sbfs: Invalid magic value, assuming this is a fresh super block");
+          const md = new MetadataBlock(this.buffer, sizeof(SuperBlock2));
+          Object.assign(this, {
+            metadata: md,
+            metadata_offset: md.byteOffset,
+            used_bytes: BigInt(sizeof(SuperBlock2) + sizeof(MetadataBlock)),
+            total_bytes: BigInt(this.buffer.byteLength),
+            magic: sb_magic,
+            version: 1,
+            inode_format: _inode_version,
+            metadata_block_size: sizeof(MetadataBlock),
+            uuid: encodeUUID(crypto.randomUUID())
+          });
+          _update(this);
+          _update(md);
           return;
         }
-        deserialize(this, store._buffer.subarray(0, sizeof(SuperBlock2)));
-        if (!checksumMatches(this))
-          throw crit(new ErrnoError(Errno.EIO, "SingleBuffer: Checksum mismatch for super block!"));
-        this.metadata = new MetadataBlock(this, this.metadata_offset);
+        if (this.checksum !== checksum(this))
+          throw crit(withErrno("EIO", "sbfs: checksum mismatch for super block"));
+        this.metadata = new MetadataBlock(this.buffer, this.metadata_offset);
+        if (this.metadata.checksum !== checksum(this.metadata))
+          throw crit(withErrno("EIO", `sbfs: checksum mismatch for metadata block (saved ${this.metadata.checksum.toString(16).padStart(8, "0")}, computed ${checksum(this.metadata).toString(16).padStart(8, "0")})`));
+        if (this.inode_format != _inode_version)
+          throw crit(withErrno("EIO", "sbfs: inode format mismatch"));
+        if (this.metadata_block_size != sizeof(MetadataBlock))
+          throw crit(withErrno("EIO", "sbfs: metadata block size mismatch"));
+      }
+      /**
+       * The crc32c checksum for the super block.
+       * @privateRemarks Keep this first!
+       */
+      get checksum() {
+        return __classPrivateFieldGet3(this, _SuperBlock_checksum_accessor_storage, "f");
+      }
+      set checksum(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_checksum_accessor_storage, value, "f");
+      }
+      /** Signature for the superblock. */
+      get magic() {
+        return __classPrivateFieldGet3(this, _SuperBlock_magic_accessor_storage, "f");
+      }
+      set magic(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_magic_accessor_storage, value, "f");
+      }
+      /** The version of the on-disk format */
+      get version() {
+        return __classPrivateFieldGet3(this, _SuperBlock_version_accessor_storage, "f");
+      }
+      set version(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_version_accessor_storage, value, "f");
+      }
+      /** Which format of `Inode` is used */
+      get inode_format() {
+        return __classPrivateFieldGet3(this, _SuperBlock_inode_format_accessor_storage, "f");
+      }
+      set inode_format(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_inode_format_accessor_storage, value, "f");
+      }
+      /** Flags for the file system. Currently unused */
+      get flags() {
+        return __classPrivateFieldGet3(this, _SuperBlock_flags_accessor_storage, "f");
+      }
+      set flags(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_flags_accessor_storage, value, "f");
+      }
+      /** The number of used bytes, including the super block and metadata */
+      get used_bytes() {
+        return __classPrivateFieldGet3(this, _SuperBlock_used_bytes_accessor_storage, "f");
+      }
+      set used_bytes(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_used_bytes_accessor_storage, value, "f");
+      }
+      /** The total size of the entire file system, including the super block and metadata */
+      get total_bytes() {
+        return __classPrivateFieldGet3(this, _SuperBlock_total_bytes_accessor_storage, "f");
+      }
+      set total_bytes(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_total_bytes_accessor_storage, value, "f");
+      }
+      /** A UUID for this file system */
+      get uuid() {
+        return __classPrivateFieldGet3(this, _SuperBlock_uuid_accessor_storage, "f");
+      }
+      set uuid(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_uuid_accessor_storage, value, "f");
+      }
+      /**
+       * The size in bytes of a metadata block.
+       * Not currently configurable.
+       */
+      get metadata_block_size() {
+        return __classPrivateFieldGet3(this, _SuperBlock_metadata_block_size_accessor_storage, "f");
+      }
+      set metadata_block_size(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_metadata_block_size_accessor_storage, value, "f");
+      }
+      /** Reserved for 64-bit offset expansion */
+      get metadata_offset_() {
+        return __classPrivateFieldGet3(this, _SuperBlock_metadata_offset__accessor_storage, "f");
+      }
+      set metadata_offset_(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_metadata_offset__accessor_storage, value, "f");
+      }
+      /** Offset of the current metadata block */
+      get metadata_offset() {
+        return __classPrivateFieldGet3(this, _SuperBlock_metadata_offset_accessor_storage, "f");
+      }
+      set metadata_offset(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_metadata_offset_accessor_storage, value, "f");
+      }
+      /** An optional label for the file system */
+      get label() {
+        return __classPrivateFieldGet3(this, _SuperBlock_label_accessor_storage, "f");
+      }
+      set label(value) {
+        __classPrivateFieldSet3(this, _SuperBlock_label_accessor_storage, value, "f");
+      }
+      /** Padded to 256 bytes */
+      get _padding() {
+        return __classPrivateFieldGet3(this, _SuperBlock__padding_accessor_storage, "f");
+      }
+      set _padding(value) {
+        __classPrivateFieldSet3(this, _SuperBlock__padding_accessor_storage, value, "f");
       }
       /**
        * Rotate out the current metadata block.
@@ -18255,14 +18971,13 @@
        * @returns the new metadata block
        */
       rotateMetadata() {
-        const metadata = new MetadataBlock(this);
-        metadata.offset = Number(this.used_bytes);
+        const metadata = new MetadataBlock(this.buffer, Number(this.used_bytes));
         metadata.previous_offset = this.metadata_offset;
         this.metadata = metadata;
-        this.metadata_offset = metadata.offset;
-        this.store._write(metadata);
+        this.metadata_offset = metadata.byteOffset;
+        _update(metadata);
         this.used_bytes += BigInt(sizeof(MetadataBlock));
-        this.store._write(this);
+        _update(this);
         return metadata;
       }
       /**
@@ -18275,9 +18990,9 @@
         if (offset + length > this.total_bytes || offset < sizeof(SuperBlock2))
           return false;
         for (let block = this.metadata; block; block = block.previous) {
-          if (offset < block.offset + sizeof(MetadataBlock) && offset + length > block.offset)
+          if (offset < block.byteOffset + sizeof(MetadataBlock) && offset + length > block.byteOffset)
             return false;
-          for (const entry of block.entries) {
+          for (const entry of block.items) {
             if (!entry.offset)
               continue;
             if (offset >= entry.offset && offset < entry.offset + entry.size || offset + length > entry.offset && offset + length <= entry.offset + entry.size || offset <= entry.offset && offset + length >= entry.offset + entry.size) {
@@ -18288,59 +19003,73 @@
         return true;
       }
     };
+    _SuperBlock_checksum_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock_magic_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock_version_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock_inode_format_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock_flags_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock_used_bytes_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock_total_bytes_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock_uuid_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock_metadata_block_size_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock_metadata_offset__accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock_metadata_offset_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock_label_accessor_storage = /* @__PURE__ */ new WeakMap();
+    _SuperBlock__padding_accessor_storage = /* @__PURE__ */ new WeakMap();
     __setFunctionName3(_classThis, "SuperBlock");
     (() => {
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-      _checksum_decorators = [(_a2 = types).uint32.bind(_a2)];
-      _magic_decorators = [(_b2 = types).uint32.bind(_b2)];
-      _version_decorators = [(_c2 = types).uint16.bind(_c2)];
-      _inode_format_decorators = [(_d = types).uint16.bind(_d)];
-      _flags_decorators = [(_e = types).uint32.bind(_e)];
-      _used_bytes_decorators = [(_f = types).uint64.bind(_f)];
-      _total_bytes_decorators = [(_g = types).uint64.bind(_g)];
-      _uuid_decorators = [(_h = types).uint128.bind(_h)];
-      _metadata_block_size_decorators = [(_j = types).uint32.bind(_j)];
-      _metadata_offset__decorators = [(_k = types).uint32.bind(_k)];
-      _metadata_offset_decorators = [(_l = types).uint32.bind(_l)];
-      _label_decorators = [types.char(64)];
-      __padding_decorators = [types.char(132)];
-      __esDecorate3(null, null, _checksum_decorators, { kind: "field", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
+      var _a3;
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
+      _checksum_decorators = [(_a3 = types2).uint32.bind(_a3)];
+      _magic_decorators = [(_b2 = types2).uint32.bind(_b2)];
+      _version_decorators = [(_c2 = types2).uint16.bind(_c2)];
+      _inode_format_decorators = [(_d = types2).uint16.bind(_d)];
+      _flags_decorators = [(_e = types2).uint32.bind(_e)];
+      _used_bytes_decorators = [(_f = types2).uint64.bind(_f)];
+      _total_bytes_decorators = [(_g = types2).uint64.bind(_g)];
+      _uuid_decorators = [types2.uint8(16)];
+      _metadata_block_size_decorators = [(_h = types2).uint32.bind(_h)];
+      _metadata_offset__decorators = [(_j = types2).uint32.bind(_j)];
+      _metadata_offset_decorators = [(_k = types2).uint32.bind(_k)];
+      _label_decorators = [types2.char(64)];
+      __padding_decorators = [types2.char(132)];
+      __esDecorate3(_classThis, null, _checksum_decorators, { kind: "accessor", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
         obj.checksum = value;
       } }, metadata: _metadata }, _checksum_initializers, _checksum_extraInitializers);
-      __esDecorate3(null, null, _magic_decorators, { kind: "field", name: "magic", static: false, private: false, access: { has: (obj) => "magic" in obj, get: (obj) => obj.magic, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _magic_decorators, { kind: "accessor", name: "magic", static: false, private: false, access: { has: (obj) => "magic" in obj, get: (obj) => obj.magic, set: (obj, value) => {
         obj.magic = value;
       } }, metadata: _metadata }, _magic_initializers, _magic_extraInitializers);
-      __esDecorate3(null, null, _version_decorators, { kind: "field", name: "version", static: false, private: false, access: { has: (obj) => "version" in obj, get: (obj) => obj.version, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _version_decorators, { kind: "accessor", name: "version", static: false, private: false, access: { has: (obj) => "version" in obj, get: (obj) => obj.version, set: (obj, value) => {
         obj.version = value;
       } }, metadata: _metadata }, _version_initializers, _version_extraInitializers);
-      __esDecorate3(null, null, _inode_format_decorators, { kind: "field", name: "inode_format", static: false, private: false, access: { has: (obj) => "inode_format" in obj, get: (obj) => obj.inode_format, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _inode_format_decorators, { kind: "accessor", name: "inode_format", static: false, private: false, access: { has: (obj) => "inode_format" in obj, get: (obj) => obj.inode_format, set: (obj, value) => {
         obj.inode_format = value;
       } }, metadata: _metadata }, _inode_format_initializers, _inode_format_extraInitializers);
-      __esDecorate3(null, null, _flags_decorators, { kind: "field", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _flags_decorators, { kind: "accessor", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
         obj.flags = value;
       } }, metadata: _metadata }, _flags_initializers, _flags_extraInitializers);
-      __esDecorate3(null, null, _used_bytes_decorators, { kind: "field", name: "used_bytes", static: false, private: false, access: { has: (obj) => "used_bytes" in obj, get: (obj) => obj.used_bytes, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _used_bytes_decorators, { kind: "accessor", name: "used_bytes", static: false, private: false, access: { has: (obj) => "used_bytes" in obj, get: (obj) => obj.used_bytes, set: (obj, value) => {
         obj.used_bytes = value;
       } }, metadata: _metadata }, _used_bytes_initializers, _used_bytes_extraInitializers);
-      __esDecorate3(null, null, _total_bytes_decorators, { kind: "field", name: "total_bytes", static: false, private: false, access: { has: (obj) => "total_bytes" in obj, get: (obj) => obj.total_bytes, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _total_bytes_decorators, { kind: "accessor", name: "total_bytes", static: false, private: false, access: { has: (obj) => "total_bytes" in obj, get: (obj) => obj.total_bytes, set: (obj, value) => {
         obj.total_bytes = value;
       } }, metadata: _metadata }, _total_bytes_initializers, _total_bytes_extraInitializers);
-      __esDecorate3(null, null, _uuid_decorators, { kind: "field", name: "uuid", static: false, private: false, access: { has: (obj) => "uuid" in obj, get: (obj) => obj.uuid, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _uuid_decorators, { kind: "accessor", name: "uuid", static: false, private: false, access: { has: (obj) => "uuid" in obj, get: (obj) => obj.uuid, set: (obj, value) => {
         obj.uuid = value;
       } }, metadata: _metadata }, _uuid_initializers, _uuid_extraInitializers);
-      __esDecorate3(null, null, _metadata_block_size_decorators, { kind: "field", name: "metadata_block_size", static: false, private: false, access: { has: (obj) => "metadata_block_size" in obj, get: (obj) => obj.metadata_block_size, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _metadata_block_size_decorators, { kind: "accessor", name: "metadata_block_size", static: false, private: false, access: { has: (obj) => "metadata_block_size" in obj, get: (obj) => obj.metadata_block_size, set: (obj, value) => {
         obj.metadata_block_size = value;
       } }, metadata: _metadata }, _metadata_block_size_initializers, _metadata_block_size_extraInitializers);
-      __esDecorate3(null, null, _metadata_offset__decorators, { kind: "field", name: "metadata_offset_", static: false, private: false, access: { has: (obj) => "metadata_offset_" in obj, get: (obj) => obj.metadata_offset_, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _metadata_offset__decorators, { kind: "accessor", name: "metadata_offset_", static: false, private: false, access: { has: (obj) => "metadata_offset_" in obj, get: (obj) => obj.metadata_offset_, set: (obj, value) => {
         obj.metadata_offset_ = value;
       } }, metadata: _metadata }, _metadata_offset__initializers, _metadata_offset__extraInitializers);
-      __esDecorate3(null, null, _metadata_offset_decorators, { kind: "field", name: "metadata_offset", static: false, private: false, access: { has: (obj) => "metadata_offset" in obj, get: (obj) => obj.metadata_offset, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _metadata_offset_decorators, { kind: "accessor", name: "metadata_offset", static: false, private: false, access: { has: (obj) => "metadata_offset" in obj, get: (obj) => obj.metadata_offset, set: (obj, value) => {
         obj.metadata_offset = value;
       } }, metadata: _metadata }, _metadata_offset_initializers, _metadata_offset_extraInitializers);
-      __esDecorate3(null, null, _label_decorators, { kind: "field", name: "label", static: false, private: false, access: { has: (obj) => "label" in obj, get: (obj) => obj.label, set: (obj, value) => {
+      __esDecorate3(_classThis, null, _label_decorators, { kind: "accessor", name: "label", static: false, private: false, access: { has: (obj) => "label" in obj, get: (obj) => obj.label, set: (obj, value) => {
         obj.label = value;
       } }, metadata: _metadata }, _label_initializers, _label_extraInitializers);
-      __esDecorate3(null, null, __padding_decorators, { kind: "field", name: "_padding", static: false, private: false, access: { has: (obj) => "_padding" in obj, get: (obj) => obj._padding, set: (obj, value) => {
+      __esDecorate3(_classThis, null, __padding_decorators, { kind: "accessor", name: "_padding", static: false, private: false, access: { has: (obj) => "_padding" in obj, get: (obj) => obj._padding, set: (obj, value) => {
         obj._padding = value;
       } }, metadata: _metadata }, __padding_initializers, __padding_extraInitializers);
       __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
@@ -18350,115 +19079,132 @@
     })();
     return SuperBlock2 = _classThis;
   })();
-  function checksumMatches(value) {
-    const buffer = serialize(value);
-    const computed = crc32c(buffer.subarray(4));
-    return value.checksum === computed;
+  function checksum(value) {
+    return crc32c(new Uint8Array(value.buffer, value.byteOffset + 4, sizeof(value) - 4));
   }
-  var SingleBufferStore = class {
+  function _update(value) {
+    if (value instanceof MetadataBlock)
+      value.timestamp = BigInt(Date.now());
+    value.checksum = checksum(value);
+  }
+  var SingleBufferStore = class extends BufferView {
     get uuid() {
-      return stringifyUUID(this.superblock.uuid);
+      return decodeUUID(this.superblock.uuid);
     }
-    constructor(buffer) {
+    constructor(...args) {
+      super(...args);
       this.flags = [];
       this.name = "sbfs";
       this.type = 1935828595;
-      if (buffer.byteLength < sizeof(SuperBlock) + sizeof(MetadataBlock))
-        throw crit(new ErrnoError(Errno.EINVAL, "SingleBuffer: Buffer is too small for a file system"));
-      this._view = !ArrayBuffer.isView(buffer) ? new DataView(buffer) : new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-      this._buffer = !ArrayBuffer.isView(buffer) ? new Uint8Array(buffer) : new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-      this.superblock = new SuperBlock(this);
+      if (this.byteLength < sizeof(SuperBlock) + sizeof(MetadataBlock))
+        throw crit(withErrno("EINVAL", "sbfs: Buffer is too small for a file system"));
+      this._view = new DataView(this.buffer, this.byteOffset, this.byteLength);
+      this._u8 = new Uint8Array(this.buffer, this.byteOffset, this.byteLength);
+      this.superblock = new SuperBlock(this.buffer, this.byteOffset);
     }
-    /**
-     * Update a block's checksum and write it to the store's buffer.
-     * @internal @hidden
-     */
-    _write(value) {
-      value.checksum = crc32c(serialize(value).subarray(4));
-      const offset = "offset" in value ? value.offset : 0;
-      this._buffer.set(serialize(value), offset);
-    }
-    keys() {
+    *keys() {
       const keys = /* @__PURE__ */ new Set();
       for (let block = this.superblock.metadata; block; block = block.previous) {
-        for (const entry of block.entries)
-          if (entry.offset)
-            keys.add(entry.id);
+        block.waitUnlocked();
+        for (const entry of block.items) {
+          if (!entry.offset || keys.has(entry.id))
+            continue;
+          keys.add(entry.id);
+          yield entry.id;
+        }
       }
-      return keys;
     }
     get(id) {
       for (let block = this.superblock.metadata; block; block = block.previous) {
-        for (const entry of block.entries) {
-          if (entry.offset && entry.id == id) {
-            return this._buffer.subarray(entry.offset, entry.offset + entry.size);
-          }
+        block.waitUnlocked();
+        for (const entry of block.items) {
+          if (!entry.offset || entry.id != id)
+            continue;
+          const off = this.byteOffset + entry.offset;
+          return new Uint8Array(this.buffer.slice(off, off + entry.size));
         }
       }
     }
     set(id, data) {
-      for (let block = this.superblock.metadata; block; block = block.previous) {
-        for (const entry2 of block.entries) {
-          if (!entry2.offset || entry2.id != id)
-            continue;
-          if (data.length <= entry2.size) {
-            this._buffer.set(data, entry2.offset);
-            if (data.length < entry2.size) {
-              entry2.size = data.length;
-              this._write(block);
-            }
-            return;
-          }
-          if (this.superblock.isUnused(entry2.offset, data.length)) {
-            entry2.size = data.length;
-            this._buffer.set(data, entry2.offset);
-            this._write(block);
-            return;
-          }
-          const used_bytes = Number(this.superblock.used_bytes);
-          for (let block2 = this.superblock.metadata; block2; block2 = block2.previous) {
-            for (const entry3 of block2.entries) {
-              if (entry3.offset != used_bytes)
+      const env_1 = { stack: [], error: void 0, hasError: false };
+      try {
+        if (id === 0 && data.length < sizeof(Inode))
+          throw alert(withErrno("EIO", `sbfs: tried to set ${data.length} bytes for id 0!`));
+        for (let block = this.superblock.metadata; block; block = block.previous) {
+          block.waitUnlocked();
+          for (const entry2 of block.items) {
+            const env_2 = { stack: [], error: void 0, hasError: false };
+            try {
+              if (!entry2.offset || entry2.id != id)
                 continue;
-              entry3.offset += data.length;
-              this._write(block2);
-              break;
+              const lock2 = __addDisposableResource5(env_2, block.lock(), false);
+              if (data.length == entry2.size) {
+                this._u8.set(data, entry2.offset);
+                return;
+              }
+              if (data.length < entry2.size || this.superblock.isUnused(entry2.offset, data.length)) {
+                this._u8.set(data, entry2.offset);
+                entry2.size = data.length;
+                _update(block);
+                return;
+              }
+              entry2.offset = Number(this.superblock.used_bytes);
+              entry2.size = data.length;
+              this._u8.set(data, entry2.offset);
+              _update(block);
+              this.superblock.used_bytes += BigInt(data.length);
+              _update(this.superblock);
+              return;
+            } catch (e_1) {
+              env_2.error = e_1;
+              env_2.hasError = true;
+            } finally {
+              __disposeResources5(env_2);
             }
           }
-          entry2.offset = used_bytes;
-          entry2.size = data.length;
-          this._buffer.set(data, entry2.offset);
-          this._write(block);
-          this.superblock.used_bytes += BigInt(data.length);
-          this._write(this.superblock);
-          return;
         }
+        let entry = Array.from(this.superblock.metadata.items).find((e) => !e.offset);
+        if (!entry) {
+          this.superblock.rotateMetadata();
+          entry = this.superblock.metadata.items[0];
+        }
+        const lock = __addDisposableResource5(env_1, this.superblock.metadata.lock(), false);
+        const offset = Number(this.superblock.used_bytes);
+        entry.id = id;
+        entry.offset = offset;
+        entry.size = data.length;
+        this._u8.set(data, offset);
+        this.superblock.used_bytes += BigInt(data.length);
+        _update(this.superblock.metadata);
+        _update(this.superblock);
+      } catch (e_2) {
+        env_1.error = e_2;
+        env_1.hasError = true;
+      } finally {
+        __disposeResources5(env_1);
       }
-      let entry = this.superblock.metadata.entries.find((e) => !e.offset);
-      if (!entry) {
-        this.superblock.rotateMetadata();
-        entry = this.superblock.metadata.entries[0];
-      }
-      const offset = Number(this.superblock.used_bytes);
-      entry.id = id;
-      entry.offset = offset;
-      entry.size = data.length;
-      this._buffer.set(data, offset);
-      this.superblock.used_bytes += BigInt(data.length);
-      this._write(this.superblock.metadata);
-      this._write(this.superblock);
     }
     delete(id) {
       for (let block = this.superblock.metadata; block; block = block.previous) {
-        for (const entry of block.entries) {
+        block.waitUnlocked();
+        for (const entry of block.items) {
           if (entry.id != id)
             continue;
           entry.offset = 0;
           entry.size = 0;
-          this._write(block);
+          entry.id = 0;
+          _update(block);
           return;
         }
       }
+    }
+    get fs() {
+      return this._fs;
+    }
+    set fs(fs) {
+      if (this.buffer.constructor.name === "SharedArrayBuffer")
+        fs === null || fs === void 0 ? void 0 : fs.attributes.set("no_id_tables", true);
+      this._fs = fs;
     }
     sync() {
       return Promise.resolve();
@@ -18478,15 +19224,15 @@
     options: {
       buffer: { type: "object", required: true }
     },
-    create({ buffer }) {
-      const fs = new StoreFS(new SingleBufferStore(buffer));
+    create(opt) {
+      const fs = new StoreFS(ArrayBuffer.isView(opt.buffer) ? new SingleBufferStore(opt.buffer.buffer, opt.buffer.byteOffset, opt.buffer.byteLength) : new SingleBufferStore(opt.buffer));
       fs.checkRootSync();
       return fs;
     }
   };
   var SingleBuffer = _SingleBuffer;
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/context.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/context.js
   var _nextId = 1;
   var boundContexts = /* @__PURE__ */ new Map();
   function bindContext({ root = (this === null || this === void 0 ? void 0 : this.root) || "/", pwd = (this === null || this === void 0 ? void 0 : this.pwd) || "/", credentials = structuredClone(defaultContext.credentials) } = {}) {
@@ -18518,8 +19264,8 @@
     return bound;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/mixins/mutexed.js
-  var __addDisposableResource5 = function(env, value, async) {
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/mixins/mutexed.js
+  var __addDisposableResource6 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
       var dispose, inner;
@@ -18546,7 +19292,7 @@
     }
     return value;
   };
-  var __disposeResources5 = /* @__PURE__ */ function(SuppressedError2) {
+  var __disposeResources6 = /* @__PURE__ */ function(SuppressedError2) {
     return function(env) {
       function fail(e) {
         env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
@@ -18643,15 +19389,15 @@
      * If the path is currently locked, waits for it to be unlocked.
      * @internal
      */
-    async lock(path, syscall) {
+    async lock() {
       const previous = this.currentLock;
       const lock = this.addLock();
       const stack = new Error().stack;
       setTimeout(() => {
         if (lock.isLocked) {
-          const error = ErrnoError.With("EDEADLK", path, syscall);
+          const error = withErrno("EDEADLK");
           error.stack += stack === null || stack === void 0 ? void 0 : stack.slice("Error".length);
-          throw err(error, { fs: this });
+          throw err(error);
         }
       }, 5e3);
       await (previous === null || previous === void 0 ? void 0 : previous.done());
@@ -18662,10 +19408,10 @@
      * If the path is currently locked, an error will be thrown
      * @internal
      */
-    lockSync(path, syscall) {
+    lockSync() {
       var _a2;
       if ((_a2 = this.currentLock) === null || _a2 === void 0 ? void 0 : _a2.isLocked) {
-        throw err(ErrnoError.With("EBUSY", path, syscall), { fs: this });
+        throw err(withErrno("EBUSY"));
       }
       return this.addLock();
     }
@@ -18681,337 +19427,337 @@
     async rename(oldPath, newPath) {
       const env_1 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_1, await this.lock(oldPath, "rename"), false);
+        const _ = __addDisposableResource6(env_1, await this.lock(), false);
         await this._fs.rename(oldPath, newPath);
       } catch (e_1) {
         env_1.error = e_1;
         env_1.hasError = true;
       } finally {
-        __disposeResources5(env_1);
+        __disposeResources6(env_1);
       }
     }
     renameSync(oldPath, newPath) {
       const env_2 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_2, this.lockSync(oldPath, "rename"), false);
+        const _ = __addDisposableResource6(env_2, this.lockSync(), false);
         return this._fs.renameSync(oldPath, newPath);
       } catch (e_2) {
         env_2.error = e_2;
         env_2.hasError = true;
       } finally {
-        __disposeResources5(env_2);
+        __disposeResources6(env_2);
       }
     }
     async stat(path) {
       const env_3 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_3, await this.lock(path, "stat"), false);
+        const _ = __addDisposableResource6(env_3, await this.lock(), false);
         return await this._fs.stat(path);
       } catch (e_3) {
         env_3.error = e_3;
         env_3.hasError = true;
       } finally {
-        __disposeResources5(env_3);
+        __disposeResources6(env_3);
       }
     }
     statSync(path) {
       const env_4 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_4, this.lockSync(path, "stat"), false);
+        const _ = __addDisposableResource6(env_4, this.lockSync(), false);
         return this._fs.statSync(path);
       } catch (e_4) {
         env_4.error = e_4;
         env_4.hasError = true;
       } finally {
-        __disposeResources5(env_4);
+        __disposeResources6(env_4);
       }
     }
     async touch(path, metadata) {
       const env_5 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_5, await this.lock(path, "touch"), false);
+        const _ = __addDisposableResource6(env_5, await this.lock(), false);
         await this._fs.touch(path, metadata);
       } catch (e_5) {
         env_5.error = e_5;
         env_5.hasError = true;
       } finally {
-        __disposeResources5(env_5);
+        __disposeResources6(env_5);
       }
     }
     touchSync(path, metadata) {
       const env_6 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_6, this.lockSync(path, "touch"), false);
+        const _ = __addDisposableResource6(env_6, this.lockSync(), false);
         this._fs.touchSync(path, metadata);
       } catch (e_6) {
         env_6.error = e_6;
         env_6.hasError = true;
       } finally {
-        __disposeResources5(env_6);
+        __disposeResources6(env_6);
       }
     }
     async createFile(path, options) {
       const env_7 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_7, await this.lock(path, "createFile"), false);
+        const _ = __addDisposableResource6(env_7, await this.lock(), false);
         return await this._fs.createFile(path, options);
       } catch (e_7) {
         env_7.error = e_7;
         env_7.hasError = true;
       } finally {
-        __disposeResources5(env_7);
+        __disposeResources6(env_7);
       }
     }
     createFileSync(path, options) {
       const env_8 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_8, this.lockSync(path, "createFile"), false);
+        const _ = __addDisposableResource6(env_8, this.lockSync(), false);
         return this._fs.createFileSync(path, options);
       } catch (e_8) {
         env_8.error = e_8;
         env_8.hasError = true;
       } finally {
-        __disposeResources5(env_8);
+        __disposeResources6(env_8);
       }
     }
     async unlink(path) {
       const env_9 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_9, await this.lock(path, "unlink"), false);
+        const _ = __addDisposableResource6(env_9, await this.lock(), false);
         await this._fs.unlink(path);
       } catch (e_9) {
         env_9.error = e_9;
         env_9.hasError = true;
       } finally {
-        __disposeResources5(env_9);
+        __disposeResources6(env_9);
       }
     }
     unlinkSync(path) {
       const env_10 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_10, this.lockSync(path, "unlink"), false);
+        const _ = __addDisposableResource6(env_10, this.lockSync(), false);
         return this._fs.unlinkSync(path);
       } catch (e_10) {
         env_10.error = e_10;
         env_10.hasError = true;
       } finally {
-        __disposeResources5(env_10);
+        __disposeResources6(env_10);
       }
     }
     async rmdir(path) {
       const env_11 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_11, await this.lock(path, "rmdir"), false);
+        const _ = __addDisposableResource6(env_11, await this.lock(), false);
         await this._fs.rmdir(path);
       } catch (e_11) {
         env_11.error = e_11;
         env_11.hasError = true;
       } finally {
-        __disposeResources5(env_11);
+        __disposeResources6(env_11);
       }
     }
     rmdirSync(path) {
       const env_12 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_12, this.lockSync(path, "rmdir"), false);
+        const _ = __addDisposableResource6(env_12, this.lockSync(), false);
         return this._fs.rmdirSync(path);
       } catch (e_12) {
         env_12.error = e_12;
         env_12.hasError = true;
       } finally {
-        __disposeResources5(env_12);
+        __disposeResources6(env_12);
       }
     }
     async mkdir(path, options) {
       const env_13 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_13, await this.lock(path, "mkdir"), false);
+        const _ = __addDisposableResource6(env_13, await this.lock(), false);
         return await this._fs.mkdir(path, options);
       } catch (e_13) {
         env_13.error = e_13;
         env_13.hasError = true;
       } finally {
-        __disposeResources5(env_13);
+        __disposeResources6(env_13);
       }
     }
     mkdirSync(path, options) {
       const env_14 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_14, this.lockSync(path, "mkdir"), false);
+        const _ = __addDisposableResource6(env_14, this.lockSync(), false);
         return this._fs.mkdirSync(path, options);
       } catch (e_14) {
         env_14.error = e_14;
         env_14.hasError = true;
       } finally {
-        __disposeResources5(env_14);
+        __disposeResources6(env_14);
       }
     }
     async readdir(path) {
       const env_15 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_15, await this.lock(path, "readdir"), false);
+        const _ = __addDisposableResource6(env_15, await this.lock(), false);
         return await this._fs.readdir(path);
       } catch (e_15) {
         env_15.error = e_15;
         env_15.hasError = true;
       } finally {
-        __disposeResources5(env_15);
+        __disposeResources6(env_15);
       }
     }
     readdirSync(path) {
       const env_16 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_16, this.lockSync(path, "readdir"), false);
+        const _ = __addDisposableResource6(env_16, this.lockSync(), false);
         return this._fs.readdirSync(path);
       } catch (e_16) {
         env_16.error = e_16;
         env_16.hasError = true;
       } finally {
-        __disposeResources5(env_16);
+        __disposeResources6(env_16);
       }
     }
     async exists(path) {
       const env_17 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_17, await this.lock(path, "exists"), false);
+        const _ = __addDisposableResource6(env_17, await this.lock(), false);
         return await this._fs.exists(path);
       } catch (e_17) {
         env_17.error = e_17;
         env_17.hasError = true;
       } finally {
-        __disposeResources5(env_17);
+        __disposeResources6(env_17);
       }
     }
     existsSync(path) {
       const env_18 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_18, this.lockSync(path, "exists"), false);
+        const _ = __addDisposableResource6(env_18, this.lockSync(), false);
         return this._fs.existsSync(path);
       } catch (e_18) {
         env_18.error = e_18;
         env_18.hasError = true;
       } finally {
-        __disposeResources5(env_18);
+        __disposeResources6(env_18);
       }
     }
     async link(srcpath, dstpath) {
       const env_19 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_19, await this.lock(srcpath, "link"), false);
+        const _ = __addDisposableResource6(env_19, await this.lock(), false);
         await this._fs.link(srcpath, dstpath);
       } catch (e_19) {
         env_19.error = e_19;
         env_19.hasError = true;
       } finally {
-        __disposeResources5(env_19);
+        __disposeResources6(env_19);
       }
     }
     linkSync(srcpath, dstpath) {
       const env_20 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_20, this.lockSync(srcpath, "link"), false);
+        const _ = __addDisposableResource6(env_20, this.lockSync(), false);
         return this._fs.linkSync(srcpath, dstpath);
       } catch (e_20) {
         env_20.error = e_20;
         env_20.hasError = true;
       } finally {
-        __disposeResources5(env_20);
+        __disposeResources6(env_20);
       }
     }
-    async sync(path) {
+    async sync() {
       const env_21 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_21, await this.lock(path, "sync"), false);
-        await this._fs.sync(path);
+        const _ = __addDisposableResource6(env_21, await this.lock(), false);
+        await this._fs.sync();
       } catch (e_21) {
         env_21.error = e_21;
         env_21.hasError = true;
       } finally {
-        __disposeResources5(env_21);
+        __disposeResources6(env_21);
       }
     }
-    syncSync(path) {
+    syncSync() {
       const env_22 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_22, this.lockSync(path, "sync"), false);
-        return this._fs.syncSync(path);
+        const _ = __addDisposableResource6(env_22, this.lockSync(), false);
+        return this._fs.syncSync();
       } catch (e_22) {
         env_22.error = e_22;
         env_22.hasError = true;
       } finally {
-        __disposeResources5(env_22);
+        __disposeResources6(env_22);
       }
     }
     async read(path, buffer, offset, end) {
       const env_23 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_23, await this.lock(path, "read"), false);
+        const _ = __addDisposableResource6(env_23, await this.lock(), false);
         return await this._fs.read(path, buffer, offset, end);
       } catch (e_23) {
         env_23.error = e_23;
         env_23.hasError = true;
       } finally {
-        __disposeResources5(env_23);
+        __disposeResources6(env_23);
       }
     }
     readSync(path, buffer, offset, end) {
       const env_24 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_24, this.lockSync(path, "read"), false);
+        const _ = __addDisposableResource6(env_24, this.lockSync(), false);
         return this._fs.readSync(path, buffer, offset, end);
       } catch (e_24) {
         env_24.error = e_24;
         env_24.hasError = true;
       } finally {
-        __disposeResources5(env_24);
+        __disposeResources6(env_24);
       }
     }
     async write(path, buffer, offset) {
       const env_25 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_25, await this.lock(path, "write"), false);
+        const _ = __addDisposableResource6(env_25, await this.lock(), false);
         return await this._fs.write(path, buffer, offset);
       } catch (e_25) {
         env_25.error = e_25;
         env_25.hasError = true;
       } finally {
-        __disposeResources5(env_25);
+        __disposeResources6(env_25);
       }
     }
     writeSync(path, buffer, offset) {
       const env_26 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_26, this.lockSync(path, "write"), false);
+        const _ = __addDisposableResource6(env_26, this.lockSync(), false);
         return this._fs.writeSync(path, buffer, offset);
       } catch (e_26) {
         env_26.error = e_26;
         env_26.hasError = true;
       } finally {
-        __disposeResources5(env_26);
+        __disposeResources6(env_26);
       }
     }
     streamRead(path, options) {
       const env_27 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_27, this.lockSync(path, "streamRead"), false);
+        const _ = __addDisposableResource6(env_27, this.lockSync(), false);
         return this._fs.streamRead(path, options);
       } catch (e_27) {
         env_27.error = e_27;
         env_27.hasError = true;
       } finally {
-        __disposeResources5(env_27);
+        __disposeResources6(env_27);
       }
     }
     streamWrite(path, options) {
       const env_28 = { stack: [], error: void 0, hasError: false };
       try {
-        const _ = __addDisposableResource5(env_28, this.lockSync(path, "streamWrite"), false);
+        const _ = __addDisposableResource6(env_28, this.lockSync(), false);
         return this._fs.streamWrite(path, options);
       } catch (e_28) {
         env_28.error = e_28;
         env_28.hasError = true;
       } finally {
-        __disposeResources5(env_28);
+        __disposeResources6(env_28);
       }
     }
   };
@@ -19025,7 +19771,7 @@
     return MutexedFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/mixins/readonly.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/mixins/readonly.js
   function Readonly(FS) {
     class ReadonlyFS extends FS {
       constructor(...args) {
@@ -19033,67 +19779,67 @@
         this.attributes.set("no_write");
       }
       async rename() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       renameSync() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       async createFile() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       createFileSync() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       async unlink() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       unlinkSync() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       async rmdir() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       rmdirSync() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       async mkdir() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       mkdirSync() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       async link() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       linkSync() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       async touch() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       touchSync() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       async sync() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       syncSync() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       async write() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       writeSync() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
       streamWrite() {
-        throw new ErrnoError(Errno.EROFS);
+        throw withErrno("EROFS");
       }
     }
     return ReadonlyFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/mixins/sync.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/mixins/sync.js
   function Sync(FS) {
     class SyncFS extends FS {
       async exists(path) {
@@ -19126,8 +19872,8 @@
       async link(srcpath, dstpath) {
         return this.linkSync(srcpath, dstpath);
       }
-      async sync(path) {
-        return this.syncSync(path);
+      async sync() {
+        return this.syncSync();
       }
       async read(path, buffer, offset, end) {
         return this.readSync(path, buffer, offset, end);
@@ -19139,11 +19885,104 @@
     return SyncFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.0.0/node_modules/@zenfs/core/dist/index.js
-  var dist_default = vfs_exports;
-  globalThis.__zenfs__ = vfs_exports;
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/package.json
+  var package_default = {
+    name: "@zenfs/core",
+    version: "2.2.1",
+    description: "A filesystem, anywhere",
+    funding: {
+      type: "individual",
+      url: "https://github.com/sponsors/james-pre"
+    },
+    main: "dist/index.js",
+    types: "dist/index.d.ts",
+    keywords: [
+      "filesystem",
+      "node",
+      "storage"
+    ],
+    bin: {
+      "make-index": "scripts/make-index.js",
+      "zenfs-test": "scripts/test.js",
+      zci: "scripts/ci-cli.js"
+    },
+    files: [
+      "dist",
+      "tests",
+      "types",
+      "license.md",
+      "eslint.shared.js"
+    ],
+    type: "module",
+    homepage: "https://github.com/zen-fs/core",
+    author: "James Prevett <jp@jamespre.dev> (https://jamespre.dev)",
+    contributors: [
+      "John Vilk <jvilk@cs.umass.edu>"
+    ],
+    license: "MIT",
+    repository: {
+      type: "git",
+      url: "git+https://github.com/zen-fs/core.git"
+    },
+    bugs: {
+      url: "https://github.com/zen-fs/core/issues"
+    },
+    engines: {
+      node: ">= 18"
+    },
+    exports: {
+      ".": "./dist/index.js",
+      "./*": "./dist/*",
+      "./emulation/*": "./dist/vfs/*",
+      "./promises": "./dist/vfs/promises.js",
+      "./path": "./dist/path.js",
+      "./eslint": "./eslint.shared.js",
+      "./tests/*": "./tests/*",
+      "./types/*": "./types/*"
+    },
+    publishConfig: {
+      access: "public",
+      provenance: true
+    },
+    scripts: {
+      format: "prettier --write .",
+      "format:check": "prettier --check .",
+      lint: "eslint src tests",
+      test: "npx zenfs-test --clean; npx zenfs-test -abcfp; tests/fetch/run.sh; npx zenfs-test --report",
+      build: "tsc -p tsconfig.json",
+      "build:docs": "typedoc",
+      dev: "npm run build -- --watch",
+      prepublishOnly: "npm run build"
+    },
+    dependencies: {
+      "@types/node": "^22.15.2",
+      buffer: "^6.0.3",
+      eventemitter3: "^5.0.1",
+      kerium: "^1.3.4",
+      memium: "^0.2.0",
+      "readable-stream": "^4.5.2",
+      utilium: "^2.3.3"
+    },
+    devDependencies: {
+      "@eslint/js": "^9.8.0",
+      "@octokit/action": "^7.0.0",
+      "@types/eslint__js": "^8.42.3",
+      c8: "^10.1.2",
+      eslint: "^9.15.0",
+      globals: "^16.0.0",
+      prettier: "^3.2.5",
+      tsx: "^4.19.1",
+      typedoc: "^0.28.0",
+      typescript: "^5.7.2",
+      "typescript-eslint": "^8.16.0"
+    }
+  };
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/index.js
+  // node_modules/.pnpm/@zenfs+core@2.2.1/node_modules/@zenfs/core/dist/index.js
+  var dist_default = vfs_exports;
+  globalThis.__zenfs__ = Object.assign(Object.create(vfs_exports), { _version: package_default.version });
+
+  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.1_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/index.js
   var dist_exports2 = {};
   __export(dist_exports2, {
     IndexedDB: () => IndexedDB,
@@ -19157,7 +19996,7 @@
     XMLFS: () => XMLFS
   });
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/utils.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.1_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/utils.js
   function errnoForDOMException(ex) {
     switch (ex.name) {
       case "TypeMismatchError":
@@ -19208,17 +20047,18 @@
         return "EIO";
     }
   }
-  function convertException(ex, path, syscall) {
-    if (ex instanceof ErrnoError)
+  function convertException(ex, path) {
+    if (ex instanceof Exception)
       return ex;
     const code = ex instanceof DOMException ? Errno[errnoForDOMException(ex)] : Errno.EIO;
-    const error = new ErrnoError(code, ex.message, path, syscall);
+    const error = new Exception(code, ex.message);
     error.stack = ex.stack;
+    Error.captureStackTrace?.(error, convertException);
     error.cause = ex.cause;
     return error;
   }
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/access.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.1_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/access.js
   function isResizable(buffer) {
     if (buffer instanceof ArrayBuffer)
       return buffer.resizable;
@@ -19262,7 +20102,7 @@
           continue;
         }
         if (!isKind(handle, "directory"))
-          throw new ErrnoError(Errno.EIO, "Invalid handle", path);
+          throw withErrno("EIO", "Invalid handle");
         this.index.set(path, new Inode({ mode: 511 | constants_exports.S_IFDIR, size: 0 }));
       }
     }
@@ -19270,24 +20110,24 @@
       super(2003133025, "webaccessfs");
       this._handles = /* @__PURE__ */ new Map();
       this._sync = InMemory.create({ label: "accessfs-cache" });
-      this.attributes.set("no_buffer_resize");
+      this.attributes.set("no_buffer_resize", true);
       this._handles.set("/", handle);
     }
     async remove(path) {
       const handle = this.get("directory", dirname(path));
       await handle.removeEntry(basename(path), { recursive: true }).catch((ex) => _throw(convertException(ex, path)));
     }
-    removeSync(path) {
-      throw log_exports.crit(ErrnoError.With("ENOSYS", path));
+    removeSync() {
+      throw log_exports.crit(withErrno("ENOSYS"));
     }
     async read(path, buffer, offset, end) {
       if (end <= offset)
         return;
-      const handle = this.get("file", path, "write");
+      const handle = this.get("file", path);
       const file = await handle.getFile();
       const data = await file.arrayBuffer();
       if (data.byteLength < end - offset)
-        throw ErrnoError.With("ENODATA", path, "read");
+        throw withErrno("ENODATA");
       buffer.set(new Uint8Array(data, offset, end - offset));
     }
     async write(path, buffer, offset) {
@@ -19298,20 +20138,20 @@
       }
       const inode = this.index.get(path);
       if (!inode)
-        throw ErrnoError.With("ENOENT", path, "write");
+        throw withErrno("ENOENT");
       const isDir = (inode.mode & S_IFMT) == S_IFDIR;
       let handle;
       try {
-        handle = this.get(isDir ? "directory" : "file", path, "write");
+        handle = this.get(isDir ? "directory" : "file", path);
       } catch {
-        const parent = this.get("directory", dirname(path), "write");
+        const parent = this.get("directory", dirname(path));
         handle = await parent[isDir ? "getDirectoryHandle" : "getFileHandle"](basename(path), { create: true }).catch((ex) => _throw(convertException(ex, path)));
         this._handles.set(path, handle);
       }
       if (isDir)
         return;
       if (isKind(handle, "directory")) {
-        log_exports.crit(new ErrnoError(Errno.EIO, "Mismatch in entry kind on write", path, "write"));
+        log_exports.crit(withErrno("EIO", "Mismatch in entry kind on write"));
         return;
       }
       const writable = await handle.createWritable();
@@ -19335,17 +20175,17 @@
     }
     async mkdir(path, options) {
       const inode = await super.mkdir(path, options);
-      const handle = this.get("directory", dirname(path), "mkdir");
+      const handle = this.get("directory", dirname(path));
       const dir = await handle.getDirectoryHandle(basename(path), { create: true }).catch((ex) => _throw(convertException(ex, path)));
       this._handles.set(path, dir);
       return inode;
     }
-    get(kind = null, path, syscall) {
+    get(kind = null, path) {
       const handle = this._handles.get(path);
       if (!handle)
-        throw ErrnoError.With("ENODATA", path, syscall);
+        throw withErrno("ENODATA");
       if (kind && !isKind(handle, kind))
-        throw ErrnoError.With(kind == "directory" ? "ENOTDIR" : "EISDIR", path, syscall);
+        throw withErrno(kind == "directory" ? "ENOTDIR" : "EISDIR");
       return handle;
     }
   };
@@ -19364,8 +20204,8 @@
   };
   var WebAccess = _WebAccess;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/IndexedDB.js
-  function wrap(request2) {
+  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.1_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/IndexedDB.js
+  function wrap2(request2) {
     return new Promise((resolve2, reject) => {
       request2.onsuccess = () => resolve2(request2.result);
       request2.onerror = (e) => {
@@ -19374,31 +20214,54 @@
       };
     });
   }
-  var IndexedDBTransaction = class extends AsyncTransaction {
+  var IndexedDBTransaction = class extends Transaction {
+    /**
+     * Run a asynchronous operation from a sync context. Not magic and subject to (race) conditions.
+     * @internal
+     */
+    async(promise) {
+      this.asyncDone = this.asyncDone.then(() => promise);
+    }
     constructor(tx, store) {
       super(store);
       this.tx = tx;
       this.store = store;
+      this.asyncDone = Promise.resolve();
       this._idb = tx.objectStore(store.name);
     }
     async keys() {
-      return (await wrap(this._idb.getAllKeys())).filter((k) => typeof k == "string").map((k) => Number(k));
+      return (await wrap2(this._idb.getAllKeys())).filter((k) => typeof k == "string").map((k) => Number(k));
     }
     async get(id) {
-      const data = await wrap(this._idb.get(id.toString()));
+      const data = await wrap2(this._idb.get(id));
       if (data)
-        this._cached(id, { size: data.byteLength }).add(data, 0);
+        this.store.cache.set(id, new Uint8Array(data));
       return data;
     }
+    getSync(id, offset, end) {
+      if (!this.store.cache.has(id))
+        return;
+      const data = new Uint8Array(this.store.cache.get(id));
+      end ?? (end = data.byteLength);
+      return data.subarray(offset, end);
+    }
     async set(id, data) {
-      this._cached(id, { size: data.byteLength }).add(data, 0);
-      await wrap(this._idb.put(data, id.toString()));
+      this.store.cache.set(id, new Uint8Array(data));
+      await wrap2(this._idb.put(data, id));
+    }
+    setSync(id, data) {
+      this.async(this.set(id, data));
     }
     remove(id) {
       this.store.cache.delete(id);
-      return wrap(this._idb.delete(id.toString()));
+      return wrap2(this._idb.delete(id));
+    }
+    removeSync(id) {
+      this.store.cache.delete(id);
+      this.async(this.remove(id));
     }
     async commit() {
+      await this.asyncDone;
       const { promise, resolve: resolve2, reject } = Promise.withResolvers();
       this.tx.oncomplete = () => resolve2();
       this.tx.onerror = () => reject(convertException(this.tx.error));
@@ -19406,6 +20269,7 @@
       return promise;
     }
     async abort() {
+      await this.asyncDone;
       const { promise, resolve: resolve2, reject } = Promise.withResolvers();
       this.tx.onabort = () => resolve2();
       this.tx.onerror = () => reject(convertException(this.tx.error));
@@ -19423,7 +20287,7 @@
       }
       db.createObjectStore(name);
     };
-    return await wrap(req);
+    return await wrap2(req);
   }
   var IndexedDBStore = class {
     constructor(db) {
@@ -19452,7 +20316,7 @@
         if (!(idbFactory instanceof IDBFactory))
           return false;
         const req = idbFactory.open("__zenfs_test");
-        await wrap(req);
+        await wrap2(req);
         return true;
       } catch {
         return false;
@@ -19477,7 +20341,7 @@
   };
   var IndexedDB = _IndexedDB;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/storage.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.1_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/storage.js
   var WebStorageStore = class {
     get name() {
       return WebStorage.name;
@@ -19511,14 +20375,14 @@
       try {
         this.storage.setItem(key.toString(), decodeASCII(data));
       } catch {
-        throw new ErrnoError(Errno.ENOSPC, "Storage is full.");
+        throw withErrno("ENOSPC");
       }
     }
     delete(key) {
       try {
         this.storage.removeItem(key.toString());
       } catch (e) {
-        throw new ErrnoError(Errno.EIO, "Unable to delete key " + key + ": " + e);
+        throw withErrno("EIO", `Unable to delete '${key}': ${e}`);
       }
     }
   };
@@ -19539,7 +20403,7 @@
   };
   var WebStorage = _WebStorage;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.6_@zenfs+core@2.0.0_utilium@1.10.1/node_modules/@zenfs/dom/dist/xml.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.1_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/xml.js
   function get_stats(node) {
     const stats = {};
     for (const key of _inode_fields) {
@@ -19599,15 +20463,15 @@
     unlinkSync(path) {
       const node = this.get("unlink", path);
       if (get_stats(node).mode & constants_exports.S_IFDIR)
-        throw ErrnoError.With("EISDIR", path, "unlink");
+        throw withErrno("EISDIR");
       this.remove("unlink", node, path);
     }
     rmdirSync(path) {
       const node = this.get("rmdir", path);
       if (node.textContent?.length)
-        throw ErrnoError.With("ENOTEMPTY", path, "rmdir");
+        throw withErrno("ENOTEMPTY");
       if (!(get_stats(node).mode & constants_exports.S_IFDIR))
-        throw ErrnoError.With("ENOTDIR", path, "rmdir");
+        throw withErrno("ENOTDIR");
       this.remove("rmdir", node, path);
     }
     mkdirSync(path, options) {
@@ -19623,11 +20487,11 @@
     readdirSync(path) {
       const node = this.get("readdir", path);
       if (!(get_stats(node).mode & constants_exports.S_IFDIR))
-        throw ErrnoError.With("ENOTDIR", path, "rmdir");
+        throw withErrno("ENOTDIR");
       try {
         return JSON.parse(node.textContent);
       } catch (e) {
-        throw new ErrnoError(Errno.EIO, "Invalid directory listing: " + e, path, "readdir");
+        throw withErrno("EIO", "Invalid directory listing: " + e);
       }
     }
     linkSync(target, link3) {
@@ -19657,16 +20521,16 @@
     get(syscall, path) {
       const nodes = this.root.children;
       if (!nodes)
-        throw ErrnoError.With("EIO", path, syscall);
+        throw withErrno("EIO");
       for (let i = 0; i < nodes.length; i++) {
         if (get_paths(nodes[i]).includes(path))
           return nodes[i];
       }
-      throw ErrnoError.With("ENOENT", path, syscall);
+      throw withErrno("ENOENT");
     }
     create(syscall, path, stats) {
       if (this.existsSync(path))
-        throw ErrnoError.With("EEXIST", path, syscall);
+        throw withErrno("EEXIST");
       const node = document.createElement("file");
       this.add(syscall, node, path);
       set_stats(node, new Inode({
