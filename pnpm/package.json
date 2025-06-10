@@ -11,6 +11,6 @@
   "packageManager": "pnpm@10.11.0",
   "dependencies": {
     "@zenfs/core": "^2.2.3",
-    "@zenfs/dom": "^1.1.7"
+    "@zenfs/dom": "^1.1.8"
   }
 }
