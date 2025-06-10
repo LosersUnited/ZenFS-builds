@@ -8457,7 +8457,7 @@
   // node_modules/.pnpm/eventemitter3@5.0.1/node_modules/eventemitter3/index.mjs
   var import_index = __toESM(require_eventemitter3(), 1);
 
-  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/list.js
+  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/list.js
   var List = class extends import_index.default {
     [Symbol.toStringTag] = "List";
     constructor(values) {
@@ -8570,7 +8570,7 @@
     }
   };
 
-  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/objects.js
+  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/objects.js
   function filterObject(object, predicate) {
     const entries2 = Object.entries(object);
     return Object.fromEntries(entries2.filter(([key, value]) => predicate(key, value)));
@@ -8604,7 +8604,7 @@
     return Object.fromEntries(Object.entries(fns).map(([k, v]) => [k, typeof v == "function" ? v.bind(thisValue) : v]));
   }
 
-  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/misc.js
+  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/misc.js
   function canary(error = new Error()) {
     const timeout = setTimeout(() => {
       throw error;
@@ -8617,16 +8617,16 @@
     throw e;
   }
 
-  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/numbers.js
+  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/numbers.js
   var __formatter = Intl.NumberFormat("en", { notation: "compact" });
   var formatCompact = __formatter.format.bind(__formatter);
 
-  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/random.js
+  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/random.js
   function randomInt(min = 0, max = 1) {
     return Math.round(Math.random() * (max - min) + min);
   }
 
-  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/string.js
+  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/string.js
   function capitalize(value) {
     return value.at(0).toUpperCase() + value.slice(1);
   }
@@ -9691,7 +9691,7 @@
   }
   var types2 = Object.fromEntries(validNames.map((t) => [t, _shortcut2(t)]));
 
-  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/buffer.js
+  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/buffer.js
   function extendBuffer(buffer, newByteLength) {
     if (buffer.byteLength >= newByteLength)
       return buffer;
@@ -11289,7 +11289,7 @@
     }
   };
 
-  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/cache.js
+  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/cache.js
   var Resource = class {
     id;
     _size;
@@ -17290,7 +17290,7 @@
   };
   var CopyOnWrite = _CopyOnWrite;
 
-  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/requests.js
+  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/requests.js
   var resourcesCache = /* @__PURE__ */ new Map();
   async function _fetch(input, init = {}, bodyOptional = false) {
     const response = await fetch(input, init).catch((error) => {
@@ -17374,9 +17374,25 @@
       new Resource(url, options.size ?? data.byteLength, options, resourcesCache);
     }
     const resource = resourcesCache.get(url);
-    const { offset = 0 } = options;
-    if (!options.cacheOnly)
-      await _fetch(new Request(url, init), { method: "POST" }, true);
+    const { offset = 0, method = "POST" } = options;
+    if (!options.cacheOnly) {
+      const headers = new Headers(init.headers || {});
+      if (!headers.get("Content-Type")) {
+        headers.set("Content-Type", "application/octet-stream");
+      }
+      if (!headers.get("Content-Range") && (offset !== 0 || data.byteLength !== resource.size)) {
+        const start = offset;
+        const end = offset + data.byteLength - 1;
+        const total = Math.max(resource.size, end + 1);
+        headers.set("Content-Range", `bytes ${start}-${end}/${total}`);
+      }
+      await _fetch(new Request(url, {
+        ...init,
+        method,
+        headers,
+        body: data
+      }), {}, true);
+    }
     resource.add(data, offset);
   }
   async function remove2(url, options = {}, init = {}) {
@@ -18393,7 +18409,7 @@
     return fs;
   }
 
-  // node_modules/.pnpm/utilium@2.3.3/node_modules/utilium/dist/checksum.js
+  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/checksum.js
   var crc32cTable = new Uint32Array(256);
   for (let i = 0; i < 256; i++) {
     let value = i;
@@ -20004,7 +20020,7 @@
   var dist_default = vfs_exports;
   globalThis.__zenfs__ = Object.assign(Object.create(vfs_exports), { _version: package_default.version });
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/index.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/index.js
   var dist_exports2 = {};
   __export(dist_exports2, {
     IndexedDB: () => IndexedDB,
@@ -20018,7 +20034,7 @@
     XMLFS: () => XMLFS
   });
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/utils.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/utils.js
   function errnoForDOMException(ex) {
     switch (ex.name) {
       case "TypeMismatchError":
@@ -20080,7 +20096,7 @@
     return error;
   }
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/access.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/access.js
   function isResizable(buffer) {
     if (buffer instanceof ArrayBuffer)
       return buffer.resizable;
@@ -20149,7 +20165,8 @@
       const file = await handle.getFile();
       const data = await file.arrayBuffer();
       if (data.byteLength < end - offset)
-        throw withErrno("ENODATA");
+        throw alert(withErrno("EIO", `Unexpected mismatch in file data size. This should not happen.
+		Tried to read ${end - offset} bytes but the file is ${data.byteLength} bytes.`));
       buffer.set(new Uint8Array(data, offset, end - offset));
     }
     async write(path, buffer, offset) {
@@ -20226,7 +20243,7 @@
   };
   var WebAccess = _WebAccess;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/IndexedDB.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/IndexedDB.js
   function wrap2(request2) {
     return new Promise((resolve2, reject) => {
       request2.onsuccess = () => resolve2(request2.result);
@@ -20252,7 +20269,7 @@
       this._idb = tx.objectStore(store.name);
     }
     async keys() {
-      return (await wrap2(this._idb.getAllKeys())).filter((k) => typeof k == "string").map((k) => Number(k));
+      return (await wrap2(this._idb.getAllKeys())).map(Number);
     }
     async get(id) {
       const data = await wrap2(this._idb.get(id));
@@ -20363,7 +20380,7 @@
   };
   var IndexedDB = _IndexedDB;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/storage.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/storage.js
   var WebStorageStore = class {
     get name() {
       return WebStorage.name;
@@ -20425,7 +20442,7 @@
   };
   var WebStorage = _WebStorage;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.7_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.3/node_modules/@zenfs/dom/dist/xml.js
+  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/xml.js
   function get_stats(node) {
     const stats = {};
     for (const key of _inode_fields) {
