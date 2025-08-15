@@ -12,11 +12,11 @@
     for (var name in all)
       __defProp(target, name, { get: all[name], enumerable: true });
   };
-  var __copyProps = (to, from, except, desc) => {
-    if (from && typeof from === "object" || typeof from === "function") {
-      for (let key of __getOwnPropNames(from))
+  var __copyProps = (to, from2, except, desc) => {
+    if (from2 && typeof from2 === "object" || typeof from2 === "function") {
+      for (let key of __getOwnPropNames(from2))
         if (!__hasOwnProp.call(to, key) && key !== except)
-          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+          __defProp(to, key, { get: () => from2[key], enumerable: !(desc = __getOwnPropDesc(from2, key)) || desc.enumerable });
     }
     return to;
   };
@@ -60,11 +60,11 @@
         if (--emitter._eventsCount === 0) emitter._events = new Events();
         else delete emitter._events[evt];
       }
-      function EventEmitter2() {
+      function EventEmitter3() {
         this._events = new Events();
         this._eventsCount = 0;
       }
-      EventEmitter2.prototype.eventNames = function eventNames() {
+      EventEmitter3.prototype.eventNames = function eventNames() {
         var names = [], events, name;
         if (this._eventsCount === 0) return names;
         for (name in events = this._events) {
@@ -75,7 +75,7 @@
         }
         return names;
       };
-      EventEmitter2.prototype.listeners = function listeners(event) {
+      EventEmitter3.prototype.listeners = function listeners(event) {
         var evt = prefix ? prefix + event : event, handlers = this._events[evt];
         if (!handlers) return [];
         if (handlers.fn) return [handlers.fn];
@@ -84,13 +84,13 @@
         }
         return ee;
       };
-      EventEmitter2.prototype.listenerCount = function listenerCount(event) {
+      EventEmitter3.prototype.listenerCount = function listenerCount(event) {
         var evt = prefix ? prefix + event : event, listeners = this._events[evt];
         if (!listeners) return 0;
         if (listeners.fn) return 1;
         return listeners.length;
       };
-      EventEmitter2.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+      EventEmitter3.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
         var evt = prefix ? prefix + event : event;
         if (!this._events[evt]) return false;
         var listeners = this._events[evt], len = arguments.length, args, i;
@@ -141,13 +141,13 @@
         }
         return true;
       };
-      EventEmitter2.prototype.on = function on(event, fn, context) {
+      EventEmitter3.prototype.on = function on(event, fn, context) {
         return addListener(this, event, fn, context, false);
       };
-      EventEmitter2.prototype.once = function once(event, fn, context) {
+      EventEmitter3.prototype.once = function once(event, fn, context) {
         return addListener(this, event, fn, context, true);
       };
-      EventEmitter2.prototype.removeListener = function removeListener(event, fn, context, once) {
+      EventEmitter3.prototype.removeListener = function removeListener(event, fn, context, once) {
         var evt = prefix ? prefix + event : event;
         if (!this._events[evt]) return this;
         if (!fn) {
@@ -170,7 +170,7 @@
         }
         return this;
       };
-      EventEmitter2.prototype.removeAllListeners = function removeAllListeners(event) {
+      EventEmitter3.prototype.removeAllListeners = function removeAllListeners(event) {
         var evt;
         if (event) {
           evt = prefix ? prefix + event : event;
@@ -181,12 +181,12 @@
         }
         return this;
       };
-      EventEmitter2.prototype.off = EventEmitter2.prototype.removeListener;
-      EventEmitter2.prototype.addListener = EventEmitter2.prototype.on;
-      EventEmitter2.prefixed = prefix;
-      EventEmitter2.EventEmitter = EventEmitter2;
+      EventEmitter3.prototype.off = EventEmitter3.prototype.removeListener;
+      EventEmitter3.prototype.addListener = EventEmitter3.prototype.on;
+      EventEmitter3.prefixed = prefix;
+      EventEmitter3.EventEmitter = EventEmitter3;
       if ("undefined" !== typeof module) {
-        module.exports = EventEmitter2;
+        module.exports = EventEmitter3;
       }
     }
   });
@@ -258,31 +258,31 @@
       function tripletToBase64(num) {
         return lookup[num >> 18 & 63] + lookup[num >> 12 & 63] + lookup[num >> 6 & 63] + lookup[num & 63];
       }
-      function encodeChunk(uint8, start, end) {
+      function encodeChunk(uint82, start, end) {
         var tmp;
         var output2 = [];
         for (var i2 = start; i2 < end; i2 += 3) {
-          tmp = (uint8[i2] << 16 & 16711680) + (uint8[i2 + 1] << 8 & 65280) + (uint8[i2 + 2] & 255);
+          tmp = (uint82[i2] << 16 & 16711680) + (uint82[i2 + 1] << 8 & 65280) + (uint82[i2 + 2] & 255);
           output2.push(tripletToBase64(tmp));
         }
         return output2.join("");
       }
-      function fromByteArray(uint8) {
+      function fromByteArray(uint82) {
         var tmp;
-        var len2 = uint8.length;
+        var len2 = uint82.length;
         var extraBytes = len2 % 3;
         var parts = [];
         var maxChunkLength = 16383;
         for (var i2 = 0, len22 = len2 - extraBytes; i2 < len22; i2 += maxChunkLength) {
-          parts.push(encodeChunk(uint8, i2, i2 + maxChunkLength > len22 ? len22 : i2 + maxChunkLength));
+          parts.push(encodeChunk(uint82, i2, i2 + maxChunkLength > len22 ? len22 : i2 + maxChunkLength));
         }
         if (extraBytes === 1) {
-          tmp = uint8[len2 - 1];
+          tmp = uint82[len2 - 1];
           parts.push(
             lookup[tmp >> 2] + lookup[tmp << 4 & 63] + "=="
           );
         } else if (extraBytes === 2) {
-          tmp = (uint8[len2 - 2] << 8) + uint8[len2 - 1];
+          tmp = (uint82[len2 - 2] << 8) + uint82[len2 - 1];
           parts.push(
             lookup[tmp >> 10] + lookup[tmp >> 4 & 63] + lookup[tmp << 2 & 63] + "="
           );
@@ -382,13 +382,13 @@
       var base64 = require_base64_js();
       var ieee754 = require_ieee754();
       var customInspectSymbol = typeof Symbol === "function" && typeof Symbol["for"] === "function" ? Symbol["for"]("nodejs.util.inspect.custom") : null;
-      exports.Buffer = Buffer6;
+      exports.Buffer = Buffer7;
       exports.SlowBuffer = SlowBuffer;
       exports.INSPECT_MAX_BYTES = 50;
       var K_MAX_LENGTH = 2147483647;
       exports.kMaxLength = K_MAX_LENGTH;
-      Buffer6.TYPED_ARRAY_SUPPORT = typedArraySupport();
-      if (!Buffer6.TYPED_ARRAY_SUPPORT && typeof console !== "undefined" && typeof console.error === "function") {
+      Buffer7.TYPED_ARRAY_SUPPORT = typedArraySupport();
+      if (!Buffer7.TYPED_ARRAY_SUPPORT && typeof console !== "undefined" && typeof console.error === "function") {
         console.error(
           "This browser lacks typed array (Uint8Array) support which is required by `buffer` v5.x. Use `buffer` v4.x if you require old browser support."
         );
@@ -406,17 +406,17 @@
           return false;
         }
       }
-      Object.defineProperty(Buffer6.prototype, "parent", {
+      Object.defineProperty(Buffer7.prototype, "parent", {
         enumerable: true,
         get: function() {
-          if (!Buffer6.isBuffer(this)) return void 0;
+          if (!Buffer7.isBuffer(this)) return void 0;
           return this.buffer;
         }
       });
-      Object.defineProperty(Buffer6.prototype, "offset", {
+      Object.defineProperty(Buffer7.prototype, "offset", {
         enumerable: true,
         get: function() {
-          if (!Buffer6.isBuffer(this)) return void 0;
+          if (!Buffer7.isBuffer(this)) return void 0;
           return this.byteOffset;
         }
       });
@@ -425,10 +425,10 @@
           throw new RangeError('The value "' + length + '" is invalid for option "size"');
         }
         const buf = new Uint8Array(length);
-        Object.setPrototypeOf(buf, Buffer6.prototype);
+        Object.setPrototypeOf(buf, Buffer7.prototype);
         return buf;
       }
-      function Buffer6(arg, encodingOrOffset, length) {
+      function Buffer7(arg, encodingOrOffset, length) {
         if (typeof arg === "number") {
           if (typeof encodingOrOffset === "string") {
             throw new TypeError(
@@ -437,10 +437,10 @@
           }
           return allocUnsafe(arg);
         }
-        return from(arg, encodingOrOffset, length);
+        return from2(arg, encodingOrOffset, length);
       }
-      Buffer6.poolSize = 8192;
-      function from(value, encodingOrOffset, length) {
+      Buffer7.poolSize = 8192;
+      function from2(value, encodingOrOffset, length) {
         if (typeof value === "string") {
           return fromString(value, encodingOrOffset);
         }
@@ -452,10 +452,10 @@
             "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value
           );
         }
-        if (isInstance2(value, ArrayBuffer) || value && isInstance2(value.buffer, ArrayBuffer)) {
+        if (isInstance(value, ArrayBuffer) || value && isInstance(value.buffer, ArrayBuffer)) {
           return fromArrayBuffer(value, encodingOrOffset, length);
         }
-        if (typeof SharedArrayBuffer !== "undefined" && (isInstance2(value, SharedArrayBuffer) || value && isInstance2(value.buffer, SharedArrayBuffer))) {
+        if (typeof SharedArrayBuffer !== "undefined" && (isInstance(value, SharedArrayBuffer) || value && isInstance(value.buffer, SharedArrayBuffer))) {
           return fromArrayBuffer(value, encodingOrOffset, length);
         }
         if (typeof value === "number") {
@@ -465,22 +465,22 @@
         }
         const valueOf = value.valueOf && value.valueOf();
         if (valueOf != null && valueOf !== value) {
-          return Buffer6.from(valueOf, encodingOrOffset, length);
+          return Buffer7.from(valueOf, encodingOrOffset, length);
         }
         const b = fromObject(value);
         if (b) return b;
         if (typeof Symbol !== "undefined" && Symbol.toPrimitive != null && typeof value[Symbol.toPrimitive] === "function") {
-          return Buffer6.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
+          return Buffer7.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
         }
         throw new TypeError(
           "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value
         );
       }
-      Buffer6.from = function(value, encodingOrOffset, length) {
-        return from(value, encodingOrOffset, length);
+      Buffer7.from = function(value, encodingOrOffset, length) {
+        return from2(value, encodingOrOffset, length);
       };
-      Object.setPrototypeOf(Buffer6.prototype, Uint8Array.prototype);
-      Object.setPrototypeOf(Buffer6, Uint8Array);
+      Object.setPrototypeOf(Buffer7.prototype, Uint8Array.prototype);
+      Object.setPrototypeOf(Buffer7, Uint8Array);
       function assertSize(size) {
         if (typeof size !== "number") {
           throw new TypeError('"size" argument must be of type number');
@@ -498,24 +498,24 @@
         }
         return createBuffer(size);
       }
-      Buffer6.alloc = function(size, fill, encoding) {
+      Buffer7.alloc = function(size, fill, encoding) {
         return alloc(size, fill, encoding);
       };
       function allocUnsafe(size) {
         assertSize(size);
         return createBuffer(size < 0 ? 0 : checked(size) | 0);
       }
-      Buffer6.allocUnsafe = function(size) {
+      Buffer7.allocUnsafe = function(size) {
         return allocUnsafe(size);
       };
-      Buffer6.allocUnsafeSlow = function(size) {
+      Buffer7.allocUnsafeSlow = function(size) {
         return allocUnsafe(size);
       };
       function fromString(string, encoding) {
         if (typeof encoding !== "string" || encoding === "") {
           encoding = "utf8";
         }
-        if (!Buffer6.isEncoding(encoding)) {
+        if (!Buffer7.isEncoding(encoding)) {
           throw new TypeError("Unknown encoding: " + encoding);
         }
         const length = byteLength(string, encoding) | 0;
@@ -526,41 +526,41 @@
         }
         return buf;
       }
-      function fromArrayLike(array) {
-        const length = array.length < 0 ? 0 : checked(array.length) | 0;
+      function fromArrayLike(array2) {
+        const length = array2.length < 0 ? 0 : checked(array2.length) | 0;
         const buf = createBuffer(length);
         for (let i = 0; i < length; i += 1) {
-          buf[i] = array[i] & 255;
+          buf[i] = array2[i] & 255;
         }
         return buf;
       }
       function fromArrayView(arrayView) {
-        if (isInstance2(arrayView, Uint8Array)) {
+        if (isInstance(arrayView, Uint8Array)) {
           const copy = new Uint8Array(arrayView);
           return fromArrayBuffer(copy.buffer, copy.byteOffset, copy.byteLength);
         }
         return fromArrayLike(arrayView);
       }
-      function fromArrayBuffer(array, byteOffset, length) {
-        if (byteOffset < 0 || array.byteLength < byteOffset) {
+      function fromArrayBuffer(array2, byteOffset, length) {
+        if (byteOffset < 0 || array2.byteLength < byteOffset) {
           throw new RangeError('"offset" is outside of buffer bounds');
         }
-        if (array.byteLength < byteOffset + (length || 0)) {
+        if (array2.byteLength < byteOffset + (length || 0)) {
           throw new RangeError('"length" is outside of buffer bounds');
         }
         let buf;
         if (byteOffset === void 0 && length === void 0) {
-          buf = new Uint8Array(array);
+          buf = new Uint8Array(array2);
         } else if (length === void 0) {
-          buf = new Uint8Array(array, byteOffset);
+          buf = new Uint8Array(array2, byteOffset);
         } else {
-          buf = new Uint8Array(array, byteOffset, length);
+          buf = new Uint8Array(array2, byteOffset, length);
         }
-        Object.setPrototypeOf(buf, Buffer6.prototype);
+        Object.setPrototypeOf(buf, Buffer7.prototype);
         return buf;
       }
       function fromObject(obj) {
-        if (Buffer6.isBuffer(obj)) {
+        if (Buffer7.isBuffer(obj)) {
           const len = checked(obj.length) | 0;
           const buf = createBuffer(len);
           if (buf.length === 0) {
@@ -589,15 +589,15 @@
         if (+length != length) {
           length = 0;
         }
-        return Buffer6.alloc(+length);
+        return Buffer7.alloc(+length);
       }
-      Buffer6.isBuffer = function isBuffer(b) {
-        return b != null && b._isBuffer === true && b !== Buffer6.prototype;
+      Buffer7.isBuffer = function isBuffer(b) {
+        return b != null && b._isBuffer === true && b !== Buffer7.prototype;
       };
-      Buffer6.compare = function compare(a, b) {
-        if (isInstance2(a, Uint8Array)) a = Buffer6.from(a, a.offset, a.byteLength);
-        if (isInstance2(b, Uint8Array)) b = Buffer6.from(b, b.offset, b.byteLength);
-        if (!Buffer6.isBuffer(a) || !Buffer6.isBuffer(b)) {
+      Buffer7.compare = function compare(a, b) {
+        if (isInstance(a, Uint8Array)) a = Buffer7.from(a, a.offset, a.byteLength);
+        if (isInstance(b, Uint8Array)) b = Buffer7.from(b, b.offset, b.byteLength);
+        if (!Buffer7.isBuffer(a) || !Buffer7.isBuffer(b)) {
           throw new TypeError(
             'The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array'
           );
@@ -616,7 +616,7 @@
         if (y < x) return 1;
         return 0;
       };
-      Buffer6.isEncoding = function isEncoding(encoding) {
+      Buffer7.isEncoding = function isEncoding(encoding) {
         switch (String(encoding).toLowerCase()) {
           case "hex":
           case "utf8":
@@ -634,12 +634,12 @@
             return false;
         }
       };
-      Buffer6.concat = function concat(list2, length) {
+      Buffer7.concat = function concat(list2, length) {
         if (!Array.isArray(list2)) {
           throw new TypeError('"list" argument must be an Array of Buffers');
         }
         if (list2.length === 0) {
-          return Buffer6.alloc(0);
+          return Buffer7.alloc(0);
         }
         let i;
         if (length === void 0) {
@@ -648,13 +648,13 @@
             length += list2[i].length;
           }
         }
-        const buffer = Buffer6.allocUnsafe(length);
+        const buffer = Buffer7.allocUnsafe(length);
         let pos = 0;
         for (i = 0; i < list2.length; ++i) {
           let buf = list2[i];
-          if (isInstance2(buf, Uint8Array)) {
+          if (isInstance(buf, Uint8Array)) {
             if (pos + buf.length > buffer.length) {
-              if (!Buffer6.isBuffer(buf)) buf = Buffer6.from(buf);
+              if (!Buffer7.isBuffer(buf)) buf = Buffer7.from(buf);
               buf.copy(buffer, pos);
             } else {
               Uint8Array.prototype.set.call(
@@ -663,7 +663,7 @@
                 pos
               );
             }
-          } else if (!Buffer6.isBuffer(buf)) {
+          } else if (!Buffer7.isBuffer(buf)) {
             throw new TypeError('"list" argument must be an Array of Buffers');
           } else {
             buf.copy(buffer, pos);
@@ -673,10 +673,10 @@
         return buffer;
       };
       function byteLength(string, encoding) {
-        if (Buffer6.isBuffer(string)) {
+        if (Buffer7.isBuffer(string)) {
           return string.length;
         }
-        if (ArrayBuffer.isView(string) || isInstance2(string, ArrayBuffer)) {
+        if (ArrayBuffer.isView(string) || isInstance(string, ArrayBuffer)) {
           return string.byteLength;
         }
         if (typeof string !== "string") {
@@ -715,7 +715,7 @@
           }
         }
       }
-      Buffer6.byteLength = byteLength;
+      Buffer7.byteLength = byteLength;
       function slowToString(encoding, start, end) {
         let loweredCase = false;
         if (start === void 0 || start < 0) {
@@ -762,13 +762,13 @@
           }
         }
       }
-      Buffer6.prototype._isBuffer = true;
+      Buffer7.prototype._isBuffer = true;
       function swap(b, n, m) {
         const i = b[n];
         b[n] = b[m];
         b[m] = i;
       }
-      Buffer6.prototype.swap16 = function swap16() {
+      Buffer7.prototype.swap16 = function swap16() {
         const len = this.length;
         if (len % 2 !== 0) {
           throw new RangeError("Buffer size must be a multiple of 16-bits");
@@ -778,7 +778,7 @@
         }
         return this;
       };
-      Buffer6.prototype.swap32 = function swap32() {
+      Buffer7.prototype.swap32 = function swap32() {
         const len = this.length;
         if (len % 4 !== 0) {
           throw new RangeError("Buffer size must be a multiple of 32-bits");
@@ -789,7 +789,7 @@
         }
         return this;
       };
-      Buffer6.prototype.swap64 = function swap64() {
+      Buffer7.prototype.swap64 = function swap64() {
         const len = this.length;
         if (len % 8 !== 0) {
           throw new RangeError("Buffer size must be a multiple of 64-bits");
@@ -802,19 +802,19 @@
         }
         return this;
       };
-      Buffer6.prototype.toString = function toString() {
+      Buffer7.prototype.toString = function toString() {
         const length = this.length;
         if (length === 0) return "";
         if (arguments.length === 0) return utf8Slice(this, 0, length);
         return slowToString.apply(this, arguments);
       };
-      Buffer6.prototype.toLocaleString = Buffer6.prototype.toString;
-      Buffer6.prototype.equals = function equals(b) {
-        if (!Buffer6.isBuffer(b)) throw new TypeError("Argument must be a Buffer");
+      Buffer7.prototype.toLocaleString = Buffer7.prototype.toString;
+      Buffer7.prototype.equals = function equals(b) {
+        if (!Buffer7.isBuffer(b)) throw new TypeError("Argument must be a Buffer");
         if (this === b) return true;
-        return Buffer6.compare(this, b) === 0;
+        return Buffer7.compare(this, b) === 0;
       };
-      Buffer6.prototype.inspect = function inspect() {
+      Buffer7.prototype.inspect = function inspect() {
         let str = "";
         const max = exports.INSPECT_MAX_BYTES;
         str = this.toString("hex", 0, max).replace(/(.{2})/g, "$1 ").trim();
@@ -822,13 +822,13 @@
         return "<Buffer " + str + ">";
       };
       if (customInspectSymbol) {
-        Buffer6.prototype[customInspectSymbol] = Buffer6.prototype.inspect;
+        Buffer7.prototype[customInspectSymbol] = Buffer7.prototype.inspect;
       }
-      Buffer6.prototype.compare = function compare(target, start, end, thisStart, thisEnd) {
-        if (isInstance2(target, Uint8Array)) {
-          target = Buffer6.from(target, target.offset, target.byteLength);
+      Buffer7.prototype.compare = function compare(target, start, end, thisStart, thisEnd) {
+        if (isInstance(target, Uint8Array)) {
+          target = Buffer7.from(target, target.offset, target.byteLength);
         }
-        if (!Buffer6.isBuffer(target)) {
+        if (!Buffer7.isBuffer(target)) {
           throw new TypeError(
             'The "target" argument must be one of type Buffer or Uint8Array. Received type ' + typeof target
           );
@@ -901,9 +901,9 @@
           else return -1;
         }
         if (typeof val === "string") {
-          val = Buffer6.from(val, encoding);
+          val = Buffer7.from(val, encoding);
         }
-        if (Buffer6.isBuffer(val)) {
+        if (Buffer7.isBuffer(val)) {
           if (val.length === 0) {
             return -1;
           }
@@ -971,13 +971,13 @@
         }
         return -1;
       }
-      Buffer6.prototype.includes = function includes(val, byteOffset, encoding) {
+      Buffer7.prototype.includes = function includes(val, byteOffset, encoding) {
         return this.indexOf(val, byteOffset, encoding) !== -1;
       };
-      Buffer6.prototype.indexOf = function indexOf(val, byteOffset, encoding) {
+      Buffer7.prototype.indexOf = function indexOf(val, byteOffset, encoding) {
         return bidirectionalIndexOf(this, val, byteOffset, encoding, true);
       };
-      Buffer6.prototype.lastIndexOf = function lastIndexOf(val, byteOffset, encoding) {
+      Buffer7.prototype.lastIndexOf = function lastIndexOf(val, byteOffset, encoding) {
         return bidirectionalIndexOf(this, val, byteOffset, encoding, false);
       };
       function hexWrite(buf, string, offset, length) {
@@ -1015,7 +1015,7 @@
       function ucs2Write(buf, string, offset, length) {
         return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length);
       }
-      Buffer6.prototype.write = function write2(string, offset, length, encoding) {
+      Buffer7.prototype.write = function write2(string, offset, length, encoding) {
         if (offset === void 0) {
           encoding = "utf8";
           length = this.length;
@@ -1070,7 +1070,7 @@
           }
         }
       };
-      Buffer6.prototype.toJSON = function toJSON() {
+      Buffer7.prototype.toJSON = function toJSON() {
         return {
           type: "Buffer",
           data: Array.prototype.slice.call(this._arr || this, 0)
@@ -1193,7 +1193,7 @@
         }
         return res;
       }
-      Buffer6.prototype.slice = function slice(start, end) {
+      Buffer7.prototype.slice = function slice(start, end) {
         const len = this.length;
         start = ~~start;
         end = end === void 0 ? len : ~~end;
@@ -1211,14 +1211,14 @@
         }
         if (end < start) end = start;
         const newBuf = this.subarray(start, end);
-        Object.setPrototypeOf(newBuf, Buffer6.prototype);
+        Object.setPrototypeOf(newBuf, Buffer7.prototype);
         return newBuf;
       };
       function checkOffset(offset, ext, length) {
         if (offset % 1 !== 0 || offset < 0) throw new RangeError("offset is not uint");
         if (offset + ext > length) throw new RangeError("Trying to access beyond buffer length");
       }
-      Buffer6.prototype.readUintLE = Buffer6.prototype.readUIntLE = function readUIntLE(offset, byteLength2, noAssert) {
+      Buffer7.prototype.readUintLE = Buffer7.prototype.readUIntLE = function readUIntLE(offset, byteLength2, noAssert) {
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
         if (!noAssert) checkOffset(offset, byteLength2, this.length);
@@ -1230,7 +1230,7 @@
         }
         return val;
       };
-      Buffer6.prototype.readUintBE = Buffer6.prototype.readUIntBE = function readUIntBE(offset, byteLength2, noAssert) {
+      Buffer7.prototype.readUintBE = Buffer7.prototype.readUIntBE = function readUIntBE(offset, byteLength2, noAssert) {
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
         if (!noAssert) {
@@ -1243,32 +1243,32 @@
         }
         return val;
       };
-      Buffer6.prototype.readUint8 = Buffer6.prototype.readUInt8 = function readUInt8(offset, noAssert) {
+      Buffer7.prototype.readUint8 = Buffer7.prototype.readUInt8 = function readUInt8(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 1, this.length);
         return this[offset];
       };
-      Buffer6.prototype.readUint16LE = Buffer6.prototype.readUInt16LE = function readUInt16LE(offset, noAssert) {
+      Buffer7.prototype.readUint16LE = Buffer7.prototype.readUInt16LE = function readUInt16LE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 2, this.length);
         return this[offset] | this[offset + 1] << 8;
       };
-      Buffer6.prototype.readUint16BE = Buffer6.prototype.readUInt16BE = function readUInt16BE(offset, noAssert) {
+      Buffer7.prototype.readUint16BE = Buffer7.prototype.readUInt16BE = function readUInt16BE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 2, this.length);
         return this[offset] << 8 | this[offset + 1];
       };
-      Buffer6.prototype.readUint32LE = Buffer6.prototype.readUInt32LE = function readUInt32LE(offset, noAssert) {
+      Buffer7.prototype.readUint32LE = Buffer7.prototype.readUInt32LE = function readUInt32LE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return (this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16) + this[offset + 3] * 16777216;
       };
-      Buffer6.prototype.readUint32BE = Buffer6.prototype.readUInt32BE = function readUInt32BE(offset, noAssert) {
+      Buffer7.prototype.readUint32BE = Buffer7.prototype.readUInt32BE = function readUInt32BE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return this[offset] * 16777216 + (this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3]);
       };
-      Buffer6.prototype.readBigUInt64LE = defineBigIntMethod(function readBigUInt64LE(offset) {
+      Buffer7.prototype.readBigUInt64LE = defineBigIntMethod(function readBigUInt64LE(offset) {
         offset = offset >>> 0;
         validateNumber(offset, "offset");
         const first = this[offset];
@@ -1280,7 +1280,7 @@
         const hi = this[++offset] + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + last * 2 ** 24;
         return BigInt(lo) + (BigInt(hi) << BigInt(32));
       });
-      Buffer6.prototype.readBigUInt64BE = defineBigIntMethod(function readBigUInt64BE(offset) {
+      Buffer7.prototype.readBigUInt64BE = defineBigIntMethod(function readBigUInt64BE(offset) {
         offset = offset >>> 0;
         validateNumber(offset, "offset");
         const first = this[offset];
@@ -1292,7 +1292,7 @@
         const lo = this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + last;
         return (BigInt(hi) << BigInt(32)) + BigInt(lo);
       });
-      Buffer6.prototype.readIntLE = function readIntLE(offset, byteLength2, noAssert) {
+      Buffer7.prototype.readIntLE = function readIntLE(offset, byteLength2, noAssert) {
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
         if (!noAssert) checkOffset(offset, byteLength2, this.length);
@@ -1306,7 +1306,7 @@
         if (val >= mul) val -= Math.pow(2, 8 * byteLength2);
         return val;
       };
-      Buffer6.prototype.readIntBE = function readIntBE(offset, byteLength2, noAssert) {
+      Buffer7.prototype.readIntBE = function readIntBE(offset, byteLength2, noAssert) {
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
         if (!noAssert) checkOffset(offset, byteLength2, this.length);
@@ -1320,35 +1320,35 @@
         if (val >= mul) val -= Math.pow(2, 8 * byteLength2);
         return val;
       };
-      Buffer6.prototype.readInt8 = function readInt8(offset, noAssert) {
+      Buffer7.prototype.readInt8 = function readInt8(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 1, this.length);
         if (!(this[offset] & 128)) return this[offset];
         return (255 - this[offset] + 1) * -1;
       };
-      Buffer6.prototype.readInt16LE = function readInt16LE(offset, noAssert) {
+      Buffer7.prototype.readInt16LE = function readInt16LE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 2, this.length);
         const val = this[offset] | this[offset + 1] << 8;
         return val & 32768 ? val | 4294901760 : val;
       };
-      Buffer6.prototype.readInt16BE = function readInt16BE(offset, noAssert) {
+      Buffer7.prototype.readInt16BE = function readInt16BE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 2, this.length);
         const val = this[offset + 1] | this[offset] << 8;
         return val & 32768 ? val | 4294901760 : val;
       };
-      Buffer6.prototype.readInt32LE = function readInt32LE(offset, noAssert) {
+      Buffer7.prototype.readInt32LE = function readInt32LE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16 | this[offset + 3] << 24;
       };
-      Buffer6.prototype.readInt32BE = function readInt32BE(offset, noAssert) {
+      Buffer7.prototype.readInt32BE = function readInt32BE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return this[offset] << 24 | this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3];
       };
-      Buffer6.prototype.readBigInt64LE = defineBigIntMethod(function readBigInt64LE(offset) {
+      Buffer7.prototype.readBigInt64LE = defineBigIntMethod(function readBigInt64LE(offset) {
         offset = offset >>> 0;
         validateNumber(offset, "offset");
         const first = this[offset];
@@ -1359,7 +1359,7 @@
         const val = this[offset + 4] + this[offset + 5] * 2 ** 8 + this[offset + 6] * 2 ** 16 + (last << 24);
         return (BigInt(val) << BigInt(32)) + BigInt(first + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 24);
       });
-      Buffer6.prototype.readBigInt64BE = defineBigIntMethod(function readBigInt64BE(offset) {
+      Buffer7.prototype.readBigInt64BE = defineBigIntMethod(function readBigInt64BE(offset) {
         offset = offset >>> 0;
         validateNumber(offset, "offset");
         const first = this[offset];
@@ -1371,32 +1371,32 @@
         this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + this[++offset];
         return (BigInt(val) << BigInt(32)) + BigInt(this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + last);
       });
-      Buffer6.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
+      Buffer7.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return ieee754.read(this, offset, true, 23, 4);
       };
-      Buffer6.prototype.readFloatBE = function readFloatBE(offset, noAssert) {
+      Buffer7.prototype.readFloatBE = function readFloatBE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 4, this.length);
         return ieee754.read(this, offset, false, 23, 4);
       };
-      Buffer6.prototype.readDoubleLE = function readDoubleLE(offset, noAssert) {
+      Buffer7.prototype.readDoubleLE = function readDoubleLE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 8, this.length);
         return ieee754.read(this, offset, true, 52, 8);
       };
-      Buffer6.prototype.readDoubleBE = function readDoubleBE(offset, noAssert) {
+      Buffer7.prototype.readDoubleBE = function readDoubleBE(offset, noAssert) {
         offset = offset >>> 0;
         if (!noAssert) checkOffset(offset, 8, this.length);
         return ieee754.read(this, offset, false, 52, 8);
       };
       function checkInt(buf, value, offset, ext, max, min) {
-        if (!Buffer6.isBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance');
+        if (!Buffer7.isBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance');
         if (value > max || value < min) throw new RangeError('"value" argument is out of bounds');
         if (offset + ext > buf.length) throw new RangeError("Index out of range");
       }
-      Buffer6.prototype.writeUintLE = Buffer6.prototype.writeUIntLE = function writeUIntLE(value, offset, byteLength2, noAssert) {
+      Buffer7.prototype.writeUintLE = Buffer7.prototype.writeUIntLE = function writeUIntLE(value, offset, byteLength2, noAssert) {
         value = +value;
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
@@ -1412,7 +1412,7 @@
         }
         return offset + byteLength2;
       };
-      Buffer6.prototype.writeUintBE = Buffer6.prototype.writeUIntBE = function writeUIntBE(value, offset, byteLength2, noAssert) {
+      Buffer7.prototype.writeUintBE = Buffer7.prototype.writeUIntBE = function writeUIntBE(value, offset, byteLength2, noAssert) {
         value = +value;
         offset = offset >>> 0;
         byteLength2 = byteLength2 >>> 0;
@@ -1428,14 +1428,14 @@
         }
         return offset + byteLength2;
       };
-      Buffer6.prototype.writeUint8 = Buffer6.prototype.writeUInt8 = function writeUInt8(value, offset, noAssert) {
+      Buffer7.prototype.writeUint8 = Buffer7.prototype.writeUInt8 = function writeUInt8(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 1, 255, 0);
         this[offset] = value & 255;
         return offset + 1;
       };
-      Buffer6.prototype.writeUint16LE = Buffer6.prototype.writeUInt16LE = function writeUInt16LE(value, offset, noAssert) {
+      Buffer7.prototype.writeUint16LE = Buffer7.prototype.writeUInt16LE = function writeUInt16LE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 2, 65535, 0);
@@ -1443,7 +1443,7 @@
         this[offset + 1] = value >>> 8;
         return offset + 2;
       };
-      Buffer6.prototype.writeUint16BE = Buffer6.prototype.writeUInt16BE = function writeUInt16BE(value, offset, noAssert) {
+      Buffer7.prototype.writeUint16BE = Buffer7.prototype.writeUInt16BE = function writeUInt16BE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 2, 65535, 0);
@@ -1451,7 +1451,7 @@
         this[offset + 1] = value & 255;
         return offset + 2;
       };
-      Buffer6.prototype.writeUint32LE = Buffer6.prototype.writeUInt32LE = function writeUInt32LE(value, offset, noAssert) {
+      Buffer7.prototype.writeUint32LE = Buffer7.prototype.writeUInt32LE = function writeUInt32LE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 4, 4294967295, 0);
@@ -1461,7 +1461,7 @@
         this[offset] = value & 255;
         return offset + 4;
       };
-      Buffer6.prototype.writeUint32BE = Buffer6.prototype.writeUInt32BE = function writeUInt32BE(value, offset, noAssert) {
+      Buffer7.prototype.writeUint32BE = Buffer7.prototype.writeUInt32BE = function writeUInt32BE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 4, 4294967295, 0);
@@ -1511,13 +1511,13 @@
         buf[offset] = hi;
         return offset + 8;
       }
-      Buffer6.prototype.writeBigUInt64LE = defineBigIntMethod(function writeBigUInt64LE(value, offset = 0) {
+      Buffer7.prototype.writeBigUInt64LE = defineBigIntMethod(function writeBigUInt64LE(value, offset = 0) {
         return wrtBigUInt64LE(this, value, offset, BigInt(0), BigInt("0xffffffffffffffff"));
       });
-      Buffer6.prototype.writeBigUInt64BE = defineBigIntMethod(function writeBigUInt64BE(value, offset = 0) {
+      Buffer7.prototype.writeBigUInt64BE = defineBigIntMethod(function writeBigUInt64BE(value, offset = 0) {
         return wrtBigUInt64BE(this, value, offset, BigInt(0), BigInt("0xffffffffffffffff"));
       });
-      Buffer6.prototype.writeIntLE = function writeIntLE(value, offset, byteLength2, noAssert) {
+      Buffer7.prototype.writeIntLE = function writeIntLE(value, offset, byteLength2, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) {
@@ -1536,7 +1536,7 @@
         }
         return offset + byteLength2;
       };
-      Buffer6.prototype.writeIntBE = function writeIntBE(value, offset, byteLength2, noAssert) {
+      Buffer7.prototype.writeIntBE = function writeIntBE(value, offset, byteLength2, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) {
@@ -1555,7 +1555,7 @@
         }
         return offset + byteLength2;
       };
-      Buffer6.prototype.writeInt8 = function writeInt8(value, offset, noAssert) {
+      Buffer7.prototype.writeInt8 = function writeInt8(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 1, 127, -128);
@@ -1563,7 +1563,7 @@
         this[offset] = value & 255;
         return offset + 1;
       };
-      Buffer6.prototype.writeInt16LE = function writeInt16LE(value, offset, noAssert) {
+      Buffer7.prototype.writeInt16LE = function writeInt16LE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 2, 32767, -32768);
@@ -1571,7 +1571,7 @@
         this[offset + 1] = value >>> 8;
         return offset + 2;
       };
-      Buffer6.prototype.writeInt16BE = function writeInt16BE(value, offset, noAssert) {
+      Buffer7.prototype.writeInt16BE = function writeInt16BE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 2, 32767, -32768);
@@ -1579,7 +1579,7 @@
         this[offset + 1] = value & 255;
         return offset + 2;
       };
-      Buffer6.prototype.writeInt32LE = function writeInt32LE(value, offset, noAssert) {
+      Buffer7.prototype.writeInt32LE = function writeInt32LE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 4, 2147483647, -2147483648);
@@ -1589,7 +1589,7 @@
         this[offset + 3] = value >>> 24;
         return offset + 4;
       };
-      Buffer6.prototype.writeInt32BE = function writeInt32BE(value, offset, noAssert) {
+      Buffer7.prototype.writeInt32BE = function writeInt32BE(value, offset, noAssert) {
         value = +value;
         offset = offset >>> 0;
         if (!noAssert) checkInt(this, value, offset, 4, 2147483647, -2147483648);
@@ -1600,10 +1600,10 @@
         this[offset + 3] = value & 255;
         return offset + 4;
       };
-      Buffer6.prototype.writeBigInt64LE = defineBigIntMethod(function writeBigInt64LE(value, offset = 0) {
+      Buffer7.prototype.writeBigInt64LE = defineBigIntMethod(function writeBigInt64LE(value, offset = 0) {
         return wrtBigUInt64LE(this, value, offset, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
       });
-      Buffer6.prototype.writeBigInt64BE = defineBigIntMethod(function writeBigInt64BE(value, offset = 0) {
+      Buffer7.prototype.writeBigInt64BE = defineBigIntMethod(function writeBigInt64BE(value, offset = 0) {
         return wrtBigUInt64BE(this, value, offset, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
       });
       function checkIEEE754(buf, value, offset, ext, max, min) {
@@ -1619,10 +1619,10 @@
         ieee754.write(buf, value, offset, littleEndian, 23, 4);
         return offset + 4;
       }
-      Buffer6.prototype.writeFloatLE = function writeFloatLE(value, offset, noAssert) {
+      Buffer7.prototype.writeFloatLE = function writeFloatLE(value, offset, noAssert) {
         return writeFloat(this, value, offset, true, noAssert);
       };
-      Buffer6.prototype.writeFloatBE = function writeFloatBE(value, offset, noAssert) {
+      Buffer7.prototype.writeFloatBE = function writeFloatBE(value, offset, noAssert) {
         return writeFloat(this, value, offset, false, noAssert);
       };
       function writeDouble(buf, value, offset, littleEndian, noAssert) {
@@ -1634,14 +1634,14 @@
         ieee754.write(buf, value, offset, littleEndian, 52, 8);
         return offset + 8;
       }
-      Buffer6.prototype.writeDoubleLE = function writeDoubleLE(value, offset, noAssert) {
+      Buffer7.prototype.writeDoubleLE = function writeDoubleLE(value, offset, noAssert) {
         return writeDouble(this, value, offset, true, noAssert);
       };
-      Buffer6.prototype.writeDoubleBE = function writeDoubleBE(value, offset, noAssert) {
+      Buffer7.prototype.writeDoubleBE = function writeDoubleBE(value, offset, noAssert) {
         return writeDouble(this, value, offset, false, noAssert);
       };
-      Buffer6.prototype.copy = function copy(target, targetStart, start, end) {
-        if (!Buffer6.isBuffer(target)) throw new TypeError("argument should be a Buffer");
+      Buffer7.prototype.copy = function copy(target, targetStart, start, end) {
+        if (!Buffer7.isBuffer(target)) throw new TypeError("argument should be a Buffer");
         if (!start) start = 0;
         if (!end && end !== 0) end = this.length;
         if (targetStart >= target.length) targetStart = target.length;
@@ -1670,7 +1670,7 @@
         }
         return len;
       };
-      Buffer6.prototype.fill = function fill(val, start, end, encoding) {
+      Buffer7.prototype.fill = function fill(val, start, end, encoding) {
         if (typeof val === "string") {
           if (typeof start === "string") {
             encoding = start;
@@ -1683,7 +1683,7 @@
           if (encoding !== void 0 && typeof encoding !== "string") {
             throw new TypeError("encoding must be a string");
           }
-          if (typeof encoding === "string" && !Buffer6.isEncoding(encoding)) {
+          if (typeof encoding === "string" && !Buffer7.isEncoding(encoding)) {
             throw new TypeError("Unknown encoding: " + encoding);
           }
           if (val.length === 1) {
@@ -1712,7 +1712,7 @@
             this[i] = val;
           }
         } else {
-          const bytes = Buffer6.isBuffer(val) ? val : Buffer6.from(val, encoding);
+          const bytes = Buffer7.isBuffer(val) ? val : Buffer7.from(val, encoding);
           const len = bytes.length;
           if (len === 0) {
             throw new TypeError('The value "' + val + '" is invalid for argument "value"');
@@ -1941,13 +1941,13 @@
         }
         return i;
       }
-      function isInstance2(obj, type) {
+      function isInstance(obj, type) {
         return obj instanceof type || obj != null && obj.constructor != null && obj.constructor.name != null && obj.constructor.name === type.name;
       }
       function numberIsNaN(obj) {
         return obj !== obj;
       }
-      var hexSliceLookupTable = function() {
+      var hexSliceLookupTable = (function() {
         const alphabet = "0123456789abcdef";
         const table = new Array(256);
         for (let i = 0; i < 16; ++i) {
@@ -1957,7 +1957,7 @@
           }
         }
         return table;
-      }();
+      })();
       function defineBigIntMethod(fn) {
         return typeof BigInt === "undefined" ? BufferBigIntNotDefined : fn;
       }
@@ -2271,13 +2271,13 @@
             msg += `"${name}" ${name.includes(".") ? "property" : "argument"} `;
           }
           msg += "must be ";
-          const types3 = [];
+          const types4 = [];
           const instances = [];
           const other = [];
           for (const value of expected) {
             assert(typeof value === "string", "All expected entries have to be of type string");
             if (kTypes.includes(value)) {
-              types3.push(value.toLowerCase());
+              types4.push(value.toLowerCase());
             } else if (classRegExp.test(value)) {
               instances.push(value);
             } else {
@@ -2286,23 +2286,23 @@
             }
           }
           if (instances.length > 0) {
-            const pos = types3.indexOf("object");
+            const pos = types4.indexOf("object");
             if (pos !== -1) {
-              types3.splice(types3, pos, 1);
+              types4.splice(types4, pos, 1);
               instances.push("Object");
             }
           }
-          if (types3.length > 0) {
-            switch (types3.length) {
+          if (types4.length > 0) {
+            switch (types4.length) {
               case 1:
-                msg += `of type ${types3[0]}`;
+                msg += `of type ${types4[0]}`;
                 break;
               case 2:
-                msg += `one of type ${types3[0]} or ${types3[1]}`;
+                msg += `one of type ${types4[0]} or ${types4[1]}`;
                 break;
               default: {
-                const last = types3.pop();
-                msg += `one of type ${types3.join(", ")}, or ${last}`;
+                const last = types4.pop();
+                msg += `one of type ${types4.join(", ")}, or ${last}`;
               }
             }
             if (instances.length > 0 || other.length > 0) {
@@ -2497,22 +2497,22 @@
       var NumberIsNaN = Number.isNaN || function NumberIsNaN2(value) {
         return value !== value;
       };
-      function EventEmitter2() {
-        EventEmitter2.init.call(this);
+      function EventEmitter3() {
+        EventEmitter3.init.call(this);
       }
-      module.exports = EventEmitter2;
+      module.exports = EventEmitter3;
       module.exports.once = once;
-      EventEmitter2.EventEmitter = EventEmitter2;
-      EventEmitter2.prototype._events = void 0;
-      EventEmitter2.prototype._eventsCount = 0;
-      EventEmitter2.prototype._maxListeners = void 0;
+      EventEmitter3.EventEmitter = EventEmitter3;
+      EventEmitter3.prototype._events = void 0;
+      EventEmitter3.prototype._eventsCount = 0;
+      EventEmitter3.prototype._maxListeners = void 0;
       var defaultMaxListeners = 10;
       function checkListener(listener) {
         if (typeof listener !== "function") {
           throw new TypeError('The "listener" argument must be of type Function. Received type ' + typeof listener);
         }
       }
-      Object.defineProperty(EventEmitter2, "defaultMaxListeners", {
+      Object.defineProperty(EventEmitter3, "defaultMaxListeners", {
         enumerable: true,
         get: function() {
           return defaultMaxListeners;
@@ -2524,14 +2524,14 @@
           defaultMaxListeners = arg;
         }
       });
-      EventEmitter2.init = function() {
+      EventEmitter3.init = function() {
         if (this._events === void 0 || this._events === Object.getPrototypeOf(this)._events) {
           this._events = /* @__PURE__ */ Object.create(null);
           this._eventsCount = 0;
         }
         this._maxListeners = this._maxListeners || void 0;
       };
-      EventEmitter2.prototype.setMaxListeners = function setMaxListeners(n) {
+      EventEmitter3.prototype.setMaxListeners = function setMaxListeners(n) {
         if (typeof n !== "number" || n < 0 || NumberIsNaN(n)) {
           throw new RangeError('The value of "n" is out of range. It must be a non-negative number. Received ' + n + ".");
         }
@@ -2540,13 +2540,13 @@
       };
       function _getMaxListeners(that) {
         if (that._maxListeners === void 0)
-          return EventEmitter2.defaultMaxListeners;
+          return EventEmitter3.defaultMaxListeners;
         return that._maxListeners;
       }
-      EventEmitter2.prototype.getMaxListeners = function getMaxListeners() {
+      EventEmitter3.prototype.getMaxListeners = function getMaxListeners() {
         return _getMaxListeners(this);
       };
-      EventEmitter2.prototype.emit = function emit(type) {
+      EventEmitter3.prototype.emit = function emit(type) {
         var args = [];
         for (var i = 1; i < arguments.length; i++) args.push(arguments[i]);
         var doError = type === "error";
@@ -2623,11 +2623,11 @@
         }
         return target;
       }
-      EventEmitter2.prototype.addListener = function addListener(type, listener) {
+      EventEmitter3.prototype.addListener = function addListener(type, listener) {
         return _addListener(this, type, listener, false);
       };
-      EventEmitter2.prototype.on = EventEmitter2.prototype.addListener;
-      EventEmitter2.prototype.prependListener = function prependListener(type, listener) {
+      EventEmitter3.prototype.on = EventEmitter3.prototype.addListener;
+      EventEmitter3.prototype.prependListener = function prependListener(type, listener) {
         return _addListener(this, type, listener, true);
       };
       function onceWrapper() {
@@ -2646,17 +2646,17 @@
         state.wrapFn = wrapped;
         return wrapped;
       }
-      EventEmitter2.prototype.once = function once2(type, listener) {
+      EventEmitter3.prototype.once = function once2(type, listener) {
         checkListener(listener);
         this.on(type, _onceWrap(this, type, listener));
         return this;
       };
-      EventEmitter2.prototype.prependOnceListener = function prependOnceListener(type, listener) {
+      EventEmitter3.prototype.prependOnceListener = function prependOnceListener(type, listener) {
         checkListener(listener);
         this.prependListener(type, _onceWrap(this, type, listener));
         return this;
       };
-      EventEmitter2.prototype.removeListener = function removeListener(type, listener) {
+      EventEmitter3.prototype.removeListener = function removeListener(type, listener) {
         var list2, events, position, i, originalListener;
         checkListener(listener);
         events = this._events;
@@ -2696,8 +2696,8 @@
         }
         return this;
       };
-      EventEmitter2.prototype.off = EventEmitter2.prototype.removeListener;
-      EventEmitter2.prototype.removeAllListeners = function removeAllListeners(type) {
+      EventEmitter3.prototype.off = EventEmitter3.prototype.removeListener;
+      EventEmitter3.prototype.removeAllListeners = function removeAllListeners(type) {
         var listeners, events, i;
         events = this._events;
         if (events === void 0)
@@ -2748,20 +2748,20 @@
           return unwrap ? [evlistener.listener || evlistener] : [evlistener];
         return unwrap ? unwrapListeners(evlistener) : arrayClone(evlistener, evlistener.length);
       }
-      EventEmitter2.prototype.listeners = function listeners(type) {
+      EventEmitter3.prototype.listeners = function listeners(type) {
         return _listeners(this, type, true);
       };
-      EventEmitter2.prototype.rawListeners = function rawListeners(type) {
+      EventEmitter3.prototype.rawListeners = function rawListeners(type) {
         return _listeners(this, type, false);
       };
-      EventEmitter2.listenerCount = function(emitter, type) {
+      EventEmitter3.listenerCount = function(emitter, type) {
         if (typeof emitter.listenerCount === "function") {
           return emitter.listenerCount(type);
         } else {
           return listenerCount.call(emitter, type);
         }
       };
-      EventEmitter2.prototype.listenerCount = listenerCount;
+      EventEmitter3.prototype.listenerCount = listenerCount;
       function listenerCount(type) {
         var events = this._events;
         if (events !== void 0) {
@@ -2774,7 +2774,7 @@
         }
         return 0;
       }
-      EventEmitter2.prototype.eventNames = function eventNames() {
+      EventEmitter3.prototype.eventNames = function eventNames() {
         return this._eventsCount > 0 ? ReflectOwnKeys(this._events) : [];
       };
       function arrayClone(arr, n) {
@@ -3363,9 +3363,9 @@
           runTimeout(drainQueue);
         }
       };
-      function Item(fun, array) {
+      function Item(fun, array2) {
         this.fun = fun;
-        this.array = array;
+        this.array = array2;
       }
       Item.prototype.run = function() {
         this.fun.apply(null, this.array);
@@ -4265,7 +4265,7 @@
     "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module) {
       "use strict";
       var { StringPrototypeSlice, SymbolIterator, TypedArrayPrototypeSet, Uint8Array: Uint8Array2 } = require_primordials();
-      var { Buffer: Buffer6 } = require_buffer();
+      var { Buffer: Buffer7 } = require_buffer();
       var { inspect } = require_util();
       module.exports = class BufferList {
         constructor() {
@@ -4312,8 +4312,8 @@
           return ret;
         }
         concat(n) {
-          if (this.length === 0) return Buffer6.alloc(0);
-          const ret = Buffer6.allocUnsafe(n >>> 0);
+          if (this.length === 0) return Buffer7.alloc(0);
+          const ret = Buffer7.allocUnsafe(n >>> 0);
           let p = this.head;
           let i = 0;
           while (p) {
@@ -4374,7 +4374,7 @@
         }
         // Consumes a specified amount of bytes from the buffered data.
         _getBuffer(n) {
-          const ret = Buffer6.allocUnsafe(n);
+          const ret = Buffer7.allocUnsafe(n);
           const retLen = n;
           let p = this.head;
           let c = 0;
@@ -4461,34 +4461,34 @@
   var require_safe_buffer = __commonJS({
     "node_modules/.pnpm/safe-buffer@5.2.1/node_modules/safe-buffer/index.js"(exports, module) {
       var buffer = require_buffer();
-      var Buffer6 = buffer.Buffer;
+      var Buffer7 = buffer.Buffer;
       function copyProps(src, dst) {
         for (var key in src) {
           dst[key] = src[key];
         }
       }
-      if (Buffer6.from && Buffer6.alloc && Buffer6.allocUnsafe && Buffer6.allocUnsafeSlow) {
+      if (Buffer7.from && Buffer7.alloc && Buffer7.allocUnsafe && Buffer7.allocUnsafeSlow) {
         module.exports = buffer;
       } else {
         copyProps(buffer, exports);
         exports.Buffer = SafeBuffer;
       }
       function SafeBuffer(arg, encodingOrOffset, length) {
-        return Buffer6(arg, encodingOrOffset, length);
+        return Buffer7(arg, encodingOrOffset, length);
       }
-      SafeBuffer.prototype = Object.create(Buffer6.prototype);
-      copyProps(Buffer6, SafeBuffer);
+      SafeBuffer.prototype = Object.create(Buffer7.prototype);
+      copyProps(Buffer7, SafeBuffer);
       SafeBuffer.from = function(arg, encodingOrOffset, length) {
         if (typeof arg === "number") {
           throw new TypeError("Argument must not be a number");
         }
-        return Buffer6(arg, encodingOrOffset, length);
+        return Buffer7(arg, encodingOrOffset, length);
       };
       SafeBuffer.alloc = function(size, fill, encoding) {
         if (typeof size !== "number") {
           throw new TypeError("Argument must be a number");
         }
-        var buf = Buffer6(size);
+        var buf = Buffer7(size);
         if (fill !== void 0) {
           if (typeof encoding === "string") {
             buf.fill(fill, encoding);
@@ -4504,7 +4504,7 @@
         if (typeof size !== "number") {
           throw new TypeError("Argument must be a number");
         }
-        return Buffer6(size);
+        return Buffer7(size);
       };
       SafeBuffer.allocUnsafeSlow = function(size) {
         if (typeof size !== "number") {
@@ -4519,8 +4519,8 @@
   var require_string_decoder = __commonJS({
     "node_modules/.pnpm/string_decoder@1.3.0/node_modules/string_decoder/lib/string_decoder.js"(exports) {
       "use strict";
-      var Buffer6 = require_safe_buffer().Buffer;
-      var isEncoding = Buffer6.isEncoding || function(encoding) {
+      var Buffer7 = require_safe_buffer().Buffer;
+      var isEncoding = Buffer7.isEncoding || function(encoding) {
         encoding = "" + encoding;
         switch (encoding && encoding.toLowerCase()) {
           case "hex":
@@ -4568,7 +4568,7 @@
       }
       function normalizeEncoding(enc) {
         var nenc = _normalizeEncoding(enc);
-        if (typeof nenc !== "string" && (Buffer6.isEncoding === isEncoding || !isEncoding(enc))) throw new Error("Unknown encoding: " + enc);
+        if (typeof nenc !== "string" && (Buffer7.isEncoding === isEncoding || !isEncoding(enc))) throw new Error("Unknown encoding: " + enc);
         return nenc || enc;
       }
       exports.StringDecoder = StringDecoder;
@@ -4597,7 +4597,7 @@
         }
         this.lastNeed = 0;
         this.lastTotal = 0;
-        this.lastChar = Buffer6.allocUnsafe(nb);
+        this.lastChar = Buffer7.allocUnsafe(nb);
       }
       StringDecoder.prototype.write = function(buf) {
         if (buf.length === 0) return "";
@@ -4759,11 +4759,11 @@
       "use strict";
       var process = require_browser2();
       var { PromisePrototypeThen, SymbolAsyncIterator, SymbolIterator } = require_primordials();
-      var { Buffer: Buffer6 } = require_buffer();
+      var { Buffer: Buffer7 } = require_buffer();
       var { ERR_INVALID_ARG_TYPE, ERR_STREAM_NULL_VALUES } = require_errors().codes;
-      function from(Readable2, iterable, opts) {
+      function from2(Readable2, iterable, opts) {
         let iterator;
-        if (typeof iterable === "string" || iterable instanceof Buffer6) {
+        if (typeof iterable === "string" || iterable instanceof Buffer7) {
           return new Readable2({
             objectMode: true,
             ...opts,
@@ -4844,7 +4844,7 @@
         }
         return readable;
       }
-      module.exports = from;
+      module.exports = from2;
     }
   });
 
@@ -4871,7 +4871,7 @@
       Readable2.ReadableState = ReadableState;
       var { EventEmitter: EE } = require_events();
       var { Stream, prependListener } = require_legacy();
-      var { Buffer: Buffer6 } = require_buffer();
+      var { Buffer: Buffer7 } = require_buffer();
       var { addAbortSignal } = require_add_abort_signal();
       var eos = require_end_of_stream();
       var debug2 = require_util().debuglog("stream", (fn) => {
@@ -4894,7 +4894,7 @@
       var { validateObject: validateObject2 } = require_validators();
       var kPaused = Symbol2("kPaused");
       var { StringDecoder } = require_string_decoder();
-      var from = require_from();
+      var from2 = require_from();
       ObjectSetPrototypeOf(Readable2.prototype, Stream.prototype);
       ObjectSetPrototypeOf(Readable2, Stream);
       var nop2 = () => {
@@ -5039,13 +5039,13 @@
             encoding = encoding || state.defaultEncoding;
             if (state.encoding !== encoding) {
               if (addToFront && state.encoding) {
-                chunk = Buffer6.from(chunk, encoding).toString(state.encoding);
+                chunk = Buffer7.from(chunk, encoding).toString(state.encoding);
               } else {
-                chunk = Buffer6.from(chunk, encoding);
+                chunk = Buffer7.from(chunk, encoding);
                 encoding = "";
               }
             }
-          } else if (chunk instanceof Buffer6) {
+          } else if (chunk instanceof Buffer7) {
             encoding = "";
           } else if (Stream._isUint8Array(chunk)) {
             chunk = Stream._uint8ArrayToBuffer(chunk);
@@ -5787,7 +5787,7 @@
         }
       }
       Readable2.from = function(iterable, opts) {
-        return from(Readable2, iterable, opts);
+        return from2(Readable2, iterable, opts);
       };
       var webStreamsAdapters;
       function lazyWebStreams() {
@@ -5834,7 +5834,7 @@
       Writable2.WritableState = WritableState;
       var { EventEmitter: EE } = require_events();
       var Stream = require_legacy().Stream;
-      var { Buffer: Buffer6 } = require_buffer();
+      var { Buffer: Buffer7 } = require_buffer();
       var destroyImpl = require_destroy();
       var { addAbortSignal } = require_add_abort_signal();
       var { getHighWaterMark, getDefaultHighWaterMark } = require_state();
@@ -5944,7 +5944,7 @@
           encoding = state.defaultEncoding;
         } else {
           if (!encoding) encoding = state.defaultEncoding;
-          else if (encoding !== "buffer" && !Buffer6.isEncoding(encoding)) throw new ERR_UNKNOWN_ENCODING(encoding);
+          else if (encoding !== "buffer" && !Buffer7.isEncoding(encoding)) throw new ERR_UNKNOWN_ENCODING(encoding);
           if (typeof cb !== "function") cb = nop2;
         }
         if (chunk === null) {
@@ -5952,10 +5952,10 @@
         } else if (!state.objectMode) {
           if (typeof chunk === "string") {
             if (state.decodeStrings !== false) {
-              chunk = Buffer6.from(chunk, encoding);
+              chunk = Buffer7.from(chunk, encoding);
               encoding = "buffer";
             }
-          } else if (chunk instanceof Buffer6) {
+          } else if (chunk instanceof Buffer7) {
             encoding = "buffer";
           } else if (Stream._isUint8Array(chunk)) {
             chunk = Stream._uint8ArrayToBuffer(chunk);
@@ -5993,7 +5993,7 @@
       };
       Writable2.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
         if (typeof encoding === "string") encoding = StringPrototypeToLowerCase(encoding);
-        if (!Buffer6.isEncoding(encoding)) throw new ERR_UNKNOWN_ENCODING(encoding);
+        if (!Buffer7.isEncoding(encoding)) throw new ERR_UNKNOWN_ENCODING(encoding);
         this._writableState.defaultEncoding = encoding;
         return this;
       };
@@ -6461,7 +6461,7 @@
       var Readable2 = require_readable();
       var Writable2 = require_writable();
       var { createDeferredPromise } = require_util();
-      var from = require_from();
+      var from2 = require_from();
       var Blob2 = globalThis.Blob || bufferModule.Blob;
       var isBlob = typeof Blob2 !== "undefined" ? function isBlob2(b) {
         return b instanceof Blob2;
@@ -6519,7 +6519,7 @@
         if (typeof body === "function") {
           const { value, write: write2, final, destroy } = fromAsyncGen(body);
           if (isIterable(value)) {
-            return from(Duplexify, value, {
+            return from2(Duplexify, value, {
               // TODO (ronag): highWaterMark?
               objectMode: true,
               write: write2,
@@ -6566,7 +6566,7 @@
           return duplexify(body.arrayBuffer());
         }
         if (isIterable(body)) {
-          return from(Duplexify, body, {
+          return from2(Duplexify, body, {
             // TODO (ronag): highWaterMark?
             objectMode: true,
             writable: false
@@ -6627,7 +6627,7 @@
         const ac = new AbortController();
         const signal = ac.signal;
         const value = fn(
-          async function* () {
+          (async function* () {
             while (true) {
               const _promise = promise;
               promise = null;
@@ -6641,7 +6641,7 @@
               ({ promise, resolve: resolve2 } = createDeferredPromise());
               yield chunk;
             }
-          }(),
+          })(),
           {
             signal
           }
@@ -8092,7 +8092,7 @@
   var require_stream = __commonJS({
     "node_modules/.pnpm/readable-stream@4.7.0/node_modules/readable-stream/lib/stream.js"(exports, module) {
       "use strict";
-      var { Buffer: Buffer6 } = require_buffer();
+      var { Buffer: Buffer7 } = require_buffer();
       var { ObjectDefineProperty, ObjectKeys, ReflectApply } = require_primordials();
       var {
         promisify: { custom: customPromisify }
@@ -8202,7 +8202,7 @@
         return value instanceof Uint8Array;
       };
       Stream._uint8ArrayToBuffer = function _uint8ArrayToBuffer(chunk) {
-        return Buffer6.from(chunk.buffer, chunk.byteOffset, chunk.byteLength);
+        return Buffer7.from(chunk.buffer, chunk.byteOffset, chunk.byteLength);
       };
     }
   });
@@ -8243,7 +8243,7 @@
     }
   });
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/index.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/index.js
   var dist_exports = {};
   __export(dist_exports, {
     Async: () => Async,
@@ -8256,6 +8256,7 @@
     CopyOnWriteFS: () => CopyOnWriteFS,
     DeviceFS: () => DeviceFS,
     Dir: () => Dir,
+    DirType: () => DirType,
     Dirent: () => Dirent,
     ErrnoError: () => ErrnoError,
     Fetch: () => Fetch,
@@ -8277,6 +8278,7 @@
     PassthroughFS: () => PassthroughFS,
     Port: () => Port,
     PortFS: () => PortFS,
+    RPC: () => rpc_exports,
     ReadStream: () => ReadStream,
     Readonly: () => Readonly,
     SingleBuffer: () => SingleBuffer,
@@ -8305,11 +8307,9 @@
     addDevice: () => addDevice,
     appendFile: () => appendFile2,
     appendFileSync: () => appendFileSync,
-    attach: () => attach,
     attachFS: () => attachFS,
     bindContext: () => bindContext,
     boundContexts: () => boundContexts,
-    catchMessages: () => catchMessages,
     checkOptions: () => checkOptions,
     chmod: () => chmod2,
     chmodSync: () => chmodSync,
@@ -8332,9 +8332,9 @@
     credentialsAllowRoot: () => credentialsAllowRoot,
     decodeDirListing: () => decodeDirListing,
     default: () => dist_default,
-    detach: () => detach,
     detachFS: () => detachFS,
     devices: () => devices,
+    dtToIf: () => dtToIf,
     encodeDirListing: () => encodeDirListing,
     exists: () => exists2,
     existsSync: () => existsSync,
@@ -8357,8 +8357,8 @@
     glob: () => glob2,
     globSync: () => globSync,
     globToRegex: () => globToRegex,
-    handleRequest: () => handleRequest,
     hasAccess: () => hasAccess,
+    ifToDt: () => ifToDt,
     ioctl: () => ioctl,
     ioctlSync: () => ioctlSync,
     isBackend: () => isBackend,
@@ -9193,7 +9193,7 @@
     }
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/backends/backend.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/backends/backend.js
   function isBackend(arg) {
     return arg != null && typeof arg == "object" && "create" in arg && typeof arg.create == "function";
   }
@@ -9208,7 +9208,7 @@
       throw err(withErrno("EINVAL", "Invalid options"));
     }
     for (const [optName, opt] of Object.entries(backend.options)) {
-      const value = options === null || options === void 0 ? void 0 : options[optName];
+      const value = options?.[optName];
       if (value === void 0 || value === null) {
         if (!opt.required) {
           debug("Using default for option: " + optName);
@@ -9216,10 +9216,7 @@
         }
         throw err(withErrno("EINVAL", "Missing required option: " + optName));
       }
-      const isType2 = (type2, _ = value) => {
-        var _a2;
-        return typeof type2 == "function" ? Symbol.hasInstance in type2 && type2.prototype ? value instanceof type2 : type2(value) : typeof value === type2 || ((_a2 = value === null || value === void 0 ? void 0 : value.constructor) === null || _a2 === void 0 ? void 0 : _a2.name) === type2;
-      };
+      const isType2 = (type2, _ = value) => typeof type2 == "function" ? Symbol.hasInstance in type2 && type2.prototype ? value instanceof type2 : type2(value) : typeof value === type2 || value?.constructor?.name === type2;
       if (Array.isArray(opt.type) ? opt.type.some((v) => isType2(v)) : isType2(opt.type))
         continue;
       const type = typeof value == "object" && "constructor" in value ? value.constructor.name : typeof value;
@@ -9232,7 +9229,7 @@
     return arg != null && typeof arg == "object" && "backend" in arg && isBackend(arg.backend);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/internal/credentials.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/internal/credentials.js
   function createCredentials(source) {
     return {
       suid: source.uid,
@@ -9249,7 +9246,7 @@
     return !cred.uid || !cred.gid || !cred.euid || !cred.egid || cred.groups.some((gid) => !gid);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/internal/contexts.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/internal/contexts.js
   var defaultContext = {
     id: 0,
     root: "/",
@@ -9260,7 +9257,7 @@
     children: []
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/constants.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/constants.js
   var constants_exports = {};
   __export(constants_exports, {
     COPYFILE_EXCL: () => COPYFILE_EXCL,
@@ -9361,37 +9358,85 @@
   var UV_FS_O_FILEMAP = 0;
   var size_max = 4294967295;
 
-  // node_modules/.pnpm/memium@0.2.1/node_modules/memium/dist/internal.js
-  Symbol.metadata ??= Symbol.for("Symbol.metadata");
-  function initMetadata(context) {
-    context.metadata ??= {};
-    const existing = context.metadata.structInit ?? {};
-    context.metadata.structInit = {
-      fields: [...existing.fields ?? []]
+  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/array.js
+  function StructArray(type) {
+    class StructArray2 extends DataView {
+      length;
+      type = type;
+      *[Symbol.iterator]() {
+        for (let i = 0; i < this.length; i++)
+          yield this[i];
+      }
+      constructor(lengthOrBuffer, byteOffset, byteLength) {
+        const buffer = typeof lengthOrBuffer === "object" ? lengthOrBuffer : new ArrayBuffer((lengthOrBuffer ?? 0) * type.size);
+        super(buffer, byteOffset, byteLength);
+        this.length = typeof lengthOrBuffer === "number" ? lengthOrBuffer : Math.floor(this.byteLength / type.size);
+        return new Proxy(this, {
+          get(target, index) {
+            if (index in target)
+              return target[index];
+            const i = parseInt(index.toString());
+            if (!Number.isSafeInteger(i))
+              throw withErrno("EINVAL", "Invalid index: " + index.toString());
+            return type.get(target.buffer, target.byteOffset + i * type.size);
+          },
+          set(target, index, value) {
+            const i = parseInt(index.toString());
+            if (!Number.isSafeInteger(i))
+              throw withErrno("EINVAL", "Invalid index: " + index.toString());
+            type.set(target.buffer, target.byteOffset + i * type.size, value);
+            return true;
+          }
+        });
+      }
+    }
+    for (const key of Object.getOwnPropertyNames(DataView.prototype)) {
+      if (!key.startsWith("get") && !key.startsWith("set"))
+        continue;
+      Object.defineProperty(StructArray2.prototype, key, {
+        enumerable: false,
+        configurable: false,
+        writable: false,
+        value: void 0
+      });
+    }
+    return StructArray2;
+  }
+  var ArrayType = class {
+    type;
+    length;
+    name;
+    size;
+    __arrayType;
+    constructor(type, length) {
+      this.type = type;
+      this.length = length;
+      this.name = `${type.name}[${length}]`;
+      this.size = type.size * length;
+      this.array = StructArray(this);
+      this.__arrayType = type.array ? type.array : StructArray(type);
+    }
+    get = (buffer, offset) => {
+      return new this.__arrayType(buffer, offset, this.size);
     };
-    return context.metadata.structInit;
-  }
-  function isValidMetadata(arg) {
-    return arg != null && typeof arg == "object" && "struct" in arg;
-  }
-  function isStatic(arg) {
-    return typeof arg == "function" && Symbol.metadata in arg && isValidMetadata(arg[Symbol.metadata]);
-  }
-  function isInstance(arg) {
-    return arg != null && typeof arg == "object" && isStatic(arg.constructor);
-  }
-  function isStruct(arg) {
-    return isInstance(arg) || isStatic(arg);
-  }
-  function checkStruct(arg) {
-    if (isStruct(arg))
-      return;
-    throw new TypeError((typeof arg == "function" ? arg.name : typeof arg == "object" && arg ? arg.constructor.name : arg) + " is not a struct");
-  }
+    set = (buffer, offset, value) => {
+      for (let i = 0; i < this.length; i++) {
+        this.type.set(buffer, offset + i * this.type.size, value[i]);
+      }
+    };
+    /**
+     * This is for an array of this array
+     */
+    array;
+  };
 
-  // node_modules/.pnpm/memium@0.2.1/node_modules/memium/dist/types.js
+  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/types.js
   function isType(type) {
-    return (typeof type == "object" || typeof type == "function") && type != null && "name" in type && "size" in type && "get" in type && "set" in type && typeof type.name == "string" && typeof type.size == "number" && typeof type.get == "function" && typeof type.set == "function" && typeRegistry.has(type.name) && typeRegistry.get(type.name)?.name === type.name;
+    if (typeof type != "object" && typeof type != "function" || type === null || type === void 0)
+      return false;
+    if (type instanceof ArrayType)
+      return isType(type.type);
+    return "name" in type && "size" in type && "get" in type && "set" in type && typeof type.name == "string" && typeof type.size == "number" && typeof type.get == "function" && typeof type.set == "function" && typeRegistry.has(type.name) && typeRegistry.get(type.name)?.name === type.name;
   }
   var typeRegistry = /* @__PURE__ */ new Map();
   function registerType(t) {
@@ -9400,88 +9445,199 @@
     typeRegistry.set(t.name, t);
   }
 
-  // node_modules/.pnpm/memium@0.2.1/node_modules/memium/dist/primitives.js
+  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/fields.js
+  function parseFieldConfig(init) {
+    if (isType(init))
+      return { type: init };
+    if (init instanceof FieldBuilder)
+      return init.toInit();
+    return init;
+  }
+  var FieldBuilder = class _FieldBuilder {
+    type;
+    init;
+    constructor(type, init) {
+      this.type = type;
+      this.init = init;
+      const _toArray = ((length) => {
+        return new _FieldBuilder(new ArrayType(type, length), init);
+      });
+      Object.setPrototypeOf(_toArray, new.target.prototype);
+      Object.assign(_toArray, { type, init });
+      return _toArray;
+    }
+    /**
+     * Align the field to a given byte boundary.
+     */
+    align(align) {
+      return new _FieldBuilder(this.type, { ...this.init, align });
+    }
+    countedBy(field2) {
+      return new _FieldBuilder(this.type, { ...this.init, countedBy: field2 });
+    }
+    /**
+     * Set the field to big-endian.
+     */
+    bigEndian() {
+      return new _FieldBuilder(this.type, { ...this.init, bigEndian: true });
+    }
+    toInit() {
+      return { type: this.type, ...this.init };
+    }
+    /**
+     * Override the typescript type of the field's value, for example to override `number` with an enum type.
+     * This does not have any runtime effects.
+     */
+    $type() {
+      return new _FieldBuilder(this.type, this.init);
+    }
+  };
+  function array(type, length = 0) {
+    return new FieldBuilder(new ArrayType(type, length), {});
+  }
+
+  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/fields.internal.js
+  function __fieldInit(_name, init, extraOpts = {}) {
+    if (!_name)
+      throw withErrno("EINVAL", "Invalid name for struct field");
+    if (typeof _name == "symbol")
+      console.warn("Symbol used for struct field name will be coerced to string: " + _name.toString());
+    const name = _name.toString();
+    const opt = Object.assign(parseFieldConfig(init), extraOpts);
+    if (!isType(opt.type))
+      throw withErrno("EINVAL", `Invalid type for struct field "${name}"`);
+    return {
+      name,
+      offset: 0,
+      type: opt.type,
+      countedBy: opt.countedBy,
+      alignment: opt.align ?? opt.type.size,
+      decl: opt.type instanceof ArrayType ? `${opt.typeName ?? opt.type.type.name} ${name}[${opt.type.length}]${opt.countedBy ? ` counted_by(${opt.countedBy})` : ""}` : `${opt.typeName ?? opt.type.name} ${name}`,
+      littleEndian: !opt.bigEndian
+    };
+  }
+  function __fault(err2) {
+    if (err2.message !== "offset is outside the bounds of the DataView")
+      throw err2;
+    else
+      throw withErrno("EFAULT", "Segmentation fault");
+  }
+  function __fieldSet(instance, field2, value, index) {
+    try {
+      if (typeof value == "string")
+        value = value.charCodeAt(0);
+      const offset = instance.byteOffset + field2.offset + (index ?? 0) * field2.type.size;
+      field2.type.set(instance.buffer, offset, value);
+      return;
+    } catch (err2) {
+      __fault(err2);
+    }
+  }
+  function __fieldGet(instance, field2) {
+    try {
+      return field2.type.get(instance.buffer, instance.byteOffset + field2.offset);
+    } catch (err2) {
+      __fault(err2);
+    }
+  }
+
+  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/primitives.js
   var __view__ = Symbol("DataView");
   function view(buffer) {
     buffer[__view__] ??= new DataView(buffer);
     return buffer[__view__];
   }
+  var int8 = {
+    name: "int8",
+    size: 1,
+    array: Int8Array,
+    get: (buffer, offset) => view(buffer).getInt8(offset),
+    set: (buffer, offset, value) => view(buffer).setInt8(offset, value)
+  };
+  var uint8 = {
+    name: "uint8",
+    size: 1,
+    array: Uint8Array,
+    get: (buffer, offset) => view(buffer).getUint8(offset),
+    set: (buffer, offset, value) => view(buffer).setUint8(offset, value)
+  };
+  var int16 = {
+    name: "int16",
+    size: 2,
+    array: Int16Array,
+    get: (buffer, offset) => view(buffer).getInt16(offset, true),
+    set: (buffer, offset, value) => view(buffer).setInt16(offset, value, true)
+  };
+  var uint16 = {
+    name: "uint16",
+    size: 2,
+    array: Uint16Array,
+    get: (buffer, offset) => view(buffer).getUint16(offset, true),
+    set: (buffer, offset, value) => view(buffer).setUint16(offset, value, true)
+  };
+  var int32 = {
+    name: "int32",
+    size: 4,
+    array: Int32Array,
+    get: (buffer, offset) => view(buffer).getInt32(offset, true),
+    set: (buffer, offset, value) => view(buffer).setInt32(offset, value, true)
+  };
+  var uint32 = {
+    name: "uint32",
+    size: 4,
+    array: Uint32Array,
+    get: (buffer, offset) => view(buffer).getUint32(offset, true),
+    set: (buffer, offset, value) => view(buffer).setUint32(offset, value, true)
+  };
+  var int64 = {
+    name: "int64",
+    size: 8,
+    array: BigInt64Array,
+    get: (buffer, offset) => view(buffer).getBigInt64(offset, true),
+    set: (buffer, offset, value) => view(buffer).setBigInt64(offset, value, true)
+  };
+  var uint64 = {
+    name: "uint64",
+    size: 8,
+    array: BigUint64Array,
+    get: (buffer, offset) => view(buffer).getBigUint64(offset, true),
+    set: (buffer, offset, value) => view(buffer).setBigUint64(offset, value, true)
+  };
+  var float32 = {
+    name: "float32",
+    size: 4,
+    array: Float32Array,
+    get: (buffer, offset) => view(buffer).getFloat32(offset, true),
+    set: (buffer, offset, value) => view(buffer).setFloat32(offset, value, true)
+  };
+  var float64 = {
+    name: "float64",
+    size: 8,
+    array: Float64Array,
+    get: (buffer, offset) => view(buffer).getFloat64(offset, true),
+    set: (buffer, offset, value) => view(buffer).setFloat64(offset, value, true)
+  };
   var types = {
-    int8: {
-      name: "int8",
-      size: 1,
-      array: Int8Array,
-      get: (buffer, offset) => view(buffer).getInt8(offset),
-      set: (buffer, offset, value) => view(buffer).setInt8(offset, value)
-    },
-    uint8: {
-      name: "uint8",
-      size: 1,
-      array: Uint8Array,
-      get: (buffer, offset) => view(buffer).getUint8(offset),
-      set: (buffer, offset, value) => view(buffer).setUint8(offset, value)
-    },
-    int16: {
-      name: "int16",
-      size: 2,
-      array: Int16Array,
-      get: (buffer, offset) => view(buffer).getInt16(offset, true),
-      set: (buffer, offset, value) => view(buffer).setInt16(offset, value, true)
-    },
-    uint16: {
-      name: "uint16",
-      size: 2,
-      array: Uint16Array,
-      get: (buffer, offset) => view(buffer).getUint16(offset, true),
-      set: (buffer, offset, value) => view(buffer).setUint16(offset, value, true)
-    },
-    int32: {
-      name: "int32",
-      size: 4,
-      array: Int32Array,
-      get: (buffer, offset) => view(buffer).getInt32(offset, true),
-      set: (buffer, offset, value) => view(buffer).setInt32(offset, value, true)
-    },
-    uint32: {
-      name: "uint32",
-      size: 4,
-      array: Uint32Array,
-      get: (buffer, offset) => view(buffer).getUint32(offset, true),
-      set: (buffer, offset, value) => view(buffer).setUint32(offset, value, true)
-    },
-    int64: {
-      name: "int64",
-      size: 8,
-      array: BigInt64Array,
-      get: (buffer, offset) => view(buffer).getBigInt64(offset, true),
-      set: (buffer, offset, value) => view(buffer).setBigInt64(offset, value, true)
-    },
-    uint64: {
-      name: "uint64",
-      size: 8,
-      array: BigUint64Array,
-      get: (buffer, offset) => view(buffer).getBigUint64(offset, true),
-      set: (buffer, offset, value) => view(buffer).setBigUint64(offset, value, true)
-    },
-    float32: {
-      name: "float32",
-      size: 4,
-      array: Float32Array,
-      get: (buffer, offset) => view(buffer).getFloat32(offset, true),
-      set: (buffer, offset, value) => view(buffer).setFloat32(offset, value, true)
-    },
-    float64: {
-      name: "float64",
-      size: 8,
-      array: Float64Array,
-      get: (buffer, offset) => view(buffer).getFloat64(offset, true),
-      set: (buffer, offset, value) => view(buffer).setFloat64(offset, value, true)
-    }
+    int8,
+    uint8,
+    int16,
+    uint16,
+    int32,
+    uint32,
+    int64,
+    uint64,
+    float32,
+    float64
   };
   var typeNames = Object.keys(types);
   for (const t of Object.values(types))
     registerType(t);
-  var validNames = [...typeNames, ...typeNames.map((t) => capitalize(t)), "char"];
+  var rawTypes = {
+    ...types,
+    ...Object.fromEntries(typeNames.map((t) => [capitalize(t), types[t]])),
+    char: uint8
+  };
+  var validNames = Object.keys(rawTypes);
   function isValid(type) {
     return validNames.includes(type.toString());
   }
@@ -9493,7 +9649,231 @@
     return type == "char" ? "uint8" : type.toLowerCase();
   }
 
-  // node_modules/.pnpm/memium@0.2.1/node_modules/memium/dist/misc.js
+  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/decorators.js
+  Symbol.metadata ??= Symbol.for("Symbol.metadata");
+  function initMetadata(context) {
+    context.metadata ??= {};
+    const existing = context.metadata.structInit ?? {};
+    context.metadata.structInit = {
+      fields: [...existing.fields ?? []]
+    };
+    return context.metadata.structInit;
+  }
+  function struct(name, ...options) {
+    const opts = options.reduce((acc, opt) => ({ ...acc, ...opt }), {});
+    if (typeof this == "object")
+      Object.assign(opts, this);
+    return function __decorateStruct(target, context) {
+      const init = initMetadata(context);
+      let fieldAlignment = 1;
+      const fields = {};
+      let size = 0;
+      const align = (to) => {
+        size = Math.ceil(size / to) * to;
+      };
+      for (const field2 of init.fields) {
+        if (!opts.isPacked)
+          align(field2.alignment);
+        if (opts.isUnion)
+          size = Math.max(size, field2.type.size);
+        else {
+          field2.offset = size;
+          size += field2.type.size;
+        }
+        fields[field2.name] = field2;
+        fieldAlignment = Math.max(fieldAlignment, field2.alignment);
+      }
+      opts.alignment ??= fieldAlignment;
+      if (!opts.isPacked)
+        align(opts.alignment);
+      context.metadata.struct = {
+        fields,
+        size,
+        alignment: opts.isPacked ? 1 : opts.alignment,
+        isUnion: opts.isUnion ?? false
+      };
+      class _struct extends target {
+        constructor(...args) {
+          if (!args.length)
+            args = [new ArrayBuffer(size), 0, size];
+          super(...args);
+          for (const field2 of Object.values(fields)) {
+            Object.defineProperty(this, field2.name, {
+              enumerable: true,
+              configurable: true,
+              get() {
+                return __fieldGet(this, field2);
+              },
+              set(value) {
+                __fieldSet(this, field2, value);
+              }
+            });
+          }
+        }
+      }
+      const fix = (value) => ({
+        writable: false,
+        enumerable: false,
+        configurable: false,
+        value
+      });
+      Object.defineProperties(_struct, {
+        name: fix(name),
+        size: fix(size),
+        alignment: fix(opts.alignment),
+        isUnion: fix(!!opts.isUnion),
+        fields: fix(fields),
+        // @ts-expect-error 2511 : Please don't try to create an instance of an abstract struct
+        get: fix((buffer, offset) => new _struct(buffer, offset)),
+        set: fix((buffer, offset, value) => {
+          const source = new Uint8Array(value.buffer, value.byteOffset, size);
+          const target2 = new Uint8Array(buffer, offset, size);
+          if (value.buffer === buffer && value.byteOffset === offset)
+            return;
+          for (let i = 0; i < size; i++)
+            target2[i] = source[i];
+        }),
+        [Symbol.toStringTag]: fix(`[struct ${name}]`)
+      });
+      registerType(_struct);
+      return _struct;
+    };
+  }
+  struct.packed = struct.bind({ isPacked: true });
+  struct.align = function(alignment) {
+    return struct.bind({ alignment });
+  };
+  function field(type, opt = {}) {
+    return function __decorateField(value, context) {
+      if (context.kind != "accessor")
+        throw withErrno("EINVAL", "Field must be an accessor");
+      const init = initMetadata(context);
+      const field2 = __fieldInit(context.name, type, opt);
+      init.fields.push(field2);
+      return {
+        get() {
+          return __fieldGet(this, field2);
+        },
+        set(value2) {
+          __fieldSet(this, field2, value2);
+        }
+      };
+    };
+  }
+  function _shortcut2(typeName) {
+    const type = types[normalize(typeName)];
+    function __decoratePrimitiveField(valueOrLength, context) {
+      return typeof valueOrLength == "number" ? field(new ArrayType(type, valueOrLength), { typeName, ...context }) : field(type, { typeName })(valueOrLength, context && "name" in context ? context : _throw(withErrno("EINVAL", "Invalid decorator context object")));
+    }
+    return __decoratePrimitiveField;
+  }
+  var types2 = Object.fromEntries(validNames.map((t) => [t, _shortcut2(t)]));
+  function $from(t) {
+    return t;
+  }
+  $from.typed = function(t) {
+    return t;
+  };
+
+  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/structs.js
+  function isStructConstructor(arg) {
+    return typeof arg == "function" && "prototype" in arg && "fields" in arg && typeof arg.fields == "object" && isType(arg);
+  }
+  function struct2(structName, fieldDecls, ...options) {
+    const opts = options.reduce((acc, opt) => ({ ...acc, ...opt }), {});
+    if (typeof this == "object")
+      Object.assign(opts, this);
+    let fieldAlignment = 1;
+    let size = 0;
+    const align = (to) => {
+      size = Math.ceil(size / to) * to;
+    };
+    const fields = /* @__PURE__ */ Object.create(null);
+    for (const [name, init] of Object.entries(fieldDecls)) {
+      if (typeof name == "number")
+        throw new TypeError("Field names can not be numbers");
+      const field2 = __fieldInit(name, init);
+      if (!opts.isPacked)
+        align(field2.alignment);
+      if (opts.isUnion)
+        size = Math.max(size, field2.type.size);
+      else {
+        field2.offset = size;
+        size += field2.type.size;
+      }
+      fields[field2.name] = field2;
+      fieldAlignment = Math.max(fieldAlignment, field2.alignment);
+    }
+    opts.alignment ??= fieldAlignment;
+    if (!opts.isPacked)
+      align(opts.alignment);
+    class __struct extends DataView {
+      static name = structName;
+      constructor(buffer = new ArrayBuffer(size), byteOffset, byteLength) {
+        super(buffer, byteOffset, byteLength ?? size);
+        for (const field2 of Object.values(fields)) {
+          Object.defineProperty(this, field2.name, {
+            enumerable: true,
+            configurable: true,
+            get() {
+              return __fieldGet(this, field2);
+            },
+            set(value) {
+              __fieldSet(this, field2, value);
+            }
+          });
+        }
+      }
+    }
+    for (const key of Object.getOwnPropertyNames(DataView.prototype)) {
+      if (!key.startsWith("get") && !key.startsWith("set"))
+        continue;
+      Object.defineProperty(__struct.prototype, key, {
+        enumerable: false,
+        configurable: false,
+        writable: false,
+        value: void 0
+      });
+    }
+    const _struct = __struct;
+    const fix = (value) => ({
+      writable: false,
+      enumerable: false,
+      configurable: false,
+      value
+    });
+    Object.defineProperties(_struct, {
+      size: fix(size),
+      alignment: fix(opts.alignment),
+      isUnion: fix(!!opts.isUnion),
+      fields: fix(fields),
+      get: fix((buffer, offset) => new _struct(buffer, offset)),
+      set: fix((buffer, offset, value) => {
+        const source = new Uint8Array(value.buffer, value.byteOffset, size);
+        const target = new Uint8Array(buffer, offset, size);
+        if (value.buffer === buffer && value.byteOffset === offset)
+          return;
+        for (let i = 0; i < size; i++)
+          target[i] = source[i];
+      }),
+      [Symbol.toStringTag]: fix(`[struct ${structName}]`)
+    });
+    registerType(_struct);
+    return _struct;
+  }
+  struct2.extend = function(base, structName, fieldDecls, ...options) {
+    return struct2(structName, { ...base.fields, ...fieldDecls }, ...options);
+  };
+  struct2.packed = struct2.bind({ isPacked: true });
+  struct2.align = function(alignment) {
+    return struct2.bind({ alignment });
+  };
+  var types3 = Object.fromEntries(Object.entries(rawTypes).map(([typeName, type]) => [
+    typeName,
+    new FieldBuilder(type, { typeName })
+  ]));
+
+  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/misc.js
   function sizeof(type) {
     if (isType(type))
       return type.size;
@@ -9514,182 +9894,18 @@
     throw new TypeError(`Unable to resolve size of \`${type.toString()}\``);
   }
   function offsetof(type, fieldName) {
-    checkStruct(type);
-    const constructor = isStatic(type) ? type : type.constructor;
-    const { fields } = constructor[Symbol.metadata].struct;
+    let constructor;
+    if (isStructConstructor(type))
+      constructor = type;
+    else if (isStructConstructor(type.constructor))
+      constructor = type.constructor;
+    else
+      throw withErrno("EINVAL", "Type is not a struct or struct constructor");
+    const { fields } = constructor;
     if (!(fieldName in fields))
       throw withErrno("EINVAL", "Struct does not have field: " + fieldName);
     return fields[fieldName].offset;
   }
-
-  // node_modules/.pnpm/memium@0.2.1/node_modules/memium/dist/struct.js
-  var packed = { isPacked: true };
-  function struct(...options) {
-    return function __decorateStruct(target, context) {
-      const opts = options.reduce((acc, opt) => ({ ...acc, ...opt }), {});
-      const init = initMetadata(context);
-      let fieldAlignment = 1;
-      const fields = {};
-      let size = 0;
-      const align = (to) => {
-        size = Math.ceil(size / to) * to;
-      };
-      for (const field2 of init.fields) {
-        if (!opts.isPacked)
-          align(field2.alignment);
-        if (opts.isUnion)
-          size = Math.max(size, field2.size);
-        else {
-          field2.offset = size;
-          size += field2.size * (field2.length ?? 1);
-        }
-        fields[field2.name] = field2;
-        fieldAlignment = Math.max(fieldAlignment, field2.alignment);
-      }
-      opts.alignment ??= fieldAlignment;
-      if (!opts.isPacked)
-        align(opts.alignment);
-      context.metadata.struct = {
-        fields,
-        size,
-        alignment: opts.isPacked ? 1 : opts.alignment,
-        isUnion: opts.isUnion ?? false
-      };
-      class _struct extends target {
-        static name = target.name;
-        constructor(...args) {
-          if (!args.length)
-            args = [new ArrayBuffer(size), 0, size];
-          super(...args);
-        }
-      }
-      const fix = (value) => ({
-        writable: false,
-        enumerable: false,
-        configurable: false,
-        value
-      });
-      Object.defineProperties(_struct, {
-        size: fix(size),
-        // @ts-expect-error 2511 : Please don't try to create an instance of an abstract struct
-        get: fix((buffer, offset) => new _struct(buffer, offset)),
-        set: fix((buffer, offset, value) => {
-          const source = new Uint8Array(value.buffer, value.byteOffset, size);
-          const target2 = new Uint8Array(buffer, offset, size);
-          if (value.buffer === buffer && value.byteOffset === offset)
-            return;
-          for (let i = 0; i < size; i++)
-            target2[i] = source[i];
-        })
-      });
-      registerType(_struct);
-      return _struct;
-    };
-  }
-  function field(type, opt = {}) {
-    return function __decorateField(value, context) {
-      if (context.kind != "accessor")
-        throw withErrno("EINVAL", "Field must be an accessor");
-      const init = initMetadata(context);
-      let name = context.name;
-      if (typeof name == "symbol") {
-        console.warn("Symbol used for struct field name will be coerced to string: " + name.toString());
-        name = name.toString();
-      }
-      if (!name)
-        throw withErrno("EINVAL", "Invalid name for struct field");
-      if (!isType(type))
-        throw withErrno("EINVAL", "Not a valid type: " + type.name);
-      if (opt.countedBy)
-        opt.length ??= 0;
-      const field2 = {
-        name,
-        offset: 0,
-        // set when `@struct` is run
-        type,
-        length: opt.length,
-        countedBy: opt.countedBy,
-        size: type.size,
-        alignment: opt.align ?? type.size,
-        decl: `${opt.typeName ?? type.name} ${name}${typeof opt.length === "number" ? `[${opt.length}]` : opt.countedBy ? `[${opt.countedBy}]` : ""}`,
-        littleEndian: !opt.bigEndian
-      };
-      init.fields.push(field2);
-      return {
-        get() {
-          return _get(this, field2);
-        },
-        set(value2) {
-          _set(this, field2, value2);
-        }
-      };
-    };
-  }
-  function _fieldLength(instance, length, countedBy) {
-    if (length === void 0)
-      return -1;
-    if (typeof countedBy == "string")
-      length = Math.min(length, instance[countedBy]);
-    return Number.isSafeInteger(length) && length >= 0 ? length : _throw(withErrno("EINVAL", "Array lengths must be natural numbers"));
-  }
-  function _set(instance, field2, value, index) {
-    const { type, length: maxLength, countedBy } = field2;
-    const length = _fieldLength(instance, maxLength, countedBy);
-    if (length === -1 || typeof index === "number") {
-      if (typeof value == "string")
-        value = value.charCodeAt(0);
-      type.set(instance.buffer, instance.byteOffset + field2.offset + (index ?? 0) * type.size, value);
-      return;
-    }
-    for (let i = 0; i < Math.min(length, value.length); i++) {
-      const offset = field2.offset + i * type.size;
-      type.set(instance.buffer, instance.byteOffset + offset, value[i]);
-    }
-  }
-  function _get(instance, field2, index) {
-    const { type, length: maxLength, countedBy } = field2;
-    const length = _fieldLength(instance, maxLength, countedBy);
-    const offset = instance.byteOffset + field2.offset + (index ?? 0) * field2.size;
-    if (length === -1 || typeof index === "number") {
-      return type.get(instance.buffer, offset);
-    }
-    if (length !== 0 && type.array) {
-      return new type.array(instance.buffer, offset, length * type.size);
-    }
-    return new Proxy({
-      get length() {
-        return _fieldLength(instance, field2.length, field2.countedBy);
-      },
-      *[Symbol.iterator]() {
-        for (let i = 0; i < this.length; i++)
-          yield this[i];
-      }
-    }, {
-      get(target, index2) {
-        if (Object.hasOwn(target, index2))
-          return target[index2];
-        const i = parseInt(index2.toString());
-        if (!Number.isSafeInteger(i))
-          throw withErrno("EINVAL", "Invalid index: " + index2.toString());
-        return _get(instance, field2, i);
-      },
-      set(target, index2, value) {
-        const i = parseInt(index2.toString());
-        if (!Number.isSafeInteger(i))
-          throw withErrno("EINVAL", "Invalid index: " + index2.toString());
-        _set(instance, field2, i, value);
-        return true;
-      }
-    });
-  }
-  function _shortcut2(typeName) {
-    const type = types[normalize(typeName)];
-    function __decoratePrimitiveField(valueOrLength, context) {
-      return typeof valueOrLength == "number" ? field(type, { typeName, length: valueOrLength, ...context }) : field(type, { typeName })(valueOrLength, context && "name" in context ? context : _throw(withErrno("EINVAL", "Invalid decorator context object")));
-    }
-    return __decoratePrimitiveField;
-  }
-  var types2 = Object.fromEntries(validNames.map((t) => [t, _shortcut2(t)]));
 
   // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/buffer.js
   function extendBuffer(buffer, newByteLength) {
@@ -9736,7 +9952,7 @@
     });
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/path.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/path.js
   var path_exports = {};
   __export(path_exports, {
     basename: () => basename,
@@ -9755,7 +9971,7 @@
     sep: () => sep
   });
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/utils.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/utils.js
   function decodeDirListing(data) {
     return JSON.parse(decodeUTF8(data), (k, v) => k == "" ? v : typeof v == "string" ? BigInt(v).toString(16).slice(0, Math.min(v.length, 8)) : v);
   }
@@ -9773,7 +9989,7 @@
     }
     if (typeof def == "number")
       return def;
-    throw withErrno("EINVAL", "Invalid mode: " + (mode === null || mode === void 0 ? void 0 : mode.toString()));
+    throw withErrno("EINVAL", "Invalid mode: " + mode?.toString());
   }
   function normalizeTime(time) {
     if (time instanceof Date)
@@ -9805,23 +10021,29 @@
   function normalizeOptions(options, encoding = "utf8", flag, mode = 0) {
     if (typeof options != "object" || options === null) {
       return {
-        encoding: typeof options == "string" ? options : encoding !== null && encoding !== void 0 ? encoding : null,
+        encoding: typeof options == "string" ? options : encoding ?? null,
         flag,
         mode
       };
     }
     return {
-      encoding: typeof (options === null || options === void 0 ? void 0 : options.encoding) == "string" ? options.encoding : encoding !== null && encoding !== void 0 ? encoding : null,
-      flag: typeof (options === null || options === void 0 ? void 0 : options.flag) == "string" ? options.flag : flag,
-      mode: normalizeMode("mode" in options ? options === null || options === void 0 ? void 0 : options.mode : null, mode)
+      encoding: typeof options?.encoding == "string" ? options.encoding : encoding ?? null,
+      flag: typeof options?.flag == "string" ? options.flag : flag,
+      mode: normalizeMode("mode" in options ? options?.mode : null, mode)
     };
   }
   function globToRegex(pattern2) {
     pattern2 = pattern2.replace(/([.?+^$(){}|[\]/])/g, "$1").replace(/\*\*/g, ".*").replace(/\*/g, "[^/]*").replace(/\?/g, ".");
     return new RegExp(`^${pattern2}$`);
   }
+  async function waitOnline(worker) {
+    const online = Promise.withResolvers();
+    setTimeout(() => online.reject(withErrno("ETIMEDOUT")), 500);
+    worker.on("online", online.resolve);
+    await online.promise;
+  }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/path.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/path.js
   var sep = "/";
   function validateObject(str, name) {
     if (typeof str != "object") {
@@ -9891,10 +10113,9 @@
     return ext ? `${ext[0] === "." ? "" : "."}${ext}` : "";
   }
   function resolve(...parts) {
-    var _a2;
     let resolved = "";
-    for (const part of [...parts.reverse(), (_a2 = this === null || this === void 0 ? void 0 : this.pwd) !== null && _a2 !== void 0 ? _a2 : defaultContext.pwd]) {
-      if (!(part === null || part === void 0 ? void 0 : part.length))
+    for (const part of [...parts.reverse(), this?.pwd ?? defaultContext.pwd]) {
+      if (!part?.length)
         continue;
       resolved = `${part}/${resolved}`;
       if (part.startsWith("/")) {
@@ -9930,19 +10151,19 @@
     if (!parts.length)
       return ".";
     const joined = parts.join("/");
-    if (!(joined === null || joined === void 0 ? void 0 : joined.length))
+    if (!joined?.length)
       return ".";
     return normalize2(joined);
   }
-  function relative(from, to) {
-    if (from === to)
+  function relative(from2, to) {
+    if (from2 === to)
       return "";
-    from = resolve.call(this, from);
+    from2 = resolve.call(this, from2);
     to = resolve.call(this, to);
-    if (from === to)
+    if (from2 === to)
       return "";
     const fromStart = 1;
-    const fromEnd = from.length;
+    const fromEnd = from2.length;
     const fromLen = fromEnd - fromStart;
     const toStart = 1;
     const toLen = to.length - toStart;
@@ -9950,7 +10171,7 @@
     let lastCommonSep = -1;
     let i = 0;
     for (; i < length; i++) {
-      const fromCode = from[fromStart + i];
+      const fromCode = from2[fromStart + i];
       if (fromCode !== to[toStart + i])
         break;
       else if (fromCode === "/")
@@ -9965,7 +10186,7 @@
           return to.slice(toStart + i);
         }
       } else if (fromLen > length) {
-        if (from[fromStart + i] === "/") {
+        if (from2[fromStart + i] === "/") {
           lastCommonSep = i;
         } else if (i === 0) {
           lastCommonSep = 0;
@@ -9974,7 +10195,7 @@
     }
     let out = "";
     for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {
-      if (i === fromEnd || from[i] === "/") {
+      if (i === fromEnd || from2[i] === "/") {
         out += out.length === 0 ? ".." : "/..";
       }
     }
@@ -10149,7 +10370,7 @@
     return globToRegex(pattern2).test(str);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/stats.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/stats.js
   var n1000 = BigInt(1e3);
   var StatsCommon = class {
     _convert(arg) {
@@ -10160,24 +10381,72 @@
     }
     set blocks(value) {
     }
+    /**
+     * Unix-style file mode (e.g. 0o644) that includes the type of the item.
+     */
+    mode;
+    /**
+     * ID of device containing file
+     */
+    dev = this._convert(0);
+    /**
+     * Inode number
+     */
+    ino = this._convert(0);
+    /**
+     * Device ID (if special file)
+     */
+    rdev = this._convert(0);
+    /**
+     * Number of hard links
+     */
+    nlink = this._convert(1);
+    /**
+     * Block size for file system I/O
+     */
+    blksize = this._convert(4096);
+    /**
+     * User ID of owner
+     */
+    uid = this._convert(0);
+    /**
+     * Group ID of owner
+     */
+    gid = this._convert(0);
+    /**
+     * Time of last access, since epoch
+     */
+    atimeMs;
     get atime() {
       return new Date(Number(this.atimeMs));
     }
     set atime(value) {
       this.atimeMs = this._convert(value.getTime());
     }
+    /**
+     * Time of last modification, since epoch
+     */
+    mtimeMs;
     get mtime() {
       return new Date(Number(this.mtimeMs));
     }
     set mtime(value) {
       this.mtimeMs = this._convert(value.getTime());
     }
+    /**
+     * Time of last time file status was changed, since epoch
+     */
+    ctimeMs;
     get ctime() {
       return new Date(Number(this.ctimeMs));
     }
     set ctime(value) {
       this.ctimeMs = this._convert(value.getTime());
     }
+    /**
+     * Time of file creation, since epoch
+     */
+    birthtimeMs;
     get birthtime() {
       return new Date(Number(this.birthtimeMs));
     }
@@ -10185,26 +10454,36 @@
       this.birthtimeMs = this._convert(value.getTime());
     }
     /**
+     * Size of the item in bytes.
+     * For directories/symlinks, this is normally the size of the struct that represents the item.
+     */
+    size;
+    /**
+     * @internal Used by inodes
+     */
+    data;
+    /**
+     * @internal Used by inodes
+     */
+    flags;
+    /**
+     * @internal Used by inodes
+     */
+    version;
+    /**
      * Creates a new stats instance from a stats-like object. Can be used to copy stats (note)
      */
     constructor({ atimeMs, mtimeMs, ctimeMs, birthtimeMs, uid, gid, size, mode, ino, ...rest } = {}) {
-      this.dev = this._convert(0);
-      this.ino = this._convert(0);
-      this.rdev = this._convert(0);
-      this.nlink = this._convert(1);
-      this.blksize = this._convert(4096);
-      this.uid = this._convert(0);
-      this.gid = this._convert(0);
       const now = Date.now();
-      this.atimeMs = this._convert(atimeMs !== null && atimeMs !== void 0 ? atimeMs : now);
-      this.mtimeMs = this._convert(mtimeMs !== null && mtimeMs !== void 0 ? mtimeMs : now);
-      this.ctimeMs = this._convert(ctimeMs !== null && ctimeMs !== void 0 ? ctimeMs : now);
-      this.birthtimeMs = this._convert(birthtimeMs !== null && birthtimeMs !== void 0 ? birthtimeMs : now);
-      this.uid = this._convert(uid !== null && uid !== void 0 ? uid : 0);
-      this.gid = this._convert(gid !== null && gid !== void 0 ? gid : 0);
-      this.size = this._convert(size !== null && size !== void 0 ? size : 0);
-      this.ino = this._convert(ino !== null && ino !== void 0 ? ino : 0);
-      this.mode = this._convert(mode !== null && mode !== void 0 ? mode : 420 & S_IFREG);
+      this.atimeMs = this._convert(atimeMs ?? now);
+      this.mtimeMs = this._convert(mtimeMs ?? now);
+      this.ctimeMs = this._convert(ctimeMs ?? now);
+      this.birthtimeMs = this._convert(birthtimeMs ?? now);
+      this.uid = this._convert(uid ?? 0);
+      this.gid = this._convert(gid ?? 0);
+      this.size = this._convert(size ?? 0);
+      this.ino = this._convert(ino ?? 0);
+      this.mode = this._convert(mode ?? 420 & S_IFREG);
       if ((this.mode & S_IFMT) == 0) {
         this.mode = this.mode | this._convert(S_IFREG);
       }
@@ -10269,45 +10548,49 @@
     return valid;
   }
   var Stats = class extends StatsCommon {
-    constructor() {
-      super(...arguments);
-      this._isBigint = false;
-    }
+    _isBigint = false;
   };
   var BigIntStats = class extends StatsCommon {
-    constructor() {
-      super(...arguments);
-      this._isBigint = true;
-    }
+    _isBigint = true;
   };
   function isStatsEqual(left, right) {
     return left.size == right.size && +left.atime == +right.atime && +left.mtime == +right.mtime && +left.ctime == +right.ctime && left.mode == right.mode;
   }
   var ZenFsType = 525687744115;
   var StatsFs = class {
-    constructor() {
-      this.type = 525687744115;
-      this.bsize = 4096;
-      this.blocks = 0;
-      this.bfree = 0;
-      this.bavail = 0;
-      this.files = size_max;
-      this.ffree = size_max;
-    }
+    /** Type of file system. */
+    type = 525687744115;
+    /**  Optimal transfer block size. */
+    bsize = 4096;
+    /**  Total data blocks in file system. */
+    blocks = 0;
+    /** Free blocks in file system. */
+    bfree = 0;
+    /** Available blocks for unprivileged users */
+    bavail = 0;
+    /** Total file nodes in file system. */
+    files = size_max;
+    /** Free file nodes in file system. */
+    ffree = size_max;
   };
   var BigIntStatsFs = class {
-    constructor() {
-      this.type = BigInt("0x7a656e6673");
-      this.bsize = BigInt(4096);
-      this.blocks = BigInt(0);
-      this.bfree = BigInt(0);
-      this.bavail = BigInt(0);
-      this.files = BigInt(size_max);
-      this.ffree = BigInt(size_max);
-    }
+    /** Type of file system. */
+    type = BigInt("0x7a656e6673");
+    /**  Optimal transfer block size. */
+    bsize = BigInt(4096);
+    /**  Total data blocks in file system. */
+    blocks = BigInt(0);
+    /** Free blocks in file system. */
+    bfree = BigInt(0);
+    /** Available blocks for unprivileged users */
+    bavail = BigInt(0);
+    /** Total file nodes in file system. */
+    files = BigInt(size_max);
+    /** Free file nodes in file system. */
+    ffree = BigInt(size_max);
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/internal/inode.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/internal/inode.js
   var __esDecorate = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) {
       if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
@@ -10347,49 +10630,53 @@
     }
     return useValue ? value : void 0;
   };
-  var __setFunctionName = function(f, name, prefix) {
-    if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
-    return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
-  };
-  var __classPrivateFieldGet = function(receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-  };
-  var __classPrivateFieldSet = function(receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-  };
   var rootIno = 0;
   var maxDynamicData = 3968;
   var Attribute = (() => {
-    var _Attribute_keySize_accessor_storage, _Attribute_valueSize_accessor_storage;
-    var _a2, _b2;
-    let _classDecorators = [struct(packed)];
+    var _a, _b;
+    let _classDecorators = [struct.packed("Attribute")];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
-    let _classSuper = Uint8Array;
+    let _classSuper = $from.typed(Uint8Array);
     let _keySize_decorators;
     let _keySize_initializers = [];
     let _keySize_extraInitializers = [];
     let _valueSize_decorators;
     let _valueSize_initializers = [];
     let _valueSize_extraInitializers = [];
-    var Attribute2 = _classThis = class extends _classSuper {
+    var Attribute2 = class extends _classSuper {
+      static {
+        _classThis = this;
+      }
+      static {
+        const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+        _keySize_decorators = [(_a = types2).uint32.bind(_a)];
+        _valueSize_decorators = [(_b = types2).uint32.bind(_b)];
+        __esDecorate(this, null, _keySize_decorators, { kind: "accessor", name: "keySize", static: false, private: false, access: { has: (obj) => "keySize" in obj, get: (obj) => obj.keySize, set: (obj, value) => {
+          obj.keySize = value;
+        } }, metadata: _metadata }, _keySize_initializers, _keySize_extraInitializers);
+        __esDecorate(this, null, _valueSize_decorators, { kind: "accessor", name: "valueSize", static: false, private: false, access: { has: (obj) => "valueSize" in obj, get: (obj) => obj.valueSize, set: (obj, value) => {
+          obj.valueSize = value;
+        } }, metadata: _metadata }, _valueSize_initializers, _valueSize_extraInitializers);
+        __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+        Attribute2 = _classThis = _classDescriptor.value;
+        if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        __runInitializers(_classThis, _classExtraInitializers);
+      }
+      #keySize_accessor_storage = __runInitializers(this, _keySize_initializers, void 0);
       get keySize() {
-        return __classPrivateFieldGet(this, _Attribute_keySize_accessor_storage, "f");
+        return this.#keySize_accessor_storage;
       }
       set keySize(value) {
-        __classPrivateFieldSet(this, _Attribute_keySize_accessor_storage, value, "f");
+        this.#keySize_accessor_storage = value;
       }
+      #valueSize_accessor_storage = (__runInitializers(this, _keySize_extraInitializers), __runInitializers(this, _valueSize_initializers, void 0));
       get valueSize() {
-        return __classPrivateFieldGet(this, _Attribute_valueSize_accessor_storage, "f");
+        return this.#valueSize_accessor_storage;
       }
       set valueSize(value) {
-        __classPrivateFieldSet(this, _Attribute_valueSize_accessor_storage, value, "f");
+        this.#valueSize_accessor_storage = value;
       }
       get name() {
         return decodeUTF8(this.subarray(8, 8 + this.keySize));
@@ -10420,49 +10707,42 @@
       }
       constructor() {
         super(...arguments);
-        _Attribute_keySize_accessor_storage.set(this, __runInitializers(this, _keySize_initializers, void 0));
-        _Attribute_valueSize_accessor_storage.set(this, (__runInitializers(this, _keySize_extraInitializers), __runInitializers(this, _valueSize_initializers, void 0)));
         __runInitializers(this, _valueSize_extraInitializers);
       }
     };
-    _Attribute_keySize_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Attribute_valueSize_accessor_storage = /* @__PURE__ */ new WeakMap();
-    __setFunctionName(_classThis, "Attribute");
-    (() => {
-      var _a3;
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
-      _keySize_decorators = [(_a3 = types2).uint32.bind(_a3)];
-      _valueSize_decorators = [(_b2 = types2).uint32.bind(_b2)];
-      __esDecorate(_classThis, null, _keySize_decorators, { kind: "accessor", name: "keySize", static: false, private: false, access: { has: (obj) => "keySize" in obj, get: (obj) => obj.keySize, set: (obj, value) => {
-        obj.keySize = value;
-      } }, metadata: _metadata }, _keySize_initializers, _keySize_extraInitializers);
-      __esDecorate(_classThis, null, _valueSize_decorators, { kind: "accessor", name: "valueSize", static: false, private: false, access: { has: (obj) => "valueSize" in obj, get: (obj) => obj.valueSize, set: (obj, value) => {
-        obj.valueSize = value;
-      } }, metadata: _metadata }, _valueSize_initializers, _valueSize_extraInitializers);
-      __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-      Attribute2 = _classThis = _classDescriptor.value;
-      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-      __runInitializers(_classThis, _classExtraInitializers);
-    })();
     return Attribute2 = _classThis;
   })();
   var Attributes = (() => {
-    var _Attributes_size_accessor_storage;
-    var _a2;
-    let _classDecorators = [struct(packed)];
+    var _a;
+    let _classDecorators = [struct.packed("Attributes")];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
-    let _classSuper = BufferView;
+    let _classSuper = $from(BufferView);
     let _size_decorators;
     let _size_initializers = [];
     let _size_extraInitializers = [];
-    var Attributes2 = _classThis = class extends _classSuper {
+    var Attributes2 = class extends _classSuper {
+      static {
+        _classThis = this;
+      }
+      static {
+        const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+        _size_decorators = [(_a = types2).uint32.bind(_a)];
+        __esDecorate(this, null, _size_decorators, { kind: "accessor", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
+          obj.size = value;
+        } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
+        __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+        Attributes2 = _classThis = _classDescriptor.value;
+        if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        __runInitializers(_classThis, _classExtraInitializers);
+      }
+      #size_accessor_storage = __runInitializers(this, _size_initializers, void 0);
       get size() {
-        return __classPrivateFieldGet(this, _Attributes_size_accessor_storage, "f");
+        return this.#size_accessor_storage;
       }
       set size(value) {
-        __classPrivateFieldSet(this, _Attributes_size_accessor_storage, value, "f");
+        this.#size_accessor_storage = value;
       }
       get byteSize() {
         let offset = this.byteOffset + sizeof(this);
@@ -10561,24 +10841,9 @@
       }
       constructor() {
         super(...arguments);
-        _Attributes_size_accessor_storage.set(this, __runInitializers(this, _size_initializers, void 0));
         __runInitializers(this, _size_extraInitializers);
       }
     };
-    _Attributes_size_accessor_storage = /* @__PURE__ */ new WeakMap();
-    __setFunctionName(_classThis, "Attributes");
-    (() => {
-      var _a3;
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
-      _size_decorators = [(_a3 = types2).uint32.bind(_a3)];
-      __esDecorate(_classThis, null, _size_decorators, { kind: "accessor", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
-        obj.size = value;
-      } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
-      __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-      Attributes2 = _classThis = _classDescriptor.value;
-      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-      __runInitializers(_classThis, _classExtraInitializers);
-    })();
     return Attributes2 = _classThis;
   })();
   var _inode_fields = [
@@ -10621,13 +10886,12 @@
   var userVisibleFlags = 253951;
   var userModifiableFlags = 229631;
   var Inode = (() => {
-    var _Inode_data_accessor_storage, _Inode___data_old_accessor_storage, _Inode_size_accessor_storage, _Inode_mode_accessor_storage, _Inode_nlink_accessor_storage, _Inode_uid_accessor_storage, _Inode_gid_accessor_storage, _Inode_atimeMs_accessor_storage, _Inode_birthtimeMs_accessor_storage, _Inode_mtimeMs_accessor_storage, _Inode_ctimeMs_accessor_storage, _Inode_ino_accessor_storage, _Inode___ino_old_accessor_storage, _Inode_flags_accessor_storage, _Inode___after_flags_accessor_storage, _Inode_version_accessor_storage, _Inode___padding_accessor_storage, _Inode_attributes_accessor_storage, _Inode___data_accessor_storage;
-    var _a2, _b2, _c2, _d2, _e2, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
-    let _classDecorators = [struct(packed)];
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
+    let _classDecorators = [struct.packed("Inode")];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
-    let _classSuper = BufferView;
+    let _classSuper = $from(BufferView);
     let _data_decorators;
     let _data_initializers = [];
     let _data_extraInitializers = [];
@@ -10685,7 +10949,93 @@
     let ___data_decorators;
     let ___data_initializers = [];
     let ___data_extraInitializers = [];
-    var Inode2 = _classThis = class extends _classSuper {
+    var Inode2 = class extends _classSuper {
+      static {
+        _classThis = this;
+      }
+      static {
+        const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+        _data_decorators = [(_a = types2).uint32.bind(_a)];
+        ___data_old_decorators = [(_b = types2).uint32.bind(_b)];
+        _size_decorators = [(_c = types2).uint32.bind(_c)];
+        _mode_decorators = [(_d = types2).uint16.bind(_d)];
+        _nlink_decorators = [(_e = types2).uint32.bind(_e)];
+        _uid_decorators = [(_f = types2).uint32.bind(_f)];
+        _gid_decorators = [(_g = types2).uint32.bind(_g)];
+        _atimeMs_decorators = [(_h = types2).float64.bind(_h)];
+        _birthtimeMs_decorators = [(_j = types2).float64.bind(_j)];
+        _mtimeMs_decorators = [(_k = types2).float64.bind(_k)];
+        _ctimeMs_decorators = [(_l = types2).float64.bind(_l)];
+        _ino_decorators = [(_m = types2).uint32.bind(_m)];
+        ___ino_old_decorators = [(_o = types2).uint32.bind(_o)];
+        _flags_decorators = [(_p = types2).uint32.bind(_p)];
+        ___after_flags_decorators = [(_q = types2).uint16.bind(_q)];
+        _version_decorators = [(_r = types2).uint32.bind(_r)];
+        ___padding_decorators = [types2.uint8(48)];
+        _attributes_decorators = [field(Attributes)];
+        ___data_decorators = [types2.uint8(maxDynamicData)];
+        __esDecorate(this, null, _data_decorators, { kind: "accessor", name: "data", static: false, private: false, access: { has: (obj) => "data" in obj, get: (obj) => obj.data, set: (obj, value) => {
+          obj.data = value;
+        } }, metadata: _metadata }, _data_initializers, _data_extraInitializers);
+        __esDecorate(this, null, ___data_old_decorators, { kind: "accessor", name: "__data_old", static: false, private: false, access: { has: (obj) => "__data_old" in obj, get: (obj) => obj.__data_old, set: (obj, value) => {
+          obj.__data_old = value;
+        } }, metadata: _metadata }, ___data_old_initializers, ___data_old_extraInitializers);
+        __esDecorate(this, null, _size_decorators, { kind: "accessor", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
+          obj.size = value;
+        } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
+        __esDecorate(this, null, _mode_decorators, { kind: "accessor", name: "mode", static: false, private: false, access: { has: (obj) => "mode" in obj, get: (obj) => obj.mode, set: (obj, value) => {
+          obj.mode = value;
+        } }, metadata: _metadata }, _mode_initializers, _mode_extraInitializers);
+        __esDecorate(this, null, _nlink_decorators, { kind: "accessor", name: "nlink", static: false, private: false, access: { has: (obj) => "nlink" in obj, get: (obj) => obj.nlink, set: (obj, value) => {
+          obj.nlink = value;
+        } }, metadata: _metadata }, _nlink_initializers, _nlink_extraInitializers);
+        __esDecorate(this, null, _uid_decorators, { kind: "accessor", name: "uid", static: false, private: false, access: { has: (obj) => "uid" in obj, get: (obj) => obj.uid, set: (obj, value) => {
+          obj.uid = value;
+        } }, metadata: _metadata }, _uid_initializers, _uid_extraInitializers);
+        __esDecorate(this, null, _gid_decorators, { kind: "accessor", name: "gid", static: false, private: false, access: { has: (obj) => "gid" in obj, get: (obj) => obj.gid, set: (obj, value) => {
+          obj.gid = value;
+        } }, metadata: _metadata }, _gid_initializers, _gid_extraInitializers);
+        __esDecorate(this, null, _atimeMs_decorators, { kind: "accessor", name: "atimeMs", static: false, private: false, access: { has: (obj) => "atimeMs" in obj, get: (obj) => obj.atimeMs, set: (obj, value) => {
+          obj.atimeMs = value;
+        } }, metadata: _metadata }, _atimeMs_initializers, _atimeMs_extraInitializers);
+        __esDecorate(this, null, _birthtimeMs_decorators, { kind: "accessor", name: "birthtimeMs", static: false, private: false, access: { has: (obj) => "birthtimeMs" in obj, get: (obj) => obj.birthtimeMs, set: (obj, value) => {
+          obj.birthtimeMs = value;
+        } }, metadata: _metadata }, _birthtimeMs_initializers, _birthtimeMs_extraInitializers);
+        __esDecorate(this, null, _mtimeMs_decorators, { kind: "accessor", name: "mtimeMs", static: false, private: false, access: { has: (obj) => "mtimeMs" in obj, get: (obj) => obj.mtimeMs, set: (obj, value) => {
+          obj.mtimeMs = value;
+        } }, metadata: _metadata }, _mtimeMs_initializers, _mtimeMs_extraInitializers);
+        __esDecorate(this, null, _ctimeMs_decorators, { kind: "accessor", name: "ctimeMs", static: false, private: false, access: { has: (obj) => "ctimeMs" in obj, get: (obj) => obj.ctimeMs, set: (obj, value) => {
+          obj.ctimeMs = value;
+        } }, metadata: _metadata }, _ctimeMs_initializers, _ctimeMs_extraInitializers);
+        __esDecorate(this, null, _ino_decorators, { kind: "accessor", name: "ino", static: false, private: false, access: { has: (obj) => "ino" in obj, get: (obj) => obj.ino, set: (obj, value) => {
+          obj.ino = value;
+        } }, metadata: _metadata }, _ino_initializers, _ino_extraInitializers);
+        __esDecorate(this, null, ___ino_old_decorators, { kind: "accessor", name: "__ino_old", static: false, private: false, access: { has: (obj) => "__ino_old" in obj, get: (obj) => obj.__ino_old, set: (obj, value) => {
+          obj.__ino_old = value;
+        } }, metadata: _metadata }, ___ino_old_initializers, ___ino_old_extraInitializers);
+        __esDecorate(this, null, _flags_decorators, { kind: "accessor", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
+          obj.flags = value;
+        } }, metadata: _metadata }, _flags_initializers, _flags_extraInitializers);
+        __esDecorate(this, null, ___after_flags_decorators, { kind: "accessor", name: "__after_flags", static: false, private: false, access: { has: (obj) => "__after_flags" in obj, get: (obj) => obj.__after_flags, set: (obj, value) => {
+          obj.__after_flags = value;
+        } }, metadata: _metadata }, ___after_flags_initializers, ___after_flags_extraInitializers);
+        __esDecorate(this, null, _version_decorators, { kind: "accessor", name: "version", static: false, private: false, access: { has: (obj) => "version" in obj, get: (obj) => obj.version, set: (obj, value) => {
+          obj.version = value;
+        } }, metadata: _metadata }, _version_initializers, _version_extraInitializers);
+        __esDecorate(this, null, ___padding_decorators, { kind: "accessor", name: "__padding", static: false, private: false, access: { has: (obj) => "__padding" in obj, get: (obj) => obj.__padding, set: (obj, value) => {
+          obj.__padding = value;
+        } }, metadata: _metadata }, ___padding_initializers, ___padding_extraInitializers);
+        __esDecorate(this, null, _attributes_decorators, { kind: "accessor", name: "attributes", static: false, private: false, access: { has: (obj) => "attributes" in obj, get: (obj) => obj.attributes, set: (obj, value) => {
+          obj.attributes = value;
+        } }, metadata: _metadata }, _attributes_initializers, _attributes_extraInitializers);
+        __esDecorate(this, null, ___data_decorators, { kind: "accessor", name: "__data", static: false, private: false, access: { has: (obj) => "__data" in obj, get: (obj) => obj.__data, set: (obj, value) => {
+          obj.__data = value;
+        } }, metadata: _metadata }, ___data_initializers, ___data_extraInitializers);
+        __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+        Inode2 = _classThis = _classDescriptor.value;
+        if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        __runInitializers(_classThis, _classExtraInitializers);
+      }
       constructor(...args) {
         let data = {};
         if (typeof args[0] === "object" && args[0] !== null && !ArrayBuffer.isView(args[0])) {
@@ -10693,173 +11043,173 @@
           args = [sizeof(Inode2)];
         }
         super(...args);
-        _Inode_data_accessor_storage.set(this, __runInitializers(this, _data_initializers, void 0));
-        _Inode___data_old_accessor_storage.set(this, (__runInitializers(this, _data_extraInitializers), __runInitializers(this, ___data_old_initializers, void 0)));
-        _Inode_size_accessor_storage.set(this, (__runInitializers(this, ___data_old_extraInitializers), __runInitializers(this, _size_initializers, void 0)));
-        _Inode_mode_accessor_storage.set(this, (__runInitializers(this, _size_extraInitializers), __runInitializers(this, _mode_initializers, void 0)));
-        _Inode_nlink_accessor_storage.set(this, (__runInitializers(this, _mode_extraInitializers), __runInitializers(this, _nlink_initializers, void 0)));
-        _Inode_uid_accessor_storage.set(this, (__runInitializers(this, _nlink_extraInitializers), __runInitializers(this, _uid_initializers, void 0)));
-        _Inode_gid_accessor_storage.set(this, (__runInitializers(this, _uid_extraInitializers), __runInitializers(this, _gid_initializers, void 0)));
-        _Inode_atimeMs_accessor_storage.set(this, (__runInitializers(this, _gid_extraInitializers), __runInitializers(this, _atimeMs_initializers, void 0)));
-        _Inode_birthtimeMs_accessor_storage.set(this, (__runInitializers(this, _atimeMs_extraInitializers), __runInitializers(this, _birthtimeMs_initializers, void 0)));
-        _Inode_mtimeMs_accessor_storage.set(this, (__runInitializers(this, _birthtimeMs_extraInitializers), __runInitializers(this, _mtimeMs_initializers, void 0)));
-        _Inode_ctimeMs_accessor_storage.set(this, (__runInitializers(this, _mtimeMs_extraInitializers), __runInitializers(this, _ctimeMs_initializers, void 0)));
-        _Inode_ino_accessor_storage.set(this, (__runInitializers(this, _ctimeMs_extraInitializers), __runInitializers(this, _ino_initializers, void 0)));
-        _Inode___ino_old_accessor_storage.set(this, (__runInitializers(this, _ino_extraInitializers), __runInitializers(this, ___ino_old_initializers, void 0)));
-        _Inode_flags_accessor_storage.set(this, (__runInitializers(this, ___ino_old_extraInitializers), __runInitializers(this, _flags_initializers, void 0)));
-        _Inode___after_flags_accessor_storage.set(this, (__runInitializers(this, _flags_extraInitializers), __runInitializers(this, ___after_flags_initializers, void 0)));
-        _Inode_version_accessor_storage.set(this, (__runInitializers(this, ___after_flags_extraInitializers), __runInitializers(this, _version_initializers, void 0)));
-        _Inode___padding_accessor_storage.set(this, (__runInitializers(this, _version_extraInitializers), __runInitializers(this, ___padding_initializers, void 0)));
-        _Inode_attributes_accessor_storage.set(this, (__runInitializers(this, ___padding_extraInitializers), __runInitializers(this, _attributes_initializers, void 0)));
-        _Inode___data_accessor_storage.set(this, (__runInitializers(this, _attributes_extraInitializers), __runInitializers(this, ___data_initializers, void 0)));
         __runInitializers(this, ___data_extraInitializers);
         if (this.byteLength < sizeof(Inode2)) {
           throw crit(withErrno("EIO", `Buffer is too small to create an inode (${this.byteLength} bytes)`));
         }
         Object.assign(this, data);
-        this.atimeMs || (this.atimeMs = Date.now());
-        this.mtimeMs || (this.mtimeMs = Date.now());
-        this.ctimeMs || (this.ctimeMs = Date.now());
-        this.birthtimeMs || (this.birthtimeMs = Date.now());
+        this.atimeMs ||= Date.now();
+        this.mtimeMs ||= Date.now();
+        this.ctimeMs ||= Date.now();
+        this.birthtimeMs ||= Date.now();
         if (this.ino && !this.nlink) {
           warn(`Inode ${this.ino} has an nlink of 0`);
         }
       }
+      #data_accessor_storage = __runInitializers(this, _data_initializers, void 0);
       get data() {
-        return __classPrivateFieldGet(this, _Inode_data_accessor_storage, "f");
+        return this.#data_accessor_storage;
       }
       set data(value) {
-        __classPrivateFieldSet(this, _Inode_data_accessor_storage, value, "f");
+        this.#data_accessor_storage = value;
       }
+      #__data_old_accessor_storage = (__runInitializers(this, _data_extraInitializers), __runInitializers(this, ___data_old_initializers, void 0));
       /** For future use */
       get __data_old() {
-        return __classPrivateFieldGet(this, _Inode___data_old_accessor_storage, "f");
+        return this.#__data_old_accessor_storage;
       }
       set __data_old(value) {
-        __classPrivateFieldSet(this, _Inode___data_old_accessor_storage, value, "f");
+        this.#__data_old_accessor_storage = value;
       }
+      #size_accessor_storage = (__runInitializers(this, ___data_old_extraInitializers), __runInitializers(this, _size_initializers, void 0));
       get size() {
-        return __classPrivateFieldGet(this, _Inode_size_accessor_storage, "f");
+        return this.#size_accessor_storage;
       }
       set size(value) {
-        __classPrivateFieldSet(this, _Inode_size_accessor_storage, value, "f");
+        this.#size_accessor_storage = value;
       }
+      #mode_accessor_storage = (__runInitializers(this, _size_extraInitializers), __runInitializers(this, _mode_initializers, void 0));
       get mode() {
-        return __classPrivateFieldGet(this, _Inode_mode_accessor_storage, "f");
+        return this.#mode_accessor_storage;
       }
       set mode(value) {
-        __classPrivateFieldSet(this, _Inode_mode_accessor_storage, value, "f");
+        this.#mode_accessor_storage = value;
       }
+      #nlink_accessor_storage = (__runInitializers(this, _mode_extraInitializers), __runInitializers(this, _nlink_initializers, void 0));
       get nlink() {
-        return __classPrivateFieldGet(this, _Inode_nlink_accessor_storage, "f");
+        return this.#nlink_accessor_storage;
       }
       set nlink(value) {
-        __classPrivateFieldSet(this, _Inode_nlink_accessor_storage, value, "f");
+        this.#nlink_accessor_storage = value;
       }
+      #uid_accessor_storage = (__runInitializers(this, _nlink_extraInitializers), __runInitializers(this, _uid_initializers, void 0));
       get uid() {
-        return __classPrivateFieldGet(this, _Inode_uid_accessor_storage, "f");
+        return this.#uid_accessor_storage;
       }
       set uid(value) {
-        __classPrivateFieldSet(this, _Inode_uid_accessor_storage, value, "f");
+        this.#uid_accessor_storage = value;
       }
+      #gid_accessor_storage = (__runInitializers(this, _uid_extraInitializers), __runInitializers(this, _gid_initializers, void 0));
       get gid() {
-        return __classPrivateFieldGet(this, _Inode_gid_accessor_storage, "f");
+        return this.#gid_accessor_storage;
       }
       set gid(value) {
-        __classPrivateFieldSet(this, _Inode_gid_accessor_storage, value, "f");
+        this.#gid_accessor_storage = value;
       }
+      #atimeMs_accessor_storage = (__runInitializers(this, _gid_extraInitializers), __runInitializers(this, _atimeMs_initializers, void 0));
       get atimeMs() {
-        return __classPrivateFieldGet(this, _Inode_atimeMs_accessor_storage, "f");
+        return this.#atimeMs_accessor_storage;
       }
       set atimeMs(value) {
-        __classPrivateFieldSet(this, _Inode_atimeMs_accessor_storage, value, "f");
+        this.#atimeMs_accessor_storage = value;
       }
+      #birthtimeMs_accessor_storage = (__runInitializers(this, _atimeMs_extraInitializers), __runInitializers(this, _birthtimeMs_initializers, void 0));
       get birthtimeMs() {
-        return __classPrivateFieldGet(this, _Inode_birthtimeMs_accessor_storage, "f");
+        return this.#birthtimeMs_accessor_storage;
       }
       set birthtimeMs(value) {
-        __classPrivateFieldSet(this, _Inode_birthtimeMs_accessor_storage, value, "f");
+        this.#birthtimeMs_accessor_storage = value;
       }
+      #mtimeMs_accessor_storage = (__runInitializers(this, _birthtimeMs_extraInitializers), __runInitializers(this, _mtimeMs_initializers, void 0));
       get mtimeMs() {
-        return __classPrivateFieldGet(this, _Inode_mtimeMs_accessor_storage, "f");
+        return this.#mtimeMs_accessor_storage;
       }
       set mtimeMs(value) {
-        __classPrivateFieldSet(this, _Inode_mtimeMs_accessor_storage, value, "f");
+        this.#mtimeMs_accessor_storage = value;
       }
+      #ctimeMs_accessor_storage = (__runInitializers(this, _mtimeMs_extraInitializers), __runInitializers(this, _ctimeMs_initializers, void 0));
       /**
        * The time the inode was changed.
        *
        * This is automatically updated whenever changed are made using `update()`.
        */
       get ctimeMs() {
-        return __classPrivateFieldGet(this, _Inode_ctimeMs_accessor_storage, "f");
+        return this.#ctimeMs_accessor_storage;
       }
       set ctimeMs(value) {
-        __classPrivateFieldSet(this, _Inode_ctimeMs_accessor_storage, value, "f");
+        this.#ctimeMs_accessor_storage = value;
       }
+      #ino_accessor_storage = (__runInitializers(this, _ctimeMs_extraInitializers), __runInitializers(this, _ino_initializers, void 0));
       get ino() {
-        return __classPrivateFieldGet(this, _Inode_ino_accessor_storage, "f");
+        return this.#ino_accessor_storage;
       }
       set ino(value) {
-        __classPrivateFieldSet(this, _Inode_ino_accessor_storage, value, "f");
+        this.#ino_accessor_storage = value;
       }
+      #__ino_old_accessor_storage = (__runInitializers(this, _ino_extraInitializers), __runInitializers(this, ___ino_old_initializers, void 0));
       /** For future use */
       get __ino_old() {
-        return __classPrivateFieldGet(this, _Inode___ino_old_accessor_storage, "f");
+        return this.#__ino_old_accessor_storage;
       }
       set __ino_old(value) {
-        __classPrivateFieldSet(this, _Inode___ino_old_accessor_storage, value, "f");
+        this.#__ino_old_accessor_storage = value;
       }
+      #flags_accessor_storage = (__runInitializers(this, ___ino_old_extraInitializers), __runInitializers(this, _flags_initializers, void 0));
       get flags() {
-        return __classPrivateFieldGet(this, _Inode_flags_accessor_storage, "f");
+        return this.#flags_accessor_storage;
       }
       set flags(value) {
-        __classPrivateFieldSet(this, _Inode_flags_accessor_storage, value, "f");
+        this.#flags_accessor_storage = value;
       }
+      #__after_flags_accessor_storage = (__runInitializers(this, _flags_extraInitializers), __runInitializers(this, ___after_flags_initializers, void 0));
       /** For future use */
       get __after_flags() {
-        return __classPrivateFieldGet(this, _Inode___after_flags_accessor_storage, "f");
+        return this.#__after_flags_accessor_storage;
       }
       set __after_flags(value) {
-        __classPrivateFieldSet(this, _Inode___after_flags_accessor_storage, value, "f");
+        this.#__after_flags_accessor_storage = value;
       }
+      #version_accessor_storage = (__runInitializers(this, ___after_flags_extraInitializers), __runInitializers(this, _version_initializers, void 0));
       /**
        * The "version" of the inode/data.
        * Unrelated to the inode format!
        */
       get version() {
-        return __classPrivateFieldGet(this, _Inode_version_accessor_storage, "f");
+        return this.#version_accessor_storage;
       }
       set version(value) {
-        __classPrivateFieldSet(this, _Inode_version_accessor_storage, value, "f");
+        this.#version_accessor_storage = value;
       }
+      #__padding_accessor_storage = (__runInitializers(this, _version_extraInitializers), __runInitializers(this, ___padding_initializers, void 0));
       /**
        * Padding up to 128 bytes.
        * This ensures there is enough room for expansion without breaking the ABI.
        * @internal
        */
       get __padding() {
-        return __classPrivateFieldGet(this, _Inode___padding_accessor_storage, "f");
+        return this.#__padding_accessor_storage;
       }
       set __padding(value) {
-        __classPrivateFieldSet(this, _Inode___padding_accessor_storage, value, "f");
+        this.#__padding_accessor_storage = value;
       }
+      #attributes_accessor_storage = (__runInitializers(this, ___padding_extraInitializers), __runInitializers(this, _attributes_initializers, void 0));
       get attributes() {
-        return __classPrivateFieldGet(this, _Inode_attributes_accessor_storage, "f");
+        return this.#attributes_accessor_storage;
       }
       set attributes(value) {
-        __classPrivateFieldSet(this, _Inode_attributes_accessor_storage, value, "f");
+        this.#attributes_accessor_storage = value;
       }
+      #__data_accessor_storage = (__runInitializers(this, _attributes_extraInitializers), __runInitializers(this, ___data_initializers, void 0));
       /**
        * Since the attribute data uses dynamic arrays,
        * it is necessary to add this so attributes can be added.
        * @internal @hidden
        */
       get __data() {
-        return __classPrivateFieldGet(this, _Inode___data_accessor_storage, "f");
+        return this.#__data_accessor_storage;
       }
       set __data(value) {
-        __classPrivateFieldSet(this, _Inode___data_accessor_storage, value, "f");
+        this.#__data_accessor_storage = value;
       }
       toString() {
         return `<Inode ${this.ino}>`;
@@ -10911,110 +11261,6 @@
         return hasChanged;
       }
     };
-    _Inode_data_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode___data_old_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_size_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_mode_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_nlink_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_uid_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_gid_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_atimeMs_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_birthtimeMs_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_mtimeMs_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_ctimeMs_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_ino_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode___ino_old_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_flags_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode___after_flags_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_version_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode___padding_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode_attributes_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _Inode___data_accessor_storage = /* @__PURE__ */ new WeakMap();
-    __setFunctionName(_classThis, "Inode");
-    (() => {
-      var _a3;
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
-      _data_decorators = [(_a3 = types2).uint32.bind(_a3)];
-      ___data_old_decorators = [(_b2 = types2).uint32.bind(_b2)];
-      _size_decorators = [(_c2 = types2).uint32.bind(_c2)];
-      _mode_decorators = [(_d2 = types2).uint16.bind(_d2)];
-      _nlink_decorators = [(_e2 = types2).uint32.bind(_e2)];
-      _uid_decorators = [(_f = types2).uint32.bind(_f)];
-      _gid_decorators = [(_g = types2).uint32.bind(_g)];
-      _atimeMs_decorators = [(_h = types2).float64.bind(_h)];
-      _birthtimeMs_decorators = [(_j = types2).float64.bind(_j)];
-      _mtimeMs_decorators = [(_k = types2).float64.bind(_k)];
-      _ctimeMs_decorators = [(_l = types2).float64.bind(_l)];
-      _ino_decorators = [(_m = types2).uint32.bind(_m)];
-      ___ino_old_decorators = [(_o = types2).uint32.bind(_o)];
-      _flags_decorators = [(_p = types2).uint32.bind(_p)];
-      ___after_flags_decorators = [(_q = types2).uint16.bind(_q)];
-      _version_decorators = [(_r = types2).uint32.bind(_r)];
-      ___padding_decorators = [types2.uint8(48)];
-      _attributes_decorators = [field(Attributes)];
-      ___data_decorators = [types2.uint8(maxDynamicData)];
-      __esDecorate(_classThis, null, _data_decorators, { kind: "accessor", name: "data", static: false, private: false, access: { has: (obj) => "data" in obj, get: (obj) => obj.data, set: (obj, value) => {
-        obj.data = value;
-      } }, metadata: _metadata }, _data_initializers, _data_extraInitializers);
-      __esDecorate(_classThis, null, ___data_old_decorators, { kind: "accessor", name: "__data_old", static: false, private: false, access: { has: (obj) => "__data_old" in obj, get: (obj) => obj.__data_old, set: (obj, value) => {
-        obj.__data_old = value;
-      } }, metadata: _metadata }, ___data_old_initializers, ___data_old_extraInitializers);
-      __esDecorate(_classThis, null, _size_decorators, { kind: "accessor", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
-        obj.size = value;
-      } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
-      __esDecorate(_classThis, null, _mode_decorators, { kind: "accessor", name: "mode", static: false, private: false, access: { has: (obj) => "mode" in obj, get: (obj) => obj.mode, set: (obj, value) => {
-        obj.mode = value;
-      } }, metadata: _metadata }, _mode_initializers, _mode_extraInitializers);
-      __esDecorate(_classThis, null, _nlink_decorators, { kind: "accessor", name: "nlink", static: false, private: false, access: { has: (obj) => "nlink" in obj, get: (obj) => obj.nlink, set: (obj, value) => {
-        obj.nlink = value;
-      } }, metadata: _metadata }, _nlink_initializers, _nlink_extraInitializers);
-      __esDecorate(_classThis, null, _uid_decorators, { kind: "accessor", name: "uid", static: false, private: false, access: { has: (obj) => "uid" in obj, get: (obj) => obj.uid, set: (obj, value) => {
-        obj.uid = value;
-      } }, metadata: _metadata }, _uid_initializers, _uid_extraInitializers);
-      __esDecorate(_classThis, null, _gid_decorators, { kind: "accessor", name: "gid", static: false, private: false, access: { has: (obj) => "gid" in obj, get: (obj) => obj.gid, set: (obj, value) => {
-        obj.gid = value;
-      } }, metadata: _metadata }, _gid_initializers, _gid_extraInitializers);
-      __esDecorate(_classThis, null, _atimeMs_decorators, { kind: "accessor", name: "atimeMs", static: false, private: false, access: { has: (obj) => "atimeMs" in obj, get: (obj) => obj.atimeMs, set: (obj, value) => {
-        obj.atimeMs = value;
-      } }, metadata: _metadata }, _atimeMs_initializers, _atimeMs_extraInitializers);
-      __esDecorate(_classThis, null, _birthtimeMs_decorators, { kind: "accessor", name: "birthtimeMs", static: false, private: false, access: { has: (obj) => "birthtimeMs" in obj, get: (obj) => obj.birthtimeMs, set: (obj, value) => {
-        obj.birthtimeMs = value;
-      } }, metadata: _metadata }, _birthtimeMs_initializers, _birthtimeMs_extraInitializers);
-      __esDecorate(_classThis, null, _mtimeMs_decorators, { kind: "accessor", name: "mtimeMs", static: false, private: false, access: { has: (obj) => "mtimeMs" in obj, get: (obj) => obj.mtimeMs, set: (obj, value) => {
-        obj.mtimeMs = value;
-      } }, metadata: _metadata }, _mtimeMs_initializers, _mtimeMs_extraInitializers);
-      __esDecorate(_classThis, null, _ctimeMs_decorators, { kind: "accessor", name: "ctimeMs", static: false, private: false, access: { has: (obj) => "ctimeMs" in obj, get: (obj) => obj.ctimeMs, set: (obj, value) => {
-        obj.ctimeMs = value;
-      } }, metadata: _metadata }, _ctimeMs_initializers, _ctimeMs_extraInitializers);
-      __esDecorate(_classThis, null, _ino_decorators, { kind: "accessor", name: "ino", static: false, private: false, access: { has: (obj) => "ino" in obj, get: (obj) => obj.ino, set: (obj, value) => {
-        obj.ino = value;
-      } }, metadata: _metadata }, _ino_initializers, _ino_extraInitializers);
-      __esDecorate(_classThis, null, ___ino_old_decorators, { kind: "accessor", name: "__ino_old", static: false, private: false, access: { has: (obj) => "__ino_old" in obj, get: (obj) => obj.__ino_old, set: (obj, value) => {
-        obj.__ino_old = value;
-      } }, metadata: _metadata }, ___ino_old_initializers, ___ino_old_extraInitializers);
-      __esDecorate(_classThis, null, _flags_decorators, { kind: "accessor", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
-        obj.flags = value;
-      } }, metadata: _metadata }, _flags_initializers, _flags_extraInitializers);
-      __esDecorate(_classThis, null, ___after_flags_decorators, { kind: "accessor", name: "__after_flags", static: false, private: false, access: { has: (obj) => "__after_flags" in obj, get: (obj) => obj.__after_flags, set: (obj, value) => {
-        obj.__after_flags = value;
-      } }, metadata: _metadata }, ___after_flags_initializers, ___after_flags_extraInitializers);
-      __esDecorate(_classThis, null, _version_decorators, { kind: "accessor", name: "version", static: false, private: false, access: { has: (obj) => "version" in obj, get: (obj) => obj.version, set: (obj, value) => {
-        obj.version = value;
-      } }, metadata: _metadata }, _version_initializers, _version_extraInitializers);
-      __esDecorate(_classThis, null, ___padding_decorators, { kind: "accessor", name: "__padding", static: false, private: false, access: { has: (obj) => "__padding" in obj, get: (obj) => obj.__padding, set: (obj, value) => {
-        obj.__padding = value;
-      } }, metadata: _metadata }, ___padding_initializers, ___padding_extraInitializers);
-      __esDecorate(_classThis, null, _attributes_decorators, { kind: "accessor", name: "attributes", static: false, private: false, access: { has: (obj) => "attributes" in obj, get: (obj) => obj.attributes, set: (obj, value) => {
-        obj.attributes = value;
-      } }, metadata: _metadata }, _attributes_initializers, _attributes_extraInitializers);
-      __esDecorate(_classThis, null, ___data_decorators, { kind: "accessor", name: "__data", static: false, private: false, access: { has: (obj) => "__data" in obj, get: (obj) => obj.__data, set: (obj, value) => {
-        obj.__data = value;
-      } }, metadata: _metadata }, ___data_initializers, ___data_extraInitializers);
-      __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-      Inode2 = _classThis = _classDescriptor.value;
-      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-      __runInitializers(_classThis, _classExtraInitializers);
-    })();
     return Inode2 = _classThis;
   })();
   function isFile(metadata) {
@@ -11039,7 +11285,7 @@
     return (metadata.mode & S_IFMT) === S_IFIFO;
   }
   function hasAccess($, inode, access3) {
-    const credentials = ($ === null || $ === void 0 ? void 0 : $.credentials) || defaultContext.credentials;
+    const credentials = $?.credentials || defaultContext.credentials;
     if (isSymbolicLink(inode) || credentials.euid === 0 || credentials.egid === 0)
       return true;
     let perm = 0;
@@ -11068,13 +11314,10 @@
     return (perm & access3) === access3;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/internal/file_index.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/internal/file_index.js
   var version = 1;
   var Index = class _Index extends Map {
-    constructor() {
-      super(...arguments);
-      this.maxSize = size_max;
-    }
+    maxSize = size_max;
     /**
      * Converts the index to JSON
      */
@@ -11113,8 +11356,7 @@
       }
     }
     getByID(id) {
-      var _a2;
-      return (_a2 = this.entryByID(id)) === null || _a2 === void 0 ? void 0 : _a2.inode;
+      return this.entryByID(id)?.inode;
     }
     entryByID(id) {
       for (const [path, inode] of this) {
@@ -11165,12 +11407,11 @@
      * Loads the index from JSON data
      */
     fromJSON(json) {
-      var _a2;
       if (json.version != version)
         throw withErrno("EINVAL", "Index version mismatch");
       this.clear();
       for (const [path, node] of Object.entries(json.entries)) {
-        (_a2 = node.data) !== null && _a2 !== void 0 ? _a2 : node.data = randomInt(1, size_max);
+        node.data ??= randomInt(1, size_max);
         if (path == "/")
           node.ino = 0;
         this.set(path, new Inode(node));
@@ -11190,17 +11431,33 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/internal/filesystem.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/internal/filesystem.js
   var _chunkSize = 4096;
   var FileSystem = class _FileSystem {
+    type;
+    name;
+    label;
+    /**
+     * The last place this file system was mounted
+     * @internal @protected
+     */
+    _mountPoint;
+    /**
+     * The UUID of the file system.
+     * @privateRemarks This is only used by `ioctl`
+     * @internal @protected
+     */
+    _uuid = crypto.randomUUID();
     get uuid() {
       return this._uuid;
     }
+    /**
+     * @see FileSystemAttributes
+     */
+    attributes = /* @__PURE__ */ new Map();
     constructor(type, name) {
       this.type = type;
       this.name = name;
-      this._uuid = crypto.randomUUID();
-      this.attributes = /* @__PURE__ */ new Map();
       if (this.streamRead === _FileSystem.prototype.streamRead)
         this.attributes.set("default_stream_read");
       if (this.streamWrite === _FileSystem.prototype.streamWrite)
@@ -11269,8 +11526,7 @@
      * @privateRemarks The default implementation of `streamWrite` uses "chunked" `write`s
      */
     streamWrite(path, options) {
-      var _a2;
-      let position = (_a2 = options.start) !== null && _a2 !== void 0 ? _a2 : 0;
+      let position = options.start ?? 0;
       return new WritableStream({
         write: async (chunk, controller) => {
           let err2 = false;
@@ -11453,13 +11709,8 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/polyfills.js
-  var _a;
-  var _b;
-  var _c;
-  var _d;
-  var _e;
-  (_a = Promise.withResolvers) !== null && _a !== void 0 ? _a : Promise.withResolvers = (warn("Using a polyfill of Promise.withResolvers"), function() {
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/polyfills.js
+  Promise.withResolvers ??= (warn("Using a polyfill of Promise.withResolvers"), function() {
     let _resolve2, _reject;
     const promise = new Promise((resolve2, reject) => {
       _resolve2 = resolve2;
@@ -11467,19 +11718,40 @@
     });
     return { promise, resolve: _resolve2, reject: _reject };
   });
-  (_b = Symbol["dispose"]) !== null && _b !== void 0 ? _b : Symbol["dispose"] = (warn("Using a polyfill of Symbol.dispose"), Symbol("Symbol.dispose"));
-  (_c = Symbol["asyncDispose"]) !== null && _c !== void 0 ? _c : Symbol["asyncDispose"] = (warn("Using a polyfill of Symbol.asyncDispose"), Symbol("Symbol.asyncDispose"));
-  function randomUUID() {
+  Symbol["dispose"] ??= (warn("Using a polyfill of Symbol.dispose"), Symbol("Symbol.dispose"));
+  Symbol["asyncDispose"] ??= (warn("Using a polyfill of Symbol.asyncDispose"), Symbol("Symbol.asyncDispose"));
+  globalThis.crypto.randomUUID ??= (warn("Using a polyfill of crypto.randomUUID"), function randomUUID() {
     const bytes = crypto.getRandomValues(new Uint8Array(16));
     bytes[6] = bytes[6] & 15 | 64;
     bytes[8] = bytes[8] & 63 | 128;
     const hex = [...bytes].map((b) => b.toString(16).padStart(2, "0")).join("");
     return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
-  }
-  (_d = (_e = globalThis.crypto).randomUUID) !== null && _d !== void 0 ? _d : _e.randomUUID = (warn("Using a polyfill of crypto.randomUUID"), randomUUID);
+  });
+  Uint8Array.prototype.toBase64 ??= (warn("Using a polyfill of Uint8Array.prototype.toBase64"), function toBase64() {
+    return btoa(String.fromCharCode(...this));
+  });
+  Uint8Array.fromBase64 ??= (warn("Using a polyfill of Uint8Array.fromBase64"), function fromBase64(base64) {
+    const binaryString = atob(base64);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes;
+  });
+  Uint8Array.prototype.toHex ??= (warn("Using a polyfill of Uint8Array.prototype.toHex"), function toHex() {
+    return [...this].map((b) => b.toString(16).padStart(2, "0")).join("");
+  });
+  Uint8Array.fromHex ??= (warn("Using a polyfill of Uint8Array.fromHex"), function fromHex(hex) {
+    const bytes = new Uint8Array(hex.length / 2);
+    for (let i = 0; i < hex.length; i += 2) {
+      bytes[i / 2] = parseInt(hex.slice(i, i + 2), 16);
+    }
+    return bytes;
+  });
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/backends/store/store.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/backends/store/store.js
   var Transaction = class {
+    store;
     constructor(store) {
       this.store = store;
     }
@@ -11497,10 +11769,7 @@
     }
   };
   var AsyncTransaction = class extends Transaction {
-    constructor() {
-      super(...arguments);
-      this.asyncDone = Promise.resolve();
-    }
+    asyncDone = Promise.resolve();
     /**
      * Run a asynchronous operation from a sync context. Not magic and subject to (race) conditions.
      * @internal
@@ -11514,9 +11783,7 @@
      * @internal
      */
     _cached(id, info2) {
-      var _a2;
-      var _b2;
-      (_a2 = (_b2 = this.store).cache) !== null && _a2 !== void 0 ? _a2 : _b2.cache = /* @__PURE__ */ new Map();
+      this.store.cache ??= /* @__PURE__ */ new Map();
       const resource = this.store.cache.get(id);
       if (!resource)
         return !info2 ? void 0 : new Resource(id, info2.size, {}, this.store.cache);
@@ -11528,7 +11795,7 @@
       const resource = this._cached(id);
       if (!resource)
         return;
-      end !== null && end !== void 0 ? end : end = resource.size;
+      end ??= resource.size;
       const missing = resource.missing(offset, end);
       for (const { start, end: end2 } of missing) {
         this.async(this.get(id, start, end2));
@@ -11546,23 +11813,33 @@
       this.async(this.set(id, data, offset));
     }
     removeSync(id) {
-      var _a2;
       this.async(this.remove(id));
-      (_a2 = this.store.cache) === null || _a2 === void 0 ? void 0 : _a2.delete(id);
+      this.store.cache?.delete(id);
     }
   };
   var WrappedTransaction = class {
+    raw;
+    fs;
+    /**
+     * Whether the transaction was committed or aborted
+     */
+    done = false;
     flag(flag) {
-      var _a2, _b2;
-      return (_b2 = (_a2 = this.raw.store.flags) === null || _a2 === void 0 ? void 0 : _a2.includes(flag)) !== null && _b2 !== void 0 ? _b2 : false;
+      return this.raw.store.flags?.includes(flag) ?? false;
     }
     constructor(raw, fs) {
       this.raw = raw;
       this.fs = fs;
-      this.done = false;
-      this.originalData = /* @__PURE__ */ new Map();
-      this.modifiedKeys = /* @__PURE__ */ new Set();
     }
+    /**
+     * Stores data in the keys we modify prior to modifying them.
+     * Allows us to roll back commits.
+     */
+    originalData = /* @__PURE__ */ new Map();
+    /**TransactionEntry
+     * List of keys modified in this transaction, if any.
+     */
+    modifiedKeys = /* @__PURE__ */ new Set();
     keys() {
       return this.raw.keys();
     }
@@ -11671,7 +11948,7 @@
         const resource = tx._cached(id);
         if (!resource)
           throw e;
-        for (const range of resource.cached(offset, end !== null && end !== void 0 ? end : offset)) {
+        for (const range of resource.cached(offset, end ?? offset)) {
           this.stash(id, await this.raw.get(id, range.start, range.end), range.start);
         }
       }
@@ -11691,14 +11968,14 @@
         const resource = tx._cached(id);
         if (!resource)
           throw e;
-        for (const range of resource.cached(offset, end !== null && end !== void 0 ? end : offset)) {
+        for (const range of resource.cached(offset, end ?? offset)) {
           this.stash(id, this.raw.getSync(id, range.start, range.end), range.start);
         }
       }
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/backends/store/fs.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/backends/store/fs.js
   var __addDisposableResource = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -11726,7 +12003,7 @@
     }
     return value;
   };
-  var __disposeResources = /* @__PURE__ */ function(SuppressedError2) {
+  var __disposeResources = /* @__PURE__ */ (function(SuppressedError2) {
     return function(env) {
       function fail(e) {
         env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
@@ -11753,17 +12030,27 @@
       }
       return next();
     };
-  }(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+  })(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
     var e = new Error(message);
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
   });
   var StoreFS = class extends FileSystem {
+    store;
+    /**
+     * A map of paths to inode IDs
+     * @internal @hidden
+     */
+    _ids = /* @__PURE__ */ new Map([["/", 0]]);
+    /**
+     * A map of inode IDs to paths
+     * @internal @hidden
+     */
+    _paths = /* @__PURE__ */ new Map([[0, new Set("/")]]);
     /**
      * Gets the first path associated with an inode
      */
     _path(id) {
-      var _a2;
-      const [path] = (_a2 = this._paths.get(id)) !== null && _a2 !== void 0 ? _a2 : [];
+      const [path] = this._paths.get(id) ?? [];
       return path;
     }
     /**
@@ -11779,8 +12066,7 @@
      * Remove a inode/path pair
      */
     _remove(ino) {
-      var _a2;
-      for (const path of (_a2 = this._paths.get(ino)) !== null && _a2 !== void 0 ? _a2 : []) {
+      for (const path of this._paths.get(ino) ?? []) {
         this._ids.delete(path);
       }
       this._paths.delete(ino);
@@ -11788,10 +12074,10 @@
     /**
      * Move paths in the tables
      */
-    _move(from, to) {
+    _move(from2, to) {
       const toMove = [];
       for (const [path, ino] of this._ids) {
-        const rel = relative(from, path);
+        const rel = relative(from2, path);
         if (rel.startsWith(".."))
           continue;
         let newKey = join(to, rel);
@@ -11811,32 +12097,30 @@
         p.add(newKey);
       }
     }
+    _initialized = false;
     async ready() {
       if (this._initialized)
         return;
-      this.checkRootSync();
+      if (!this.attributes.has("no_async_preload")) {
+        this.checkRootSync();
+      }
       await this.checkRoot();
       await this._populate();
       this._initialized = true;
     }
     constructor(store) {
-      var _a2, _b2, _c2;
-      super((_a2 = store.type) !== null && _a2 !== void 0 ? _a2 : 1802921587, store.name);
+      super(store.type ?? 1802921587, store.name);
       this.store = store;
-      this._ids = /* @__PURE__ */ new Map([["/", 0]]);
-      this._paths = /* @__PURE__ */ new Map([[0, new Set("/")]]);
-      this._initialized = false;
       store.fs = this;
-      this._uuid = (_b2 = store.uuid) !== null && _b2 !== void 0 ? _b2 : this.uuid;
+      this._uuid = store.uuid ?? this.uuid;
       this.label = store.label;
-      debug(this.name + ": supports features: " + ((_c2 = this.store.flags) === null || _c2 === void 0 ? void 0 : _c2.join(", ")));
+      debug(this.name + ": supports features: " + this.store.flags?.join(", "));
     }
     /**
      * @experimental
      */
     usage() {
-      var _a2, _b2;
-      return ((_b2 = (_a2 = this.store).usage) === null || _b2 === void 0 ? void 0 : _b2.call(_a2)) || {
+      return this.store.usage?.() || {
         totalSpace: 0,
         freeSpace: 0
       };
@@ -11890,7 +12174,6 @@
       }
     }
     async createIndex() {
-      var _a2;
       const env_3 = { stack: [], error: void 0, hasError: false };
       try {
         const index = new Index();
@@ -11902,7 +12185,7 @@
           const inode = new Inode(await tx.get(ino));
           index.set(path, inode);
           if (inode.mode & S_IFDIR) {
-            const dir = decodeDirListing((_a2 = await tx.get(inode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA")));
+            const dir = decodeDirListing(await tx.get(inode.data) ?? _throw(withErrno("ENODATA")));
             for (const [name, id] of Object.entries(dir)) {
               queue.push([join(path, name), id]);
             }
@@ -11920,7 +12203,6 @@
       }
     }
     createIndexSync() {
-      var _a2;
       const env_4 = { stack: [], error: void 0, hasError: false };
       try {
         const index = new Index();
@@ -11932,7 +12214,7 @@
           const inode = new Inode(tx.getSync(ino));
           index.set(path, inode);
           if (inode.mode & S_IFDIR) {
-            const dir = decodeDirListing((_a2 = tx.getSync(inode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA")));
+            const dir = decodeDirListing(tx.getSync(inode.data) ?? _throw(withErrno("ENODATA")));
             for (const [name, id] of Object.entries(dir)) {
               queue.push([join(path, name), id]);
             }
@@ -11951,11 +12233,10 @@
      * @todo Make rename compatible with the cache.
      */
     async rename(oldPath, newPath) {
-      var _a2, _b2, _c2;
       const env_5 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_5, this.transaction(), true);
-        const _old = parse(oldPath), _new = parse(newPath), oldDirNode = await this.findInode(tx, _old.dir), oldDirList = decodeDirListing((_a2 = await tx.get(oldDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA")));
+        const _old = parse(oldPath), _new = parse(newPath), oldDirNode = await this.findInode(tx, _old.dir), oldDirList = decodeDirListing(await tx.get(oldDirNode.data) ?? _throw(withErrno("ENODATA")));
         if (!oldDirList[_old.base])
           throw withErrno("ENOENT");
         const ino = oldDirList[_old.base];
@@ -11966,9 +12247,9 @@
           throw withErrno("EBUSY");
         const sameParent = _new.dir == _old.dir;
         const newDirNode = sameParent ? oldDirNode : await this.findInode(tx, _new.dir);
-        const newDirList = sameParent ? oldDirList : decodeDirListing((_b2 = await tx.get(newDirNode.data)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENODATA")));
+        const newDirList = sameParent ? oldDirList : decodeDirListing(await tx.get(newDirNode.data) ?? _throw(withErrno("ENODATA")));
         if (newDirList[_new.base]) {
-          const existing = new Inode((_c2 = await tx.get(newDirList[_new.base])) !== null && _c2 !== void 0 ? _c2 : _throw(withErrno("ENOENT")));
+          const existing = new Inode(await tx.get(newDirList[_new.base]) ?? _throw(withErrno("ENOENT")));
           if (!existing.toStats().isFile())
             throw withErrno("EISDIR");
           await tx.remove(existing.data);
@@ -11989,11 +12270,10 @@
       }
     }
     renameSync(oldPath, newPath) {
-      var _a2, _b2, _c2;
       const env_6 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_6, this.transaction(), false);
-        const _old = parse(oldPath), _new = parse(newPath), oldDirNode = this.findInodeSync(tx, _old.dir), oldDirList = decodeDirListing((_a2 = tx.getSync(oldDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA")));
+        const _old = parse(oldPath), _new = parse(newPath), oldDirNode = this.findInodeSync(tx, _old.dir), oldDirList = decodeDirListing(tx.getSync(oldDirNode.data) ?? _throw(withErrno("ENODATA")));
         if (!oldDirList[_old.base])
           throw withErrno("ENOENT");
         const ino = oldDirList[_old.base];
@@ -12004,9 +12284,9 @@
           throw withErrno("EBUSY");
         const sameParent = _new.dir === _old.dir;
         const newDirNode = sameParent ? oldDirNode : this.findInodeSync(tx, _new.dir);
-        const newDirList = sameParent ? oldDirList : decodeDirListing((_b2 = tx.getSync(newDirNode.data)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENODATA")));
+        const newDirList = sameParent ? oldDirList : decodeDirListing(tx.getSync(newDirNode.data) ?? _throw(withErrno("ENODATA")));
         if (newDirList[_new.base]) {
-          const existing = new Inode((_c2 = tx.getSync(newDirList[_new.base])) !== null && _c2 !== void 0 ? _c2 : _throw(withErrno("ENOENT")));
+          const existing = new Inode(tx.getSync(newDirList[_new.base]) ?? _throw(withErrno("ENOENT")));
           if (!existing.toStats().isFile())
             throw withErrno("EISDIR");
           tx.removeSync(existing.data);
@@ -12119,12 +12399,11 @@
       return this.commitNewSync(path, options, encodeUTF8("{}"));
     }
     async readdir(path) {
-      var _a2;
       const env_11 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_11, this.transaction(), true);
         const node = await this.findInode(tx, path);
-        return Object.keys(decodeDirListing((_a2 = await tx.get(node.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT"))));
+        return Object.keys(decodeDirListing(await tx.get(node.data) ?? _throw(withErrno("ENOENT"))));
       } catch (e_11) {
         env_11.error = e_11;
         env_11.hasError = true;
@@ -12135,12 +12414,11 @@
       }
     }
     readdirSync(path) {
-      var _a2;
       const env_12 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_12, this.transaction(), false);
         const node = this.findInodeSync(tx, path);
-        return Object.keys(decodeDirListing((_a2 = tx.getSync(node.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT"))));
+        return Object.keys(decodeDirListing(tx.getSync(node.data) ?? _throw(withErrno("ENOENT"))));
       } catch (e_12) {
         env_12.error = e_12;
         env_12.hasError = true;
@@ -12159,11 +12437,10 @@
     syncSync() {
     }
     async link(target, link3) {
-      var _a2;
       const env_13 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_13, this.transaction(), true);
-        const newDir = dirname(link3), newDirNode = await this.findInode(tx, newDir), listing = decodeDirListing((_a2 = await tx.get(newDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+        const newDir = dirname(link3), newDirNode = await this.findInode(tx, newDir), listing = decodeDirListing(await tx.get(newDirNode.data) ?? _throw(withErrno("ENOENT")));
         const inode = await this.findInode(tx, target);
         inode.nlink++;
         listing[basename(link3)] = inode.ino;
@@ -12181,11 +12458,10 @@
       }
     }
     linkSync(target, link3) {
-      var _a2;
       const env_14 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_14, this.transaction(), false);
-        const newDir = dirname(link3), newDirNode = this.findInodeSync(tx, newDir), listing = decodeDirListing((_a2 = tx.getSync(newDirNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+        const newDir = dirname(link3), newDirNode = this.findInodeSync(tx, newDir), listing = decodeDirListing(tx.getSync(newDirNode.data) ?? _throw(withErrno("ENOENT")));
         const inode = this.findInodeSync(tx, target);
         inode.nlink++;
         listing[basename(link3)] = inode.ino;
@@ -12201,14 +12477,13 @@
       }
     }
     async read(path, buffer, offset, end) {
-      var _a2;
       const env_15 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_15, this.transaction(), true);
         const inode = await this.findInode(tx, path);
         if (inode.size == 0)
           return;
-        const data = (_a2 = await tx.get(inode.data, offset, end)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA"));
+        const data = await tx.get(inode.data, offset, end) ?? _throw(withErrno("ENODATA"));
         const _ = tx.flag("partial") ? data : data.subarray(offset, end);
         if (_.byteLength > buffer.byteLength)
           err(`Trying to place ${_.byteLength} bytes into a ${buffer.byteLength} byte buffer on read`);
@@ -12223,14 +12498,13 @@
       }
     }
     readSync(path, buffer, offset, end) {
-      var _a2;
       const env_16 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_16, this.transaction(), false);
         const inode = this.findInodeSync(tx, path);
         if (inode.size == 0)
           return;
-        const data = (_a2 = tx.getSync(inode.data, offset, end)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA"));
+        const data = tx.getSync(inode.data, offset, end) ?? _throw(withErrno("ENODATA"));
         const _ = tx.flag("partial") ? data : data.subarray(offset, end);
         if (_.byteLength > buffer.byteLength)
           err(`Trying to place ${_.byteLength} bytes into a ${buffer.byteLength} byte buffer on read`);
@@ -12243,14 +12517,13 @@
       }
     }
     async write(path, data, offset) {
-      var _a2;
       const env_17 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_17, this.transaction(), true);
         const inode = await this.findInode(tx, path);
         let buffer = data;
         if (!tx.flag("partial")) {
-          buffer = extendBuffer((_a2 = await tx.get(inode.data)) !== null && _a2 !== void 0 ? _a2 : new Uint8Array(), offset + data.byteLength);
+          buffer = extendBuffer(await tx.get(inode.data) ?? new Uint8Array(), offset + data.byteLength);
           buffer.set(data, offset);
           offset = 0;
         }
@@ -12267,14 +12540,13 @@
       }
     }
     writeSync(path, data, offset) {
-      var _a2;
       const env_18 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_18, this.transaction(), false);
         const inode = this.findInodeSync(tx, path);
         let buffer = data;
         if (!tx.flag("partial")) {
-          buffer = extendBuffer((_a2 = tx.getSync(inode.data)) !== null && _a2 !== void 0 ? _a2 : new Uint8Array(), offset + data.byteLength);
+          buffer = extendBuffer(tx.getSync(inode.data) ?? new Uint8Array(), offset + data.byteLength);
           buffer.set(data, offset);
           offset = 0;
         }
@@ -12410,35 +12682,33 @@
      * Find an inode without using the ID tables
      */
     async _findInode(tx, path, visited = /* @__PURE__ */ new Set()) {
-      var _a2, _b2, _c2;
       if (visited.has(path))
         throw crit(withErrno("EIO", "Infinite loop detected while finding inode"));
       visited.add(path);
       if (path == "/")
-        return new Inode((_a2 = await tx.get(rootIno)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENODATA")));
+        return new Inode(await tx.get(rootIno) ?? _throw(withErrno("ENODATA")));
       const { dir: parent, base: filename } = parse(path);
       const inode = await this._findInode(tx, parent, visited);
-      const dirList = decodeDirListing((_b2 = await tx.get(inode.data)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENODATA")));
+      const dirList = decodeDirListing(await tx.get(inode.data) ?? _throw(withErrno("ENODATA")));
       if (!(filename in dirList))
         throw withErrno("ENOENT");
-      return new Inode((_c2 = await tx.get(dirList[filename])) !== null && _c2 !== void 0 ? _c2 : _throw(withErrno("ENODATA")));
+      return new Inode(await tx.get(dirList[filename]) ?? _throw(withErrno("ENODATA")));
     }
     /**
      * Find an inode without using the ID tables
      */
     _findInodeSync(tx, path, visited = /* @__PURE__ */ new Set()) {
-      var _a2, _b2, _c2;
       if (visited.has(path))
         throw crit(withErrno("EIO", "Infinite loop detected while finding inode"));
       visited.add(path);
       if (path == "/")
-        return new Inode((_a2 = tx.getSync(rootIno)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+        return new Inode(tx.getSync(rootIno) ?? _throw(withErrno("ENOENT")));
       const { dir: parent, base: filename } = parse(path);
       const inode = this._findInodeSync(tx, parent, visited);
-      const dir = decodeDirListing((_b2 = tx.getSync(inode.data)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENODATA")));
+      const dir = decodeDirListing(tx.getSync(inode.data) ?? _throw(withErrno("ENODATA")));
       if (!(filename in dir))
         throw withErrno("ENOENT");
-      return new Inode((_c2 = tx.getSync(dir[filename])) !== null && _c2 !== void 0 ? _c2 : _throw(withErrno("ENODATA")));
+      return new Inode(tx.getSync(dir[filename]) ?? _throw(withErrno("ENODATA")));
     }
     /**
      * Finds the Inode of `path`.
@@ -12446,13 +12716,12 @@
      * @todo memoize/cache
      */
     async findInode(tx, path) {
-      var _a2;
       if (this.attributes.has("no_id_tables"))
         return await this._findInode(tx, path);
       const ino = this._ids.get(path);
       if (ino === void 0)
         throw withErrno("ENOENT");
-      return new Inode((_a2 = await tx.get(ino)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+      return new Inode(await tx.get(ino) ?? _throw(withErrno("ENOENT")));
     }
     /**
      * Finds the Inode of `path`.
@@ -12461,18 +12730,17 @@
      * @todo memoize/cache
      */
     findInodeSync(tx, path) {
-      var _a2;
       if (this.attributes.has("no_id_tables"))
         return this._findInodeSync(tx, path);
       const ino = this._ids.get(path);
       if (ino === void 0)
         throw withErrno("ENOENT");
-      return new Inode((_a2 = tx.getSync(ino)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+      return new Inode(tx.getSync(ino) ?? _throw(withErrno("ENOENT")));
     }
+    _lastID;
     /** Allocates a new ID and adds the ID/path */
     allocNew(path) {
-      var _a2;
-      (_a2 = this._lastID) !== null && _a2 !== void 0 ? _a2 : this._lastID = Math.max(...this._paths.keys());
+      this._lastID ??= Math.max(...this._paths.keys());
       this._lastID += 2;
       const id = this._lastID;
       if (id > size_max)
@@ -12488,7 +12756,6 @@
      * @param data The data to store at the file's data node.
      */
     async commitNew(path, options, data) {
-      var _a2;
       const env_22 = { stack: [], error: void 0, hasError: false };
       try {
         if (path == "/")
@@ -12496,7 +12763,7 @@
         const tx = __addDisposableResource(env_22, this.transaction(), true);
         const { dir: parentPath, base: fname } = parse(path);
         const parent = await this.findInode(tx, parentPath);
-        const listing = decodeDirListing((_a2 = await tx.get(parent.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+        const listing = decodeDirListing(await tx.get(parent.data) ?? _throw(withErrno("ENOENT")));
         if (listing[fname])
           throw withErrno("EEXIST");
         const id = this.allocNew(path);
@@ -12531,7 +12798,6 @@
      * @return The Inode for the new file.
      */
     commitNewSync(path, options, data) {
-      var _a2;
       const env_23 = { stack: [], error: void 0, hasError: false };
       try {
         if (path == "/")
@@ -12539,7 +12805,7 @@
         const tx = __addDisposableResource(env_23, this.transaction(), false);
         const { dir: parentPath, base: fname } = parse(path);
         const parent = this.findInodeSync(tx, parentPath);
-        const listing = decodeDirListing((_a2 = tx.getSync(parent.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+        const listing = decodeDirListing(tx.getSync(parent.data) ?? _throw(withErrno("ENOENT")));
         if (listing[fname])
           throw withErrno("EEXIST");
         const id = this.allocNew(path);
@@ -12569,15 +12835,14 @@
      * @param isDir Does the path belong to a directory, or a file?
      */
     async remove(path, isDir) {
-      var _a2, _b2;
       const env_24 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_24, this.transaction(), true);
-        const { dir: parent, base: fileName } = parse(path), parentNode = await this.findInode(tx, parent), listing = decodeDirListing((_a2 = await tx.get(parentNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT")));
+        const { dir: parent, base: fileName } = parse(path), parentNode = await this.findInode(tx, parent), listing = decodeDirListing(await tx.get(parentNode.data) ?? _throw(withErrno("ENOENT")));
         if (!listing[fileName])
           throw withErrno("ENOENT");
         const ino = listing[fileName];
-        const inode = new Inode((_b2 = await tx.get(ino)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENOENT")));
+        const inode = new Inode(await tx.get(ino) ?? _throw(withErrno("ENOENT")));
         delete listing[fileName];
         if (!isDir && isDirectory(inode))
           throw withErrno("EISDIR");
@@ -12606,14 +12871,13 @@
      * @param isDir Does the path belong to a directory, or a file?
      */
     removeSync(path, isDir) {
-      var _a2, _b2;
       const env_25 = { stack: [], error: void 0, hasError: false };
       try {
         const tx = __addDisposableResource(env_25, this.transaction(), false);
-        const { dir: parent, base: fileName } = parse(path), parentNode = this.findInodeSync(tx, parent), listing = decodeDirListing((_a2 = tx.getSync(parentNode.data)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT"))), ino = listing[fileName];
+        const { dir: parent, base: fileName } = parse(path), parentNode = this.findInodeSync(tx, parent), listing = decodeDirListing(tx.getSync(parentNode.data) ?? _throw(withErrno("ENOENT"))), ino = listing[fileName];
         if (!ino)
           throw withErrno("ENOENT");
-        const inode = new Inode((_b2 = tx.getSync(ino)) !== null && _b2 !== void 0 ? _b2 : _throw(withErrno("ENOENT")));
+        const inode = new Inode(tx.getSync(ino) ?? _throw(withErrno("ENOENT")));
         delete listing[fileName];
         if (!isDir && isDirectory(inode))
           throw withErrno("EISDIR");
@@ -12636,15 +12900,14 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/backends/store/map.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/backends/store/map.js
   var SyncMapTransaction = class extends SyncTransaction {
     // eslint-disable-next-line @typescript-eslint/require-await
     async keys() {
       return this.store.keys();
     }
     async get(id) {
-      var _a2, _b2, _c2;
-      return await ((_c2 = (_b2 = (_a2 = this.store).getAsync) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, id)) !== null && _c2 !== void 0 ? _c2 : this.store.get(id));
+      return await (this.store.getAsync?.(id) ?? this.store.get(id));
     }
     getSync(id) {
       return this.store.get(id);
@@ -12678,14 +12941,16 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/backends/memory.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/backends/memory.js
   var InMemoryStore = class extends Map {
+    maxSize;
+    label;
+    flags = [];
+    name = "tmpfs";
     constructor(maxSize = size_max, label) {
       super();
       this.maxSize = maxSize;
       this.label = label;
-      this.flags = [];
-      this.name = "tmpfs";
     }
     async sync() {
     }
@@ -12719,8 +12984,9 @@
   };
   var InMemory = _InMemory;
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/internal/devices.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/internal/devices.js
   var DeviceFS = class extends StoreFS {
+    devices = /* @__PURE__ */ new Map();
     devicesWithDriver(driver, forceIdentity) {
       if (forceIdentity && typeof driver == "string") {
         throw err(withErrno("EINVAL", "Can not fetch devices using only a driver name"));
@@ -12739,21 +13005,20 @@
      * @internal
      */
     _createDevice(driver, options = {}) {
-      var _a2;
       let ino = 1;
       const lastDev = Array.from(this.devices.values()).at(-1);
-      while (this.store.has(ino) || (lastDev === null || lastDev === void 0 ? void 0 : lastDev.inode.ino) == ino)
+      while (this.store.has(ino) || lastDev?.inode.ino == ino)
         ino++;
-      const init = (_a2 = driver.init) === null || _a2 === void 0 ? void 0 : _a2.call(driver, ino, options);
+      const init = driver.init?.(ino, options);
       const dev = {
         data: {},
         minor: 0,
         major: 0,
-        ...omit(init !== null && init !== void 0 ? init : {}, "metadata"),
+        ...omit(init ?? {}, "metadata"),
         driver,
         inode: new Inode({
           mode: S_IFCHR | 438,
-          ...init === null || init === void 0 ? void 0 : init.metadata
+          ...init?.metadata
         })
       };
       const path = "/" + (dev.name || driver.name) + (driver.singleton ? "" : this.devicesWithDriver(driver).length);
@@ -12776,7 +13041,6 @@
     }
     constructor() {
       super(new InMemoryStore(16777216, "devfs"));
-      this.devices = /* @__PURE__ */ new Map();
     }
     async rename(oldPath, newPath) {
       if (this.devices.has(oldPath))
@@ -12887,16 +13151,14 @@
       return super.linkSync(target, link3);
     }
     async sync() {
-      var _a2, _b2;
       for (const device of this.devices.values()) {
-        (_b2 = (_a2 = device.driver).sync) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, device);
+        device.driver.sync?.(device);
       }
       return super.sync();
     }
     syncSync() {
-      var _a2, _b2;
       for (const device of this.devices.values()) {
-        (_b2 = (_a2 = device.driver).sync) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, device);
+        device.driver.sync?.(device);
       }
       return super.syncSync();
     }
@@ -13008,17 +13270,18 @@
     console: consoleDevice
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/config.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/config.js
   var checkAccess = true;
   function _setAccessChecks(value) {
     checkAccess = value;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/index.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/index.js
   var vfs_exports = {};
   __export(vfs_exports, {
     BigIntStatsFs: () => BigIntStatsFs,
     Dir: () => Dir,
+    DirType: () => DirType,
     Dirent: () => Dirent,
     IOC: () => IOC,
     IOC32: () => IOC32,
@@ -13044,6 +13307,7 @@
     cpSync: () => cpSync,
     createReadStream: () => createReadStream,
     createWriteStream: () => createWriteStream,
+    dtToIf: () => dtToIf,
     exists: () => exists2,
     existsSync: () => existsSync,
     fchmod: () => fchmod,
@@ -13062,6 +13326,7 @@
     futimesSync: () => futimesSync,
     glob: () => glob2,
     globSync: () => globSync,
+    ifToDt: () => ifToDt,
     ioctl: () => ioctl,
     ioctlSync: () => ioctlSync,
     lchmod: () => lchmod2,
@@ -13129,10 +13394,10 @@
     xattr: () => xattr_exports
   });
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/async.js
-  var import_buffer6 = __toESM(require_buffer(), 1);
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/async.js
+  var import_buffer8 = __toESM(require_buffer(), 1);
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/promises.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/promises.js
   var promises_exports = {};
   __export(promises_exports, {
     FileHandle: () => FileHandle,
@@ -13170,59 +13435,61 @@
     watch: () => watch,
     writeFile: () => writeFile
   });
-  var import_buffer5 = __toESM(require_buffer(), 1);
+  var import_buffer7 = __toESM(require_buffer(), 1);
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/readline.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/readline.js
   var Interface = class extends import_index.default {
+    input;
+    output;
+    terminal;
+    line = "";
+    _cursor = 0;
     get cursor() {
       return this._cursor;
     }
+    _buffer = "";
+    _closed = false;
+    _paused = false;
+    _prompt = "";
+    _history = [];
+    _historyIndex = -1;
+    _currentLine = "";
     constructor(input, output2, completer, terminal = false) {
       super();
       this.input = input;
       this.output = output2;
       this.terminal = terminal;
-      this.line = "";
-      this._cursor = 0;
-      this._buffer = "";
-      this._closed = false;
-      this._paused = false;
-      this._prompt = "";
-      this._history = [];
-      this._historyIndex = -1;
-      this._currentLine = "";
-      this._onData = (data) => {
-        if (this._paused || this._closed)
-          return;
-        this._buffer += typeof data === "string" ? data : data.toString("utf8");
-        for (let lineEnd = this._buffer.indexOf("\n"); lineEnd >= 0; lineEnd = this._buffer.indexOf("\n")) {
-          let line = this._buffer.substring(0, lineEnd);
-          if (line.endsWith("\r")) {
-            line = line.substring(0, line.length - 1);
-          }
-          this._buffer = this._buffer.substring(lineEnd + 1);
-          this.line = line;
-          if (line.trim() && !line.trim().match(/^\s*$/) && this._history.at(-1) != line) {
-            this._history.push(line);
-            this._historyIndex = this._history.length;
-            this.emit("history", this._history);
-          }
-          this.emit("line", line);
-        }
-      };
       this.input.on("data", this._onData);
       this.input.on("end", this.close.bind(this));
       this.input.on("close", this.close.bind(this));
     }
+    _onData = (data) => {
+      if (this._paused || this._closed)
+        return;
+      this._buffer += typeof data === "string" ? data : data.toString("utf8");
+      for (let lineEnd = this._buffer.indexOf("\n"); lineEnd >= 0; lineEnd = this._buffer.indexOf("\n")) {
+        let line = this._buffer.substring(0, lineEnd);
+        if (line.endsWith("\r")) {
+          line = line.substring(0, line.length - 1);
+        }
+        this._buffer = this._buffer.substring(lineEnd + 1);
+        this.line = line;
+        if (line.trim() && !line.trim().match(/^\s*$/) && this._history.at(-1) != line) {
+          this._history.push(line);
+          this._historyIndex = this._history.length;
+          this.emit("history", this._history);
+        }
+        this.emit("line", line);
+      }
+    };
     /**
      * Closes the interface and removes all event listeners
      */
     close() {
-      var _a2, _b2;
       if (this._closed)
         return;
       this._closed = true;
-      (_b2 = (_a2 = this.input) === null || _a2 === void 0 ? void 0 : _a2.removeAllListeners) === null || _b2 === void 0 ? void 0 : _b2.call(_a2);
+      this.input?.removeAllListeners?.();
       if (this._buffer.length) {
         const line = this._buffer;
         this._buffer = "";
@@ -13574,10 +13841,13 @@
     return true;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/sync.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/dir.js
+  var import_buffer5 = __toESM(require_buffer(), 1);
+
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/sync.js
   var import_buffer4 = __toESM(require_buffer(), 1);
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/internal/error.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/internal/error.js
   var ErrnoError = Exception;
   function withPath(e, path) {
     e.path = path;
@@ -13596,8 +13866,19 @@
     };
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/file.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/file.js
   var SyncHandle = class {
+    context;
+    path;
+    fs;
+    internalPath;
+    flag;
+    inode;
+    _buffer;
+    /**
+     * Current position
+     */
+    _position = 0;
     /**
      * Get the current file position.
      *
@@ -13614,6 +13895,14 @@
       this._position = value;
     }
     /**
+     * Whether the file has changes which have not been written to the FS
+     */
+    dirty = false;
+    /**
+     * Whether the file is open or closed
+     */
+    closed = false;
+    /**
      * Creates a file with `path` and, optionally, the given contents.
      * Note that, if contents is specified, it will be mutated by the file.
      */
@@ -13624,9 +13913,6 @@
       this.internalPath = internalPath;
       this.flag = flag;
       this.inode = inode;
-      this._position = 0;
-      this.dirty = false;
-      this.closed = false;
     }
     [Symbol.dispose]() {
       this.close();
@@ -13742,8 +14028,8 @@
         end = position + Math.max(this.inode.size - position, 0);
       }
       this._position = end;
-      const uint8 = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-      this.fs.readSync(this.internalPath, uint8.subarray(offset, offset + length), position, end);
+      const uint82 = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+      this.fs.readSync(this.internalPath, uint82.subarray(offset, offset + length), position, end);
       if (this._isSync)
         this.sync();
       return end - position;
@@ -13798,26 +14084,23 @@
     }
   };
   function toFD(file) {
-    var _a2, _b2;
-    const map = (_b2 = (_a2 = file.context) === null || _a2 === void 0 ? void 0 : _a2.descriptors) !== null && _b2 !== void 0 ? _b2 : defaultContext.descriptors;
+    const map = file.context?.descriptors ?? defaultContext.descriptors;
     const fd = Math.max(map.size ? Math.max(...map.keys()) + 1 : 0, 4);
     map.set(fd, file);
     return fd;
   }
   function fromFD($, fd) {
-    var _a2;
-    const map = (_a2 = $ === null || $ === void 0 ? void 0 : $.descriptors) !== null && _a2 !== void 0 ? _a2 : defaultContext.descriptors;
+    const map = $?.descriptors ?? defaultContext.descriptors;
     const value = map.get(fd);
     if (!value)
       throw withErrno("EBADF");
     return value;
   }
   function deleteFD($, fd) {
-    var _a2;
-    return ((_a2 = $ === null || $ === void 0 ? void 0 : $.descriptors) !== null && _a2 !== void 0 ? _a2 : defaultContext.descriptors).delete(fd);
+    return ($?.descriptors ?? defaultContext.descriptors).delete(fd);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/flags.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/flags.js
   var pattern = /[rwasx]{1,2}\+?/;
   function parse2(flag) {
     if (typeof flag == "number")
@@ -13855,7 +14138,7 @@
     return mode;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/shared.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/shared.js
   var mounts = /* @__PURE__ */ new Map();
   mount("/", InMemory.create({ label: "root" }));
   function mount(mountPoint, fs) {
@@ -13881,7 +14164,7 @@
     notice("Unmounted " + mountPoint);
   }
   function resolveMount(path, ctx) {
-    const root = (ctx === null || ctx === void 0 ? void 0 : ctx.root) || defaultContext.root;
+    const root = ctx?.root || defaultContext.root;
     path = normalizePath(join(root, path));
     const sortedMounts = [...mounts].sort((a, b) => a[0].length > b[0].length ? -1 : 1);
     for (const [mountPoint, fs] of sortedMounts) {
@@ -13913,13 +14196,12 @@
     };
   }
   function chroot(path) {
-    var _a2, _b2, _c2;
-    const $ = this !== null && this !== void 0 ? this : defaultContext;
+    const $ = this ?? defaultContext;
     if (!credentialsAllowRoot($.credentials))
       throw withErrno("EPERM", "Can not chroot() as non-root user");
-    (_a2 = $.root) !== null && _a2 !== void 0 ? _a2 : $.root = "/";
+    $.root ??= "/";
     const newRoot = join($.root, path);
-    for (const handle of (_c2 = (_b2 = $.descriptors) === null || _b2 === void 0 ? void 0 : _b2.values()) !== null && _c2 !== void 0 ? _c2 : []) {
+    for (const handle of $.descriptors?.values() ?? []) {
       if (!handle.path.startsWith($.root))
         throw UV("EBUSY", "chroot", handle.path);
       handle.path = handle.path.slice($.root.length);
@@ -13936,8 +14218,10 @@
     return child.startsWith(parent);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/watchers.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/watchers.js
   var Watcher = class extends import_index.default {
+    _context;
+    path;
     /* eslint-disable @typescript-eslint/no-explicit-any */
     off(event, fn, context, once) {
       return super.off(event, fn, context, once);
@@ -13974,10 +14258,12 @@
     }
   };
   var FSWatcher = class extends Watcher {
+    options;
+    realpath;
     constructor(context, path, options) {
       super(context, path);
       this.options = options;
-      this.realpath = (context === null || context === void 0 ? void 0 : context.root) ? join(context.root, path) : path;
+      this.realpath = context?.root ? join(context.root, path) : path;
       addWatcher(this.realpath, this);
     }
     close() {
@@ -13989,6 +14275,9 @@
     }
   };
   var StatWatcher = class extends Watcher {
+    options;
+    intervalId;
+    previous;
     constructor(context, path, options) {
       super(context, path);
       this.options = options;
@@ -14047,9 +14336,8 @@
     }
   }
   function emitChange($, eventType, filename) {
-    var _a2;
     if ($)
-      filename = join((_a2 = $.root) !== null && _a2 !== void 0 ? _a2 : "/", filename);
+      filename = join($.root ?? "/", filename);
     filename = normalizePath(filename);
     for (let path = filename; path != "/"; path = dirname(path)) {
       const watchersForPath = watchers.get(path);
@@ -14061,7 +14349,7 @@
     }
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/sync.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/sync.js
   var __addDisposableResource2 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -14089,7 +14377,7 @@
     }
     return value;
   };
-  var __disposeResources2 = /* @__PURE__ */ function(SuppressedError2) {
+  var __disposeResources2 = /* @__PURE__ */ (function(SuppressedError2) {
     return function(env) {
       function fail(e) {
         env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
@@ -14116,7 +14404,7 @@
       }
       return next();
     };
-  }(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+  })(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
     var e = new Error(message);
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
   });
@@ -14179,21 +14467,22 @@
     }
     if (checkAccess && !hasAccess(this, stats, R_OK))
       throw UV("EACCES", { syscall: "stat", path });
-    return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
+    return options?.bigint ? new BigIntStats(stats) : new Stats(stats);
   }
   function lstatSync(path, options) {
     path = normalizePath(path);
-    const { fs, path: resolved } = resolveMount(path, this);
+    const real = join(realpathSync.call(this, dirname(path)), basename(path));
+    const { fs, path: resolved } = resolveMount(real, this);
     const stats = wrap(fs, "statSync", path)(resolved);
     if (checkAccess && !hasAccess(this, stats, R_OK))
       throw UV("EACCES", { syscall: "lstat", path });
-    return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
+    return options?.bigint ? new BigIntStats(stats) : new Stats(stats);
   }
   function truncateSync(path, len = 0) {
     const env_1 = { stack: [], error: void 0, hasError: false };
     try {
       const file = __addDisposableResource2(env_1, _openSync.call(this, path, { flag: "r+" }), false);
-      len || (len = 0);
+      len ||= 0;
       if (len < 0)
         throw UV("EINVAL", "truncate", path.toString());
       file.truncate(len);
@@ -14218,7 +14507,6 @@
     emitChange(this, "rename", path.toString());
   }
   function _openSync(path, opt) {
-    var _a2;
     path = normalizePath(path);
     const mode = normalizeMode(opt.mode, 420), flag = parse2(opt.flag);
     path = opt.preserveSymlinks ? path : realpathSync.call(this, path);
@@ -14244,7 +14532,7 @@
       if (checkAccess && !hasAccess(this, parentStats, W_OK)) {
         throw UV("EACCES", "open", path);
       }
-      const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
+      const { euid: uid, egid: gid } = this?.credentials ?? defaultContext.credentials;
       const inode = fs.createFileSync(resolved, {
         mode,
         uid: parentStats.mode & S_ISUID ? parentStats.uid : uid,
@@ -14345,14 +14633,14 @@
   }
   function fstatSync(fd, options) {
     const stats = fromFD(this, fd).stat();
-    return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
+    return options?.bigint ? new BigIntStats(stats) : new Stats(stats);
   }
   function closeSync(fd) {
     fromFD(this, fd).close();
     deleteFD(this, fd);
   }
   function ftruncateSync(fd, len = 0) {
-    len || (len = 0);
+    len ||= 0;
     if (len < 0) {
       throw new Exception(Errno.EINVAL);
     }
@@ -14379,7 +14667,7 @@
       position = typeof pos === "number" ? pos : null;
     }
     const file = fromFD(this, fd);
-    position !== null && position !== void 0 ? position : position = file.position;
+    position ??= file.position;
     const bytesWritten = file.write(buffer, offset, length, position);
     emitChange(this, "change", file.path);
     return bytesWritten;
@@ -14422,10 +14710,9 @@
     emitChange(this, "rename", path.toString());
   }
   function mkdirSync(path, options) {
-    var _a2;
-    const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
+    const { euid: uid, egid: gid } = this?.credentials ?? defaultContext.credentials;
     options = typeof options === "object" ? options : { mode: options };
-    const mode = normalizeMode(options === null || options === void 0 ? void 0 : options.mode, 511);
+    const mode = normalizeMode(options?.mode, 511);
     path = realpathSync.call(this, path);
     const { fs, path: resolved } = resolveMount(path, this);
     const __create2 = (path2, resolved2, parent) => {
@@ -14439,7 +14726,7 @@
       emitChange(this, "rename", path2);
       return inode;
     };
-    if (!(options === null || options === void 0 ? void 0 : options.recursive)) {
+    if (!options?.recursive) {
       __create2(path, resolved, wrap(fs, "statSync", dirname(path))(dirname(resolved)));
       return;
     }
@@ -14466,33 +14753,30 @@
       throw UV("ENOTDIR", "readdir", path);
     const entries2 = wrap(fs, "readdirSync", path)(resolved);
     const values = [];
-    for (const entry of entries2) {
+    const addEntry = (entry) => {
       let entryStat;
       try {
         entryStat = fs.statSync(join(resolved, entry));
-      } catch {
-        continue;
+      } catch (e) {
+        if (e.code == "ENOENT")
+          return;
+        throw setUVMessage(Object.assign(e, { syscall: "stat", path: join(path, entry) }));
       }
-      if (options === null || options === void 0 ? void 0 : options.withFileTypes) {
-        values.push(new Dirent(entry, entryStat, options.encoding));
-      } else if ((options === null || options === void 0 ? void 0 : options.encoding) == "buffer") {
+      if (options?.withFileTypes) {
+        values.push(Dirent.from(entry, entryStat, options.encoding));
+      } else if (options?.encoding == "buffer") {
         values.push(import_buffer4.Buffer.from(entry));
       } else {
         values.push(entry);
       }
-      if (!isDirectory(entryStat) || !(options === null || options === void 0 ? void 0 : options.recursive))
-        continue;
-      for (const subEntry of readdirSync.call(this, join(path, entry), options)) {
-        if (subEntry instanceof Dirent) {
-          subEntry.path = join(entry, subEntry.path);
-          values.push(subEntry);
-        } else if (import_buffer4.Buffer.isBuffer(subEntry)) {
-          values.push(import_buffer4.Buffer.from(join(entry, decodeUTF8(subEntry))));
-        } else {
-          values.push(join(entry, subEntry));
-        }
-      }
-    }
+      if (!isDirectory(entryStat) || !options?.recursive)
+        return;
+      const children = wrap(fs, "readdirSync", join(path, entry))(join(resolved, entry));
+      for (const child of children)
+        addEntry(join(entry, child));
+    };
+    for (const entry of entries2)
+      addEntry(entry);
     return values;
   }
   function linkSync(targetPath, linkPath) {
@@ -14539,11 +14823,11 @@
       const size = handle.inode.size;
       const data = import_buffer4.Buffer.alloc(size);
       handle.read(data, 0, size, 0);
-      const encoding = typeof options == "object" ? options === null || options === void 0 ? void 0 : options.encoding : options;
+      const encoding = typeof options == "object" ? options?.encoding : options;
       if (encoding == "buffer") {
         return data;
       }
-      return data.toString(encoding !== null && encoding !== void 0 ? encoding : "utf-8");
+      return data.toString(encoding ?? "utf-8");
     } catch (e_6) {
       env_6.error = e_6;
       env_6.hasError = true;
@@ -14616,8 +14900,7 @@
     return _resolveSync($, target);
   }
   function realpathSync(path, options) {
-    var _a2;
-    const encoding = typeof options == "string" ? options : (_a2 = options === null || options === void 0 ? void 0 : options.encoding) !== null && _a2 !== void 0 ? _a2 : "utf8";
+    const encoding = typeof options == "string" ? options : options?.encoding ?? "utf8";
     path = normalizePath(path);
     const { fullPath } = _resolveSync(this, path);
     if (encoding == "utf8" || encoding == "utf-8")
@@ -14640,14 +14923,14 @@
     try {
       stats = lstatSync.bind(this)(path);
     } catch (error) {
-      if (error.code != "ENOENT" || !(options === null || options === void 0 ? void 0 : options.force))
+      if (error.code != "ENOENT" || !options?.force)
         throw error;
     }
     if (!stats)
       return;
     switch (stats.mode & S_IFMT) {
       case S_IFDIR:
-        if (options === null || options === void 0 ? void 0 : options.recursive) {
+        if (options?.recursive) {
           for (const entry of readdirSync.call(this, path)) {
             rmSync.call(this, join(path, entry), options);
           }
@@ -14667,7 +14950,7 @@
     }
   }
   function mkdtempSync(prefix, options) {
-    const encoding = typeof options === "object" ? options === null || options === void 0 ? void 0 : options.encoding : options || "utf8";
+    const encoding = typeof options === "object" ? options?.encoding : options || "utf8";
     const fsName = `${prefix}${Date.now()}-${Math.random().toString(36).slice(2)}`;
     const resolvedPath = "/tmp/" + fsName;
     mkdirSync.call(this, resolvedPath);
@@ -14705,11 +14988,11 @@
     source = normalizePath(source);
     destination = normalizePath(destination);
     const srcStats = lstatSync.call(this, source);
-    if ((opts === null || opts === void 0 ? void 0 : opts.errorOnExist) && existsSync.call(this, destination))
+    if (opts?.errorOnExist && existsSync.call(this, destination))
       throw UV("EEXIST", "cp", destination);
     switch (srcStats.mode & S_IFMT) {
       case S_IFDIR:
-        if (!(opts === null || opts === void 0 ? void 0 : opts.recursive))
+        if (!opts?.recursive)
           throw UV("EISDIR", "cp", source);
         mkdirSync.call(this, destination, { recursive: true });
         for (const dirent of readdirSync.call(this, source, { withFileTypes: true })) {
@@ -14730,14 +15013,14 @@
       default:
         throw UV("ENOSYS", "cp", source);
     }
-    if (opts === null || opts === void 0 ? void 0 : opts.preserveTimestamps) {
+    if (opts?.preserveTimestamps) {
       utimesSync.call(this, destination, srcStats.atime, srcStats.mtime);
     }
   }
   function statfsSync(path, options) {
     path = normalizePath(path);
     const { fs } = resolveMount(path, this);
-    return _statfs(fs, options === null || options === void 0 ? void 0 : options.bigint);
+    return _statfs(fs, options?.bigint);
   }
   function globSync(pattern2, options = {}) {
     pattern2 = Array.isArray(pattern2) ? pattern2 : [pattern2];
@@ -14747,14 +15030,14 @@
     function recursiveList(dir) {
       const entries2 = readdirSync(dir, { withFileTypes, encoding: "utf8" });
       for (const entry of entries2) {
-        const fullPath = withFileTypes ? entry.path : dir + "/" + entry;
+        const fullPath = withFileTypes ? join(entry.parentPath, entry.name) : dir + "/" + entry;
         if (typeof exclude != "function" ? exclude.some((p) => matchesGlob(p, fullPath)) : exclude(withFileTypes ? entry : fullPath))
           continue;
         if (statSync(fullPath).isDirectory() && regexPatterns.some((pattern3) => pattern3.source.includes(".*"))) {
           recursiveList(fullPath);
         }
         if (regexPatterns.some((pattern3) => pattern3.test(fullPath.replace(/^\/+/g, "")))) {
-          results.push(withFileTypes ? entry.path : fullPath.replace(/^\/+/g, ""));
+          results.push(withFileTypes ? entry : fullPath.replace(/^\/+/g, ""));
         }
       }
     }
@@ -14762,51 +15045,210 @@
     return results;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/dir.js
-  var Dirent = class {
-    get name() {
-      const name = Buffer.from(basename(this.path));
-      return this.encoding == "buffer" ? name : name.toString(this.encoding);
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/dir.js
+  var __esDecorate2 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    function accept(f) {
+      if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
+      return f;
     }
-    constructor(path, stats, encoding) {
-      this.path = path;
-      this.stats = stats;
-      this.encoding = encoding;
+    var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+    var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+    var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+    var _, done = false;
+    for (var i = decorators.length - 1; i >= 0; i--) {
+      var context = {};
+      for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
+      for (var p in contextIn.access) context.access[p] = contextIn.access[p];
+      context.addInitializer = function(f) {
+        if (done) throw new TypeError("Cannot add initializers after decoration has completed");
+        extraInitializers.push(accept(f || null));
+      };
+      var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+      if (kind === "accessor") {
+        if (result === void 0) continue;
+        if (result === null || typeof result !== "object") throw new TypeError("Object expected");
+        if (_ = accept(result.get)) descriptor.get = _;
+        if (_ = accept(result.set)) descriptor.set = _;
+        if (_ = accept(result.init)) initializers.unshift(_);
+      } else if (_ = accept(result)) {
+        if (kind === "field") initializers.unshift(_);
+        else descriptor[key] = _;
+      }
     }
-    get parentPath() {
-      return this.path;
-    }
-    isFile() {
-      return isFile(this.stats);
-    }
-    isDirectory() {
-      return isDirectory(this.stats);
-    }
-    isBlockDevice() {
-      return isBlockDevice(this.stats);
-    }
-    isCharacterDevice() {
-      return isCharacterDevice(this.stats);
-    }
-    isSymbolicLink() {
-      return isSymbolicLink(this.stats);
-    }
-    isFIFO() {
-      return isFIFO(this.stats);
-    }
-    isSocket() {
-      return isSocket(this.stats);
-    }
+    if (target) Object.defineProperty(target, contextIn.name, descriptor);
+    done = true;
   };
+  var __runInitializers2 = function(thisArg, initializers, value) {
+    var useValue = arguments.length > 2;
+    for (var i = 0; i < initializers.length; i++) {
+      value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+    }
+    return useValue ? value : void 0;
+  };
+  var DirType;
+  (function(DirType2) {
+    DirType2[DirType2["UNKNOWN"] = 0] = "UNKNOWN";
+    DirType2[DirType2["FIFO"] = 1] = "FIFO";
+    DirType2[DirType2["CHR"] = 2] = "CHR";
+    DirType2[DirType2["DIR"] = 4] = "DIR";
+    DirType2[DirType2["BLK"] = 6] = "BLK";
+    DirType2[DirType2["REG"] = 8] = "REG";
+    DirType2[DirType2["LNK"] = 10] = "LNK";
+    DirType2[DirType2["SOCK"] = 12] = "SOCK";
+    DirType2[DirType2["WHT"] = 14] = "WHT";
+  })(DirType || (DirType = {}));
+  function ifToDt(mode) {
+    return (mode & 61440) >> 12;
+  }
+  function dtToIf(dt) {
+    return dt << 12;
+  }
+  var Dirent = (() => {
+    var _a, _b, _c;
+    let _classDecorators = [struct.packed("Dirent")];
+    let _classDescriptor;
+    let _classExtraInitializers = [];
+    let _classThis;
+    let _classSuper = $from(BufferView);
+    let _ino_decorators;
+    let _ino_initializers = [];
+    let _ino_extraInitializers = [];
+    let __ino_decorators;
+    let __ino_initializers = [];
+    let __ino_extraInitializers = [];
+    let _type_decorators;
+    let _type_initializers = [];
+    let _type_extraInitializers = [];
+    let __name_decorators;
+    let __name_initializers = [];
+    let __name_extraInitializers = [];
+    var Dirent2 = class extends _classSuper {
+      static {
+        _classThis = this;
+      }
+      static {
+        const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+        _ino_decorators = [(_a = types2).uint32.bind(_a)];
+        __ino_decorators = [(_b = types2).uint32.bind(_b)];
+        _type_decorators = [(_c = types2).uint8.bind(_c)];
+        __name_decorators = [types2.char(256)];
+        __esDecorate2(this, null, _ino_decorators, { kind: "accessor", name: "ino", static: false, private: false, access: { has: (obj) => "ino" in obj, get: (obj) => obj.ino, set: (obj, value) => {
+          obj.ino = value;
+        } }, metadata: _metadata }, _ino_initializers, _ino_extraInitializers);
+        __esDecorate2(this, null, __ino_decorators, { kind: "accessor", name: "_ino", static: false, private: false, access: { has: (obj) => "_ino" in obj, get: (obj) => obj._ino, set: (obj, value) => {
+          obj._ino = value;
+        } }, metadata: _metadata }, __ino_initializers, __ino_extraInitializers);
+        __esDecorate2(this, null, _type_decorators, { kind: "accessor", name: "type", static: false, private: false, access: { has: (obj) => "type" in obj, get: (obj) => obj.type, set: (obj, value) => {
+          obj.type = value;
+        } }, metadata: _metadata }, _type_initializers, _type_extraInitializers);
+        __esDecorate2(this, null, __name_decorators, { kind: "accessor", name: "_name", static: false, private: false, access: { has: (obj) => "_name" in obj, get: (obj) => obj._name, set: (obj, value) => {
+          obj._name = value;
+        } }, metadata: _metadata }, __name_initializers, __name_extraInitializers);
+        __esDecorate2(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+        Dirent2 = _classThis = _classDescriptor.value;
+        if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        __runInitializers2(_classThis, _classExtraInitializers);
+      }
+      #ino_accessor_storage = __runInitializers2(this, _ino_initializers, void 0);
+      get ino() {
+        return this.#ino_accessor_storage;
+      }
+      set ino(value) {
+        this.#ino_accessor_storage = value;
+      }
+      #_ino_accessor_storage = (__runInitializers2(this, _ino_extraInitializers), __runInitializers2(this, __ino_initializers, void 0));
+      /** Reserved for 64-bit inodes */
+      get _ino() {
+        return this.#_ino_accessor_storage;
+      }
+      set _ino(value) {
+        this.#_ino_accessor_storage = value;
+      }
+      #type_accessor_storage = (__runInitializers2(this, __ino_extraInitializers), __runInitializers2(this, _type_initializers, void 0));
+      get type() {
+        return this.#type_accessor_storage;
+      }
+      set type(value) {
+        this.#type_accessor_storage = value;
+      }
+      #_name_accessor_storage = (__runInitializers2(this, _type_extraInitializers), __runInitializers2(this, __name_initializers, void 0));
+      get _name() {
+        return this.#_name_accessor_storage;
+      }
+      set _name(value) {
+        this.#_name_accessor_storage = value;
+      }
+      get name() {
+        const end = (this._name.indexOf(0) + 1 || 256) - 1;
+        const name = import_buffer5.Buffer.from(this._name.subarray(0, end));
+        return this._encoding == "buffer" ? name : name.toString(this._encoding);
+      }
+      /**
+       * @internal @protected
+       */
+      _encoding = __runInitializers2(this, __name_extraInitializers);
+      /**
+       * @internal @protected
+       */
+      _parentPath;
+      get parentPath() {
+        return this._parentPath;
+      }
+      /**
+       * @deprecated Removed in Node v24, use `parentPath` instead.
+       */
+      get path() {
+        warn("Dirent.path was removed in Node v24, use parentPath instead");
+        return this._parentPath;
+      }
+      /**
+       * @internal
+       */
+      static from(path, stats, encoding) {
+        const dirent = new Dirent2(new ArrayBuffer(sizeof(Dirent2) + 1));
+        dirent._parentPath = dirname(path);
+        dirent._name = encodeUTF8(basename(path));
+        dirent.ino = stats.ino;
+        dirent.type = ifToDt(stats.mode);
+        dirent._encoding = encoding;
+        return dirent;
+      }
+      isFile() {
+        return this.type === DirType.REG;
+      }
+      isDirectory() {
+        return this.type === DirType.DIR;
+      }
+      isBlockDevice() {
+        return this.type === DirType.BLK;
+      }
+      isCharacterDevice() {
+        return this.type === DirType.CHR;
+      }
+      isSymbolicLink() {
+        return this.type === DirType.LNK;
+      }
+      isFIFO() {
+        return this.type === DirType.FIFO;
+      }
+      isSocket() {
+        return this.type === DirType.SOCK;
+      }
+    };
+    return Dirent2 = _classThis;
+  })();
   var Dir = class {
+    path;
+    context;
+    closed = false;
     checkClosed() {
       if (this.closed)
         throw withErrno("EBADF", "Can not use closed Dir");
     }
+    _entries;
     constructor(path, context) {
       this.path = path;
       this.context = context;
-      this.closed = false;
     }
     close(cb) {
       this.closed = true;
@@ -14823,14 +15265,13 @@
       this.closed = true;
     }
     async _read() {
-      var _a2, _b2;
       this.checkClosed();
-      (_a2 = this._entries) !== null && _a2 !== void 0 ? _a2 : this._entries = await readdir.call(this.context, this.path, {
+      this._entries ??= await readdir.call(this.context, this.path, {
         withFileTypes: true
       });
       if (!this._entries.length)
         return null;
-      return (_b2 = this._entries.shift()) !== null && _b2 !== void 0 ? _b2 : null;
+      return this._entries.shift() ?? null;
     }
     read(cb) {
       if (!cb) {
@@ -14844,12 +15285,11 @@
      * Directory entries returned by this function are in no particular order as provided by the operating system's underlying directory mechanisms.
      */
     readSync() {
-      var _a2, _b2;
       this.checkClosed();
-      (_a2 = this._entries) !== null && _a2 !== void 0 ? _a2 : this._entries = readdirSync.call(this.context, this.path, { withFileTypes: true });
+      this._entries ??= readdirSync.call(this.context, this.path, { withFileTypes: true });
       if (!this._entries.length)
         return null;
-      return (_b2 = this._entries.shift()) !== null && _b2 !== void 0 ? _b2 : null;
+      return this._entries.shift() ?? null;
     }
     async next() {
       const value = await this._read();
@@ -14865,20 +15305,24 @@
     [Symbol.asyncIterator]() {
       return this;
     }
-    [Symbol.asyncDispose]() {
-      return Promise.resolve();
+    [Symbol.dispose]() {
+      this.closeSync();
+    }
+    async [Symbol.asyncDispose]() {
+      await this.close();
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/streams.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/streams.js
   var import_readable_stream = __toESM(require_browser3(), 1);
   var ReadStream = class extends import_readable_stream.Readable {
+    pending = true;
+    _path = "<unknown>";
+    _bytesRead = 0;
+    reader;
+    ready;
     constructor(opts = {}, handleOrPromise) {
-      var _a2;
-      super({ ...opts, encoding: (_a2 = opts.encoding) !== null && _a2 !== void 0 ? _a2 : void 0 });
-      this.pending = true;
-      this._path = "<unknown>";
-      this._bytesRead = 0;
+      super({ ...opts, encoding: opts.encoding ?? void 0 });
       this.ready = Promise.resolve(handleOrPromise).then((handle) => {
         this._path = handle.path;
         const internal = handle.readableWebStream({ start: opts.start, end: opts.end });
@@ -14925,11 +15369,13 @@
     }
   };
   var WriteStream = class extends import_readable_stream.Writable {
+    pending = true;
+    _path = "<unknown>";
+    _bytesWritten = 0;
+    writer;
+    ready;
     constructor(opts = {}, handleOrPromise) {
       super(opts);
-      this.pending = true;
-      this._path = "<unknown>";
-      this._bytesWritten = 0;
       this.ready = Promise.resolve(handleOrPromise).then((handle) => {
         this._path = handle.path;
         const internal = handle.writableWebStream({ start: opts.start });
@@ -14980,7 +15426,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/promises.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/promises.js
   var __addDisposableResource3 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -15008,7 +15454,7 @@
     }
     return value;
   };
-  var __disposeResources3 = /* @__PURE__ */ function(SuppressedError2) {
+  var __disposeResources3 = /* @__PURE__ */ (function(SuppressedError2) {
     return function(env) {
       function fail(e) {
         env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
@@ -15035,11 +15481,14 @@
       }
       return next();
     };
-  }(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+  })(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
     var e = new Error(message);
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
   });
   var FileHandle = class {
+    context;
+    fd;
+    _buffer;
     /**
      * Get the current file position.
      *
@@ -15050,19 +15499,44 @@
      * @returns The current file position.
      */
     get position() {
-      return this.flag & O_APPEND ? this.inode.size : this._position;
+      return this._sync.position;
     }
     set position(value) {
-      this._position = value;
+      this._sync.position = value;
     }
+    /**
+     * Whether the file has changes which have not been written to the FS
+     */
+    dirty = false;
+    /**
+     * Whether the file is open or closed
+     */
+    closed = false;
+    /** The path relative to the context's root */
+    get path() {
+      return this._sync.path;
+    }
+    /** The internal FS associated with the handle */
+    get fs() {
+      return this._sync.fs;
+    }
+    /** The path relative to the `FileSystem`'s root */
+    get internalPath() {
+      return this._sync.internalPath;
+    }
+    /** The flag the handle was opened with */
+    get flag() {
+      return this._sync.flag;
+    }
+    /** Stats for the handle */
+    get inode() {
+      return this._sync.inode;
+    }
+    _sync;
     constructor(context, fd) {
       this.context = context;
       this.fd = fd;
-      this._position = 0;
-      this.dirty = false;
-      this.closed = false;
-      const sync = fromFD(context, fd);
-      Object.assign(this, pick(sync, "path", "fs", "internalPath", "flag", "inode"));
+      this._sync = fromFD(context, fd);
     }
     get _isSync() {
       return !!(this.flag & O_SYNC || this.inode.flags & InodeFlags.Sync);
@@ -15169,7 +15643,7 @@
       const flag = parse2(options.flag);
       if (!(flag & O_APPEND))
         throw UV("EBADF", "write", this.path);
-      const encodedData = typeof data == "string" ? import_buffer5.Buffer.from(data, options.encoding) : data;
+      const encodedData = typeof data == "string" ? import_buffer7.Buffer.from(data, options.encoding) : data;
       await this._write(encodedData, 0, encodedData.length);
       this._emitChange();
     }
@@ -15194,9 +15668,9 @@
       if (!isCharacterDevice(this.inode) && !isBlockDevice(this.inode) && end > this.inode.size) {
         end = position + Math.max(this.inode.size - position, 0);
       }
-      this._position = end;
-      const uint8 = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-      await this.fs.read(this.internalPath, uint8.subarray(offset, offset + length), position, end);
+      this._sync.position = end;
+      const uint82 = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+      await this.fs.read(this.internalPath, uint82.subarray(offset, offset + length), position, end);
       if (this._isSync)
         await this.sync();
       return { bytesRead: end - position, buffer };
@@ -15214,9 +15688,9 @@
         buffer = buffer.buffer;
       }
       const pos = Number.isSafeInteger(position) ? position : this.position;
-      buffer || (buffer = new Uint8Array(this.inode.size));
-      offset !== null && offset !== void 0 ? offset : offset = 0;
-      return this._read(buffer, offset, length !== null && length !== void 0 ? length : buffer.byteLength - offset, pos);
+      buffer ||= new Uint8Array(this.inode.size);
+      offset ??= 0;
+      return this._read(buffer, offset, length ?? buffer.byteLength - offset, pos ? Number(pos) : void 0);
     }
     async readFile(_options) {
       const options = normalizeOptions(_options, null, "r", 292);
@@ -15226,7 +15700,7 @@
       const { size } = await this.stat();
       const data = new Uint8Array(size);
       await this._read(data, 0, size, 0);
-      const buffer = import_buffer5.Buffer.from(data);
+      const buffer = import_buffer7.Buffer.from(data);
       return options.encoding ? buffer.toString(options.encoding) : buffer;
     }
     /**
@@ -15270,7 +15744,7 @@
         throw UV("EBADF", "stat", this.path);
       if (checkAccess && !hasAccess(this.context, this.inode, R_OK))
         throw UV("EACCES", "stat", this.path);
-      return (opts === null || opts === void 0 ? void 0 : opts.bigint) ? new BigIntStats(this.inode) : new Stats(this.inode);
+      return opts?.bigint ? new BigIntStats(this.inode) : new Stats(this.inode);
     }
     /**
      * Write buffer to the file.
@@ -15296,7 +15770,7 @@
         this.inode.size = end;
       this.inode.mtimeMs = Date.now();
       this.inode.ctimeMs = Date.now();
-      this._position = position + slice.byteLength;
+      this._sync.position = position + slice.byteLength;
       await this.fs.write(this.internalPath, slice, position);
       if (this._isSync)
         await this.sync();
@@ -15318,15 +15792,15 @@
       if (typeof data === "string") {
         position = typeof options === "number" ? options : null;
         offset = 0;
-        buffer = import_buffer5.Buffer.from(data, typeof lenOrEnc === "string" ? lenOrEnc : "utf8");
+        buffer = import_buffer7.Buffer.from(data, typeof lenOrEnc === "string" ? lenOrEnc : "utf8");
         length = buffer.length;
       } else {
         buffer = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
-        offset = options !== null && options !== void 0 ? options : 0;
+        offset = options ?? 0;
         length = typeof lenOrEnc == "number" ? lenOrEnc : buffer.byteLength;
         position = typeof position === "number" ? position : null;
       }
-      position !== null && position !== void 0 ? position : position = this.position;
+      position ??= this.position;
       const bytesWritten = await this._write(buffer, offset, length, position);
       this._emitChange();
       return { buffer: data, bytesWritten };
@@ -15346,7 +15820,7 @@
       const flag = parse2(options.flag);
       if (!(flag & O_WRONLY || flag & O_RDWR))
         throw UV("EBADF", "writeFile", this.path);
-      const encodedData = typeof data == "string" ? import_buffer5.Buffer.from(data, options.encoding) : data;
+      const encodedData = typeof data == "string" ? import_buffer7.Buffer.from(data, options.encoding) : data;
       await this._write(encodedData, 0, encodedData.length, 0);
       this._emitChange();
     }
@@ -15471,16 +15945,17 @@
     const stats = await fs.stat(resolved).catch(rethrow($ex));
     if (checkAccess && !hasAccess(this, stats, R_OK))
       throw UV("EACCES", $ex);
-    return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
+    return options?.bigint ? new BigIntStats(stats) : new Stats(stats);
   }
   async function lstat(path, options) {
     path = normalizePath(path);
-    const { fs, path: resolved } = resolveMount(path, this);
     const $ex = { syscall: "lstat", path };
+    path = join(await realpath.call(this, dirname(path)), basename(path));
+    const { fs, path: resolved } = resolveMount(path, this);
     const stats = await fs.stat(resolved).catch(rethrow($ex));
     if (checkAccess && !hasAccess(this, stats, R_OK))
       throw UV("EACCES", $ex);
-    return (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : new Stats(stats);
+    return options?.bigint ? new BigIntStats(stats) : new Stats(stats);
   }
   async function truncate(path, len = 0) {
     const env_1 = { stack: [], error: void 0, hasError: false };
@@ -15507,7 +15982,6 @@
     emitChange(this, "rename", path.toString());
   }
   async function _open($, path, opt) {
-    var _a2;
     path = normalizePath(path);
     const mode = normalizeMode(opt.mode, 420), flag = parse2(opt.flag);
     const $ex = { syscall: "open", path };
@@ -15522,7 +15996,7 @@
         throw UV("ENOTDIR", "open", dirname(path));
       if (!opt.allowDirectory && mode & S_IFDIR)
         throw UV("EISDIR", "open", path);
-      const { euid: uid, egid: gid } = (_a2 = $ === null || $ === void 0 ? void 0 : $.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
+      const { euid: uid, egid: gid } = $?.credentials ?? defaultContext.credentials;
       const inode = await fs.createFile(resolved, {
         mode,
         uid: parentStats.mode & S_ISUID ? parentStats.uid : uid,
@@ -15585,7 +16059,7 @@
       const $ex = { syscall: "write", path: path instanceof FileHandle ? path.path : path.toString() };
       if (!(flag & O_APPEND))
         throw UV("EBADF", $ex);
-      const encodedData = typeof data == "string" ? import_buffer5.Buffer.from(data, options.encoding) : new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+      const encodedData = typeof data == "string" ? import_buffer7.Buffer.from(data, options.encoding) : new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
       const handle = __addDisposableResource3(env_4, typeof path == "object" && "fd" in path ? path : await open.call(this, path, options.flag, options.mode), true);
       await handle.appendFile(encodedData, options);
     } catch (e_4) {
@@ -15612,10 +16086,9 @@
     emitChange(this, "rename", path.toString());
   }
   async function mkdir(path, options) {
-    var _a2;
-    const { euid: uid, egid: gid } = (_a2 = this === null || this === void 0 ? void 0 : this.credentials) !== null && _a2 !== void 0 ? _a2 : defaultContext.credentials;
+    const { euid: uid, egid: gid } = this?.credentials ?? defaultContext.credentials;
     options = typeof options === "object" ? options : { mode: options };
-    const mode = normalizeMode(options === null || options === void 0 ? void 0 : options.mode, 511);
+    const mode = normalizeMode(options?.mode, 511);
     path = await realpath.call(this, path);
     const { fs, path: resolved } = resolveMount(path, this);
     const __create2 = async (path2, resolved2, parent) => {
@@ -15629,7 +16102,7 @@
       emitChange(this, "rename", path2);
       return inode;
     };
-    if (!(options === null || options === void 0 ? void 0 : options.recursive)) {
+    if (!options?.recursive) {
       await __create2(path, resolved, await fs.stat(dirname(resolved)).catch(rethrow({ path: dirname(path) })));
       return;
     }
@@ -15646,9 +16119,9 @@
     }
     return dirs[0][0];
   }
-  async function readdir(path, options) {
+  async function readdir(_path, options) {
     const opt = typeof options === "object" && options != null ? options : { encoding: options, withFileTypes: false, recursive: false };
-    path = await realpath.call(this, path);
+    const path = await realpath.call(this, _path);
     const { fs, path: resolved } = resolveMount(path, this);
     const $ex = { syscall: "readdir", path };
     const stats = await fs.stat(resolved).catch(rethrow({ syscall: "stat", path }));
@@ -15672,24 +16145,17 @@
           return;
       }
       if (opt.withFileTypes) {
-        values.push(new Dirent(entry, entryStats, opt.encoding));
+        values.push(Dirent.from(join(_path.toString(), entry), entryStats, opt.encoding));
       } else if (opt.encoding == "buffer") {
-        values.push(import_buffer5.Buffer.from(entry));
+        values.push(import_buffer7.Buffer.from(entry));
       } else {
         values.push(entry);
       }
       if (!opt.recursive || !isDirectory(entryStats))
         return;
-      for (const subEntry of await readdir.call(this, join(path, entry), opt)) {
-        if (subEntry instanceof Dirent) {
-          subEntry.path = join(entry, subEntry.path);
-          values.push(subEntry);
-        } else if (import_buffer5.Buffer.isBuffer(subEntry)) {
-          values.push(import_buffer5.Buffer.from(join(entry, decodeUTF8(subEntry))));
-        } else {
-          values.push(join(entry, subEntry));
-        }
-      }
+      const children = await fs.readdir(join(resolved, entry)).catch(rethrow({ syscall: "readdir", path: join(path, entry) }));
+      for (const child of children)
+        await addEntry(join(entry, child));
     };
     await Promise.all(entries2.map(addEntry));
     return values;
@@ -15740,8 +16206,8 @@
       if (!isSymbolicLink(handle.inode))
         throw UV("EINVAL", "readlink", path);
       const value = await handle.readFile();
-      const encoding = typeof options == "object" ? options === null || options === void 0 ? void 0 : options.encoding : options;
-      return encoding == "buffer" ? value : value.toString(encoding !== null && encoding !== void 0 ? encoding : "utf-8");
+      const encoding = typeof options == "object" ? options?.encoding : options;
+      return encoding == "buffer" ? value : value.toString(encoding ?? "utf-8");
     } catch (e_6) {
       env_6.error = e_6;
       env_6.hasError = true;
@@ -15884,13 +16350,12 @@
     return await _resolve($, target);
   }
   async function realpath(path, options) {
-    var _a2;
-    const encoding = typeof options == "string" ? options : (_a2 = options === null || options === void 0 ? void 0 : options.encoding) !== null && _a2 !== void 0 ? _a2 : "utf8";
+    const encoding = typeof options == "string" ? options : options?.encoding ?? "utf8";
     path = normalizePath(path);
     const { fullPath } = await _resolve(this, path);
     if (encoding == "utf8" || encoding == "utf-8")
       return fullPath;
-    const buf = import_buffer5.Buffer.from(fullPath, "utf-8");
+    const buf = import_buffer7.Buffer.from(fullPath, "utf-8");
     if (encoding == "buffer")
       return buf;
     return buf.toString(encoding);
@@ -15900,8 +16365,7 @@
     const eventQueue = [];
     let done = false;
     watcher.on("change", (eventType, filename2) => {
-      var _a2;
-      (_a2 = eventQueue.shift()) === null || _a2 === void 0 ? void 0 : _a2({ value: { eventType, filename: filename2 }, done: false });
+      eventQueue.shift()?.({ value: { eventType, filename: filename2 }, done: false });
     });
     function cleanup() {
       done = true;
@@ -15940,7 +16404,7 @@
   async function rm(path, options) {
     path = normalizePath(path);
     const stats = await lstat.call(this, path).catch((error) => {
-      if (error.code == "ENOENT" && (options === null || options === void 0 ? void 0 : options.force))
+      if (error.code == "ENOENT" && options?.force)
         return void 0;
       throw error;
     });
@@ -15948,7 +16412,7 @@
       return;
     switch (stats.mode & S_IFMT) {
       case S_IFDIR:
-        if (options === null || options === void 0 ? void 0 : options.recursive) {
+        if (options?.recursive) {
           for (const entry of await readdir.call(this, path)) {
             await rm.call(this, join(path, entry), options);
           }
@@ -15968,11 +16432,11 @@
     }
   }
   async function mkdtemp(prefix, options) {
-    const encoding = typeof options === "object" ? options === null || options === void 0 ? void 0 : options.encoding : options || "utf8";
+    const encoding = typeof options === "object" ? options?.encoding : options || "utf8";
     const fsName = `${prefix}${Date.now()}-${Math.random().toString(36).slice(2)}`;
     const resolvedPath = "/tmp/" + fsName;
     await mkdir.call(this, resolvedPath);
-    return encoding == "buffer" ? import_buffer5.Buffer.from(resolvedPath) : resolvedPath;
+    return encoding == "buffer" ? import_buffer7.Buffer.from(resolvedPath) : resolvedPath;
   }
   async function copyFile(src, dest, mode) {
     src = normalizePath(src);
@@ -15990,11 +16454,11 @@
     source = normalizePath(source);
     destination = normalizePath(destination);
     const srcStats = await lstat.call(this, source);
-    if ((opts === null || opts === void 0 ? void 0 : opts.errorOnExist) && await exists.call(this, destination))
+    if (opts?.errorOnExist && await exists.call(this, destination))
       throw UV("EEXIST", "cp", destination);
     switch (srcStats.mode & S_IFMT) {
       case S_IFDIR: {
-        if (!(opts === null || opts === void 0 ? void 0 : opts.recursive))
+        if (!opts?.recursive)
           throw UV("EISDIR", "cp", source);
         const [entries2] = await Promise.all(
           [
@@ -16023,14 +16487,14 @@
       default:
         throw UV("ENOSYS", "cp", source);
     }
-    if (opts === null || opts === void 0 ? void 0 : opts.preserveTimestamps) {
+    if (opts?.preserveTimestamps) {
       await utimes.call(this, destination, srcStats.atime, srcStats.mtime);
     }
   }
   async function statfs(path, opts) {
     path = normalizePath(path);
     const { fs } = resolveMount(path, this);
-    return Promise.resolve(_statfs(fs, opts === null || opts === void 0 ? void 0 : opts.bigint));
+    return Promise.resolve(_statfs(fs, opts?.bigint));
   }
   function glob(pattern2, opt) {
     pattern2 = Array.isArray(pattern2) ? pattern2 : [pattern2];
@@ -16039,7 +16503,7 @@
     async function* recursiveList(dir) {
       const entries2 = await readdir(dir, { withFileTypes, encoding: "utf8" });
       for (const entry of entries2) {
-        const fullPath = withFileTypes ? entry.path : dir + "/" + entry;
+        const fullPath = withFileTypes ? join(entry.parentPath, entry.name) : dir + "/" + entry;
         if (typeof exclude != "function" ? exclude.some((p) => matchesGlob(p, fullPath)) : exclude(withFileTypes ? entry : fullPath))
           continue;
         if ((await stat(fullPath)).isDirectory() && regexPatterns.some((pattern3) => pattern3.source.includes(".*"))) {
@@ -16053,7 +16517,7 @@
     return recursiveList(cwd);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/async.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/async.js
   var nop = () => {
   };
   async function collectAsyncIterator(it) {
@@ -16105,7 +16569,7 @@
   }
   function fstat(fd, options, cb = nop) {
     cb = typeof options == "function" ? options : cb;
-    new FileHandle(this, fd).stat().then((stats) => cb(void 0, typeof options == "object" && (options === null || options === void 0 ? void 0 : options.bigint) ? new BigIntStats(stats) : stats)).catch(cb);
+    new FileHandle(this, fd).stat().then((stats) => cb(void 0, typeof options == "object" && options?.bigint ? new BigIntStats(stats) : stats)).catch(cb);
   }
   function close(fd, cb = nop) {
     new FileHandle(this, fd).close().then(() => cb()).catch(cb);
@@ -16143,13 +16607,13 @@
           cb(withErrno("EINVAL"));
           return;
       }
-      buffer = import_buffer6.Buffer.from(data);
+      buffer = import_buffer8.Buffer.from(data);
       offset = 0;
       length = buffer.length;
       const _cb = cb;
       handle.write(buffer, offset, length, position).then(({ bytesWritten }) => _cb(void 0, bytesWritten, buffer.toString(encoding))).catch(_cb);
     } else {
-      buffer = import_buffer6.Buffer.from(data.buffer);
+      buffer = import_buffer8.Buffer.from(data.buffer);
       offset = cbPosOff;
       length = cbLenEnc;
       position = typeof cbPosEnc === "number" ? cbPosEnc : null;
@@ -16270,12 +16734,12 @@
   }
   function createReadStream(path, options) {
     options = typeof options == "object" ? options : { encoding: options };
-    const _handle = open.call(this, path, "r", options === null || options === void 0 ? void 0 : options.mode);
+    const _handle = open.call(this, path, "r", options?.mode);
     return new ReadStream({ ...options, autoClose: true }, _handle);
   }
   function createWriteStream(path, options) {
     options = typeof options == "object" ? options : { encoding: options };
-    const _handle = open.call(this, path, "w", options === null || options === void 0 ? void 0 : options.mode);
+    const _handle = open.call(this, path, "w", options?.mode);
     return new WriteStream(options, _handle);
   }
   function rm2(path, options, callback = nop) {
@@ -16319,14 +16783,11 @@
   function glob2(pattern2, options, callback = nop) {
     callback = typeof options == "function" ? options : callback;
     const it = glob.call(this, pattern2, typeof options === "function" ? void 0 : options);
-    collectAsyncIterator(it).then((results) => {
-      var _a2;
-      return callback(null, (_a2 = results) !== null && _a2 !== void 0 ? _a2 : []);
-    }).catch((e) => callback(e));
+    collectAsyncIterator(it).then((results) => callback(null, results ?? [])).catch((e) => callback(e));
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/ioctl.js
-  var __esDecorate2 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/ioctl.js
+  var __esDecorate3 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) {
       if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
       return f;
@@ -16358,27 +16819,12 @@
     if (target) Object.defineProperty(target, contextIn.name, descriptor);
     done = true;
   };
-  var __runInitializers2 = function(thisArg, initializers, value) {
+  var __runInitializers3 = function(thisArg, initializers, value) {
     var useValue = arguments.length > 2;
     for (var i = 0; i < initializers.length; i++) {
       value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
     }
     return useValue ? value : void 0;
-  };
-  var __setFunctionName2 = function(f, name, prefix) {
-    if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
-    return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
-  };
-  var __classPrivateFieldGet2 = function(receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-  };
-  var __classPrivateFieldSet2 = function(receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
   };
   var XFlag;
   (function(XFlag2) {
@@ -16401,13 +16847,12 @@
     XFlag2[XFlag2["HasAttr"] = 2147483648] = "HasAttr";
   })(XFlag || (XFlag = {}));
   var fsxattr = (() => {
-    var _fsxattr_xflags_accessor_storage, _fsxattr_extsize_accessor_storage, _fsxattr_nextents_accessor_storage, _fsxattr_projid_accessor_storage, _fsxattr_cowextsize_accessor_storage, _fsxattr_pad_accessor_storage;
-    var _a2, _b2, _c2, _d2, _e2;
-    let _classDecorators = [struct()];
+    var _a, _b, _c, _d, _e;
+    let _classDecorators = [struct("fsxattr")];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
-    let _classSuper = BufferView;
+    let _classSuper = $from(BufferView);
     let _xflags_decorators;
     let _xflags_initializers = [];
     let _xflags_extraInitializers = [];
@@ -16426,57 +16871,91 @@
     let _pad_decorators;
     let _pad_initializers = [];
     let _pad_extraInitializers = [];
-    var fsxattr2 = _classThis = class extends _classSuper {
+    var fsxattr2 = class extends _classSuper {
+      static {
+        _classThis = this;
+      }
+      static {
+        const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+        _xflags_decorators = [(_a = types2).uint32.bind(_a)];
+        _extsize_decorators = [(_b = types2).uint32.bind(_b)];
+        _nextents_decorators = [(_c = types2).uint32.bind(_c)];
+        _projid_decorators = [(_d = types2).uint32.bind(_d)];
+        _cowextsize_decorators = [(_e = types2).uint32.bind(_e)];
+        _pad_decorators = [types2.char(8)];
+        __esDecorate3(this, null, _xflags_decorators, { kind: "accessor", name: "xflags", static: false, private: false, access: { has: (obj) => "xflags" in obj, get: (obj) => obj.xflags, set: (obj, value) => {
+          obj.xflags = value;
+        } }, metadata: _metadata }, _xflags_initializers, _xflags_extraInitializers);
+        __esDecorate3(this, null, _extsize_decorators, { kind: "accessor", name: "extsize", static: false, private: false, access: { has: (obj) => "extsize" in obj, get: (obj) => obj.extsize, set: (obj, value) => {
+          obj.extsize = value;
+        } }, metadata: _metadata }, _extsize_initializers, _extsize_extraInitializers);
+        __esDecorate3(this, null, _nextents_decorators, { kind: "accessor", name: "nextents", static: false, private: false, access: { has: (obj) => "nextents" in obj, get: (obj) => obj.nextents, set: (obj, value) => {
+          obj.nextents = value;
+        } }, metadata: _metadata }, _nextents_initializers, _nextents_extraInitializers);
+        __esDecorate3(this, null, _projid_decorators, { kind: "accessor", name: "projid", static: false, private: false, access: { has: (obj) => "projid" in obj, get: (obj) => obj.projid, set: (obj, value) => {
+          obj.projid = value;
+        } }, metadata: _metadata }, _projid_initializers, _projid_extraInitializers);
+        __esDecorate3(this, null, _cowextsize_decorators, { kind: "accessor", name: "cowextsize", static: false, private: false, access: { has: (obj) => "cowextsize" in obj, get: (obj) => obj.cowextsize, set: (obj, value) => {
+          obj.cowextsize = value;
+        } }, metadata: _metadata }, _cowextsize_initializers, _cowextsize_extraInitializers);
+        __esDecorate3(this, null, _pad_decorators, { kind: "accessor", name: "pad", static: false, private: false, access: { has: (obj) => "pad" in obj, get: (obj) => obj.pad, set: (obj, value) => {
+          obj.pad = value;
+        } }, metadata: _metadata }, _pad_initializers, _pad_extraInitializers);
+        __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+        fsxattr2 = _classThis = _classDescriptor.value;
+        if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        __runInitializers3(_classThis, _classExtraInitializers);
+      }
+      #xflags_accessor_storage = __runInitializers3(this, _xflags_initializers, void 0);
       /** xflags field value */
       get xflags() {
-        return __classPrivateFieldGet2(this, _fsxattr_xflags_accessor_storage, "f");
+        return this.#xflags_accessor_storage;
       }
       set xflags(value) {
-        __classPrivateFieldSet2(this, _fsxattr_xflags_accessor_storage, value, "f");
+        this.#xflags_accessor_storage = value;
       }
+      #extsize_accessor_storage = (__runInitializers3(this, _xflags_extraInitializers), __runInitializers3(this, _extsize_initializers, void 0));
       /** extsize field value */
       get extsize() {
-        return __classPrivateFieldGet2(this, _fsxattr_extsize_accessor_storage, "f");
+        return this.#extsize_accessor_storage;
       }
       set extsize(value) {
-        __classPrivateFieldSet2(this, _fsxattr_extsize_accessor_storage, value, "f");
+        this.#extsize_accessor_storage = value;
       }
+      #nextents_accessor_storage = (__runInitializers3(this, _extsize_extraInitializers), __runInitializers3(this, _nextents_initializers, void 0));
       /** nextents field value */
       get nextents() {
-        return __classPrivateFieldGet2(this, _fsxattr_nextents_accessor_storage, "f");
+        return this.#nextents_accessor_storage;
       }
       set nextents(value) {
-        __classPrivateFieldSet2(this, _fsxattr_nextents_accessor_storage, value, "f");
+        this.#nextents_accessor_storage = value;
       }
+      #projid_accessor_storage = (__runInitializers3(this, _nextents_extraInitializers), __runInitializers3(this, _projid_initializers, void 0));
       /** project identifier */
       get projid() {
-        return __classPrivateFieldGet2(this, _fsxattr_projid_accessor_storage, "f");
+        return this.#projid_accessor_storage;
       }
       set projid(value) {
-        __classPrivateFieldSet2(this, _fsxattr_projid_accessor_storage, value, "f");
+        this.#projid_accessor_storage = value;
       }
+      #cowextsize_accessor_storage = (__runInitializers3(this, _projid_extraInitializers), __runInitializers3(this, _cowextsize_initializers, void 0));
       /** CoW extsize field value */
       get cowextsize() {
-        return __classPrivateFieldGet2(this, _fsxattr_cowextsize_accessor_storage, "f");
+        return this.#cowextsize_accessor_storage;
       }
       set cowextsize(value) {
-        __classPrivateFieldSet2(this, _fsxattr_cowextsize_accessor_storage, value, "f");
+        this.#cowextsize_accessor_storage = value;
       }
+      #pad_accessor_storage = (__runInitializers3(this, _cowextsize_extraInitializers), __runInitializers3(this, _pad_initializers, []));
       get pad() {
-        return __classPrivateFieldGet2(this, _fsxattr_pad_accessor_storage, "f");
+        return this.#pad_accessor_storage;
       }
       set pad(value) {
-        __classPrivateFieldSet2(this, _fsxattr_pad_accessor_storage, value, "f");
+        this.#pad_accessor_storage = value;
       }
       constructor(inode = _throw(new Exception(Errno.EINVAL, "fsxattr must be initialized with an inode"))) {
         super(new ArrayBuffer(sizeof(fsxattr2)));
-        _fsxattr_xflags_accessor_storage.set(this, __runInitializers2(this, _xflags_initializers, void 0));
-        _fsxattr_extsize_accessor_storage.set(this, (__runInitializers2(this, _xflags_extraInitializers), __runInitializers2(this, _extsize_initializers, void 0)));
-        _fsxattr_nextents_accessor_storage.set(this, (__runInitializers2(this, _extsize_extraInitializers), __runInitializers2(this, _nextents_initializers, void 0)));
-        _fsxattr_projid_accessor_storage.set(this, (__runInitializers2(this, _nextents_extraInitializers), __runInitializers2(this, _projid_initializers, void 0)));
-        _fsxattr_cowextsize_accessor_storage.set(this, (__runInitializers2(this, _projid_extraInitializers), __runInitializers2(this, _cowextsize_initializers, void 0)));
-        _fsxattr_pad_accessor_storage.set(this, (__runInitializers2(this, _cowextsize_extraInitializers), __runInitializers2(this, _pad_initializers, [])));
-        __runInitializers2(this, _pad_extraInitializers);
+        __runInitializers3(this, _pad_extraInitializers);
         this.extsize = inode.size;
         this.nextents = 1;
         this.projid = inode.uid;
@@ -16489,45 +16968,6 @@
         }
       }
     };
-    _fsxattr_xflags_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _fsxattr_extsize_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _fsxattr_nextents_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _fsxattr_projid_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _fsxattr_cowextsize_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _fsxattr_pad_accessor_storage = /* @__PURE__ */ new WeakMap();
-    __setFunctionName2(_classThis, "fsxattr");
-    (() => {
-      var _a3;
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
-      _xflags_decorators = [(_a3 = types2).uint32.bind(_a3)];
-      _extsize_decorators = [(_b2 = types2).uint32.bind(_b2)];
-      _nextents_decorators = [(_c2 = types2).uint32.bind(_c2)];
-      _projid_decorators = [(_d2 = types2).uint32.bind(_d2)];
-      _cowextsize_decorators = [(_e2 = types2).uint32.bind(_e2)];
-      _pad_decorators = [types2.char(8)];
-      __esDecorate2(_classThis, null, _xflags_decorators, { kind: "accessor", name: "xflags", static: false, private: false, access: { has: (obj) => "xflags" in obj, get: (obj) => obj.xflags, set: (obj, value) => {
-        obj.xflags = value;
-      } }, metadata: _metadata }, _xflags_initializers, _xflags_extraInitializers);
-      __esDecorate2(_classThis, null, _extsize_decorators, { kind: "accessor", name: "extsize", static: false, private: false, access: { has: (obj) => "extsize" in obj, get: (obj) => obj.extsize, set: (obj, value) => {
-        obj.extsize = value;
-      } }, metadata: _metadata }, _extsize_initializers, _extsize_extraInitializers);
-      __esDecorate2(_classThis, null, _nextents_decorators, { kind: "accessor", name: "nextents", static: false, private: false, access: { has: (obj) => "nextents" in obj, get: (obj) => obj.nextents, set: (obj, value) => {
-        obj.nextents = value;
-      } }, metadata: _metadata }, _nextents_initializers, _nextents_extraInitializers);
-      __esDecorate2(_classThis, null, _projid_decorators, { kind: "accessor", name: "projid", static: false, private: false, access: { has: (obj) => "projid" in obj, get: (obj) => obj.projid, set: (obj, value) => {
-        obj.projid = value;
-      } }, metadata: _metadata }, _projid_initializers, _projid_extraInitializers);
-      __esDecorate2(_classThis, null, _cowextsize_decorators, { kind: "accessor", name: "cowextsize", static: false, private: false, access: { has: (obj) => "cowextsize" in obj, get: (obj) => obj.cowextsize, set: (obj, value) => {
-        obj.cowextsize = value;
-      } }, metadata: _metadata }, _cowextsize_initializers, _cowextsize_extraInitializers);
-      __esDecorate2(_classThis, null, _pad_decorators, { kind: "accessor", name: "pad", static: false, private: false, access: { has: (obj) => "pad" in obj, get: (obj) => obj.pad, set: (obj, value) => {
-        obj.pad = value;
-      } }, metadata: _metadata }, _pad_initializers, _pad_extraInitializers);
-      __esDecorate2(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-      fsxattr2 = _classThis = _classDescriptor.value;
-      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-      __runInitializers2(_classThis, _classExtraInitializers);
-    })();
     return fsxattr2 = _classThis;
   })();
   var FileFlag;
@@ -16671,7 +17111,7 @@
     throw UV("ENOTSUP", "ioctl", path);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/vfs/xattr.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/vfs/xattr.js
   var xattr_exports = {};
   __export(xattr_exports, {
     get: () => get,
@@ -16683,29 +17123,27 @@
     set: () => set,
     setSync: () => setSync
   });
-  var import_buffer8 = __toESM(require_buffer(), 1);
+  var import_buffer10 = __toESM(require_buffer(), 1);
   var _allowedRestrictedNames = [];
   function checkName($, name, path, syscall) {
     if (!name.startsWith("user.") && !_allowedRestrictedNames.includes(name))
       throw UV("ENOTSUP", syscall, path);
   }
   async function get(path, name, opt = {}) {
-    var _a2;
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     checkName(this, name, path, "xattr.get");
     const inode = await fs.stat(resolved).catch(rethrow("xattr.get", path));
     if (checkAccess && !hasAccess(this, inode, R_OK))
       throw UV("EACCES", "xattr.get", path);
-    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    inode.attributes ??= new Attributes();
     const value = inode.attributes.get(name);
     if (!value)
       throw UV("ENODATA", "xattr.get", path);
-    const buffer = import_buffer8.Buffer.from(value);
+    const buffer = import_buffer10.Buffer.from(value);
     return opt.encoding == "buffer" || !opt.encoding ? buffer : buffer.toString(opt.encoding);
   }
   function getSync(path, name, opt = {}) {
-    var _a2;
     path = normalizePath(path);
     checkName(this, name, path, "xattr.get");
     const { fs, path: resolved } = resolveMount(path, this);
@@ -16717,32 +17155,30 @@
     }
     if (checkAccess && !hasAccess(this, inode, R_OK))
       throw UV("EACCES", "xattr.get", path);
-    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    inode.attributes ??= new Attributes();
     const value = inode.attributes.get(name);
     if (!value)
       throw UV("ENODATA", "xattr.get", path);
-    const buffer = import_buffer8.Buffer.from(value);
+    const buffer = import_buffer10.Buffer.from(value);
     return opt.encoding == "buffer" || !opt.encoding ? buffer : buffer.toString(opt.encoding);
   }
   async function set(path, name, value, opt = {}) {
-    var _a2;
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     checkName(this, name, path, "xattr.set");
     const inode = await fs.stat(resolved).catch(rethrow("xattr.set", path));
     if (checkAccess && !hasAccess(this, inode, W_OK))
       throw UV("EACCES", "xattr.set", path);
-    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    inode.attributes ??= new Attributes();
     const attr = inode.attributes.get(name);
     if (opt.create && attr)
       throw UV("EEXIST", "xattr.set", path);
     if (opt.replace && !attr)
       throw UV("ENODATA", "xattr.set", path);
-    inode.attributes.set(name, import_buffer8.Buffer.from(value));
+    inode.attributes.set(name, import_buffer10.Buffer.from(value));
     await fs.touch(resolved, inode).catch(rethrow("xattr.set", path));
   }
   function setSync(path, name, value, opt = {}) {
-    var _a2;
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     checkName(this, name, path, "xattr.set");
@@ -16754,13 +17190,13 @@
     }
     if (checkAccess && !hasAccess(this, inode, W_OK))
       throw UV("EACCES", "xattr.set", path);
-    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    inode.attributes ??= new Attributes();
     const attr = inode.attributes.get(name);
     if (opt.create && attr)
       throw UV("EEXIST", "xattr.set", path);
     if (opt.replace && !attr)
       throw UV("ENODATA", "xattr.set", path);
-    inode.attributes.set(name, import_buffer8.Buffer.from(value));
+    inode.attributes.set(name, import_buffer10.Buffer.from(value));
     try {
       fs.touchSync(resolved, inode);
     } catch (e) {
@@ -16768,14 +17204,13 @@
     }
   }
   async function remove(path, name) {
-    var _a2;
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     checkName(this, name, path, "xattr.remove");
     const inode = await fs.stat(resolved).catch(rethrow("xattr.remove", path));
     if (checkAccess && !hasAccess(this, inode, W_OK))
       throw UV("EACCES", "xattr.remove", path);
-    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    inode.attributes ??= new Attributes();
     const attr = inode.attributes.get(name);
     if (!attr)
       throw UV("ENODATA", "xattr.remove", path);
@@ -16783,7 +17218,6 @@
     await fs.touch(resolved, inode);
   }
   function removeSync(path, name) {
-    var _a2;
     path = normalizePath(path);
     const { fs, path: resolved } = resolveMount(path, this);
     checkName(this, name, path, "xattr.remove");
@@ -16795,7 +17229,7 @@
     }
     if (checkAccess && !hasAccess(this, inode, W_OK))
       throw UV("EACCES", "xattr.remove", path);
-    (_a2 = inode.attributes) !== null && _a2 !== void 0 ? _a2 : inode.attributes = new Attributes();
+    inode.attributes ??= new Attributes();
     const attr = inode.attributes.get(name);
     if (!attr)
       throw UV("ENODATA", "xattr.remove", path);
@@ -16828,7 +17262,7 @@
     return inode.attributes.keys().toArray();
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/config.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/config.js
   function configureFileSystem(fs, config) {
     if (config.disableAsyncCache)
       fs.attributes.set("no_async_preload");
@@ -16901,7 +17335,6 @@
     return devfs._createDevice(driver, options);
   }
   async function configure2(configuration) {
-    var _a2, _b2;
     Object.assign(defaultContext.credentials, createCredentials({
       uid: configuration.uid || 0,
       gid: configuration.gid || 0
@@ -16913,8 +17346,8 @@
       for (const [_point, mountConfig] of Object.entries(configuration.mounts).sort(([a], [b]) => a.length > b.length ? 1 : -1)) {
         const point = _point.startsWith("/") ? _point : "/" + _point;
         if (isBackendConfig(mountConfig)) {
-          (_a2 = mountConfig.disableAsyncCache) !== null && _a2 !== void 0 ? _a2 : mountConfig.disableAsyncCache = configuration.disableAsyncCache || false;
-          (_b2 = mountConfig.caseFold) !== null && _b2 !== void 0 ? _b2 : mountConfig.caseFold = configuration.caseFold;
+          mountConfig.disableAsyncCache ??= configuration.disableAsyncCache || false;
+          mountConfig.caseFold ??= configuration.caseFold;
         }
         if (point == "/")
           umount("/");
@@ -16932,7 +17365,7 @@
     }
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/backends/cow.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/backends/cow.js
   var journalOperations = ["delete"];
   function isJournalOp(op) {
     return journalOperations.includes(op);
@@ -16940,10 +17373,7 @@
   var maxOpLength = Math.max(...journalOperations.map((op) => op.length));
   var journalMagicString = "#journal@v0\n";
   var Journal = class extends import_index.default {
-    constructor() {
-      super(...arguments);
-      this.entries = [];
-    }
+    entries = [];
     toString() {
       return journalMagicString + this.entries.map((entry) => `${entry.op.padEnd(maxOpLength)} ${entry.path}`).join("\n");
     }
@@ -16991,6 +17421,9 @@
     }
   };
   var CopyOnWriteFS = class extends FileSystem {
+    readable;
+    writable;
+    journal;
     async ready() {
       await this.readable.ready();
       await this.writable.ready();
@@ -17326,10 +17759,10 @@
     const { size, start, end } = options;
     const resource = resourcesCache.get(url) ?? new Resource(url, size, options, resourcesCache);
     req.headers.set("If-Range", (/* @__PURE__ */ new Date()).toUTCString());
-    for (const { start: from, end: to } of resource.missing(start, end)) {
-      const { data, response } = await _fetch(req, { headers: { Range: `bytes=${from}-${to}` } });
+    for (const { start: from2, end: to } of resource.missing(start, end)) {
+      const { data, response } = await _fetch(req, { headers: { Range: `bytes=${from2}-${to}` } });
       if (response.status == 206) {
-        resource.add(data, from);
+        resource.add(data, from2);
         continue;
       }
       options.warn?.(url + ": Remote does not support range requests with bytes. Falling back to full data.");
@@ -17401,8 +17834,9 @@
     resourcesCache.delete(url);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/internal/index_fs.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/internal/index_fs.js
   var IndexFS = class extends FileSystem {
+    index;
     constructor(id, name, index = new Index()) {
       super(id, name);
       this.index = index;
@@ -17419,24 +17853,24 @@
       if ((dirname(newPath) + "/").startsWith(oldPath + "/"))
         throw withErrno("EBUSY");
       const toRename = [];
-      for (const [from, inode] of this.index.entries()) {
-        const rel = relative(oldPath, from);
+      for (const [from2, inode] of this.index.entries()) {
+        const rel = relative(oldPath, from2);
         if (rel.startsWith(".."))
           continue;
         let to = join(newPath, rel);
         if (to.endsWith("/"))
           to = to.slice(0, -1);
-        toRename.push({ from, to, inode });
+        toRename.push({ from: from2, to, inode });
       }
       return toRename;
     }
     async rename(oldPath, newPath) {
       if (oldPath == newPath)
         return;
-      for (const { from, to, inode } of this.pathsForRename(oldPath, newPath)) {
+      for (const { from: from2, to, inode } of this.pathsForRename(oldPath, newPath)) {
         const data = new Uint8Array(inode.size);
-        await this.read(from, data, 0, inode.size);
-        this.index.delete(from);
+        await this.read(from2, data, 0, inode.size);
+        this.index.delete(from2);
         this.index.set(to, inode);
         await this.write(to, data, 0);
       }
@@ -17445,10 +17879,10 @@
     renameSync(oldPath, newPath) {
       if (oldPath == newPath)
         return;
-      for (const { from, to, inode } of this.pathsForRename(oldPath, newPath)) {
+      for (const { from: from2, to, inode } of this.pathsForRename(oldPath, newPath)) {
         const data = new Uint8Array(inode.size);
-        this.readSync(from, data, 0, inode.size);
-        this.index.delete(from);
+        this.readSync(from2, data, 0, inode.size);
+        this.index.delete(from2);
         this.index.set(to, inode);
         this.writeSync(to, data, 0);
       }
@@ -17467,13 +17901,11 @@
       return inode;
     }
     async touch(path, metadata) {
-      var _a2;
-      const inode = (_a2 = this.index.get(path)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT"));
+      const inode = this.index.get(path) ?? _throw(withErrno("ENOENT"));
       inode.update(metadata);
     }
     touchSync(path, metadata) {
-      var _a2;
-      const inode = (_a2 = this.index.get(path)) !== null && _a2 !== void 0 ? _a2 : _throw(withErrno("ENOENT"));
+      const inode = this.index.get(path) ?? _throw(withErrno("ENOENT"));
       inode.update(metadata);
     }
     _remove(path, isUnlink) {
@@ -17558,7 +17990,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/backends/fetch.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/backends/fetch.js
   function parseError(error) {
     if (!("tag" in error))
       throw err(withErrno("EIO", error.stack));
@@ -17574,6 +18006,13 @@
     }
   }
   var FetchFS = class extends IndexFS {
+    baseUrl;
+    requestInit;
+    remoteWrite;
+    /**
+     * @internal @hidden
+     */
+    _asyncDone = Promise.resolve();
     _async(p) {
       this._asyncDone = this._asyncDone.then(() => p);
     }
@@ -17582,7 +18021,6 @@
       this.baseUrl = baseUrl;
       this.requestInit = requestInit;
       this.remoteWrite = remoteWrite;
-      this._asyncDone = Promise.resolve();
     }
     async remove(path) {
       await remove2(this.baseUrl + path, { warn, cacheOnly: !this.remoteWrite }, this.requestInit);
@@ -17643,13 +18081,12 @@
       return typeof globalThis.fetch == "function";
     },
     async create(options) {
-      var _a2;
       const url = new URL(options.baseUrl);
       url.pathname = normalizePath(url.pathname);
       let baseUrl = url.toString();
       if (baseUrl.at(-1) == "/")
         baseUrl = baseUrl.slice(0, -1);
-      (_a2 = options.index) !== null && _a2 !== void 0 ? _a2 : options.index = "index.json";
+      options.index ??= "index.json";
       const index = new Index();
       if (typeof options.index != "string") {
         index.fromJSON(options.index);
@@ -17670,7 +18107,7 @@
   };
   var Fetch = _Fetch;
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/backends/passthrough.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/backends/passthrough.js
   var __addDisposableResource4 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -17698,7 +18135,7 @@
     }
     return value;
   };
-  var __disposeResources4 = /* @__PURE__ */ function(SuppressedError2) {
+  var __disposeResources4 = /* @__PURE__ */ (function(SuppressedError2) {
     return function(env) {
       function fail(e) {
         env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
@@ -17725,11 +18162,13 @@
       }
       return next();
     };
-  }(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+  })(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
     var e = new Error(message);
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
   });
   var PassthroughFS = class extends FileSystem {
+    nodeFS;
+    prefix;
     constructor(nodeFS, prefix) {
       super(1852793957, "nodefs");
       this.nodeFS = nodeFS;
@@ -17769,13 +18208,20 @@
     statSync(path) {
       return this.nodeFS.statSync(this.path(path));
     }
+    /**
+     * @privateRemarks
+     * Timestamps should be updated by the underlying file system.
+     */
     async touch(path, metadata) {
       const env_1 = { stack: [], error: void 0, hasError: false };
       try {
-        const handle = __addDisposableResource4(env_1, await this.nodeFS.promises.open(this.path(path), "w"), true);
+        const handle = __addDisposableResource4(env_1, await this.nodeFS.promises.open(this.path(path), "r"), true);
         await handle.chmod(metadata.mode);
-        await handle.chown(metadata.uid, metadata.gid);
-        await handle.utimes(metadata.atimeMs, metadata.mtimeMs);
+        try {
+          await handle.chown(metadata.uid, metadata.gid);
+        } catch (error) {
+          err("Failed to chown passthrough file: " + error.message);
+        }
       } catch (e_1) {
         env_1.error = e_1;
         env_1.hasError = true;
@@ -17785,10 +18231,17 @@
           await result_1;
       }
     }
+    /**
+     * @privateRemarks
+     * Timestamps should be updated by the underlying file system.
+     */
     touchSync(path, metadata) {
       this.nodeFS.chmodSync(this.path(path), metadata.mode);
-      this.nodeFS.chownSync(this.path(path), metadata.uid, metadata.gid);
-      this.nodeFS.utimesSync(this.path(path), metadata.atimeMs, metadata.mtimeMs);
+      try {
+        this.nodeFS.chownSync(this.path(path), metadata.uid, metadata.gid);
+      } catch (error) {
+        err("Failed to chown passthrough file: " + error.message);
+      }
     }
     /**
      * Unlink (delete) a file.
@@ -17955,7 +18408,228 @@
   };
   var Passthrough = _Passthrough;
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/mixins/shared.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/internal/rpc.js
+  var rpc_exports = {};
+  __export(rpc_exports, {
+    attach: () => attach,
+    catchMessages: () => catchMessages,
+    decodeMessage: () => decodeMessage,
+    detach: () => detach,
+    encodeMessage: () => encodeMessage,
+    from: () => from,
+    fromNode: () => fromNode,
+    fromWeb: () => fromWeb,
+    fromWebSocket: () => fromWebSocket,
+    handleRequest: () => handleRequest,
+    handleResponse: () => handleResponse,
+    isMessage: () => isMessage,
+    isPort: () => isPort,
+    request: () => request
+  });
+  function isPort(port) {
+    return port != null && typeof port == "object" && "channel" in port && "send" in port && "addHandler" in port && "removeHandler" in port;
+  }
+  function fromWeb(port) {
+    return {
+      channel: port,
+      send: port.postMessage.bind(port),
+      addHandler(handler) {
+        port.addEventListener("message", (event) => handler(event.data));
+      },
+      removeHandler(handler) {
+        port.removeEventListener("message", (event) => handler(event.data));
+      }
+    };
+  }
+  function fromNode(port) {
+    return {
+      channel: port,
+      send: port.postMessage.bind(port),
+      addHandler: port.on.bind(port, "message"),
+      removeHandler: port.off.bind(port, "message")
+    };
+  }
+  function fromWebSocket(ws) {
+    return {
+      channel: ws,
+      send(message) {
+        ws.send(encodeMessage(message));
+      },
+      addHandler(handler) {
+        ws.addEventListener("message", (event) => {
+          handler(decodeMessage(event.data));
+        });
+      },
+      removeHandler(handler) {
+        ws.removeEventListener("message", (event) => {
+          handler(decodeMessage(event.data));
+        });
+      }
+    };
+  }
+  function from(port) {
+    if (isPort(port))
+      return port;
+    if (port instanceof WebSocket)
+      return fromWebSocket(port);
+    if ("on" in port)
+      return fromNode(port);
+    if ("addEventListener" in port)
+      return fromWeb(port);
+    throw err(withErrno("EINVAL", "Invalid port type"));
+  }
+  var encodingVersion = 1;
+  function encodeMessage(message) {
+    return `Z${encodingVersion}${JSON.stringify(message, (key, value) => {
+      if (key == "_zenfs")
+        return;
+      return value instanceof Uint8Array ? "$" + value.toBase64() : value;
+    })}`;
+  }
+  function decodeMessage(message) {
+    if (!message.startsWith("Z"))
+      return {};
+    message = message.slice(1);
+    const v = parseInt(message);
+    if (isNaN(v)) {
+      warn("Ignoring encoded message with missing version");
+      return {};
+    }
+    message = message.slice(v.toString().length);
+    if (!isJSON(message)) {
+      warn("Ignoring encoded message with invalid JSON");
+      return {};
+    }
+    if (v != encodingVersion)
+      throw err(withErrno("EPROTONOSUPPORT", `Version mismatch in RPC message encoding (got ${v}, expected ${encodingVersion})`));
+    return {
+      ...JSON.parse(message, (key, value) => typeof value == "string" && value.startsWith("$") ? Uint8Array.fromBase64(value.slice(1)) : value),
+      _zenfs: true
+    };
+  }
+  function isMessage(arg) {
+    return typeof arg == "object" && arg != null && "_zenfs" in arg && !!arg._zenfs;
+  }
+  function disposeExecutors(id) {
+    const executor = executors.get(id);
+    if (!executor)
+      return;
+    if (executor.timeout) {
+      clearTimeout(executor.timeout);
+      if (typeof executor.timeout == "object")
+        executor.timeout.unref();
+    }
+    executor.fs._executors.delete(id);
+    executors.delete(id);
+  }
+  var executors = /* @__PURE__ */ new Map();
+  function request(request2, { port, timeout: ms = 1e3, fs }) {
+    const stack = "\n" + new Error().stack.slice("Error:".length);
+    if (!port)
+      throw err(withErrno("EINVAL", "Can not make an RPC request without a port"));
+    const { resolve: resolve2, reject, promise } = Promise.withResolvers();
+    const id = Math.random().toString(16).slice(10);
+    const timeout = setTimeout(() => {
+      const error = err(withErrno("EIO", "RPC Failed"));
+      error.stack += stack;
+      disposeExecutors(id);
+      reject(error);
+    }, ms);
+    const executor = { resolve: resolve2, reject, promise, fs, timeout };
+    fs._executors.set(id, executor);
+    executors.set(id, executor);
+    port.send({ ...request2, _zenfs: true, id, stack });
+    return promise;
+  }
+  function __requestMethod(req) {
+  }
+  function __responseMethod(res, ...t) {
+    return t.includes(res.method);
+  }
+  function handleResponse(response) {
+    if (!isMessage(response))
+      return;
+    if (!executors.has(response.id)) {
+      const error = err(withErrno("EIO", "Invalid RPC id: " + response.id));
+      error.stack += response.stack;
+      throw error;
+    }
+    const { resolve: resolve2, reject } = executors.get(response.id);
+    if (response.error) {
+      const e = Exception.fromJSON({ code: "EIO", errno: Errno.EIO, ...response.error });
+      e.stack += response.stack;
+      disposeExecutors(response.id);
+      reject(e);
+      return;
+    }
+    disposeExecutors(response.id);
+    resolve2(__responseMethod(response, "stat", "createFile", "mkdir") ? new Inode(response.value) : response.value);
+    return;
+  }
+  function attach(port, handler) {
+    if (!port)
+      throw err(withErrno("EINVAL", "Cannot attach to non-existent port"));
+    info("Attached handler to port: " + handler.name);
+    port.addHandler(handler);
+  }
+  function detach(port, handler) {
+    if (!port)
+      throw err(withErrno("EINVAL", "Cannot detach from non-existent port"));
+    info("Detached handler from port: " + handler.name);
+    port.removeHandler(handler);
+  }
+  function catchMessages(port) {
+    const events = [];
+    const handler = events.push.bind(events);
+    attach(port, handler);
+    return async function(fs) {
+      detach(port, handler);
+      for (const event of events) {
+        const request2 = "data" in event ? event.data : event;
+        await handleRequest(port, fs, request2);
+      }
+    };
+  }
+  async function handleRequest(port, fs, request2) {
+    if (!isMessage(request2))
+      return;
+    let value, error;
+    const transferList = [];
+    try {
+      switch (request2.method) {
+        case "read": {
+          __requestMethod(request2);
+          const [path, buffer, start, end] = request2.args;
+          await fs.read(path, buffer, start, end);
+          value = buffer;
+          break;
+        }
+        case "stat":
+        case "createFile":
+        case "mkdir": {
+          __requestMethod(request2);
+          const md = await fs[request2.method](...request2.args);
+          const inode = md instanceof Inode ? md : new Inode(md);
+          value = new Uint8Array(inode.buffer, inode.byteOffset, inode.byteLength);
+          break;
+        }
+        case "touch": {
+          __requestMethod(request2);
+          const [path, metadata] = request2.args;
+          await fs.touch(path, new Inode(metadata));
+          value = void 0;
+          break;
+        }
+        default:
+          value = await fs[request2.method](...request2.args);
+      }
+    } catch (e) {
+      error = e instanceof Exception ? e.toJSON() : pick(e, "message", "stack");
+    }
+    port.send({ _zenfs: true, ...pick(request2, "id", "method", "stack"), error, value }, transferList);
+  }
+
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/mixins/shared.js
   var _asyncFSKeys = [
     "rename",
     "stat",
@@ -17972,7 +18646,7 @@
     "write"
   ];
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/mixins/async.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/mixins/async.js
   function Async(FS) {
     class AsyncFS extends FS {
       /**
@@ -17987,14 +18661,15 @@
       queueDone() {
         return this.sync();
       }
+      _promise = Promise.resolve();
       _async(promise) {
         this._promise = this._promise.then(() => promise);
       }
+      _isInitialized = false;
+      /** Tracks how many updates to the sync. cache we skipped during initialization */
+      _skippedCacheUpdates = 0;
       constructor(...args) {
         super(...args);
-        this._promise = Promise.resolve();
-        this._isInitialized = false;
-        this._skippedCacheUpdates = 0;
         this._patchAsync();
       }
       async ready() {
@@ -18146,7 +18821,6 @@
         for (const key of _asyncFSKeys) {
           const originalMethod = this[key].bind(this);
           this[key] = async (...args) => {
-            var _a2, _b2;
             const result = await originalMethod(...args);
             const stack = new Error().stack.split("\n").slice(2).join("\n");
             if (!stack || stack.includes(`at <computed> [as ${key}]`) || stack.includes(`at async <computed> [as ${key}]`) || stack.includes(`${key}Sync `))
@@ -18156,7 +18830,7 @@
               return result;
             }
             try {
-              (_b2 = (_a2 = this._sync) === null || _a2 === void 0 ? void 0 : _a2[`${key}Sync`]) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, ...args);
+              this._sync?.[`${key}Sync`]?.(...args);
             } catch (e) {
               const stack2 = e.stack.split("\n").slice(3).join("\n");
               if (stack2.includes(`at <computed> [as ${key}]`) || stack2.includes(`at async <computed> [as ${key}]`) || stack2.includes(`${key}Sync `))
@@ -18172,117 +18846,34 @@
     return AsyncFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/backends/port.js
-  function isRPCMessage(arg) {
-    return typeof arg == "object" && arg != null && "_zenfs" in arg && !!arg._zenfs;
-  }
-  function disposeExecutors(id) {
-    const executor = executors.get(id);
-    if (!executor)
-      return;
-    if (executor.timeout) {
-      clearTimeout(executor.timeout);
-      if (typeof executor.timeout == "object")
-        executor.timeout.unref();
-    }
-    executor.fs._executors.delete(id);
-    executors.delete(id);
-  }
-  var executors = /* @__PURE__ */ new Map();
-  function request(request2, { port, timeout: ms = 1e3, fs }) {
-    const stack = "\n" + new Error().stack.slice("Error:".length);
-    if (!port)
-      throw err(withErrno("EINVAL", "Can not make an RPC request without a port"));
-    const { resolve: resolve2, reject, promise } = Promise.withResolvers();
-    const id = Math.random().toString(16).slice(10);
-    const timeout = setTimeout(() => {
-      const error = err(withErrno("EIO", "RPC Failed"));
-      error.stack += stack;
-      disposeExecutors(id);
-      reject(error);
-    }, ms);
-    const executor = { resolve: resolve2, reject, promise, fs, timeout };
-    fs._executors.set(id, executor);
-    executors.set(id, executor);
-    port.postMessage({ ...request2, _zenfs: true, id, stack });
-    return promise;
-  }
-  function __requestMethod(req) {
-  }
-  function __responseMethod(res, ...t) {
-    return t.includes(res.method);
-  }
-  function handleResponse(response) {
-    if (!isRPCMessage(response))
-      return;
-    if (!executors.has(response.id)) {
-      const error = err(withErrno("EIO", "Invalid RPC id: " + response.id));
-      error.stack += response.stack;
-      throw error;
-    }
-    const { resolve: resolve2, reject } = executors.get(response.id);
-    if (response.error) {
-      const e = Exception.fromJSON({ code: "EIO", errno: Errno.EIO, ...response.error });
-      e.stack += response.stack;
-      disposeExecutors(response.id);
-      reject(e);
-      return;
-    }
-    disposeExecutors(response.id);
-    resolve2(__responseMethod(response, "stat", "createFile", "mkdir") ? new Inode(response.value) : response.value);
-    return;
-  }
-  function attach(port, handler) {
-    if (!port)
-      throw err(withErrno("EINVAL", "Cannot attach to non-existent port"));
-    info("Attached handler to port: " + handler.name);
-    port["on" in port ? "on" : "addEventListener"]("message", (message) => {
-      handler(typeof message == "object" && message !== null && "data" in message ? message.data : message);
-    });
-  }
-  function detach(port, handler) {
-    if (!port)
-      throw err(withErrno("EINVAL", "Cannot detach from non-existent port"));
-    info("Detached handler from port: " + handler.name);
-    port["off" in port ? "off" : "removeEventListener"]("message", (message) => {
-      handler(typeof message == "object" && message !== null && "data" in message ? message.data : message);
-    });
-  }
-  function catchMessages(port) {
-    const events = [];
-    const handler = events.push.bind(events);
-    attach(port, handler);
-    return async function(fs) {
-      detach(port, handler);
-      for (const event of events) {
-        const request2 = "data" in event ? event.data : event;
-        await handleRequest(port, fs, request2);
-      }
-    };
-  }
-  async function waitOnline(port) {
-    if (!("on" in port))
-      return;
-    const online = Promise.withResolvers();
-    setTimeout(online.reject, 500);
-    port.on("online", online.resolve);
-    await online.promise;
-  }
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/backends/port.js
   var PortFS = class extends Async(FileSystem) {
+    channel;
+    timeout;
+    port;
+    /**
+     * A map of outstanding RPC requests
+     * @internal @hidden
+     */
+    _executors = /* @__PURE__ */ new Map();
+    /**
+     * @hidden
+     */
+    _sync = InMemory.create({ label: "tmpfs:port" });
     /**
      * Constructs a new PortFS instance that connects with the FS running on `options.port`.
      */
-    constructor(options) {
+    constructor(channel, timeout = 250) {
       super(1886351988, "portfs");
-      this.options = options;
-      this._executors = /* @__PURE__ */ new Map();
-      this._sync = InMemory.create({ label: "tmpfs:port" });
-      this.port = options.port;
+      this.channel = channel;
+      this.timeout = timeout;
+      this.port = from(channel);
       attach(this.port, handleResponse);
     }
     rpc(method, ...args) {
       return request({ method, args }, {
-        ...this.options,
+        port: this.port,
+        timeout: this.timeout,
         fs: this
       });
     }
@@ -18342,65 +18933,35 @@
       return this.rpc("write", path, buffer, offset);
     }
   };
-  async function handleRequest(port, fs, request2) {
-    if (!isRPCMessage(request2))
-      return;
-    let value, error;
-    const transferList = [];
-    try {
-      switch (request2.method) {
-        case "read": {
-          __requestMethod(request2);
-          const [path, buffer, start, end] = request2.args;
-          await fs.read(path, buffer, start, end);
-          value = buffer;
-          break;
-        }
-        case "stat":
-        case "createFile":
-        case "mkdir": {
-          __requestMethod(request2);
-          const md = await fs[request2.method](...request2.args);
-          const inode = md instanceof Inode ? md : new Inode(md);
-          value = new Uint8Array(inode.buffer, inode.byteOffset, inode.byteLength);
-          break;
-        }
-        case "touch": {
-          __requestMethod(request2);
-          const [path, metadata] = request2.args;
-          await fs.touch(path, new Inode(metadata));
-          value = void 0;
-          break;
-        }
-        default:
-          value = await fs[request2.method](...request2.args);
-      }
-    } catch (e) {
-      error = e instanceof Exception ? e.toJSON() : pick(e, "message", "stack");
-    }
-    port.postMessage({ _zenfs: true, ...pick(request2, "id", "method", "stack"), error, value }, transferList);
-  }
-  function attachFS(port, fs) {
+  function attachFS(channel, fs) {
+    const port = from(channel);
     attach(port, (request2) => handleRequest(port, fs, request2));
   }
-  function detachFS(port, fs) {
+  function detachFS(channel, fs) {
+    const port = from(channel);
     detach(port, (request2) => handleRequest(port, fs, request2));
   }
   var _Port = {
     name: "Port",
     options: {
       port: {
-        type: _fnOpt("RPCPort", (port) => typeof (port === null || port === void 0 ? void 0 : port.postMessage) == "function"),
+        type: [
+          EventTarget,
+          function EventEmitter2(e) {
+            return typeof e == "object" && "on" in e;
+          }
+        ],
         required: true
       },
       timeout: { type: "number", required: false }
     },
-    create(options) {
-      return new PortFS(options);
+    create(opt) {
+      return new PortFS(opt.port, opt.timeout);
     }
   };
   var Port = _Port;
-  async function resolveRemoteMount(port, config, _depth = 0) {
+  async function resolveRemoteMount(channel, config, _depth = 0) {
+    const port = from(channel);
     const stopAndReplay = catchMessages(port);
     const fs = await resolveMountConfig(config, _depth);
     attachFS(port, fs);
@@ -18426,8 +18987,8 @@
     return (crc ^ 4294967295) >>> 0;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/backends/single_buffer.js
-  var __esDecorate3 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/backends/single_buffer.js
+  var __esDecorate4 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) {
       if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
       return f;
@@ -18459,7 +19020,7 @@
     if (target) Object.defineProperty(target, contextIn.name, descriptor);
     done = true;
   };
-  var __runInitializers3 = function(thisArg, initializers, value) {
+  var __runInitializers4 = function(thisArg, initializers, value) {
     var useValue = arguments.length > 2;
     for (var i = 0; i < initializers.length; i++) {
       value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
@@ -18493,7 +19054,7 @@
     }
     return value;
   };
-  var __disposeResources5 = /* @__PURE__ */ function(SuppressedError2) {
+  var __disposeResources5 = /* @__PURE__ */ (function(SuppressedError2) {
     return function(env) {
       function fail(e) {
         env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
@@ -18520,25 +19081,10 @@
       }
       return next();
     };
-  }(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+  })(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
     var e = new Error(message);
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
   });
-  var __setFunctionName3 = function(f, name, prefix) {
-    if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
-    return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
-  };
-  var __classPrivateFieldGet3 = function(receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-  };
-  var __classPrivateFieldSet3 = function(receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-  };
   var { format: format3 } = new Intl.NumberFormat("en-US", {
     notation: "compact",
     maximumFractionDigits: 2,
@@ -18546,13 +19092,12 @@
     unitDisplay: "narrow"
   });
   var MetadataEntry = (() => {
-    var _MetadataEntry_id_accessor_storage, _MetadataEntry_offset__accessor_storage, _MetadataEntry_offset_accessor_storage, _MetadataEntry_size_accessor_storage;
-    var _a2, _b2, _c2, _d2;
-    let _classDecorators = [struct(packed)];
+    var _a, _b, _c, _d;
+    let _classDecorators = [struct.packed("MetadataEntry")];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
-    let _classSuper = BufferView;
+    let _classSuper = $from(BufferView);
     let _id_decorators;
     let _id_initializers = [];
     let _id_extraInitializers = [];
@@ -18565,88 +19110,84 @@
     let _size_decorators;
     let _size_initializers = [];
     let _size_extraInitializers = [];
-    var MetadataEntry2 = _classThis = class extends _classSuper {
+    var MetadataEntry2 = class extends _classSuper {
+      static {
+        _classThis = this;
+      }
+      static {
+        const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+        _id_decorators = [(_a = types2).uint32.bind(_a)];
+        _offset__decorators = [(_b = types2).uint32.bind(_b)];
+        _offset_decorators = [(_c = types2).uint32.bind(_c)];
+        _size_decorators = [(_d = types2).uint32.bind(_d)];
+        __esDecorate4(this, null, _id_decorators, { kind: "accessor", name: "id", static: false, private: false, access: { has: (obj) => "id" in obj, get: (obj) => obj.id, set: (obj, value) => {
+          obj.id = value;
+        } }, metadata: _metadata }, _id_initializers, _id_extraInitializers);
+        __esDecorate4(this, null, _offset__decorators, { kind: "accessor", name: "offset_", static: false, private: false, access: { has: (obj) => "offset_" in obj, get: (obj) => obj.offset_, set: (obj, value) => {
+          obj.offset_ = value;
+        } }, metadata: _metadata }, _offset__initializers, _offset__extraInitializers);
+        __esDecorate4(this, null, _offset_decorators, { kind: "accessor", name: "offset", static: false, private: false, access: { has: (obj) => "offset" in obj, get: (obj) => obj.offset, set: (obj, value) => {
+          obj.offset = value;
+        } }, metadata: _metadata }, _offset_initializers, _offset_extraInitializers);
+        __esDecorate4(this, null, _size_decorators, { kind: "accessor", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
+          obj.size = value;
+        } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
+        __esDecorate4(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+        MetadataEntry2 = _classThis = _classDescriptor.value;
+        if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        __runInitializers4(_classThis, _classExtraInitializers);
+      }
+      #id_accessor_storage = __runInitializers4(this, _id_initializers, void 0);
       /** Inode or data ID */
       get id() {
-        return __classPrivateFieldGet3(this, _MetadataEntry_id_accessor_storage, "f");
+        return this.#id_accessor_storage;
       }
       set id(value) {
-        __classPrivateFieldSet3(this, _MetadataEntry_id_accessor_storage, value, "f");
+        this.#id_accessor_storage = value;
       }
+      #offset__accessor_storage = (__runInitializers4(this, _id_extraInitializers), __runInitializers4(this, _offset__initializers, void 0));
       /** Reserved for 64-bit offset expansion */
       get offset_() {
-        return __classPrivateFieldGet3(this, _MetadataEntry_offset__accessor_storage, "f");
+        return this.#offset__accessor_storage;
       }
       set offset_(value) {
-        __classPrivateFieldSet3(this, _MetadataEntry_offset__accessor_storage, value, "f");
+        this.#offset__accessor_storage = value;
       }
+      #offset_accessor_storage = (__runInitializers4(this, _offset__extraInitializers), __runInitializers4(this, _offset_initializers, void 0));
       /** Offset into the buffer the data is stored at. */
       get offset() {
-        return __classPrivateFieldGet3(this, _MetadataEntry_offset_accessor_storage, "f");
+        return this.#offset_accessor_storage;
       }
       set offset(value) {
-        __classPrivateFieldSet3(this, _MetadataEntry_offset_accessor_storage, value, "f");
+        this.#offset_accessor_storage = value;
       }
+      #size_accessor_storage = (__runInitializers4(this, _offset_extraInitializers), __runInitializers4(this, _size_initializers, void 0));
       /** The size of the data */
       get size() {
-        return __classPrivateFieldGet3(this, _MetadataEntry_size_accessor_storage, "f");
+        return this.#size_accessor_storage;
       }
       set size(value) {
-        __classPrivateFieldSet3(this, _MetadataEntry_size_accessor_storage, value, "f");
+        this.#size_accessor_storage = value;
       }
       toString() {
         return `<MetadataEntry @ 0x${this.byteOffset.toString(16).padStart(8, "0")}>`;
       }
       constructor() {
         super(...arguments);
-        _MetadataEntry_id_accessor_storage.set(this, __runInitializers3(this, _id_initializers, void 0));
-        _MetadataEntry_offset__accessor_storage.set(this, (__runInitializers3(this, _id_extraInitializers), __runInitializers3(this, _offset__initializers, void 0)));
-        _MetadataEntry_offset_accessor_storage.set(this, (__runInitializers3(this, _offset__extraInitializers), __runInitializers3(this, _offset_initializers, void 0)));
-        _MetadataEntry_size_accessor_storage.set(this, (__runInitializers3(this, _offset_extraInitializers), __runInitializers3(this, _size_initializers, void 0)));
-        __runInitializers3(this, _size_extraInitializers);
+        __runInitializers4(this, _size_extraInitializers);
       }
     };
-    _MetadataEntry_id_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _MetadataEntry_offset__accessor_storage = /* @__PURE__ */ new WeakMap();
-    _MetadataEntry_offset_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _MetadataEntry_size_accessor_storage = /* @__PURE__ */ new WeakMap();
-    __setFunctionName3(_classThis, "MetadataEntry");
-    (() => {
-      var _a3;
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
-      _id_decorators = [(_a3 = types2).uint32.bind(_a3)];
-      _offset__decorators = [(_b2 = types2).uint32.bind(_b2)];
-      _offset_decorators = [(_c2 = types2).uint32.bind(_c2)];
-      _size_decorators = [(_d2 = types2).uint32.bind(_d2)];
-      __esDecorate3(_classThis, null, _id_decorators, { kind: "accessor", name: "id", static: false, private: false, access: { has: (obj) => "id" in obj, get: (obj) => obj.id, set: (obj, value) => {
-        obj.id = value;
-      } }, metadata: _metadata }, _id_initializers, _id_extraInitializers);
-      __esDecorate3(_classThis, null, _offset__decorators, { kind: "accessor", name: "offset_", static: false, private: false, access: { has: (obj) => "offset_" in obj, get: (obj) => obj.offset_, set: (obj, value) => {
-        obj.offset_ = value;
-      } }, metadata: _metadata }, _offset__initializers, _offset__extraInitializers);
-      __esDecorate3(_classThis, null, _offset_decorators, { kind: "accessor", name: "offset", static: false, private: false, access: { has: (obj) => "offset" in obj, get: (obj) => obj.offset, set: (obj, value) => {
-        obj.offset = value;
-      } }, metadata: _metadata }, _offset_initializers, _offset_extraInitializers);
-      __esDecorate3(_classThis, null, _size_decorators, { kind: "accessor", name: "size", static: false, private: false, access: { has: (obj) => "size" in obj, get: (obj) => obj.size, set: (obj, value) => {
-        obj.size = value;
-      } }, metadata: _metadata }, _size_initializers, _size_extraInitializers);
-      __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-      MetadataEntry2 = _classThis = _classDescriptor.value;
-      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-      __runInitializers3(_classThis, _classExtraInitializers);
-    })();
     return MetadataEntry2 = _classThis;
   })();
   var entries_per_block = 255;
   var max_lock_attempts = 5;
   var MetadataBlock = (() => {
-    var _MetadataBlock_checksum_accessor_storage, _MetadataBlock_timestamp_accessor_storage, _MetadataBlock_previous_offset_accessor_storage, _MetadataBlock_items_accessor_storage, _MetadataBlock_locked_accessor_storage;
-    var _a2, _b2, _c2, _d2;
-    let _classDecorators = [struct(packed)];
+    var _a, _b, _c, _d;
+    let _classDecorators = [struct.packed("MetadataBlock")];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
-    let _classSuper = Int32Array;
+    let _classSuper = $from.typed(Int32Array);
     let _checksum_decorators;
     let _checksum_initializers = [];
     let _checksum_extraInitializers = [];
@@ -18662,47 +19203,81 @@
     let _locked_decorators;
     let _locked_initializers = [];
     let _locked_extraInitializers = [];
-    var MetadataBlock2 = _classThis = class extends _classSuper {
+    var MetadataBlock2 = class extends _classSuper {
+      static {
+        _classThis = this;
+      }
+      static {
+        const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+        _checksum_decorators = [(_a = types2).uint32.bind(_a)];
+        _timestamp_decorators = [(_b = types2).uint64.bind(_b)];
+        _previous_offset_decorators = [(_c = types2).uint32.bind(_c)];
+        _items_decorators = [field(array(MetadataEntry, entries_per_block))];
+        _locked_decorators = [(_d = types2).int32.bind(_d)];
+        __esDecorate4(this, null, _checksum_decorators, { kind: "accessor", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
+          obj.checksum = value;
+        } }, metadata: _metadata }, _checksum_initializers, _checksum_extraInitializers);
+        __esDecorate4(this, null, _timestamp_decorators, { kind: "accessor", name: "timestamp", static: false, private: false, access: { has: (obj) => "timestamp" in obj, get: (obj) => obj.timestamp, set: (obj, value) => {
+          obj.timestamp = value;
+        } }, metadata: _metadata }, _timestamp_initializers, _timestamp_extraInitializers);
+        __esDecorate4(this, null, _previous_offset_decorators, { kind: "accessor", name: "previous_offset", static: false, private: false, access: { has: (obj) => "previous_offset" in obj, get: (obj) => obj.previous_offset, set: (obj, value) => {
+          obj.previous_offset = value;
+        } }, metadata: _metadata }, _previous_offset_initializers, _previous_offset_extraInitializers);
+        __esDecorate4(this, null, _items_decorators, { kind: "accessor", name: "items", static: false, private: false, access: { has: (obj) => "items" in obj, get: (obj) => obj.items, set: (obj, value) => {
+          obj.items = value;
+        } }, metadata: _metadata }, _items_initializers, _items_extraInitializers);
+        __esDecorate4(this, null, _locked_decorators, { kind: "accessor", name: "locked", static: false, private: false, access: { has: (obj) => "locked" in obj, get: (obj) => obj.locked, set: (obj, value) => {
+          obj.locked = value;
+        } }, metadata: _metadata }, _locked_initializers, _locked_extraInitializers);
+        __esDecorate4(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+        MetadataBlock2 = _classThis = _classDescriptor.value;
+        if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        __runInitializers4(_classThis, _classExtraInitializers);
+      }
+      #checksum_accessor_storage = __runInitializers4(this, _checksum_initializers, void 0);
       /**
        * The crc32c checksum for the metadata block.
        * @privateRemarks Keep this first!
        */
       get checksum() {
-        return __classPrivateFieldGet3(this, _MetadataBlock_checksum_accessor_storage, "f");
+        return this.#checksum_accessor_storage;
       }
       set checksum(value) {
-        __classPrivateFieldSet3(this, _MetadataBlock_checksum_accessor_storage, value, "f");
+        this.#checksum_accessor_storage = value;
       }
+      #timestamp_accessor_storage = (__runInitializers4(this, _checksum_extraInitializers), __runInitializers4(this, _timestamp_initializers, BigInt(Date.now())));
       /** The (last) time this metadata block was updated */
       get timestamp() {
-        return __classPrivateFieldGet3(this, _MetadataBlock_timestamp_accessor_storage, "f");
+        return this.#timestamp_accessor_storage;
       }
       set timestamp(value) {
-        __classPrivateFieldSet3(this, _MetadataBlock_timestamp_accessor_storage, value, "f");
+        this.#timestamp_accessor_storage = value;
       }
+      #previous_offset_accessor_storage = (__runInitializers4(this, _timestamp_extraInitializers), __runInitializers4(this, _previous_offset_initializers, void 0));
       /** Offset to the previous metadata block */
       get previous_offset() {
-        return __classPrivateFieldGet3(this, _MetadataBlock_previous_offset_accessor_storage, "f");
+        return this.#previous_offset_accessor_storage;
       }
       set previous_offset(value) {
-        __classPrivateFieldSet3(this, _MetadataBlock_previous_offset_accessor_storage, value, "f");
+        this.#previous_offset_accessor_storage = value;
       }
+      _previous = __runInitializers4(this, _previous_offset_extraInitializers);
       get previous() {
-        var _a3;
         if (!this.previous_offset)
           return;
-        (_a3 = this._previous) !== null && _a3 !== void 0 ? _a3 : this._previous = new MetadataBlock2(this.buffer, this.previous_offset);
+        this._previous ??= new MetadataBlock2(this.buffer, this.previous_offset);
         return this._previous;
       }
       get offsetHex() {
         return "0x" + this.byteOffset.toString(16).padStart(8, "0");
       }
+      #items_accessor_storage = __runInitializers4(this, _items_initializers, void 0);
       /** Metadata entries. */
       get items() {
-        return __classPrivateFieldGet3(this, _MetadataBlock_items_accessor_storage, "f");
+        return this.#items_accessor_storage;
       }
       set items(value) {
-        __classPrivateFieldSet3(this, _MetadataBlock_items_accessor_storage, value, "f");
+        this.#items_accessor_storage = value;
       }
       toString(long = false) {
         if (!long)
@@ -18722,15 +19297,16 @@
         }
         return text;
       }
+      #locked_accessor_storage = (__runInitializers4(this, _items_extraInitializers), __runInitializers4(this, _locked_initializers, void 0));
       /**
        * If non-zero, this block is locked for writing.
        * Note a int32 is used for `Atomics.wait`
        */
       get locked() {
-        return __classPrivateFieldGet3(this, _MetadataBlock_locked_accessor_storage, "f");
+        return this.#locked_accessor_storage;
       }
       set locked(value) {
-        __classPrivateFieldSet3(this, _MetadataBlock_locked_accessor_storage, value, "f");
+        this.#locked_accessor_storage = value;
       }
       /**
        * Wait for the block to be unlocked.
@@ -18765,60 +19341,20 @@
       }
       constructor() {
         super(...arguments);
-        _MetadataBlock_checksum_accessor_storage.set(this, __runInitializers3(this, _checksum_initializers, void 0));
-        _MetadataBlock_timestamp_accessor_storage.set(this, (__runInitializers3(this, _checksum_extraInitializers), __runInitializers3(this, _timestamp_initializers, BigInt(Date.now()))));
-        _MetadataBlock_previous_offset_accessor_storage.set(this, (__runInitializers3(this, _timestamp_extraInitializers), __runInitializers3(this, _previous_offset_initializers, void 0)));
-        this._previous = __runInitializers3(this, _previous_offset_extraInitializers);
-        _MetadataBlock_items_accessor_storage.set(this, __runInitializers3(this, _items_initializers, void 0));
-        _MetadataBlock_locked_accessor_storage.set(this, (__runInitializers3(this, _items_extraInitializers), __runInitializers3(this, _locked_initializers, void 0)));
-        __runInitializers3(this, _locked_extraInitializers);
+        __runInitializers4(this, _locked_extraInitializers);
       }
     };
-    _MetadataBlock_checksum_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _MetadataBlock_timestamp_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _MetadataBlock_previous_offset_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _MetadataBlock_items_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _MetadataBlock_locked_accessor_storage = /* @__PURE__ */ new WeakMap();
-    __setFunctionName3(_classThis, "MetadataBlock");
-    (() => {
-      var _a3;
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
-      _checksum_decorators = [(_a3 = types2).uint32.bind(_a3)];
-      _timestamp_decorators = [(_b2 = types2).uint64.bind(_b2)];
-      _previous_offset_decorators = [(_c2 = types2).uint32.bind(_c2)];
-      _items_decorators = [field(MetadataEntry, { length: entries_per_block })];
-      _locked_decorators = [(_d2 = types2).int32.bind(_d2)];
-      __esDecorate3(_classThis, null, _checksum_decorators, { kind: "accessor", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
-        obj.checksum = value;
-      } }, metadata: _metadata }, _checksum_initializers, _checksum_extraInitializers);
-      __esDecorate3(_classThis, null, _timestamp_decorators, { kind: "accessor", name: "timestamp", static: false, private: false, access: { has: (obj) => "timestamp" in obj, get: (obj) => obj.timestamp, set: (obj, value) => {
-        obj.timestamp = value;
-      } }, metadata: _metadata }, _timestamp_initializers, _timestamp_extraInitializers);
-      __esDecorate3(_classThis, null, _previous_offset_decorators, { kind: "accessor", name: "previous_offset", static: false, private: false, access: { has: (obj) => "previous_offset" in obj, get: (obj) => obj.previous_offset, set: (obj, value) => {
-        obj.previous_offset = value;
-      } }, metadata: _metadata }, _previous_offset_initializers, _previous_offset_extraInitializers);
-      __esDecorate3(_classThis, null, _items_decorators, { kind: "accessor", name: "items", static: false, private: false, access: { has: (obj) => "items" in obj, get: (obj) => obj.items, set: (obj, value) => {
-        obj.items = value;
-      } }, metadata: _metadata }, _items_initializers, _items_extraInitializers);
-      __esDecorate3(_classThis, null, _locked_decorators, { kind: "accessor", name: "locked", static: false, private: false, access: { has: (obj) => "locked" in obj, get: (obj) => obj.locked, set: (obj, value) => {
-        obj.locked = value;
-      } }, metadata: _metadata }, _locked_initializers, _locked_extraInitializers);
-      __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-      MetadataBlock2 = _classThis = _classDescriptor.value;
-      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-      __runInitializers3(_classThis, _classExtraInitializers);
-    })();
     return MetadataBlock2 = _classThis;
   })();
   var sb_magic = 1651715706;
+  var usedBytes = 2;
   var SuperBlock = (() => {
-    var _SuperBlock_checksum_accessor_storage, _SuperBlock_magic_accessor_storage, _SuperBlock_version_accessor_storage, _SuperBlock_inode_format_accessor_storage, _SuperBlock_flags_accessor_storage, _SuperBlock_used_bytes_accessor_storage, _SuperBlock_total_bytes_accessor_storage, _SuperBlock_uuid_accessor_storage, _SuperBlock_metadata_block_size_accessor_storage, _SuperBlock_metadata_offset__accessor_storage, _SuperBlock_metadata_offset_accessor_storage, _SuperBlock_label_accessor_storage, _SuperBlock__padding_accessor_storage;
-    var _a2, _b2, _c2, _d2, _e2, _f, _g, _h, _j, _k;
-    let _classDecorators = [struct(packed)];
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+    let _classDecorators = [struct.packed("Superblock")];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
-    let _classSuper = BufferView;
+    let _classSuper = $from.typed(BigUint64Array);
     let _checksum_decorators;
     let _checksum_initializers = [];
     let _checksum_extraInitializers = [];
@@ -18858,24 +19394,72 @@
     let __padding_decorators;
     let __padding_initializers = [];
     let __padding_extraInitializers = [];
-    var SuperBlock2 = _classThis = class extends _classSuper {
+    var SuperBlock2 = class extends _classSuper {
+      static {
+        _classThis = this;
+      }
+      static {
+        const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
+        _checksum_decorators = [(_a = types2).uint32.bind(_a)];
+        _magic_decorators = [(_b = types2).uint32.bind(_b)];
+        _version_decorators = [(_c = types2).uint16.bind(_c)];
+        _inode_format_decorators = [(_d = types2).uint16.bind(_d)];
+        _flags_decorators = [(_e = types2).uint32.bind(_e)];
+        _used_bytes_decorators = [(_f = types2).uint64.bind(_f)];
+        _total_bytes_decorators = [(_g = types2).uint64.bind(_g)];
+        _uuid_decorators = [types2.uint8(16)];
+        _metadata_block_size_decorators = [(_h = types2).uint32.bind(_h)];
+        _metadata_offset__decorators = [(_j = types2).uint32.bind(_j)];
+        _metadata_offset_decorators = [(_k = types2).uint32.bind(_k)];
+        _label_decorators = [types2.char(64)];
+        __padding_decorators = [types2.char(132)];
+        __esDecorate4(this, null, _checksum_decorators, { kind: "accessor", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
+          obj.checksum = value;
+        } }, metadata: _metadata }, _checksum_initializers, _checksum_extraInitializers);
+        __esDecorate4(this, null, _magic_decorators, { kind: "accessor", name: "magic", static: false, private: false, access: { has: (obj) => "magic" in obj, get: (obj) => obj.magic, set: (obj, value) => {
+          obj.magic = value;
+        } }, metadata: _metadata }, _magic_initializers, _magic_extraInitializers);
+        __esDecorate4(this, null, _version_decorators, { kind: "accessor", name: "version", static: false, private: false, access: { has: (obj) => "version" in obj, get: (obj) => obj.version, set: (obj, value) => {
+          obj.version = value;
+        } }, metadata: _metadata }, _version_initializers, _version_extraInitializers);
+        __esDecorate4(this, null, _inode_format_decorators, { kind: "accessor", name: "inode_format", static: false, private: false, access: { has: (obj) => "inode_format" in obj, get: (obj) => obj.inode_format, set: (obj, value) => {
+          obj.inode_format = value;
+        } }, metadata: _metadata }, _inode_format_initializers, _inode_format_extraInitializers);
+        __esDecorate4(this, null, _flags_decorators, { kind: "accessor", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
+          obj.flags = value;
+        } }, metadata: _metadata }, _flags_initializers, _flags_extraInitializers);
+        __esDecorate4(this, null, _used_bytes_decorators, { kind: "accessor", name: "used_bytes", static: false, private: false, access: { has: (obj) => "used_bytes" in obj, get: (obj) => obj.used_bytes, set: (obj, value) => {
+          obj.used_bytes = value;
+        } }, metadata: _metadata }, _used_bytes_initializers, _used_bytes_extraInitializers);
+        __esDecorate4(this, null, _total_bytes_decorators, { kind: "accessor", name: "total_bytes", static: false, private: false, access: { has: (obj) => "total_bytes" in obj, get: (obj) => obj.total_bytes, set: (obj, value) => {
+          obj.total_bytes = value;
+        } }, metadata: _metadata }, _total_bytes_initializers, _total_bytes_extraInitializers);
+        __esDecorate4(this, null, _uuid_decorators, { kind: "accessor", name: "uuid", static: false, private: false, access: { has: (obj) => "uuid" in obj, get: (obj) => obj.uuid, set: (obj, value) => {
+          obj.uuid = value;
+        } }, metadata: _metadata }, _uuid_initializers, _uuid_extraInitializers);
+        __esDecorate4(this, null, _metadata_block_size_decorators, { kind: "accessor", name: "metadata_block_size", static: false, private: false, access: { has: (obj) => "metadata_block_size" in obj, get: (obj) => obj.metadata_block_size, set: (obj, value) => {
+          obj.metadata_block_size = value;
+        } }, metadata: _metadata }, _metadata_block_size_initializers, _metadata_block_size_extraInitializers);
+        __esDecorate4(this, null, _metadata_offset__decorators, { kind: "accessor", name: "metadata_offset_", static: false, private: false, access: { has: (obj) => "metadata_offset_" in obj, get: (obj) => obj.metadata_offset_, set: (obj, value) => {
+          obj.metadata_offset_ = value;
+        } }, metadata: _metadata }, _metadata_offset__initializers, _metadata_offset__extraInitializers);
+        __esDecorate4(this, null, _metadata_offset_decorators, { kind: "accessor", name: "metadata_offset", static: false, private: false, access: { has: (obj) => "metadata_offset" in obj, get: (obj) => obj.metadata_offset, set: (obj, value) => {
+          obj.metadata_offset = value;
+        } }, metadata: _metadata }, _metadata_offset_initializers, _metadata_offset_extraInitializers);
+        __esDecorate4(this, null, _label_decorators, { kind: "accessor", name: "label", static: false, private: false, access: { has: (obj) => "label" in obj, get: (obj) => obj.label, set: (obj, value) => {
+          obj.label = value;
+        } }, metadata: _metadata }, _label_initializers, _label_extraInitializers);
+        __esDecorate4(this, null, __padding_decorators, { kind: "accessor", name: "_padding", static: false, private: false, access: { has: (obj) => "_padding" in obj, get: (obj) => obj._padding, set: (obj, value) => {
+          obj._padding = value;
+        } }, metadata: _metadata }, __padding_initializers, __padding_extraInitializers);
+        __esDecorate4(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+        SuperBlock2 = _classThis = _classDescriptor.value;
+        if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        __runInitializers4(_classThis, _classExtraInitializers);
+      }
       constructor(...args) {
         super(...args);
-        _SuperBlock_checksum_accessor_storage.set(this, __runInitializers3(this, _checksum_initializers, void 0));
-        _SuperBlock_magic_accessor_storage.set(this, (__runInitializers3(this, _checksum_extraInitializers), __runInitializers3(this, _magic_initializers, void 0)));
-        _SuperBlock_version_accessor_storage.set(this, (__runInitializers3(this, _magic_extraInitializers), __runInitializers3(this, _version_initializers, void 0)));
-        _SuperBlock_inode_format_accessor_storage.set(this, (__runInitializers3(this, _version_extraInitializers), __runInitializers3(this, _inode_format_initializers, void 0)));
-        _SuperBlock_flags_accessor_storage.set(this, (__runInitializers3(this, _inode_format_extraInitializers), __runInitializers3(this, _flags_initializers, void 0)));
-        _SuperBlock_used_bytes_accessor_storage.set(this, (__runInitializers3(this, _flags_extraInitializers), __runInitializers3(this, _used_bytes_initializers, void 0)));
-        _SuperBlock_total_bytes_accessor_storage.set(this, (__runInitializers3(this, _used_bytes_extraInitializers), __runInitializers3(this, _total_bytes_initializers, void 0)));
-        _SuperBlock_uuid_accessor_storage.set(this, (__runInitializers3(this, _total_bytes_extraInitializers), __runInitializers3(this, _uuid_initializers, void 0)));
-        _SuperBlock_metadata_block_size_accessor_storage.set(this, (__runInitializers3(this, _uuid_extraInitializers), __runInitializers3(this, _metadata_block_size_initializers, void 0)));
-        _SuperBlock_metadata_offset__accessor_storage.set(this, (__runInitializers3(this, _metadata_block_size_extraInitializers), __runInitializers3(this, _metadata_offset__initializers, void 0)));
-        _SuperBlock_metadata_offset_accessor_storage.set(this, (__runInitializers3(this, _metadata_offset__extraInitializers), __runInitializers3(this, _metadata_offset_initializers, void 0)));
-        this.metadata = __runInitializers3(this, _metadata_offset_extraInitializers);
-        _SuperBlock_label_accessor_storage.set(this, __runInitializers3(this, _label_initializers, void 0));
-        _SuperBlock__padding_accessor_storage.set(this, (__runInitializers3(this, _label_extraInitializers), __runInitializers3(this, __padding_initializers, void 0)));
-        __runInitializers3(this, __padding_extraInitializers);
+        __runInitializers4(this, __padding_extraInitializers);
         if (this.magic != sb_magic) {
           warn("sbfs: Invalid magic value, assuming this is a fresh super block");
           const md = new MetadataBlock(this.buffer, sizeof(SuperBlock2));
@@ -18904,102 +19488,116 @@
         if (this.metadata_block_size != sizeof(MetadataBlock))
           throw crit(withErrno("EIO", "sbfs: metadata block size mismatch"));
       }
+      #checksum_accessor_storage = __runInitializers4(this, _checksum_initializers, void 0);
       /**
        * The crc32c checksum for the super block.
        * @privateRemarks Keep this first!
        */
       get checksum() {
-        return __classPrivateFieldGet3(this, _SuperBlock_checksum_accessor_storage, "f");
+        return this.#checksum_accessor_storage;
       }
       set checksum(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_checksum_accessor_storage, value, "f");
+        this.#checksum_accessor_storage = value;
       }
+      #magic_accessor_storage = (__runInitializers4(this, _checksum_extraInitializers), __runInitializers4(this, _magic_initializers, void 0));
       /** Signature for the superblock. */
       get magic() {
-        return __classPrivateFieldGet3(this, _SuperBlock_magic_accessor_storage, "f");
+        return this.#magic_accessor_storage;
       }
       set magic(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_magic_accessor_storage, value, "f");
+        this.#magic_accessor_storage = value;
       }
+      #version_accessor_storage = (__runInitializers4(this, _magic_extraInitializers), __runInitializers4(this, _version_initializers, void 0));
       /** The version of the on-disk format */
       get version() {
-        return __classPrivateFieldGet3(this, _SuperBlock_version_accessor_storage, "f");
+        return this.#version_accessor_storage;
       }
       set version(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_version_accessor_storage, value, "f");
+        this.#version_accessor_storage = value;
       }
+      #inode_format_accessor_storage = (__runInitializers4(this, _version_extraInitializers), __runInitializers4(this, _inode_format_initializers, void 0));
       /** Which format of `Inode` is used */
       get inode_format() {
-        return __classPrivateFieldGet3(this, _SuperBlock_inode_format_accessor_storage, "f");
+        return this.#inode_format_accessor_storage;
       }
       set inode_format(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_inode_format_accessor_storage, value, "f");
+        this.#inode_format_accessor_storage = value;
       }
+      #flags_accessor_storage = (__runInitializers4(this, _inode_format_extraInitializers), __runInitializers4(this, _flags_initializers, void 0));
       /** Flags for the file system. Currently unused */
       get flags() {
-        return __classPrivateFieldGet3(this, _SuperBlock_flags_accessor_storage, "f");
+        return this.#flags_accessor_storage;
       }
       set flags(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_flags_accessor_storage, value, "f");
+        this.#flags_accessor_storage = value;
       }
+      #used_bytes_accessor_storage = (__runInitializers4(this, _flags_extraInitializers), __runInitializers4(this, _used_bytes_initializers, void 0));
       /** The number of used bytes, including the super block and metadata */
       get used_bytes() {
-        return __classPrivateFieldGet3(this, _SuperBlock_used_bytes_accessor_storage, "f");
+        return this.#used_bytes_accessor_storage;
       }
       set used_bytes(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_used_bytes_accessor_storage, value, "f");
+        this.#used_bytes_accessor_storage = value;
       }
+      #total_bytes_accessor_storage = (__runInitializers4(this, _used_bytes_extraInitializers), __runInitializers4(this, _total_bytes_initializers, void 0));
       /** The total size of the entire file system, including the super block and metadata */
       get total_bytes() {
-        return __classPrivateFieldGet3(this, _SuperBlock_total_bytes_accessor_storage, "f");
+        return this.#total_bytes_accessor_storage;
       }
       set total_bytes(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_total_bytes_accessor_storage, value, "f");
+        this.#total_bytes_accessor_storage = value;
       }
+      #uuid_accessor_storage = (__runInitializers4(this, _total_bytes_extraInitializers), __runInitializers4(this, _uuid_initializers, void 0));
       /** A UUID for this file system */
       get uuid() {
-        return __classPrivateFieldGet3(this, _SuperBlock_uuid_accessor_storage, "f");
+        return this.#uuid_accessor_storage;
       }
       set uuid(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_uuid_accessor_storage, value, "f");
+        this.#uuid_accessor_storage = value;
       }
+      #metadata_block_size_accessor_storage = (__runInitializers4(this, _uuid_extraInitializers), __runInitializers4(this, _metadata_block_size_initializers, void 0));
       /**
        * The size in bytes of a metadata block.
        * Not currently configurable.
        */
       get metadata_block_size() {
-        return __classPrivateFieldGet3(this, _SuperBlock_metadata_block_size_accessor_storage, "f");
+        return this.#metadata_block_size_accessor_storage;
       }
       set metadata_block_size(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_metadata_block_size_accessor_storage, value, "f");
+        this.#metadata_block_size_accessor_storage = value;
       }
+      #metadata_offset__accessor_storage = (__runInitializers4(this, _metadata_block_size_extraInitializers), __runInitializers4(this, _metadata_offset__initializers, void 0));
       /** Reserved for 64-bit offset expansion */
       get metadata_offset_() {
-        return __classPrivateFieldGet3(this, _SuperBlock_metadata_offset__accessor_storage, "f");
+        return this.#metadata_offset__accessor_storage;
       }
       set metadata_offset_(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_metadata_offset__accessor_storage, value, "f");
+        this.#metadata_offset__accessor_storage = value;
       }
+      #metadata_offset_accessor_storage = (__runInitializers4(this, _metadata_offset__extraInitializers), __runInitializers4(this, _metadata_offset_initializers, void 0));
       /** Offset of the current metadata block */
       get metadata_offset() {
-        return __classPrivateFieldGet3(this, _SuperBlock_metadata_offset_accessor_storage, "f");
+        return this.#metadata_offset_accessor_storage;
       }
       set metadata_offset(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_metadata_offset_accessor_storage, value, "f");
+        this.#metadata_offset_accessor_storage = value;
       }
+      metadata = __runInitializers4(this, _metadata_offset_extraInitializers);
+      #label_accessor_storage = __runInitializers4(this, _label_initializers, void 0);
       /** An optional label for the file system */
       get label() {
-        return __classPrivateFieldGet3(this, _SuperBlock_label_accessor_storage, "f");
+        return this.#label_accessor_storage;
       }
       set label(value) {
-        __classPrivateFieldSet3(this, _SuperBlock_label_accessor_storage, value, "f");
+        this.#label_accessor_storage = value;
       }
+      #_padding_accessor_storage = (__runInitializers4(this, _label_extraInitializers), __runInitializers4(this, __padding_initializers, void 0));
       /** Padded to 256 bytes */
       get _padding() {
-        return __classPrivateFieldGet3(this, _SuperBlock__padding_accessor_storage, "f");
+        return this.#_padding_accessor_storage;
       }
       set _padding(value) {
-        __classPrivateFieldSet3(this, _SuperBlock__padding_accessor_storage, value, "f");
+        this.#_padding_accessor_storage = value;
       }
       /**
        * Rotate out the current metadata block.
@@ -19008,13 +19606,14 @@
        * @returns the new metadata block
        */
       rotateMetadata() {
-        this.used_bytes += this.used_bytes % BigInt(4);
-        const metadata = new MetadataBlock(this.buffer, Number(this.used_bytes));
+        const padding = this.used_bytes % BigInt(4);
+        Atomics.add(this, usedBytes, padding);
+        const offset = Number(Atomics.add(this, usedBytes, BigInt(sizeof(MetadataBlock))));
+        const metadata = new MetadataBlock(this.buffer, offset);
         metadata.previous_offset = this.metadata_offset;
         this.metadata = metadata;
         this.metadata_offset = metadata.byteOffset;
         _update(metadata);
-        this.used_bytes += BigInt(sizeof(MetadataBlock));
         _update(this);
         return metadata;
       }
@@ -19041,80 +19640,6 @@
         return true;
       }
     };
-    _SuperBlock_checksum_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock_magic_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock_version_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock_inode_format_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock_flags_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock_used_bytes_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock_total_bytes_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock_uuid_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock_metadata_block_size_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock_metadata_offset__accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock_metadata_offset_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock_label_accessor_storage = /* @__PURE__ */ new WeakMap();
-    _SuperBlock__padding_accessor_storage = /* @__PURE__ */ new WeakMap();
-    __setFunctionName3(_classThis, "SuperBlock");
-    (() => {
-      var _a3;
-      const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create((_a3 = _classSuper[Symbol.metadata]) !== null && _a3 !== void 0 ? _a3 : null) : void 0;
-      _checksum_decorators = [(_a3 = types2).uint32.bind(_a3)];
-      _magic_decorators = [(_b2 = types2).uint32.bind(_b2)];
-      _version_decorators = [(_c2 = types2).uint16.bind(_c2)];
-      _inode_format_decorators = [(_d2 = types2).uint16.bind(_d2)];
-      _flags_decorators = [(_e2 = types2).uint32.bind(_e2)];
-      _used_bytes_decorators = [(_f = types2).uint64.bind(_f)];
-      _total_bytes_decorators = [(_g = types2).uint64.bind(_g)];
-      _uuid_decorators = [types2.uint8(16)];
-      _metadata_block_size_decorators = [(_h = types2).uint32.bind(_h)];
-      _metadata_offset__decorators = [(_j = types2).uint32.bind(_j)];
-      _metadata_offset_decorators = [(_k = types2).uint32.bind(_k)];
-      _label_decorators = [types2.char(64)];
-      __padding_decorators = [types2.char(132)];
-      __esDecorate3(_classThis, null, _checksum_decorators, { kind: "accessor", name: "checksum", static: false, private: false, access: { has: (obj) => "checksum" in obj, get: (obj) => obj.checksum, set: (obj, value) => {
-        obj.checksum = value;
-      } }, metadata: _metadata }, _checksum_initializers, _checksum_extraInitializers);
-      __esDecorate3(_classThis, null, _magic_decorators, { kind: "accessor", name: "magic", static: false, private: false, access: { has: (obj) => "magic" in obj, get: (obj) => obj.magic, set: (obj, value) => {
-        obj.magic = value;
-      } }, metadata: _metadata }, _magic_initializers, _magic_extraInitializers);
-      __esDecorate3(_classThis, null, _version_decorators, { kind: "accessor", name: "version", static: false, private: false, access: { has: (obj) => "version" in obj, get: (obj) => obj.version, set: (obj, value) => {
-        obj.version = value;
-      } }, metadata: _metadata }, _version_initializers, _version_extraInitializers);
-      __esDecorate3(_classThis, null, _inode_format_decorators, { kind: "accessor", name: "inode_format", static: false, private: false, access: { has: (obj) => "inode_format" in obj, get: (obj) => obj.inode_format, set: (obj, value) => {
-        obj.inode_format = value;
-      } }, metadata: _metadata }, _inode_format_initializers, _inode_format_extraInitializers);
-      __esDecorate3(_classThis, null, _flags_decorators, { kind: "accessor", name: "flags", static: false, private: false, access: { has: (obj) => "flags" in obj, get: (obj) => obj.flags, set: (obj, value) => {
-        obj.flags = value;
-      } }, metadata: _metadata }, _flags_initializers, _flags_extraInitializers);
-      __esDecorate3(_classThis, null, _used_bytes_decorators, { kind: "accessor", name: "used_bytes", static: false, private: false, access: { has: (obj) => "used_bytes" in obj, get: (obj) => obj.used_bytes, set: (obj, value) => {
-        obj.used_bytes = value;
-      } }, metadata: _metadata }, _used_bytes_initializers, _used_bytes_extraInitializers);
-      __esDecorate3(_classThis, null, _total_bytes_decorators, { kind: "accessor", name: "total_bytes", static: false, private: false, access: { has: (obj) => "total_bytes" in obj, get: (obj) => obj.total_bytes, set: (obj, value) => {
-        obj.total_bytes = value;
-      } }, metadata: _metadata }, _total_bytes_initializers, _total_bytes_extraInitializers);
-      __esDecorate3(_classThis, null, _uuid_decorators, { kind: "accessor", name: "uuid", static: false, private: false, access: { has: (obj) => "uuid" in obj, get: (obj) => obj.uuid, set: (obj, value) => {
-        obj.uuid = value;
-      } }, metadata: _metadata }, _uuid_initializers, _uuid_extraInitializers);
-      __esDecorate3(_classThis, null, _metadata_block_size_decorators, { kind: "accessor", name: "metadata_block_size", static: false, private: false, access: { has: (obj) => "metadata_block_size" in obj, get: (obj) => obj.metadata_block_size, set: (obj, value) => {
-        obj.metadata_block_size = value;
-      } }, metadata: _metadata }, _metadata_block_size_initializers, _metadata_block_size_extraInitializers);
-      __esDecorate3(_classThis, null, _metadata_offset__decorators, { kind: "accessor", name: "metadata_offset_", static: false, private: false, access: { has: (obj) => "metadata_offset_" in obj, get: (obj) => obj.metadata_offset_, set: (obj, value) => {
-        obj.metadata_offset_ = value;
-      } }, metadata: _metadata }, _metadata_offset__initializers, _metadata_offset__extraInitializers);
-      __esDecorate3(_classThis, null, _metadata_offset_decorators, { kind: "accessor", name: "metadata_offset", static: false, private: false, access: { has: (obj) => "metadata_offset" in obj, get: (obj) => obj.metadata_offset, set: (obj, value) => {
-        obj.metadata_offset = value;
-      } }, metadata: _metadata }, _metadata_offset_initializers, _metadata_offset_extraInitializers);
-      __esDecorate3(_classThis, null, _label_decorators, { kind: "accessor", name: "label", static: false, private: false, access: { has: (obj) => "label" in obj, get: (obj) => obj.label, set: (obj, value) => {
-        obj.label = value;
-      } }, metadata: _metadata }, _label_initializers, _label_extraInitializers);
-      __esDecorate3(_classThis, null, __padding_decorators, { kind: "accessor", name: "_padding", static: false, private: false, access: { has: (obj) => "_padding" in obj, get: (obj) => obj._padding, set: (obj, value) => {
-        obj._padding = value;
-      } }, metadata: _metadata }, __padding_initializers, __padding_extraInitializers);
-      __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-      SuperBlock2 = _classThis = _classDescriptor.value;
-      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-      __runInitializers3(_classThis, _classExtraInitializers);
-    })();
     return SuperBlock2 = _classThis;
   })();
   function checksum(value) {
@@ -19126,14 +19651,21 @@
     value.checksum = checksum(value);
   }
   var SingleBufferStore = class extends BufferView {
+    flags = [];
+    name = "sbfs";
+    type = 1935828595;
+    // 'sbfs'
     get uuid() {
       return decodeUUID(this.superblock.uuid);
     }
+    superblock;
+    /**
+     * @internal @hidden
+     */
+    _view;
+    _u8;
     constructor(...args) {
       super(...args);
-      this.flags = [];
-      this.name = "sbfs";
-      this.type = 1935828595;
       if (this.byteLength < sizeof(SuperBlock) + sizeof(MetadataBlock))
         throw crit(withErrno("EINVAL", "sbfs: Buffer is too small for a file system"));
       this._view = new DataView(this.buffer, this.byteOffset, this.byteLength);
@@ -19186,11 +19718,10 @@
                 _update(block);
                 return;
               }
-              entry2.offset = Number(this.superblock.used_bytes);
+              entry2.offset = Number(Atomics.add(this.superblock, usedBytes, BigInt(data.length)));
               entry2.size = data.length;
               this._u8.set(data, entry2.offset);
               _update(block);
-              this.superblock.used_bytes += BigInt(data.length);
               _update(this.superblock);
               return;
             } catch (e_1) {
@@ -19207,12 +19738,11 @@
           entry = this.superblock.metadata.items[0];
         }
         const lock = __addDisposableResource5(env_1, this.superblock.metadata.lock(), false);
-        const offset = Number(this.superblock.used_bytes);
+        const offset = Number(Atomics.add(this.superblock, usedBytes, BigInt(data.length)));
         entry.id = id;
         entry.offset = offset;
         entry.size = data.length;
         this._u8.set(data, offset);
-        this.superblock.used_bytes += BigInt(data.length);
         _update(this.superblock.metadata);
         _update(this.superblock);
       } catch (e_2) {
@@ -19236,12 +19766,13 @@
         }
       }
     }
+    _fs;
     get fs() {
       return this._fs;
     }
     set fs(fs) {
       if (this.buffer.constructor.name === "SharedArrayBuffer")
-        fs === null || fs === void 0 ? void 0 : fs.attributes.set("no_id_tables", true);
+        fs?.attributes.set("no_id_tables", true);
       this._fs = fs;
     }
     sync() {
@@ -19270,11 +19801,11 @@
   };
   var SingleBuffer = _SingleBuffer;
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/context.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/context.js
   var _nextId = 1;
   var boundContexts = /* @__PURE__ */ new Map();
-  function bindContext({ root = (this === null || this === void 0 ? void 0 : this.root) || "/", pwd = (this === null || this === void 0 ? void 0 : this.pwd) || "/", credentials = structuredClone(defaultContext.credentials) } = {}) {
-    const parent = this !== null && this !== void 0 ? this : defaultContext;
+  function bindContext({ root = this?.root || "/", pwd = this?.pwd || "/", credentials = structuredClone(defaultContext.credentials) } = {}) {
+    const parent = this ?? defaultContext;
     const ctx = {
       id: _nextId++,
       root,
@@ -19302,7 +19833,7 @@
     return bound;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/mixins/mutexed.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/mixins/mutexed.js
   var __addDisposableResource6 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -19330,7 +19861,7 @@
     }
     return value;
   };
-  var __disposeResources6 = /* @__PURE__ */ function(SuppressedError2) {
+  var __disposeResources6 = /* @__PURE__ */ (function(SuppressedError2) {
     return function(env) {
       function fail(e) {
         env.error = env.hasError ? new SuppressedError2(e, env.error, "An error was suppressed during disposal.") : e;
@@ -19357,22 +19888,22 @@
       }
       return next();
     };
-  }(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+  })(typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
     var e = new Error(message);
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
   });
   var MutexLock = class {
+    previous;
+    current = Promise.withResolvers();
+    _isLocked = true;
     get isLocked() {
       return this._isLocked;
     }
     constructor(previous) {
       this.previous = previous;
-      this.current = Promise.withResolvers();
-      this._isLocked = true;
     }
     async done() {
-      var _a2;
-      await ((_a2 = this.previous) === null || _a2 === void 0 ? void 0 : _a2.done());
+      await this.previous?.done();
       await this.current.promise;
     }
     unlock() {
@@ -19384,6 +19915,10 @@
     }
   };
   var _MutexedFS = class {
+    /**
+     * @internal
+     */
+    _fs;
     get type() {
       return this._fs.type;
     }
@@ -19415,6 +19950,10 @@
       return this._fs.usage();
     }
     /**
+     * The current locks
+     */
+    currentLock;
+    /**
      * Adds a lock for a path
      */
     addLock() {
@@ -19434,11 +19973,11 @@
       setTimeout(() => {
         if (lock.isLocked) {
           const error = withErrno("EDEADLK");
-          error.stack += stack === null || stack === void 0 ? void 0 : stack.slice("Error".length);
+          error.stack += stack?.slice("Error".length);
           throw err(error);
         }
       }, 5e3);
-      await (previous === null || previous === void 0 ? void 0 : previous.done());
+      await previous?.done();
       return lock;
     }
     /**
@@ -19447,8 +19986,7 @@
      * @internal
      */
     lockSync() {
-      var _a2;
-      if ((_a2 = this.currentLock) === null || _a2 === void 0 ? void 0 : _a2.isLocked) {
+      if (this.currentLock?.isLocked) {
         throw err(withErrno("EBUSY"));
       }
       return this.addLock();
@@ -19458,8 +19996,7 @@
      * @internal
      */
     get isLocked() {
-      var _a2;
-      return !!((_a2 = this.currentLock) === null || _a2 === void 0 ? void 0 : _a2.isLocked);
+      return !!this.currentLock?.isLocked;
     }
     /* eslint-disable @typescript-eslint/no-unused-vars */
     async rename(oldPath, newPath) {
@@ -19809,7 +20346,7 @@
     return MutexedFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/mixins/readonly.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/mixins/readonly.js
   function Readonly(FS) {
     class ReadonlyFS extends FS {
       constructor(...args) {
@@ -19877,7 +20414,7 @@
     return ReadonlyFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/mixins/sync.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/mixins/sync.js
   function Sync(FS) {
     class SyncFS extends FS {
       async exists(path) {
@@ -19923,10 +20460,10 @@
     return SyncFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/package.json
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/package.json
   var package_default = {
     name: "@zenfs/core",
-    version: "2.2.3",
+    version: "2.3.7",
     description: "A filesystem, anywhere",
     funding: {
       type: "individual",
@@ -19952,7 +20489,7 @@
       "eslint.shared.js"
     ],
     type: "module",
-    homepage: "https://github.com/zen-fs/core",
+    homepage: "https://zenfs.dev/core",
     author: "James Prevett <jp@jamespre.dev> (https://jamespre.dev)",
     contributors: [
       "John Vilk <jvilk@cs.umass.edu>"
@@ -19993,11 +20530,11 @@
       prepublishOnly: "npm run build"
     },
     dependencies: {
-      "@types/node": "^22.15.2",
+      "@types/node": "^24.1.0",
       buffer: "^6.0.3",
       eventemitter3: "^5.0.1",
       kerium: "^1.3.4",
-      memium: "^0.2.1",
+      memium: "^0.3.7",
       "readable-stream": "^4.5.2",
       utilium: "^2.3.3"
     },
@@ -20016,11 +20553,11 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.2.3/node_modules/@zenfs/core/dist/index.js
+  // node_modules/.pnpm/@zenfs+core@2.3.7/node_modules/@zenfs/core/dist/index.js
   var dist_default = vfs_exports;
   globalThis.__zenfs__ = Object.assign(Object.create(vfs_exports), { _version: package_default.version });
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/index.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.7_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/index.js
   var dist_exports2 = {};
   __export(dist_exports2, {
     IndexedDB: () => IndexedDB,
@@ -20034,7 +20571,7 @@
     XMLFS: () => XMLFS
   });
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/utils.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.7_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/utils.js
   function errnoForDOMException(ex) {
     switch (ex.name) {
       case "TypeMismatchError":
@@ -20096,7 +20633,7 @@
     return error;
   }
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/access.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.7_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/access.js
   function isResizable(buffer) {
     if (buffer instanceof ArrayBuffer)
       return buffer.resizable;
@@ -20125,8 +20662,10 @@
      * @internal @hidden
      */
     async _loadMetadata(metadataPath) {
+      this._handles.set("/", this.root);
+      await this._loadHandles("/", this.root);
       if (metadataPath) {
-        const handle = this.get("file", metadataPath);
+        const handle = await this.get("file", metadataPath);
         const file = await handle.getFile();
         const raw = await file.text();
         const data = JSON.parse(raw);
@@ -20144,15 +20683,47 @@
         this.index.set(path, new Inode({ mode: 511 | constants_exports.S_IFDIR, size: 0 }));
       }
     }
-    constructor(handle) {
+    constructor(root, disableHandleCache = false) {
       super(2003133025, "webaccessfs");
+      this.root = root;
+      this.disableHandleCache = disableHandleCache;
       this._handles = /* @__PURE__ */ new Map();
       this._sync = InMemory.create({ label: "accessfs-cache" });
       this.attributes.set("no_buffer_resize", true);
-      this._handles.set("/", handle);
+      if (disableHandleCache)
+        this.attributes.set("no_handle_cache", true);
+    }
+    async stat(path) {
+      try {
+        return await super.stat(path);
+      } catch (ex) {
+        if (ex.code != "ENOENT")
+          throw ex;
+        const handle = await this.get(null, path);
+        const inode = new Inode();
+        if (isKind(handle, "file")) {
+          const file = await handle.getFile();
+          inode.update({
+            mode: 420 | constants_exports.S_IFREG,
+            size: file.size,
+            mtimeMs: file.lastModified
+          });
+        } else {
+          inode.update({
+            mode: constants_exports.S_IFDIR | 511,
+            size: 0
+          });
+        }
+        this.index.set(path, inode);
+        return inode;
+      }
+    }
+    async readdir(path) {
+      const dirHandle = await this.get("directory", path);
+      return await Array.fromAsync(dirHandle.keys());
     }
     async remove(path) {
-      const handle = this.get("directory", dirname(path));
+      const handle = await this.get("directory", dirname(path));
       await handle.removeEntry(basename(path), { recursive: true }).catch((ex) => _throw(convertException(ex, path)));
     }
     removeSync() {
@@ -20161,12 +20732,15 @@
     async read(path, buffer, offset, end) {
       if (end <= offset)
         return;
-      const handle = this.get("file", path);
+      const handle = await this.get("file", path);
       const file = await handle.getFile();
       const data = await file.arrayBuffer();
       if (data.byteLength < end - offset)
-        throw alert(withErrno("EIO", `Unexpected mismatch in file data size. This should not happen.
-		Tried to read ${end - offset} bytes but the file is ${data.byteLength} bytes.`));
+        throw alert(withErrno("EIO", [
+          "Unexpected mismatch in file data size. This should not happen.",
+          `tried to read ${end - offset} bytes but the file is ${data.byteLength} bytes.`,
+          `path: ${path}`
+        ].join("\n" + " ".repeat(24))));
       buffer.set(new Uint8Array(data, offset, end - offset));
     }
     async write(path, buffer, offset) {
@@ -20178,14 +20752,15 @@
       const inode = this.index.get(path);
       if (!inode)
         throw withErrno("ENOENT");
-      const isDir = (inode.mode & S_IFMT) == S_IFDIR;
+      const isDir = (inode.mode & constants_exports.S_IFMT) == constants_exports.S_IFDIR;
       let handle;
       try {
-        handle = this.get(isDir ? "directory" : "file", path);
+        handle = await this.get(isDir ? "directory" : "file", path);
       } catch {
-        const parent = this.get("directory", dirname(path));
+        const parent = await this.get("directory", dirname(path));
         handle = await parent[isDir ? "getDirectoryHandle" : "getFileHandle"](basename(path), { create: true }).catch((ex) => _throw(convertException(ex, path)));
-        this._handles.set(path, handle);
+        if (!this.disableHandleCache)
+          this._handles.set(path, handle);
       }
       if (isDir)
         return;
@@ -20214,36 +20789,60 @@
     }
     async mkdir(path, options) {
       const inode = await super.mkdir(path, options);
-      const handle = this.get("directory", dirname(path));
+      const handle = await this.get("directory", dirname(path));
       const dir = await handle.getDirectoryHandle(basename(path), { create: true }).catch((ex) => _throw(convertException(ex, path)));
-      this._handles.set(path, dir);
+      if (!this.disableHandleCache)
+        this._handles.set(path, dir);
       return inode;
     }
-    get(kind = null, path) {
-      const handle = this._handles.get(path);
-      if (!handle)
-        throw withErrno("ENODATA");
-      if (kind && !isKind(handle, kind))
-        throw withErrno(kind == "directory" ? "ENOTDIR" : "EISDIR");
-      return handle;
+    async get(kind = null, path) {
+      const maybeHandle = this._handles.get(path);
+      if (!this.disableHandleCache && maybeHandle) {
+        if (kind && !isKind(maybeHandle, kind))
+          throw withErrno(kind == "directory" ? "ENOTDIR" : "EISDIR");
+        return maybeHandle;
+      }
+      if (path == "/")
+        return this.root;
+      const parts = path.slice(1).split("/");
+      let dir = this.root;
+      for (let i = 0; i < parts.length - 1; ++i) {
+        dir = await dir.getDirectoryHandle(parts[i]).catch((ex) => _throw(convertException(ex, path)));
+      }
+      try {
+        const handle = await dir[kind == "file" ? "getFileHandle" : "getDirectoryHandle"](parts.at(-1));
+        if (!this.disableHandleCache)
+          this._handles.set(path, handle);
+        return handle;
+      } catch (ex) {
+        if (ex.name != "TypeMismatchError")
+          throw convertException(ex, path);
+        else if (kind === null) {
+          const handle = await dir.getFileHandle(parts.at(-1)).catch((ex2) => _throw(convertException(ex2, path)));
+          if (!this.disableHandleCache)
+            this._handles.set(path, handle);
+          return handle;
+        } else
+          throw withErrno(kind == "file" ? "EISDIR" : "ENOTDIR");
+      }
     }
   };
   var _WebAccess = {
     name: "WebAccess",
     options: {
       handle: { type: "object", required: true },
-      metadata: { type: "string", required: false }
+      metadata: { type: "string", required: false },
+      disableHandleCache: { type: "boolean", required: false }
     },
     async create(options) {
-      const fs = new WebAccessFS(options.handle);
-      await fs._loadHandles("/", options.handle);
+      const fs = new WebAccessFS(options.handle, options.disableHandleCache);
       await fs._loadMetadata(options.metadata);
       return fs;
     }
   };
   var WebAccess = _WebAccess;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/IndexedDB.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.7_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/IndexedDB.js
   function wrap2(request2) {
     return new Promise((resolve2, reject) => {
       request2.onsuccess = () => resolve2(request2.result);
@@ -20344,6 +20943,20 @@
       return new IndexedDBTransaction(tx, this);
     }
   };
+  var idbTests = /* @__PURE__ */ new WeakMap();
+  async function testAvailability(idbFactory) {
+    if (!(idbFactory instanceof IDBFactory))
+      return false;
+    try {
+      const req = idbFactory.open("__zenfs_test");
+      await wrap2(req);
+      return true;
+    } catch {
+      return false;
+    } finally {
+      idbFactory?.deleteDatabase("__zenfs_test");
+    }
+  }
   var _IndexedDB = {
     name: "IndexedDB",
     options: {
@@ -20351,17 +20964,11 @@
       idbFactory: { type: "object", required: false }
     },
     async isAvailable({ idbFactory = globalThis.indexedDB }) {
-      try {
-        if (!(idbFactory instanceof IDBFactory))
-          return false;
-        const req = idbFactory.open("__zenfs_test");
-        await wrap2(req);
-        return true;
-      } catch {
-        return false;
-      } finally {
-        idbFactory?.deleteDatabase("__zenfs_test");
-      }
+      if (idbTests.has(idbFactory))
+        return idbTests.get(idbFactory);
+      const result = testAvailability(idbFactory);
+      idbTests.set(idbFactory, result);
+      return result;
     },
     async create(options) {
       const db = await createDB(options.storeName || "zenfs", options.idbFactory);
@@ -20380,7 +20987,7 @@
   };
   var IndexedDB = _IndexedDB;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/storage.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.7_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/storage.js
   var WebStorageStore = class {
     get name() {
       return WebStorage.name;
@@ -20442,7 +21049,7 @@
   };
   var WebStorage = _WebStorage;
 
-  // node_modules/.pnpm/@zenfs+dom@1.1.8_@zenfs+core@2.2.3_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/xml.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.7_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/xml.js
   function get_stats(node) {
     const stats = {};
     for (const key of _inode_fields) {
