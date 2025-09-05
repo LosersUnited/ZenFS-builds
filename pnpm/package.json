@@ -8,9 +8,9 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "pnpm@10.15.1",
   "dependencies": {
-    "@zenfs/core": "^2.3.8",
-    "@zenfs/dom": "^1.2.2"
+    "@zenfs/core": "^2.4.0",
+    "@zenfs/dom": "^1.2.4"
   }
 }
