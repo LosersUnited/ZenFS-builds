@@ -4007,7 +4007,7 @@
           w.finished = w.writable === false;
         }
       }
-      function errorOrDestroy(stream, err2, sync) {
+      function errorOrDestroy(stream, err2, sync2) {
         const r = stream._readableState;
         const w = stream._writableState;
         if (w !== null && w !== void 0 && w.destroyed || r !== null && r !== void 0 && r.destroyed) {
@@ -4023,7 +4023,7 @@
           if (r && !r.errored) {
             r.errored = err2;
           }
-          if (sync) {
+          if (sync2) {
             process.nextTick(emitErrorNT, stream, err2);
           } else {
             emitErrorNT(stream, err2);
@@ -6042,7 +6042,7 @@
       }
       function onwrite(stream, er) {
         const state = stream._writableState;
-        const sync = state.sync;
+        const sync2 = state.sync;
         const cb = state.writecb;
         if (typeof cb !== "function") {
           errorOrDestroy(stream, new ERR_MULTIPLE_CALLBACK());
@@ -6060,7 +6060,7 @@
           if (stream._readableState && !stream._readableState.errored) {
             stream._readableState.errored = er;
           }
-          if (sync) {
+          if (sync2) {
             process.nextTick(onwriteError, stream, state, er, cb);
           } else {
             onwriteError(stream, state, er, cb);
@@ -6069,7 +6069,7 @@
           if (state.buffered.length > state.bufferedIndex) {
             clearBuffer(stream, state);
           }
-          if (sync) {
+          if (sync2) {
             if (state.afterWriteTickInfo !== null && state.afterWriteTickInfo.cb === cb) {
               state.afterWriteTickInfo.count++;
             } else {
@@ -6268,11 +6268,11 @@
           }
         }
       }
-      function finishMaybe(stream, state, sync) {
+      function finishMaybe(stream, state, sync2) {
         if (needFinish(state)) {
           prefinish(stream, state);
           if (state.pendingcb === 0) {
-            if (sync) {
+            if (sync2) {
               state.pendingcb++;
               process.nextTick(
                 (stream2, state2) => {
@@ -8243,7 +8243,7 @@
     }
   });
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/index.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/index.js
   var dist_exports = {};
   __export(dist_exports, {
     Async: () => Async,
@@ -8302,6 +8302,7 @@
     _fnOpt: () => _fnOpt,
     _inode_fields: () => _inode_fields,
     _inode_version: () => _inode_version,
+    _tempDirName: () => _tempDirName,
     access: () => access2,
     accessSync: () => accessSync,
     addDevice: () => addDevice,
@@ -8386,6 +8387,7 @@
     mkdir: () => mkdir2,
     mkdirSync: () => mkdirSync,
     mkdtemp: () => mkdtemp2,
+    mkdtempDisposableSync: () => mkdtempDisposableSync,
     mkdtempSync: () => mkdtempSync,
     mount: () => mount,
     mounts: () => mounts,
@@ -8428,6 +8430,7 @@
     statfsSync: () => statfsSync,
     symlink: () => symlink2,
     symlinkSync: () => symlinkSync,
+    sync: () => sync,
     truncate: () => truncate2,
     truncateSync: () => truncateSync,
     umount: () => umount,
@@ -8457,7 +8460,7 @@
   // node_modules/.pnpm/eventemitter3@5.0.1/node_modules/eventemitter3/index.mjs
   var import_index = __toESM(require_eventemitter3(), 1);
 
-  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/list.js
+  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/list.js
   var List = class extends import_index.default {
     [Symbol.toStringTag] = "List";
     constructor(values) {
@@ -8570,7 +8573,7 @@
     }
   };
 
-  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/objects.js
+  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/objects.js
   function filterObject(object, predicate) {
     const entries2 = Object.entries(object);
     return Object.fromEntries(entries2.filter(([key, value]) => predicate(key, value)));
@@ -8604,7 +8607,7 @@
     return Object.fromEntries(Object.entries(fns).map(([k, v]) => [k, typeof v == "function" ? v.bind(thisValue) : v]));
   }
 
-  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/misc.js
+  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/misc.js
   function canary(error = new Error()) {
     const timeout = setTimeout(() => {
       throw error;
@@ -8617,16 +8620,16 @@
     throw e;
   }
 
-  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/numbers.js
+  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/numbers.js
   var __formatter = Intl.NumberFormat("en", { notation: "compact" });
   var formatCompact = __formatter.format.bind(__formatter);
 
-  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/random.js
+  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/random.js
   function randomInt(min = 0, max = 1) {
     return Math.round(Math.random() * (max - min) + min);
   }
 
-  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/string.js
+  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/string.js
   function capitalize(value) {
     return value.at(0).toUpperCase() + value.slice(1);
   }
@@ -9193,7 +9196,7 @@
     }
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/backends/backend.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/backends/backend.js
   function isBackend(arg) {
     return arg != null && typeof arg == "object" && "create" in arg && typeof arg.create == "function";
   }
@@ -9202,6 +9205,13 @@
     if (name)
       Object.defineProperty(fn, "name", { value: name });
     return fn;
+  }
+  function _isClass(func) {
+    if (!(func && func.constructor === Function) || func.prototype === void 0)
+      return false;
+    if (Function.prototype !== Object.getPrototypeOf(func))
+      return true;
+    return Object.getOwnPropertyNames(func.prototype).length > 1;
   }
   function checkOptions(backend, options) {
     if (typeof options != "object" || options === null) {
@@ -9216,7 +9226,7 @@
         }
         throw err(withErrno("EINVAL", "Missing required option: " + optName));
       }
-      const isType2 = (type2, _ = value) => typeof type2 == "function" ? Symbol.hasInstance in type2 && type2.prototype ? value instanceof type2 : type2(value) : typeof value === type2 || value?.constructor?.name === type2;
+      const isType2 = (type2, _ = value) => typeof type2 == "function" ? _isClass(type2) ? value instanceof type2 : type2(value) : typeof value === type2 || value?.constructor?.name === type2;
       if (Array.isArray(opt.type) ? opt.type.some((v) => isType2(v)) : isType2(opt.type))
         continue;
       const type = typeof value == "object" && "constructor" in value ? value.constructor.name : typeof value;
@@ -9229,7 +9239,7 @@
     return arg != null && typeof arg == "object" && "backend" in arg && isBackend(arg.backend);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/internal/credentials.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/internal/credentials.js
   function createCredentials(source) {
     return {
       suid: source.uid,
@@ -9246,7 +9256,7 @@
     return !cred.uid || !cred.gid || !cred.euid || !cred.egid || cred.groups.some((gid) => !gid);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/internal/contexts.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/internal/contexts.js
   var defaultContext = {
     id: 0,
     root: "/",
@@ -9257,7 +9267,7 @@
     children: []
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/constants.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/constants.js
   var constants_exports = {};
   __export(constants_exports, {
     COPYFILE_EXCL: () => COPYFILE_EXCL,
@@ -9907,7 +9917,7 @@
     return fields[fieldName].offset;
   }
 
-  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/buffer.js
+  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/buffer.js
   function extendBuffer(buffer, newByteLength) {
     if (buffer.byteLength >= newByteLength)
       return buffer;
@@ -9952,7 +9962,7 @@
     });
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/path.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/path.js
   var path_exports = {};
   __export(path_exports, {
     basename: () => basename,
@@ -9971,7 +9981,7 @@
     sep: () => sep
   });
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/utils.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/utils.js
   function decodeDirListing(data) {
     return JSON.parse(decodeUTF8(data), (k, v) => k == "" ? v : typeof v == "string" ? BigInt(v).toString(16).slice(0, Math.min(v.length, 8)) : v);
   }
@@ -10042,8 +10052,11 @@
     worker.on("online", online.resolve);
     await online.promise;
   }
+  function _tempDirName(prefix) {
+    return `/tmp/${normalizePath(prefix, true)}${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/path.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/path.js
   var sep = "/";
   function validateObject(str, name) {
     if (typeof str != "object") {
@@ -10370,7 +10383,7 @@
     return globToRegex(pattern2).test(str);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/stats.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/stats.js
   var n1000 = BigInt(1e3);
   var StatsCommon = class {
     _convert(arg) {
@@ -10590,7 +10603,7 @@
     ffree = BigInt(size_max);
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/internal/inode.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/internal/inode.js
   var __esDecorate = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) {
       if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
@@ -11314,7 +11327,7 @@
     return (perm & access3) === access3;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/internal/file_index.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/internal/file_index.js
   var version = 1;
   var Index = class _Index extends Map {
     maxSize = size_max;
@@ -11431,7 +11444,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/internal/filesystem.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/internal/filesystem.js
   var _chunkSize = 4096;
   var FileSystem = class _FileSystem {
     type;
@@ -11545,7 +11558,7 @@
     }
   };
 
-  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/cache.js
+  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/cache.js
   var Resource = class {
     id;
     _size;
@@ -11709,7 +11722,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/polyfills.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/polyfills.js
   Promise.withResolvers ??= (warn("Using a polyfill of Promise.withResolvers"), function() {
     let _resolve2, _reject;
     const promise = new Promise((resolve2, reject) => {
@@ -11749,7 +11762,7 @@
     return bytes;
   });
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/backends/store/store.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/backends/store/store.js
   var Transaction = class {
     store;
     constructor(store) {
@@ -11975,7 +11988,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/backends/store/fs.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/backends/store/fs.js
   var __addDisposableResource = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -12900,7 +12913,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/backends/store/map.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/backends/store/map.js
   var SyncMapTransaction = class extends SyncTransaction {
     // eslint-disable-next-line @typescript-eslint/require-await
     async keys() {
@@ -12941,7 +12954,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/backends/memory.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/backends/memory.js
   var InMemoryStore = class extends Map {
     maxSize;
     label;
@@ -12984,7 +12997,7 @@
   };
   var InMemory = _InMemory;
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/internal/devices.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/internal/devices.js
   var DeviceFS = class extends StoreFS {
     devices = /* @__PURE__ */ new Map();
     devicesWithDriver(driver, forceIdentity) {
@@ -13270,13 +13283,13 @@
     console: consoleDevice
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/config.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/config.js
   var checkAccess = true;
   function _setAccessChecks(value) {
     checkAccess = value;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/index.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/index.js
   var vfs_exports = {};
   __export(vfs_exports, {
     BigIntStatsFs: () => BigIntStatsFs,
@@ -13343,6 +13356,7 @@
     mkdir: () => mkdir2,
     mkdirSync: () => mkdirSync,
     mkdtemp: () => mkdtemp2,
+    mkdtempDisposableSync: () => mkdtempDisposableSync,
     mkdtempSync: () => mkdtempSync,
     mount: () => mount,
     open: () => open2,
@@ -13394,10 +13408,10 @@
     xattr: () => xattr_exports
   });
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/async.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/async.js
   var import_buffer8 = __toESM(require_buffer(), 1);
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/promises.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/promises.js
   var promises_exports = {};
   __export(promises_exports, {
     FileHandle: () => FileHandle,
@@ -13417,6 +13431,7 @@
     lutimes: () => lutimes,
     mkdir: () => mkdir,
     mkdtemp: () => mkdtemp,
+    mkdtempDisposable: () => mkdtempDisposable,
     open: () => open,
     opendir: () => opendir,
     readFile: () => readFile,
@@ -13437,7 +13452,7 @@
   });
   var import_buffer7 = __toESM(require_buffer(), 1);
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/readline.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/readline.js
   var Interface = class extends import_index.default {
     input;
     output;
@@ -13841,13 +13856,13 @@
     return true;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/dir.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/dir.js
   var import_buffer5 = __toESM(require_buffer(), 1);
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/sync.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/sync.js
   var import_buffer4 = __toESM(require_buffer(), 1);
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/internal/error.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/internal/error.js
   var ErrnoError = Exception;
   function withPath(e, path) {
     e.path = path;
@@ -13866,7 +13881,7 @@
     };
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/file.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/file.js
   var SyncHandle = class {
     context;
     path;
@@ -14100,7 +14115,7 @@
     return ($?.descriptors ?? defaultContext.descriptors).delete(fd);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/flags.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/flags.js
   var pattern = /[rwasx]{1,2}\+?/;
   function parse2(flag) {
     if (typeof flag == "number")
@@ -14138,7 +14153,7 @@
     return mode;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/shared.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/shared.js
   var mounts = /* @__PURE__ */ new Map();
   mount("/", InMemory.create({ label: "root" }));
   function mount(mountPoint, fs) {
@@ -14218,7 +14233,7 @@
     return child.startsWith(parent);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/watchers.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/watchers.js
   var Watcher = class extends import_index.default {
     _context;
     path;
@@ -14349,7 +14364,7 @@
     }
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/sync.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/sync.js
   var __addDisposableResource2 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -14951,10 +14966,15 @@
   }
   function mkdtempSync(prefix, options) {
     const encoding = typeof options === "object" ? options?.encoding : options || "utf8";
-    const fsName = `${prefix}${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const resolvedPath = "/tmp/" + fsName;
-    mkdirSync.call(this, resolvedPath);
-    return encoding == "buffer" ? import_buffer4.Buffer.from(resolvedPath) : resolvedPath;
+    const path = _tempDirName(prefix);
+    mkdirSync.call(this, path);
+    return encoding == "buffer" ? import_buffer4.Buffer.from(path) : path;
+  }
+  function mkdtempDisposableSync(prefix, options) {
+    const path = _tempDirName(prefix);
+    mkdirSync.call(this, path);
+    const remove3 = () => rmSync(path, { recursive: true, force: true });
+    return { path, remove: remove3, [Symbol.dispose]: remove3 };
   }
   function copyFileSync(source, destination, flags) {
     source = normalizePath(source);
@@ -15045,7 +15065,7 @@
     return results;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/dir.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/dir.js
   var __esDecorate2 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) {
       if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
@@ -15306,14 +15326,18 @@
       return this;
     }
     [Symbol.dispose]() {
+      if (this.closed)
+        return;
       this.closeSync();
     }
     async [Symbol.asyncDispose]() {
+      if (this.closed)
+        return;
       await this.close();
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/streams.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/streams.js
   var import_readable_stream = __toESM(require_browser3(), 1);
   var ReadStream = class extends import_readable_stream.Readable {
     pending = true;
@@ -15426,7 +15450,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/promises.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/promises.js
   var __addDisposableResource3 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -16374,12 +16398,12 @@
         resolve2({ value: null, done });
       }
       eventQueue.length = 0;
-      return Promise.resolve({ value: null, done: true });
+      return Promise.resolve({ value: void 0, done: true });
     }
     return {
       async next() {
         if (done)
-          return Promise.resolve({ value: null, done });
+          return Promise.resolve({ value: void 0, done });
         const { promise, resolve: resolve2 } = Promise.withResolvers();
         eventQueue.push(resolve2);
         return promise;
@@ -16433,10 +16457,15 @@
   }
   async function mkdtemp(prefix, options) {
     const encoding = typeof options === "object" ? options?.encoding : options || "utf8";
-    const fsName = `${prefix}${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const resolvedPath = "/tmp/" + fsName;
-    await mkdir.call(this, resolvedPath);
-    return encoding == "buffer" ? import_buffer7.Buffer.from(resolvedPath) : resolvedPath;
+    const path = _tempDirName(prefix);
+    await mkdir.call(this, path);
+    return encoding == "buffer" ? import_buffer7.Buffer.from(path) : path;
+  }
+  async function mkdtempDisposable(prefix, options) {
+    const path = _tempDirName(prefix);
+    await mkdir.call(this, path);
+    const remove3 = () => rm(path, { recursive: true, force: true });
+    return { path, remove: remove3, [Symbol.asyncDispose]: remove3 };
   }
   async function copyFile(src, dest, mode) {
     src = normalizePath(src);
@@ -16517,7 +16546,7 @@
     return recursiveList(cwd);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/async.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/async.js
   var nop = () => {
   };
   async function collectAsyncIterator(it) {
@@ -16786,7 +16815,7 @@
     collectAsyncIterator(it).then((results) => callback(null, results ?? [])).catch((e) => callback(e));
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/ioctl.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/ioctl.js
   var __esDecorate3 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) {
       if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
@@ -17111,7 +17140,7 @@
     throw UV("ENOTSUP", "ioctl", path);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/vfs/xattr.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/vfs/xattr.js
   var xattr_exports = {};
   __export(xattr_exports, {
     get: () => get,
@@ -17262,7 +17291,7 @@
     return inode.attributes.keys().toArray();
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/config.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/config.js
   function configureFileSystem(fs, config) {
     if (config.disableAsyncCache)
       fs.attributes.set("no_async_preload");
@@ -17308,7 +17337,7 @@
     return mount3;
   }
   async function configureSingle(configuration) {
-    if (!isBackendConfig(configuration)) {
+    if (!isMountConfig(configuration)) {
       throw new TypeError("Invalid single mount point configuration");
     }
     const resolved = await resolveMountConfig(configuration);
@@ -17334,6 +17363,7 @@
       throw log_exports.crit(withErrno("ENOTSUP", "/dev does not exist or is not a device file system"));
     return devfs._createDevice(driver, options);
   }
+  var _defaultDirectories = ["/tmp", "/var", "/etc"];
   async function configure2(configuration) {
     Object.assign(defaultContext.credentials, createCredentials({
       uid: configuration.uid || 0,
@@ -17363,9 +17393,23 @@
       await devfs.ready();
       await mount2("/dev", devfs);
     }
+    if (configuration.defaultDirectories) {
+      for (const dir of _defaultDirectories) {
+        if (await promises_exports.exists(dir)) {
+          const stats = await promises_exports.stat(dir);
+          if (!stats.isDirectory())
+            log_exports.warn("Default directory exists but is not a directory: " + dir);
+        } else
+          await promises_exports.mkdir(dir);
+      }
+    }
+  }
+  async function sync() {
+    for (const fs of mounts.values())
+      await fs.sync();
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/backends/cow.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/backends/cow.js
   var journalOperations = ["delete"];
   function isJournalOp(op) {
     return journalOperations.includes(op);
@@ -17723,7 +17767,7 @@
   };
   var CopyOnWrite = _CopyOnWrite;
 
-  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/requests.js
+  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/requests.js
   var resourcesCache = /* @__PURE__ */ new Map();
   async function _fetch(input, init = {}, bodyOptional = false) {
     const response = await fetch(input, init).catch((error) => {
@@ -17834,7 +17878,7 @@
     resourcesCache.delete(url);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/internal/index_fs.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/internal/index_fs.js
   var IndexFS = class extends FileSystem {
     index;
     constructor(id, name, index = new Index()) {
@@ -17862,31 +17906,56 @@
           to = to.slice(0, -1);
         toRename.push({ from: from2, to, inode });
       }
+      toRename.sort((a, b) => b.from.length - a.from.length);
       return toRename;
     }
     async rename(oldPath, newPath) {
       if (oldPath == newPath)
         return;
-      for (const { from: from2, to, inode } of this.pathsForRename(oldPath, newPath)) {
+      const toRename = this.pathsForRename(oldPath, newPath);
+      const contents = /* @__PURE__ */ new Map();
+      for (const { from: from2, to, inode } of toRename) {
         const data = new Uint8Array(inode.size);
         await this.read(from2, data, 0, inode.size);
+        contents.set(to, data);
         this.index.delete(from2);
-        this.index.set(to, inode);
-        await this.write(to, data, 0);
+        await this.remove(from2);
+        if (this.index.has(to))
+          await this.remove(to);
       }
-      await this.remove(oldPath);
+      toRename.reverse();
+      for (const { to, inode } of toRename) {
+        const data = contents.get(to);
+        this.index.set(to, inode);
+        if ((inode.mode & S_IFMT) == S_IFDIR)
+          await this._mkdir?.(to, inode);
+        else
+          await this.write(to, data, 0);
+      }
     }
     renameSync(oldPath, newPath) {
       if (oldPath == newPath)
         return;
-      for (const { from: from2, to, inode } of this.pathsForRename(oldPath, newPath)) {
+      const toRename = this.pathsForRename(oldPath, newPath);
+      const contents = /* @__PURE__ */ new Map();
+      for (const { from: from2, to, inode } of toRename) {
         const data = new Uint8Array(inode.size);
         this.readSync(from2, data, 0, inode.size);
+        contents.set(to, data);
         this.index.delete(from2);
-        this.index.set(to, inode);
-        this.writeSync(to, data, 0);
+        this.removeSync(from2);
+        if (this.index.has(to))
+          this.removeSync(to);
       }
-      this.removeSync(oldPath);
+      toRename.reverse();
+      for (const { to, inode } of toRename) {
+        const data = contents.get(to);
+        this.index.set(to, inode);
+        if ((inode.mode & S_IFMT) == S_IFDIR)
+          this._mkdirSync?.(to, inode);
+        else
+          this.writeSync(to, data, 0);
+      }
     }
     async stat(path) {
       const inode = this.index.get(path);
@@ -17917,9 +17986,8 @@
         throw withErrno("ENOTDIR");
       if (isDir && isUnlink)
         throw withErrno("EISDIR");
-      if (isDir && this.readdirSync(path).length)
-        throw withErrno("ENOTEMPTY");
-      this.index.delete(path);
+      if (!isDir)
+        this.index.delete(path);
     }
     async unlink(path) {
       this._remove(path, true);
@@ -17931,10 +17999,17 @@
     }
     async rmdir(path) {
       this._remove(path, false);
+      const entries2 = await this.readdir(path);
+      if (entries2.length)
+        throw withErrno("ENOTEMPTY");
+      this.index.delete(path);
       await this.remove(path);
     }
     rmdirSync(path) {
       this._remove(path, false);
+      if (this.readdirSync(path).length)
+        throw withErrno("ENOTEMPTY");
+      this.index.delete(path);
       this.removeSync(path);
     }
     create(path, options) {
@@ -17966,11 +18041,15 @@
     }
     async mkdir(path, options) {
       options.mode |= S_IFDIR;
-      return this.create(path, options);
+      const inode = this.create(path, options);
+      await this._mkdir?.(path, options);
+      return inode;
     }
     mkdirSync(path, options) {
       options.mode |= S_IFDIR;
-      return this.create(path, options);
+      const inode = this.create(path, options);
+      this._mkdirSync?.(path, options);
+      return inode;
     }
     link(target, link3) {
       throw withErrno("ENOSYS");
@@ -17990,7 +18069,7 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/backends/fetch.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/backends/fetch.js
   function parseError(error) {
     if (!("tag" in error))
       throw err(withErrno("EIO", error.stack));
@@ -18107,7 +18186,7 @@
   };
   var Fetch = _Fetch;
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/backends/passthrough.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/backends/passthrough.js
   var __addDisposableResource4 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -18408,7 +18487,7 @@
   };
   var Passthrough = _Passthrough;
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/internal/rpc.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/internal/rpc.js
   var rpc_exports = {};
   __export(rpc_exports, {
     attach: () => attach,
@@ -18430,14 +18509,17 @@
     return port != null && typeof port == "object" && "channel" in port && "send" in port && "addHandler" in port && "removeHandler" in port;
   }
   function fromWeb(port) {
+    const _handlers = /* @__PURE__ */ new Map();
     return {
       channel: port,
       send: port.postMessage.bind(port),
       addHandler(handler) {
-        port.addEventListener("message", (event) => handler(event.data));
+        const _handler = (event) => handler(event.data);
+        _handlers.set(handler, _handler);
+        port.addEventListener("message", _handler);
       },
       removeHandler(handler) {
-        port.removeEventListener("message", (event) => handler(event.data));
+        port.removeEventListener("message", _handlers.get(handler));
       }
     };
   }
@@ -18519,7 +18601,6 @@
       if (typeof executor.timeout == "object")
         executor.timeout.unref();
     }
-    executor.fs._executors.delete(id);
     executors.delete(id);
   }
   var executors = /* @__PURE__ */ new Map();
@@ -18528,15 +18609,14 @@
     if (!port)
       throw err(withErrno("EINVAL", "Can not make an RPC request without a port"));
     const { resolve: resolve2, reject, promise } = Promise.withResolvers();
-    const id = Math.random().toString(16).slice(10);
+    const id = Math.random().toString(16).slice(5);
     const timeout = setTimeout(() => {
-      const error = err(withErrno("EIO", "RPC Failed"));
+      const error = err(withErrno("ETIMEDOUT", "RPC request timed out"));
       error.stack += stack;
       disposeExecutors(id);
       reject(error);
     }, ms);
     const executor = { resolve: resolve2, reject, promise, fs, timeout };
-    fs._executors.set(id, executor);
     executors.set(id, executor);
     port.send({ ...request2, _zenfs: true, id, stack });
     return promise;
@@ -18629,7 +18709,7 @@
     port.send({ _zenfs: true, ...pick(request2, "id", "method", "stack"), error, value }, transferList);
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/mixins/shared.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/mixins/shared.js
   var _asyncFSKeys = [
     "rename",
     "stat",
@@ -18646,7 +18726,7 @@
     "write"
   ];
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/mixins/async.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/mixins/async.js
   function Async(FS) {
     class AsyncFS extends FS {
       /**
@@ -18662,8 +18742,8 @@
         return this.sync();
       }
       _promise = Promise.resolve();
-      _async(promise) {
-        this._promise = this._promise.then(() => promise);
+      _async(thunk) {
+        this._promise = this._promise.finally(() => thunk());
       }
       _isInitialized = false;
       /** Tracks how many updates to the sync. cache we skipped during initialization */
@@ -18674,17 +18754,17 @@
       }
       async ready() {
         await super.ready();
-        await this._promise;
         if (this._isInitialized || this.attributes.has("no_async_preload"))
           return;
+        await this._promise;
         this.checkSync();
         await this._sync.ready();
         if (this._sync instanceof StoreFS && this instanceof StoreFS) {
-          const sync = this._sync.transaction();
+          const sync2 = this._sync.transaction();
           const async = this.transaction();
           const promises = [];
           for (const key of await async.keys()) {
-            promises.push(async.get(key).then((data) => sync.setSync(key, data)));
+            promises.push(async.get(key).then((data) => sync2.setSync(key, data)));
           }
           await Promise.all(promises);
           this._isInitialized = true;
@@ -18710,7 +18790,7 @@
       renameSync(oldPath, newPath) {
         this.checkSync();
         this._sync.renameSync(oldPath, newPath);
-        this._async(this.rename(oldPath, newPath));
+        this._async(() => this.rename(oldPath, newPath));
       }
       statSync(path) {
         this.checkSync();
@@ -18719,27 +18799,29 @@
       touchSync(path, metadata) {
         this.checkSync();
         this._sync.touchSync(path, metadata);
-        this._async(this.touch(path, metadata));
+        this._async(() => this.touch(path, metadata));
       }
       createFileSync(path, options) {
         this.checkSync();
-        this._async(this.createFile(path, options));
-        return this._sync.createFileSync(path, options);
+        const result = this._sync.createFileSync(path, options);
+        this._async(() => this.createFile(path, options));
+        return result;
       }
       unlinkSync(path) {
         this.checkSync();
-        this._async(this.unlink(path));
         this._sync.unlinkSync(path);
+        this._async(() => this.unlink(path));
       }
       rmdirSync(path) {
         this.checkSync();
         this._sync.rmdirSync(path);
-        this._async(this.rmdir(path));
+        this._async(() => this.rmdir(path));
       }
       mkdirSync(path, options) {
         this.checkSync();
-        this._async(this.mkdir(path, options));
-        return this._sync.mkdirSync(path, options);
+        const result = this._sync.mkdirSync(path, options);
+        this._async(() => this.mkdir(path, options));
+        return result;
       }
       readdirSync(path) {
         this.checkSync();
@@ -18748,12 +18830,13 @@
       linkSync(srcpath, dstpath) {
         this.checkSync();
         this._sync.linkSync(srcpath, dstpath);
-        this._async(this.link(srcpath, dstpath));
+        this._async(() => this.link(srcpath, dstpath));
       }
       async sync() {
         if (!this.attributes.has("no_async_preload") && this._sync)
           this._sync.syncSync();
-        await this._promise;
+        await this._promise.catch(() => {
+        });
       }
       syncSync() {
         this.checkSync();
@@ -18770,21 +18853,21 @@
       writeSync(path, buffer, offset) {
         this.checkSync();
         this._sync.writeSync(path, buffer, offset);
-        this._async(this.write(path, buffer, offset));
+        this._async(() => this.write(path, buffer, offset));
       }
       streamWrite(path, options) {
         this.checkSync();
-        const sync = this._sync.streamWrite(path, options).getWriter();
+        const sync2 = this._sync.streamWrite(path, options).getWriter();
         const async = super.streamWrite(path, options).getWriter();
         return new WritableStream({
           async write(chunk, controller) {
-            await Promise.all([sync.write(chunk), async.write(chunk)]).catch(controller.error.bind(controller));
+            await Promise.all([sync2.write(chunk), async.write(chunk)]).catch(controller.error.bind(controller));
           },
           async close() {
-            await Promise.all([sync.close(), async.close()]);
+            await Promise.all([sync2.close(), async.close()]);
           },
           async abort(reason) {
-            await Promise.all([sync.abort(reason), async.abort(reason)]);
+            await Promise.all([sync2.abort(reason), async.abort(reason)]);
           }
         });
       }
@@ -18817,13 +18900,23 @@
        * Patch all async methods to also call their synchronous counterparts unless called from themselves (either sync or async)
        */
       _patchAsync() {
-        debug(`Async: patched ${_asyncFSKeys.length} methods`);
-        for (const key of _asyncFSKeys) {
+        const noPatch = ["read", "readdir", "stat", "exists"];
+        const toPatch = _asyncFSKeys.filter((key) => !noPatch.includes(key));
+        for (const key of toPatch) {
+          let isInLoop = function(depth, error) {
+            if (!error) {
+              error = new Error();
+              Error.captureStackTrace(error, isInLoop);
+            }
+            if (!error.stack)
+              return false;
+            const stack = error.stack.split("\n").slice(depth).join("\n");
+            return stack.includes(`at <computed> [as ${key}]`) || stack.includes(`at async <computed> [as ${key}]`) || stack.includes(`${key}Sync `);
+          };
           const originalMethod = this[key].bind(this);
           this[key] = async (...args) => {
             const result = await originalMethod(...args);
-            const stack = new Error().stack.split("\n").slice(2).join("\n");
-            if (!stack || stack.includes(`at <computed> [as ${key}]`) || stack.includes(`at async <computed> [as ${key}]`) || stack.includes(`${key}Sync `))
+            if (isInLoop(2))
               return result;
             if (!this._isInitialized) {
               this._skippedCacheUpdates++;
@@ -18832,8 +18925,7 @@
             try {
               this._sync?.[`${key}Sync`]?.(...args);
             } catch (e) {
-              const stack2 = e.stack.split("\n").slice(3).join("\n");
-              if (stack2.includes(`at <computed> [as ${key}]`) || stack2.includes(`at async <computed> [as ${key}]`) || stack2.includes(`${key}Sync `))
+              if (isInLoop(3, e))
                 return result;
               e.message += " (Out of sync!)";
               throw err(e);
@@ -18841,21 +18933,17 @@
             return result;
           };
         }
+        debug(`Async: patched ${toPatch.length} methods`);
       }
     }
     return AsyncFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/backends/port.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/backends/port.js
   var PortFS = class extends Async(FileSystem) {
     channel;
     timeout;
     port;
-    /**
-     * A map of outstanding RPC requests
-     * @internal @hidden
-     */
-    _executors = /* @__PURE__ */ new Map();
     /**
      * @hidden
      */
@@ -18893,11 +18981,8 @@
       await this.rpc("touch", path, new Uint8Array(inode.buffer, inode.byteOffset, inode.byteLength));
     }
     async sync() {
+      await super.sync();
       await this.rpc("sync");
-      for (const executor of this._executors.values()) {
-        await executor.promise.catch(() => {
-        });
-      }
     }
     async createFile(path, options) {
       if (options instanceof Inode)
@@ -18970,7 +19055,7 @@
     return fs;
   }
 
-  // node_modules/.pnpm/utilium@2.3.8/node_modules/utilium/dist/checksum.js
+  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/checksum.js
   var crc32cTable = new Uint32Array(256);
   for (let i = 0; i < 256; i++) {
     let value = i;
@@ -18987,7 +19072,7 @@
     return (crc ^ 4294967295) >>> 0;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/backends/single_buffer.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/backends/single_buffer.js
   var __esDecorate4 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) {
       if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
@@ -19801,7 +19886,7 @@
   };
   var SingleBuffer = _SingleBuffer;
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/context.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/context.js
   var _nextId = 1;
   var boundContexts = /* @__PURE__ */ new Map();
   function bindContext({ root = this?.root || "/", pwd = this?.pwd || "/", credentials = structuredClone(defaultContext.credentials) } = {}) {
@@ -19833,7 +19918,7 @@
     return bound;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/mixins/mutexed.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/mixins/mutexed.js
   var __addDisposableResource6 = function(env, value, async) {
     if (value !== null && value !== void 0) {
       if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
@@ -19966,7 +20051,7 @@
      * If the path is currently locked, waits for it to be unlocked.
      * @internal
      */
-    async lock() {
+    async lock(timeout = 5e3) {
       const previous = this.currentLock;
       const lock = this.addLock();
       const stack = new Error().stack;
@@ -19976,7 +20061,7 @@
           error.stack += stack?.slice("Error".length);
           throw err(error);
         }
-      }, 5e3);
+      }, timeout);
       await previous?.done();
       return lock;
     }
@@ -20346,7 +20431,7 @@
     return MutexedFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/mixins/readonly.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/mixins/readonly.js
   function Readonly(FS) {
     class ReadonlyFS extends FS {
       constructor(...args) {
@@ -20414,7 +20499,7 @@
     return ReadonlyFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/mixins/sync.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/mixins/sync.js
   function Sync(FS) {
     class SyncFS extends FS {
       async exists(path) {
@@ -20460,10 +20545,10 @@
     return SyncFS;
   }
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/package.json
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/package.json
   var package_default = {
     name: "@zenfs/core",
-    version: "2.3.8",
+    version: "2.4.0",
     description: "A filesystem, anywhere",
     funding: {
       type: "individual",
@@ -20494,7 +20579,7 @@
     contributors: [
       "John Vilk <jvilk@cs.umass.edu>"
     ],
-    license: "MIT",
+    license: "LGPL-3.0-or-later",
     repository: {
       type: "git",
       url: "git+https://github.com/zen-fs/core.git"
@@ -20522,8 +20607,10 @@
     scripts: {
       format: "prettier --write .",
       "format:check": "prettier --check .",
+      "spdx:check": "npx lice -a src tests/*.ts tests/**/*.test.ts",
+      "spdx:fix": "npx lice -aw src tests/*.ts tests/**/*.test.ts",
       lint: "eslint src tests",
-      test: "npx zenfs-test --clean; npx zenfs-test -abcfp; tests/fetch/run.sh; npx zenfs-test --report",
+      test: "npx zenfs-test --clean; npx zenfs-test -abcp; tests/fetch/run.sh; npx zenfs-test --report",
       build: "tsc -p tsconfig.json",
       "build:docs": "typedoc",
       dev: "npm run build -- --watch",
@@ -20536,7 +20623,7 @@
       kerium: "^1.3.4",
       memium: "^0.3.7",
       "readable-stream": "^4.5.2",
-      utilium: "^2.3.3"
+      utilium: "^2.5.0"
     },
     devDependencies: {
       "@eslint/js": "^9.8.0",
@@ -20553,11 +20640,11 @@
     }
   };
 
-  // node_modules/.pnpm/@zenfs+core@2.3.8/node_modules/@zenfs/core/dist/index.js
+  // node_modules/.pnpm/@zenfs+core@2.4.0/node_modules/@zenfs/core/dist/index.js
   var dist_default = vfs_exports;
   globalThis.__zenfs__ = Object.assign(Object.create(vfs_exports), { _version: package_default.version });
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.8_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/index.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/index.js
   var dist_exports2 = {};
   __export(dist_exports2, {
     IndexedDB: () => IndexedDB,
@@ -20571,7 +20658,7 @@
     XMLFS: () => XMLFS
   });
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.8_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/utils.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/utils.js
   function errnoForDOMException(ex) {
     switch (ex.name) {
       case "TypeMismatchError":
@@ -20633,7 +20720,7 @@
     return error;
   }
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.8_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/access.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/access.js
   function isResizable(buffer) {
     if (buffer instanceof ArrayBuffer)
       return buffer.resizable;
@@ -20724,6 +20811,10 @@
     }
     async remove(path) {
       const handle = await this.get("directory", dirname(path));
+      for (const p of this._handles.keys())
+        if (dirname(p) == path)
+          this._handles.delete(p);
+      this._handles.delete(path);
       await handle.removeEntry(basename(path), { recursive: true }).catch((ex) => _throw(convertException(ex, path)));
     }
     removeSync() {
@@ -20744,7 +20835,7 @@
       buffer.set(new Uint8Array(data, offset, end - offset));
     }
     async write(path, buffer, offset) {
-      if (isResizable(buffer.buffer)) {
+      if (isResizable(buffer.buffer) || buffer.buffer instanceof SharedArrayBuffer) {
         const newBuffer = new Uint8Array(new ArrayBuffer(buffer.byteLength), buffer.byteOffset, buffer.byteLength);
         newBuffer.set(buffer);
         buffer = newBuffer;
@@ -20787,13 +20878,11 @@
     async writeFile(path, data) {
       return this.write(path, data, 0);
     }
-    async mkdir(path, options) {
-      const inode = await super.mkdir(path, options);
+    async _mkdir(path) {
       const handle = await this.get("directory", dirname(path));
       const dir = await handle.getDirectoryHandle(basename(path), { create: true }).catch((ex) => _throw(convertException(ex, path)));
       if (!this.disableHandleCache)
         this._handles.set(path, dir);
-      return inode;
     }
     async get(kind = null, path) {
       const maybeHandle = this._handles.get(path);
@@ -20842,7 +20931,7 @@
   };
   var WebAccess = _WebAccess;
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.8_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/IndexedDB.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/IndexedDB.js
   function wrap2(request2) {
     return new Promise((resolve2, reject) => {
       request2.onsuccess = () => resolve2(request2.result);
@@ -20987,7 +21076,7 @@
   };
   var IndexedDB = _IndexedDB;
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.8_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/storage.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/storage.js
   var WebStorageStore = class {
     get name() {
       return WebStorage.name;
@@ -21049,7 +21138,7 @@
   };
   var WebStorage = _WebStorage;
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.2_@zenfs+core@2.3.8_kerium@1.3.5_utilium@2.3.8/node_modules/@zenfs/dom/dist/xml.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/xml.js
   function get_stats(node) {
     const stats = {};
     for (const key of _inode_fields) {
