@@ -8,9 +8,10 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@10.15.1",
+  "packageManager": "pnpm@10.17.1",
   "dependencies": {
     "@zenfs/core": "^2.4.0",
-    "@zenfs/dom": "^1.2.4"
+    "@zenfs/dom": "^1.2.5",
+    "RealFS-ng-prototype.git#dev": "github:LosersUnited/RealFS-ng-prototype#dev"
   }
 }

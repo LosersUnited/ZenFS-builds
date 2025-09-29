@@ -12,13 +12,16 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0
       '@zenfs/dom':
-        specifier: ^1.2.4
-        version: 1.2.4(@zenfs/core@2.4.0)(kerium@1.3.5)(utilium@2.5.4)
+        specifier: ^1.2.5
+        version: 1.2.5(@zenfs/core@2.4.0)(kerium@1.3.6)(utilium@2.5.5)
+      RealFS-ng-prototype.git#dev:
+        specifier: github:LosersUnited/RealFS-ng-prototype#dev
+        version: https://codeload.github.com/LosersUnited/RealFS-ng-prototype/tar.gz/7471226d46afcb2813f00f47832547a7336d5927
 
 packages:
 
-  '@types/node@24.2.1':
-    resolution: {integrity: sha512-DRh5K+ka5eJic8CjH7td8QpYEV6Zo10gfRkjHCO3weqZHWDtAaSTFtl4+VMqOJ4N5jcuhZ9/l+yy8rVgw7BQeQ==}
+  '@types/node@24.5.2':
+    resolution: {integrity: sha512-FYxk1I7wPv3K2XBaoyH2cTnocQEu8AOZ60hPbsyukMPLv5/5qr7V1i8PLHdl6Zf87I+xZXFvPCXYjiTFq+YSDQ==}
 
   '@xterm/xterm@5.5.0':
     resolution: {integrity: sha512-hqJHYaQb5OptNunnyAnkHyM8aCjZ1MEIDTQu1iIbbTD/xops91NB5yq1ZK/dC2JDbVWtF23zUtl9JE2NqwT87A==}
@@ -28,13 +31,17 @@ packages:
     engines: {node: '>= 18'}
     hasBin: true
 
-  '@zenfs/dom@1.2.4':
-    resolution: {integrity: sha512-ftCviemTnU8W0yON8zKS1cUopCMRRq6+edWD9MwXR349h0wfeTsnXBhv7/ctLWpDorWe2nUXIHAvNAJvj32eqA==}
+  '@zenfs/dom@1.2.5':
+    resolution: {integrity: sha512-DdQzmROGvgen3JmBVdovnaIyAexPPlCNJ5Tb0e48N8W9TQJA5IuVsBgohBKGwDiGEDPquEMxzoycFD4RC6kjzA==}
     engines: {node: '>= 22'}
     peerDependencies:
       '@zenfs/core': ^2.3.11
       kerium: ^1.3.4
       utilium: ^2.5.0
+
+  RealFS-ng-prototype.git#dev@https://codeload.github.com/LosersUnited/RealFS-ng-prototype/tar.gz/7471226d46afcb2813f00f47832547a7336d5927:
+    resolution: {tarball: https://codeload.github.com/LosersUnited/RealFS-ng-prototype/tar.gz/7471226d46afcb2813f00f47832547a7336d5927}
+    version: 0.0.0
 
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
@@ -60,11 +67,11 @@ packages:
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
 
-  kerium@1.3.5:
-    resolution: {integrity: sha512-V4hITm/a5l9SyPCPg//ENmbs24hHWVtEOQlyQaZX9bH/WBVY4kXwXaWPSobWGpNNOMOwe1FU/WgTd5dC/bIDKA==}
+  kerium@1.3.6:
+    resolution: {integrity: sha512-TEMYweNOPW79LOGV9G26biypM2q96s4iJYxcWMg3IxUzRUIFGFfWIxS7Yx2eREKfhLINcNNXGUa0OR6ONS9Dgg==}
 
-  memium@0.3.8:
-    resolution: {integrity: sha512-spMrGHK7zNVBCZ2nhXxABC1yBtfe3HqUwEHD8j7oVMaLU+eqLrDoTZzMhx6bphw2/yA1EwOEdgeECtSfwRHk4w==}
+  memium@0.3.9:
+    resolution: {integrity: sha512-lncKR1v+dNhpNG1ILX3UrLu/6llNSPKZiWBxn7T5cNt2vWicq5gx7L070Dt7GZjp+Eunw9GXudrG0xmHJQVilA==}
 
   process@0.11.10:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
@@ -80,38 +87,40 @@ packages:
   string_decoder@1.3.0:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
 
-  undici-types@7.10.0:
-    resolution: {integrity: sha512-t5Fy/nfn+14LuOc2KNYg75vZqClpAiqscVvMygNnlsHBFpSXdJaYtXMcdNLpl/Qvc3P2cB3s6lOV51nqsFq4ag==}
+  undici-types@7.12.0:
+    resolution: {integrity: sha512-goOacqME2GYyOZZfb5Lgtu+1IDmAlAEu5xnD3+xTzS10hT0vzpf0SPjkXwAw9Jm+4n/mQGDP3LO8CPbYROeBfQ==}
 
-  utilium@2.5.4:
-    resolution: {integrity: sha512-JeuMqv+yc2AGo0A3vVIiEwrYQcE/8SXftnvUq0HK0wnAmHtPCMZ/vln7nmNF9G63Qw9egijnTx3TxzdWZKYBmA==}
+  utilium@2.5.5:
+    resolution: {integrity: sha512-7JG3atM1tw9DHhKEVfShihg0t1yUwakuNe7SnTZOZLqjJ93mvB+2iN0XnZIcJ5vPB5hjO61QZnB60ugbQPHRyg==}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
 snapshots:
 
-  '@types/node@24.2.1':
+  '@types/node@24.5.2':
     dependencies:
-      undici-types: 7.10.0
+      undici-types: 7.12.0
 
   '@xterm/xterm@5.5.0':
     optional: true
 
   '@zenfs/core@2.4.0':
     dependencies:
-      '@types/node': 24.2.1
+      '@types/node': 24.5.2
       buffer: 6.0.3
       eventemitter3: 5.0.1
-      kerium: 1.3.5
-      memium: 0.3.8
+      kerium: 1.3.6
+      memium: 0.3.9
       readable-stream: 4.7.0
-      utilium: 2.5.4
+      utilium: 2.5.5
 
-  '@zenfs/dom@1.2.4(@zenfs/core@2.4.0)(kerium@1.3.5)(utilium@2.5.4)':
+  '@zenfs/dom@1.2.5(@zenfs/core@2.4.0)(kerium@1.3.6)(utilium@2.5.5)':
     dependencies:
       '@zenfs/core': 2.4.0
-      kerium: 1.3.5
-      utilium: 2.5.4
+      kerium: 1.3.6
+      utilium: 2.5.5
+
+  RealFS-ng-prototype.git#dev@https://codeload.github.com/LosersUnited/RealFS-ng-prototype/tar.gz/7471226d46afcb2813f00f47832547a7336d5927: {}
 
   abort-controller@3.0.0:
     dependencies:
@@ -132,14 +141,14 @@ snapshots:
 
   ieee754@1.2.1: {}
 
-  kerium@1.3.5:
+  kerium@1.3.6:
     dependencies:
-      utilium: 2.5.4
+      utilium: 2.5.5
 
-  memium@0.3.8:
+  memium@0.3.9:
     dependencies:
-      kerium: 1.3.5
-      utilium: 2.5.4
+      kerium: 1.3.6
+      utilium: 2.5.5
 
   process@0.11.10: {}
 
@@ -157,9 +166,9 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  undici-types@7.10.0: {}
+  undici-types@7.12.0: {}
 
-  utilium@2.5.4:
+  utilium@2.5.5:
     dependencies:
       eventemitter3: 5.0.1
     optionalDependencies:
