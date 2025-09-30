@@ -21320,7 +21320,7 @@
   };
   var XML = _XML;
 
-  // node_modules/.pnpm/RealFS-ng-prototype.git+dev@https+++codeload.github.com+LosersUnited+RealFS-ng-prototyp_33db8be32d79da1fb09c4e851724ec9b/node_modules/RealFS-ng-prototype.git#dev/real-fs-protocol/type_system.ts
+  // node_modules/.pnpm/RealFS-ng-prototype.git+dev@https+++codeload.github.com+LosersUnited+RealFS-ng-prototyp_5e5b52067fbd9090a8281fde10b58ff8/node_modules/RealFS-ng-prototype.git#dev/real-fs-protocol/type_system.ts
   var oper_types = {
     "whole": 1,
     // consume all bytes
@@ -21508,6 +21508,21 @@
       }
       this.offset = offset;
     }
+    emplaceIntoBuffer(buffer) {
+      this.ensureCapacity(this.offset + buffer.byteLength);
+      this.buffer.set(buffer, this.offset);
+      this.offset += buffer.byteLength;
+    }
+    setExactSize(size) {
+      const newBuffer = new Uint8Array(size);
+      newBuffer.set(this.buffer, 0);
+      this.buffer = newBuffer;
+    }
+    appendToBuffer(buffer) {
+      const currentEnd = this.buffer.length;
+      this.setExactSize(currentEnd + buffer.byteLength);
+      this.buffer.set(buffer, currentEnd);
+    }
   };
   function createConcatWholeOper() {
     return () => [oper_types.concat_whole];
@@ -21523,7 +21538,7 @@
     })
   ];
 
-  // node_modules/.pnpm/RealFS-ng-prototype.git+dev@https+++codeload.github.com+LosersUnited+RealFS-ng-prototyp_33db8be32d79da1fb09c4e851724ec9b/node_modules/RealFS-ng-prototype.git#dev/real-fs-protocol/shared.ts
+  // node_modules/.pnpm/RealFS-ng-prototype.git+dev@https+++codeload.github.com+LosersUnited+RealFS-ng-prototyp_5e5b52067fbd9090a8281fde10b58ff8/node_modules/RealFS-ng-prototype.git#dev/real-fs-protocol/shared.ts
   var opcode_map = {
     "ls": 1,
     "stat": 2,
@@ -21587,9 +21602,7 @@
     read: {
       write(buf, data) {
         buf.writeFromSpecType("uint32", data.byteLength);
-        for (let i = 0; i < data.byteLength; ++i) {
-          buf.writeFromSpecType("uint8", data[i]);
-        }
+        buf.emplaceIntoBuffer(data);
       },
       read(buf) {
         const length = Number(buf.readFromSpecType("uint32"));
@@ -21777,9 +21790,7 @@
       write(buf, path, data, offset) {
         buf.writeFromSpecType("string", new TextEncoder().encode(path));
         buf.writeFromSpecType("uint32", data.byteLength);
-        for (let i = 0; i < data.byteLength; ++i) {
-          buf.writeFromSpecType("uint8", data[i]);
-        }
+        buf.emplaceIntoBuffer(data);
         buf.writeFromSpecType("uint32", offset);
       }
     },
