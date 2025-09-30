@@ -8460,7 +8460,7 @@
   // node_modules/.pnpm/eventemitter3@5.0.1/node_modules/eventemitter3/index.mjs
   var import_index = __toESM(require_eventemitter3(), 1);
 
-  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/list.js
+  // node_modules/.pnpm/utilium@2.5.5/node_modules/utilium/dist/list.js
   var List = class extends import_index.default {
     [Symbol.toStringTag] = "List";
     constructor(values) {
@@ -8573,7 +8573,7 @@
     }
   };
 
-  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/objects.js
+  // node_modules/.pnpm/utilium@2.5.5/node_modules/utilium/dist/objects.js
   function filterObject(object, predicate) {
     const entries2 = Object.entries(object);
     return Object.fromEntries(entries2.filter(([key, value]) => predicate(key, value)));
@@ -8607,7 +8607,7 @@
     return Object.fromEntries(Object.entries(fns).map(([k, v]) => [k, typeof v == "function" ? v.bind(thisValue) : v]));
   }
 
-  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/misc.js
+  // node_modules/.pnpm/utilium@2.5.5/node_modules/utilium/dist/misc.js
   function canary(error = new Error()) {
     const timeout = setTimeout(() => {
       throw error;
@@ -8620,16 +8620,16 @@
     throw e;
   }
 
-  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/numbers.js
+  // node_modules/.pnpm/utilium@2.5.5/node_modules/utilium/dist/numbers.js
   var __formatter = Intl.NumberFormat("en", { notation: "compact" });
   var formatCompact = __formatter.format.bind(__formatter);
 
-  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/random.js
+  // node_modules/.pnpm/utilium@2.5.5/node_modules/utilium/dist/random.js
   function randomInt(min = 0, max = 1) {
     return Math.round(Math.random() * (max - min) + min);
   }
 
-  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/string.js
+  // node_modules/.pnpm/utilium@2.5.5/node_modules/utilium/dist/string.js
   function capitalize(value) {
     return value.at(0).toUpperCase() + value.slice(1);
   }
@@ -8674,7 +8674,7 @@
     return data;
   }
 
-  // node_modules/.pnpm/kerium@1.3.5/node_modules/kerium/dist/error.js
+  // node_modules/.pnpm/kerium@1.3.6/node_modules/kerium/dist/error.js
   var Errno;
   (function(Errno2) {
     Errno2[Errno2["EPERM"] = 1] = "EPERM";
@@ -9016,7 +9016,7 @@
     };
   }
 
-  // node_modules/.pnpm/kerium@1.3.5/node_modules/kerium/dist/log.js
+  // node_modules/.pnpm/kerium@1.3.6/node_modules/kerium/dist/log.js
   var log_exports = {};
   __export(log_exports, {
     Level: () => Level,
@@ -9095,16 +9095,8 @@
   function ansi(text, format4) {
     return `\x1B[${format4}m${text}\x1B[0m`;
   }
-  function _prettyMs(entry, style) {
-    const text = "[" + (entry.elapsedMs / 1e3).toFixed(3).padStart(10) + "] ";
-    switch (style) {
-      case "ansi":
-        return [ansi(text, "2;37")];
-      case "css":
-        return ["%c" + text, "opacity: 0.8; color: white;"];
-      default:
-        return [text];
-    }
+  function timestamp(entry) {
+    return "[" + (entry.elapsedMs / 1e3).toFixed(3).padStart(10) + "] ";
   }
   var levelColor = {
     ansi: {
@@ -9152,24 +9144,24 @@
   };
   function fancy({ style, colorize }) {
     return function* (entry) {
-      yield* _prettyMs(entry, style);
-      const levelText = style == "ansi" ? [ansi(levels[entry.level].toUpperCase(), levelColor.ansi[entry.level])] : ["%c" + levels[entry.level].toUpperCase(), levelColor.css[entry.level]];
+      if (style == "css")
+        yield colorize == "level" ? "%c%s %c%s" : "%c%s %c%s%s %c%s";
+      yield* style == "ansi" ? [ansi(timestamp(entry), "2;37")] : ["opacity: 0.8; color: white;", timestamp(entry)];
+      const levelText = style == "ansi" ? [ansi(levels[entry.level].toUpperCase(), levelColor.ansi[entry.level])] : [levelColor.css[entry.level], levels[entry.level].toUpperCase()];
       if (colorize == "level") {
         yield* levelText;
         yield entry.message;
         return;
       }
-      if (entry.level < Level.CRIT) {
+      if (entry.level < Level.CRIT)
         yield* levelText;
-        yield ": ";
-      }
-      if (colorize == "message")
+      if (style == "ansi")
         yield ansi(entry.message, messageColor.ansi[entry.level]);
       else
-        yield* ["%c" + entry.message, messageColor.css[entry.level]];
+        yield* [messageColor.css[entry.level], entry.message];
     };
   }
-  var _format = (entry) => [..._prettyMs(entry), entry.message];
+  var _format = (entry) => [timestamp(entry), entry.message];
   function format(entry) {
     const formatted = _format(entry);
     return typeof formatted == "string" ? [formatted] : Array.from(formatted);
@@ -9368,7 +9360,7 @@
   var UV_FS_O_FILEMAP = 0;
   var size_max = 4294967295;
 
-  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/array.js
+  // node_modules/.pnpm/memium@0.3.9/node_modules/memium/dist/array.js
   function StructArray(type) {
     class StructArray2 extends DataView {
       length;
@@ -9440,7 +9432,7 @@
     array;
   };
 
-  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/types.js
+  // node_modules/.pnpm/memium@0.3.9/node_modules/memium/dist/types.js
   function isType(type) {
     if (typeof type != "object" && typeof type != "function" || type === null || type === void 0)
       return false;
@@ -9455,7 +9447,7 @@
     typeRegistry.set(t.name, t);
   }
 
-  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/fields.js
+  // node_modules/.pnpm/memium@0.3.9/node_modules/memium/dist/fields.js
   function parseFieldConfig(init) {
     if (isType(init))
       return { type: init };
@@ -9506,7 +9498,7 @@
     return new FieldBuilder(new ArrayType(type, length), {});
   }
 
-  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/fields.internal.js
+  // node_modules/.pnpm/memium@0.3.9/node_modules/memium/dist/fields.internal.js
   function __fieldInit(_name, init, extraOpts = {}) {
     if (!_name)
       throw withErrno("EINVAL", "Invalid name for struct field");
@@ -9551,7 +9543,7 @@
     }
   }
 
-  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/primitives.js
+  // node_modules/.pnpm/memium@0.3.9/node_modules/memium/dist/primitives.js
   var __view__ = Symbol("DataView");
   function view(buffer) {
     buffer[__view__] ??= new DataView(buffer);
@@ -9659,7 +9651,7 @@
     return type == "char" ? "uint8" : type.toLowerCase();
   }
 
-  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/decorators.js
+  // node_modules/.pnpm/memium@0.3.9/node_modules/memium/dist/decorators.js
   Symbol.metadata ??= Symbol.for("Symbol.metadata");
   function initMetadata(context) {
     context.metadata ??= {};
@@ -9785,7 +9777,7 @@
     return t;
   };
 
-  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/structs.js
+  // node_modules/.pnpm/memium@0.3.9/node_modules/memium/dist/structs.js
   function isStructConstructor(arg) {
     return typeof arg == "function" && "prototype" in arg && "fields" in arg && typeof arg.fields == "object" && isType(arg);
   }
@@ -9883,7 +9875,7 @@
     new FieldBuilder(type, { typeName })
   ]));
 
-  // node_modules/.pnpm/memium@0.3.8/node_modules/memium/dist/misc.js
+  // node_modules/.pnpm/memium@0.3.9/node_modules/memium/dist/misc.js
   function sizeof(type) {
     if (isType(type))
       return type.size;
@@ -9917,7 +9909,7 @@
     return fields[fieldName].offset;
   }
 
-  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/buffer.js
+  // node_modules/.pnpm/utilium@2.5.5/node_modules/utilium/dist/buffer.js
   function extendBuffer(buffer, newByteLength) {
     if (buffer.byteLength >= newByteLength)
       return buffer;
@@ -11558,7 +11550,7 @@
     }
   };
 
-  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/cache.js
+  // node_modules/.pnpm/utilium@2.5.5/node_modules/utilium/dist/cache.js
   var Resource = class {
     id;
     _size;
@@ -17767,7 +17759,7 @@
   };
   var CopyOnWrite = _CopyOnWrite;
 
-  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/requests.js
+  // node_modules/.pnpm/utilium@2.5.5/node_modules/utilium/dist/requests.js
   var resourcesCache = /* @__PURE__ */ new Map();
   async function _fetch(input, init = {}, bodyOptional = false) {
     const response = await fetch(input, init).catch((error) => {
@@ -19055,7 +19047,7 @@
     return fs;
   }
 
-  // node_modules/.pnpm/utilium@2.5.4/node_modules/utilium/dist/checksum.js
+  // node_modules/.pnpm/utilium@2.5.5/node_modules/utilium/dist/checksum.js
   var crc32cTable = new Uint32Array(256);
   for (let i = 0; i < 256; i++) {
     let value = i;
@@ -20644,7 +20636,7 @@
   var dist_default = vfs_exports;
   globalThis.__zenfs__ = Object.assign(Object.create(vfs_exports), { _version: package_default.version });
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/index.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.5_@zenfs+core@2.4.0_kerium@1.3.6_utilium@2.5.5/node_modules/@zenfs/dom/dist/index.js
   var dist_exports2 = {};
   __export(dist_exports2, {
     IndexedDB: () => IndexedDB,
@@ -20658,7 +20650,7 @@
     XMLFS: () => XMLFS
   });
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/utils.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.5_@zenfs+core@2.4.0_kerium@1.3.6_utilium@2.5.5/node_modules/@zenfs/dom/dist/utils.js
   function errnoForDOMException(ex) {
     switch (ex.name) {
       case "TypeMismatchError":
@@ -20720,11 +20712,14 @@
     return error;
   }
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/access.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.5_@zenfs+core@2.4.0_kerium@1.3.6_utilium@2.5.5/node_modules/@zenfs/dom/dist/access.js
+  function _isShared(buffer) {
+    return typeof buffer == "object" && buffer !== null && buffer.constructor.name == "SharedArrayBuffer";
+  }
   function isResizable(buffer) {
     if (buffer instanceof ArrayBuffer)
       return buffer.resizable;
-    if (buffer instanceof SharedArrayBuffer)
+    if (_isShared(buffer))
       return buffer.growable;
     return false;
   }
@@ -20835,7 +20830,7 @@
       buffer.set(new Uint8Array(data, offset, end - offset));
     }
     async write(path, buffer, offset) {
-      if (isResizable(buffer.buffer) || buffer.buffer instanceof SharedArrayBuffer) {
+      if (isResizable(buffer.buffer) || _isShared(buffer.buffer)) {
         const newBuffer = new Uint8Array(new ArrayBuffer(buffer.byteLength), buffer.byteOffset, buffer.byteLength);
         newBuffer.set(buffer);
         buffer = newBuffer;
@@ -20931,7 +20926,7 @@
   };
   var WebAccess = _WebAccess;
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/IndexedDB.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.5_@zenfs+core@2.4.0_kerium@1.3.6_utilium@2.5.5/node_modules/@zenfs/dom/dist/IndexedDB.js
   function wrap2(request2) {
     return new Promise((resolve2, reject) => {
       request2.onsuccess = () => resolve2(request2.result);
@@ -21076,7 +21071,7 @@
   };
   var IndexedDB = _IndexedDB;
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/storage.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.5_@zenfs+core@2.4.0_kerium@1.3.6_utilium@2.5.5/node_modules/@zenfs/dom/dist/storage.js
   var WebStorageStore = class {
     get name() {
       return WebStorage.name;
@@ -21138,7 +21133,7 @@
   };
   var WebStorage = _WebStorage;
 
-  // node_modules/.pnpm/@zenfs+dom@1.2.4_@zenfs+core@2.4.0_kerium@1.3.5_utilium@2.5.4/node_modules/@zenfs/dom/dist/xml.js
+  // node_modules/.pnpm/@zenfs+dom@1.2.5_@zenfs+core@2.4.0_kerium@1.3.6_utilium@2.5.5/node_modules/@zenfs/dom/dist/xml.js
   function get_stats(node) {
     const stats = {};
     for (const key of _inode_fields) {
@@ -21325,9 +21320,1037 @@
   };
   var XML = _XML;
 
+  // node_modules/.pnpm/RealFS-ng-prototype.git+dev@https+++codeload.github.com+LosersUnited+RealFS-ng-prototyp_33db8be32d79da1fb09c4e851724ec9b/node_modules/RealFS-ng-prototype.git#dev/real-fs-protocol/type_system.ts
+  var oper_types = {
+    "whole": 1,
+    // consume all bytes
+    "consume_n_bytes": 2,
+    "concat_whole": 3
+  };
+  var type_maker = {
+    make(name, byteLength, performOper, endianness = "be") {
+      return { name, byteLength, performOper, endianness };
+    }
+  };
+  var SpecBuffer = class {
+    buffer;
+    offset;
+    constructor(data) {
+      if (data instanceof ArrayBuffer) {
+        this.buffer = new Uint8Array(data);
+      } else if (Array.isArray(data)) {
+        this.buffer = new Uint8Array(data);
+      } else if (data instanceof Uint8Array) {
+        this.buffer = data;
+      } else {
+        this.buffer = new Uint8Array(0);
+      }
+      this.offset = 0;
+    }
+    read(bytes) {
+      if (this.offset + bytes > this.buffer.length) {
+        throw new Error(`Not enough bytes in buffer. Requested: ${bytes}, Available: ${this.buffer.length - this.offset}`);
+      }
+      const result = this.buffer.slice(this.offset, this.offset + bytes);
+      this.offset += bytes;
+      return result;
+    }
+    throwOpError(operation, message) {
+      const opName = Object.keys(oper_types).find((k) => oper_types[k] === operation);
+      throw new Error(`Cannot use ${opName} operation: ${message}`);
+    }
+    readFromSpecType(typeName) {
+      const typeSpec = spec_types.find((type) => type.name === typeName);
+      if (!typeSpec) {
+        throw new Error(`Unknown type: ${typeName}`);
+      }
+      const readOper = typeSpec.performOper(this);
+      if (Array.isArray(readOper)) {
+        const [operType, ...params] = readOper;
+        switch (operType) {
+          case oper_types.whole:
+            if (typeSpec.byteLength === null)
+              this.throwOpError(oper_types.whole, "variable-length types are not allowed.");
+            return this.read(typeSpec.byteLength);
+          case oper_types.consume_n_bytes: {
+            const numBytes = params[0];
+            if (typeof numBytes === "number") {
+              return this.read(numBytes);
+            } else {
+              throw new Error(`Invalid parameter for consume_n_bytes operation: ${numBytes}`);
+            }
+          }
+          case oper_types.concat_whole: {
+            if (typeSpec.byteLength === null)
+              this.throwOpError(oper_types.concat_whole, "variable-length types are not allowed.");
+            const bytesToRead = this.read(typeSpec.byteLength);
+            let result = 0;
+            if (typeSpec.endianness === "be") {
+              for (let i = 0; i < bytesToRead.length; i++) {
+                result = result << 8 | bytesToRead[i];
+              }
+            } else {
+              for (let i = 0; i < bytesToRead.length; i++) {
+                result |= bytesToRead[i] << i * 8;
+              }
+            }
+            return result;
+          }
+          default:
+            throw new Error(`Unsupported read operation: ${operType}`);
+        }
+      } else {
+        throw new Error(`Invalid read operation for type ${typeName}`);
+      }
+    }
+    writeFromSpecType(typeName, value) {
+      const typeSpec = spec_types.find((type) => type.name === typeName);
+      if (!typeSpec) {
+        throw new Error(`Unknown type: ${typeName}`);
+      }
+      const this_ = this;
+      let valueAsBytes;
+      if (value instanceof Uint8Array) {
+        valueAsBytes = value;
+      }
+      const writeOper = typeSpec.performOper({
+        readFromSpecType(prefixTypeName) {
+          if (!valueAsBytes) {
+            throw new Error(`Cannot determine length for type '${typeName}' on a non-Uint8Array value.`);
+          }
+          const length = valueAsBytes.length;
+          this_.writeFromSpecType(prefixTypeName, length);
+          return length;
+        }
+      });
+      if (Array.isArray(writeOper)) {
+        const [operType, ...params] = writeOper;
+        switch (operType) {
+          case oper_types.whole: {
+            if (typeSpec.byteLength === null)
+              this.throwOpError(oper_types.whole, "variable-length types are not allowed.");
+            if (value instanceof Uint8Array) {
+              this.ensureCapacity(this.offset + typeSpec.byteLength);
+              this.buffer.set(value.subarray(0, typeSpec.byteLength), this.offset);
+              this.offset += typeSpec.byteLength;
+            } else {
+              throw new Error(`Expected Uint8Array for type ${typeName} with 'whole' operation`);
+            }
+            break;
+          }
+          case oper_types.consume_n_bytes: {
+            const numBytes = params[0];
+            if (typeof numBytes !== "number") {
+              throw new Error(`Invalid parameter for consume_n_bytes operation: ${params[0]}`);
+            }
+            if (!valueAsBytes) {
+              throw new Error(`Expected string or Uint8Array for 'consume_n_bytes' operation, but got ${typeof value}`);
+            }
+            this.ensureCapacity(this.offset + numBytes);
+            this.buffer.set(valueAsBytes.subarray(0, numBytes), this.offset);
+            this.offset += numBytes;
+            break;
+          }
+          case oper_types.concat_whole: {
+            if (typeSpec.byteLength === null)
+              this.throwOpError(oper_types.concat_whole, "variable-length types are not allowed.");
+            if (typeof value === "number") {
+              this.ensureCapacity(this.offset + typeSpec.byteLength);
+              if (typeSpec.endianness === "be") {
+                for (let i = typeSpec.byteLength - 1; i >= 0; i--) {
+                  this.buffer[this.offset + i] = value & 255;
+                  value = value >> 8;
+                }
+              } else {
+                for (let i = 0; i < typeSpec.byteLength; i++) {
+                  this.buffer[this.offset + i] = value & 255;
+                  value = value >> 8;
+                }
+              }
+              this.offset += typeSpec.byteLength;
+            } else {
+              throw new Error(`Expected number for type ${typeName} with 'concat_whole' operation`);
+            }
+            break;
+          }
+          default:
+            throw new Error(`Unsupported write operation: ${operType}`);
+        }
+      } else {
+        throw new Error(`Invalid write operation for type ${typeName}`);
+      }
+    }
+    ensureCapacity(requiredSize) {
+      if (this.buffer.length < requiredSize) {
+        const newBuffer = new Uint8Array(Math.max(requiredSize * 2, this.buffer.length * 2));
+        newBuffer.set(this.buffer, 0);
+        this.buffer = newBuffer;
+      }
+    }
+    getBuffer() {
+      return this.buffer;
+    }
+    getOffset() {
+      return this.offset;
+    }
+    hasRemaining() {
+      return this.offset < this.buffer.length;
+    }
+    remaining() {
+      return this.buffer.length - this.offset;
+    }
+    reset() {
+      this.offset = 0;
+    }
+    setOffset(offset) {
+      if (offset < 0 || offset > this.buffer.length) {
+        throw new Error(`Invalid offset: ${offset}. Buffer length: ${this.buffer.length}`);
+      }
+      this.offset = offset;
+    }
+  };
+  function createConcatWholeOper() {
+    return () => [oper_types.concat_whole];
+  }
+  var spec_types = [
+    type_maker.make("uint8", 1, createConcatWholeOper()),
+    type_maker.make("uint16", 2, createConcatWholeOper()),
+    type_maker.make("uint32", 4, createConcatWholeOper()),
+    // note: uint64 values > Number.MAX_SAFE_INTEGER may lose precision. you should make your own type for cases where that's unacceptable.
+    type_maker.make("uint64", 8, createConcatWholeOper()),
+    type_maker.make("string", null, (buf) => {
+      return [oper_types.consume_n_bytes, buf.readFromSpecType("uint32")];
+    })
+  ];
+
+  // node_modules/.pnpm/RealFS-ng-prototype.git+dev@https+++codeload.github.com+LosersUnited+RealFS-ng-prototyp_33db8be32d79da1fb09c4e851724ec9b/node_modules/RealFS-ng-prototype.git#dev/real-fs-protocol/shared.ts
+  var opcode_map = {
+    "ls": 1,
+    "stat": 2,
+    "read": 3,
+    "write": 4,
+    "unlink": 5,
+    "new": 6,
+    "touch": 7,
+    "rmdir": 8,
+    "move": 9
+  };
+  function storeUint64(buf, value) {
+    buf.writeFromSpecType("uint32", Number(value & 0xffffffffn) >>> 0);
+    buf.writeFromSpecType("uint32", Number(value >> 32n & 0xffffffffn) >>> 0);
+  }
+  var readUint64 = (buf) => {
+    const low = buf.readFromSpecType("uint32") >>> 0;
+    const high = buf.readFromSpecType("uint32") >>> 0;
+    return BigInt(high) << 32n | BigInt(low);
+  };
+  var response_spec = {
+    ls: {
+      write(buf, entries2) {
+        buf.writeFromSpecType("uint16", entries2.length);
+        for (const entry of entries2) {
+          buf.writeFromSpecType("string", new TextEncoder().encode(entry));
+        }
+      },
+      read(buf) {
+        const count = buf.readFromSpecType("uint16");
+        const result = [];
+        for (let i = 0; i < count; ++i) {
+          result.push(new TextDecoder().decode(buf.readFromSpecType("string")));
+        }
+        return {
+          entries: result,
+          count
+        };
+      }
+    },
+    stat: {
+      write(buf, stat3) {
+        buf.writeFromSpecType("uint32", stat3.size);
+        buf.writeFromSpecType("uint32", stat3.mode);
+        storeUint64(buf, BigInt(stat3.mtime));
+        storeUint64(buf, BigInt(stat3.ctime));
+        storeUint64(buf, BigInt(stat3.atime));
+      },
+      read(buf) {
+        return {
+          stat: {
+            size: Number(buf.readFromSpecType("uint32")) >>> 0,
+            mode: Number(buf.readFromSpecType("uint32")) >>> 0,
+            mtime: readUint64(buf),
+            ctime: readUint64(buf),
+            atime: readUint64(buf)
+          }
+        };
+      }
+    },
+    read: {
+      write(buf, data) {
+        buf.writeFromSpecType("uint32", data.byteLength);
+        for (let i = 0; i < data.byteLength; ++i) {
+          buf.writeFromSpecType("uint8", data[i]);
+        }
+      },
+      read(buf) {
+        const length = Number(buf.readFromSpecType("uint32"));
+        return {
+          data: buf.read(length)
+        };
+      }
+    },
+    touch: {
+      write(buf, success) {
+        buf.writeFromSpecType("uint8", success ? 1 : 0);
+      },
+      read(buf) {
+        return {
+          success: Boolean(buf.readFromSpecType("uint8"))
+        };
+      }
+    },
+    write: {
+      write(buf, success) {
+        buf.writeFromSpecType("uint8", success ? 1 : 0);
+      },
+      read(buf) {
+        return {
+          success: Boolean(buf.readFromSpecType("uint8"))
+        };
+      }
+    },
+    new: {
+      write(buf, result) {
+        buf.writeFromSpecType("uint32", result.size);
+        buf.writeFromSpecType("uint32", result.mode);
+        storeUint64(buf, BigInt(result.mtime));
+        storeUint64(buf, BigInt(result.ctime));
+        storeUint64(buf, BigInt(result.atime));
+      },
+      read(buf) {
+        return {
+          result: {
+            size: Number(buf.readFromSpecType("uint32")) >>> 0,
+            mode: Number(buf.readFromSpecType("uint32")) >>> 0,
+            mtime: readUint64(buf),
+            ctime: readUint64(buf),
+            atime: readUint64(buf)
+          }
+        };
+      }
+    },
+    unlink: {
+      write(buf, success) {
+        buf.writeFromSpecType("uint8", success ? 1 : 0);
+      },
+      read(buf) {
+        return {
+          success: Boolean(buf.readFromSpecType("uint8"))
+        };
+      }
+    },
+    rmdir: {
+      write(buf, success) {
+        buf.writeFromSpecType("uint8", success ? 1 : 0);
+      },
+      read(buf) {
+        return {
+          success: Boolean(buf.readFromSpecType("uint8"))
+        };
+      }
+    },
+    move: {
+      write(buf, success) {
+        buf.writeFromSpecType("uint8", success ? 1 : 0);
+      },
+      read(buf) {
+        return {
+          success: Boolean(buf.readFromSpecType("uint8"))
+        };
+      }
+    }
+  };
+  var control_message = {
+    read(buf) {
+      const op_code = buf.read(1)[0];
+      const op_name = Object.keys(opcode_map).find((key) => opcode_map[key] === op_code);
+      return {
+        op_name,
+        // message id
+        id: buf.readFromSpecType("uint32") >>> 0
+      };
+    },
+    write(buf, op_name, id) {
+      buf.writeFromSpecType("uint8", opcode_map[op_name]);
+      buf.writeFromSpecType("uint32", id);
+    }
+  };
+  var spec = {
+    ls: {
+      read(buf) {
+        return {
+          path: new TextDecoder().decode(buf.readFromSpecType("string"))
+        };
+      },
+      write(buf, path) {
+        buf.writeFromSpecType("string", new TextEncoder().encode(path));
+      }
+    },
+    stat: {
+      read(buf) {
+        return {
+          path: new TextDecoder().decode(buf.readFromSpecType("string"))
+        };
+      },
+      write(buf, path) {
+        buf.writeFromSpecType("string", new TextEncoder().encode(path));
+      }
+    },
+    new: {
+      read(buf) {
+        return {
+          path: new TextDecoder().decode(buf.readFromSpecType("string")),
+          opt: {
+            mode: Number(buf.readFromSpecType("uint32")) >>> 0
+          }
+        };
+      },
+      write(buf, path, opt) {
+        buf.writeFromSpecType("string", new TextEncoder().encode(path));
+        buf.writeFromSpecType("uint32", opt.mode);
+      }
+    },
+    unlink: {
+      read(buf) {
+        return {
+          path: new TextDecoder().decode(buf.readFromSpecType("string"))
+        };
+      },
+      write(buf, path) {
+        buf.writeFromSpecType("string", new TextEncoder().encode(path));
+      }
+    },
+    read: {
+      read(buf) {
+        return {
+          path: new TextDecoder().decode(buf.readFromSpecType("string")),
+          start: Number(buf.readFromSpecType("uint32")) >>> 0,
+          end: Number(buf.readFromSpecType("uint32")) >>> 0
+        };
+      },
+      write(buf, path, start, end) {
+        buf.writeFromSpecType("string", new TextEncoder().encode(path));
+        buf.writeFromSpecType("uint32", start);
+        buf.writeFromSpecType("uint32", end);
+      }
+    },
+    touch: {
+      read(buf) {
+        const obj = {
+          path: new TextDecoder().decode(buf.readFromSpecType("string")),
+          stat: {
+            size: Number(buf.readFromSpecType("uint32")) >>> 0,
+            mode: Number(buf.readFromSpecType("uint32")) >>> 0,
+            mtime: readUint64(buf),
+            ctime: readUint64(buf),
+            atime: readUint64(buf)
+          }
+        };
+        return obj;
+      },
+      write(buf, path, stat3) {
+        buf.writeFromSpecType("string", new TextEncoder().encode(path));
+        buf.writeFromSpecType("uint32", stat3.size);
+        buf.writeFromSpecType("uint32", stat3.mode);
+        storeUint64(buf, BigInt(stat3.mtime));
+        storeUint64(buf, BigInt(stat3.ctime));
+        storeUint64(buf, BigInt(stat3.atime));
+      }
+    },
+    write: {
+      read(buf) {
+        return {
+          path: new TextDecoder().decode(buf.readFromSpecType("string")),
+          data: buf.read(Number(buf.readFromSpecType("uint32")) >>> 0),
+          offset: Number(buf.readFromSpecType("uint32")) >>> 0
+        };
+      },
+      write(buf, path, data, offset) {
+        buf.writeFromSpecType("string", new TextEncoder().encode(path));
+        buf.writeFromSpecType("uint32", data.byteLength);
+        for (let i = 0; i < data.byteLength; ++i) {
+          buf.writeFromSpecType("uint8", data[i]);
+        }
+        buf.writeFromSpecType("uint32", offset);
+      }
+    },
+    rmdir: {
+      read(buf) {
+        return {
+          path: new TextDecoder().decode(buf.readFromSpecType("string"))
+        };
+      },
+      write(buf, path) {
+        buf.writeFromSpecType("string", new TextEncoder().encode(path));
+      }
+    },
+    move: {
+      read(buf) {
+        return {
+          src_path: new TextDecoder().decode(buf.readFromSpecType("string")),
+          dst_path: new TextDecoder().decode(buf.readFromSpecType("string"))
+        };
+      },
+      write(buf, src_path, dst_path) {
+        buf.writeFromSpecType("string", new TextEncoder().encode(src_path));
+        buf.writeFromSpecType("string", new TextEncoder().encode(dst_path));
+      }
+    }
+  };
+
+  // src/snapshot.ts
+  var MAGIC = new TextEncoder().encode("SNAPSHOT");
+  var VERSION = "0.1";
+  function readUint642(buf) {
+    const low = buf.readFromSpecType("uint32") >>> 0;
+    const high = buf.readFromSpecType("uint32") >>> 0;
+    return BigInt(high) << 32n | BigInt(low);
+  }
+  var ReadFlags = {
+    HAD_READ_MAGIC: 1 << 0,
+    HAD_READ_VERSION: 1 << 1,
+    HAD_READ_TOTAL_BYTES: 1 << 2,
+    HAD_READ_ENTRIES_COUNT: 1 << 3,
+    HAD_READ_ALL_ENTRIES: 1 << 4,
+    HAD_READ_PATH_BLOB: 1 << 5
+  };
+  var SnapshotRestorer = class {
+    constructor(targetDir, path_join_impl, createWriteStream_impl, path_sep, path_dirname_impl, fs_mkdir_impl, fs_utimes_impl) {
+      this.targetDir = targetDir;
+      this.stage = 0 /* HEADER */;
+      this.flags = 0;
+      this.entries_read = 0;
+      this.entries_count = -1;
+      this.entries = [];
+      this.pathBlobProcessed = false;
+      this.currentFileIndex = 0;
+      this.path_join_impl = path_join_impl;
+      this.createWriteStream_impl = createWriteStream_impl;
+      this.path_sep = path_sep;
+      this.path_dirname_impl = path_dirname_impl;
+      this.fs_mkdir_impl = fs_mkdir_impl;
+      this.fs_utimes_impl = fs_utimes_impl;
+    }
+    stage;
+    flags;
+    entries_read;
+    entries_count;
+    entries;
+    pathBlobProcessed;
+    currentFileIndex;
+    dataWriteStream = null;
+    bytesWrittenForCurrentFile = 0;
+    totalBytesForCurrentFile = 0;
+    pathBlobEndOffset = 0;
+    leftoverDataQueue = [];
+    path_join_impl;
+    createWriteStream_impl;
+    path_sep;
+    path_dirname_impl;
+    fs_mkdir_impl;
+    fs_utimes_impl;
+    async restoreFromStream(snapshotStream) {
+      const reader = snapshotStream.getReader();
+      const buf = new SpecBuffer();
+      try {
+        let chunk;
+        while ((chunk = await reader.read()) && !chunk.done) {
+          console.log(`Chunk received, size=${chunk.value.length}`);
+          if (this.stage === 2 /* DATA_BLOCKS */) {
+            await this.handleDataChunk(chunk.value);
+            continue;
+          }
+          buf.appendToBuffer(chunk.value);
+          console.log(`Remaining after append: ${buf.remaining()}`);
+          if (this.stage === 0 /* HEADER */) {
+            await this.parseHeader(buf);
+          }
+          if (this.stage === 1 /* PATH_BLOB */) {
+            await this.parsePathBlob(buf);
+          }
+        }
+        if (this.dataWriteStream) {
+          this.dataWriteStream.end();
+          await new Promise((resolve2, reject) => {
+            this.dataWriteStream.on("finish", resolve2).on("error", reject);
+          });
+        }
+      } finally {
+        reader.releaseLock();
+        if (this.dataWriteStream) {
+          this.dataWriteStream.close();
+        }
+      }
+    }
+    async parseHeader(buf) {
+      if (!(this.flags & ReadFlags.HAD_READ_MAGIC)) {
+        if (buf.remaining() >= MAGIC.byteLength) {
+          const magic = buf.read(MAGIC.byteLength);
+          if (!magic.every((byte, i) => byte === MAGIC[i])) {
+            throw new Error("Invalid snapshot format");
+          }
+          this.flags |= ReadFlags.HAD_READ_MAGIC;
+        }
+      }
+      if (!(this.flags & ReadFlags.HAD_READ_VERSION)) {
+        if (buf.remaining() >= 4) {
+          const versionBytes = buf.readFromSpecType("string");
+          const version2 = new TextDecoder().decode(versionBytes);
+          if (version2 !== VERSION) {
+            throw new Error(`Unsupported snapshot version: ${version2}`);
+          }
+          console.log(`Restoring snapshot with version ${version2}`);
+          this.flags |= ReadFlags.HAD_READ_VERSION;
+        }
+      }
+      if (!(this.flags & ReadFlags.HAD_READ_ENTRIES_COUNT)) {
+        if (buf.remaining() >= 4) {
+          const entryCount = buf.readFromSpecType("uint32");
+          console.log(`Found ${entryCount} entries in the snapshot`);
+          this.flags |= ReadFlags.HAD_READ_ENTRIES_COUNT;
+          this.entries_count = entryCount;
+          for (let i = 0; i < entryCount; i++) {
+            this.entries.push({
+              path: "",
+              pathOffset: 0,
+              pathLen: 0,
+              type: 0,
+              mode: 0,
+              mtime: 0n,
+              size: 0,
+              dataOffset: 0
+            });
+          }
+        }
+      }
+      if (!(this.flags & ReadFlags.HAD_READ_TOTAL_BYTES)) {
+        if (buf.remaining() >= 8) {
+          const totalBytes = readUint642(buf);
+          console.log(`Total bytes in the snapshot: ${totalBytes}`);
+          this.flags |= ReadFlags.HAD_READ_TOTAL_BYTES;
+        }
+      }
+      if (!(this.flags & ReadFlags.HAD_READ_ALL_ENTRIES)) {
+        if (this.entries_read < this.entries_count) {
+          console.log(`Parsing entry registry, from ${this.entries_read} to ${this.entries_count}`);
+          while (this.entries_read < this.entries_count) {
+            if (buf.remaining() < 40) {
+              console.log(`Not enough data to read next entry (need 40, have ${buf.remaining()})`);
+              break;
+            }
+            const entryIndex = this.entries_read;
+            this.entries[entryIndex].pathOffset = buf.readFromSpecType("uint32");
+            this.entries[entryIndex].pathLen = buf.readFromSpecType("uint32");
+            this.entries[entryIndex].type = buf.readFromSpecType("uint32");
+            this.entries[entryIndex].mode = buf.readFromSpecType("uint32");
+            this.entries[entryIndex].mtime = readUint642(buf);
+            this.entries[entryIndex].size = Number(readUint642(buf));
+            this.entries[entryIndex].dataOffset = Number(readUint642(buf));
+            this.entries_read++;
+          }
+        }
+        if (this.entries_read === this.entries_count) {
+          this.flags |= ReadFlags.HAD_READ_ALL_ENTRIES;
+          this.stage = 1 /* PATH_BLOB */;
+          console.log(`Finished reading all ${this.entries_count} entries, moving to path blob`);
+        }
+      }
+    }
+    async parsePathBlob(buf) {
+      if (this.pathBlobProcessed) return;
+      const buffer = buf.getBuffer();
+      if (this.pathBlobEndOffset === 0) {
+        let maxEnd = 0;
+        for (const entry of this.entries) {
+          maxEnd = Math.max(maxEnd, entry.pathOffset + entry.pathLen);
+        }
+        this.pathBlobEndOffset = maxEnd;
+        console.log(`Path blob ends at offset ${this.pathBlobEndOffset}`);
+      }
+      if (buffer.length < this.pathBlobEndOffset) {
+        console.log(`Waiting for more data: have ${buffer.length}, need ${this.pathBlobEndOffset}`);
+        return;
+      }
+      for (let i = 0; i < this.entries.length; i++) {
+        const entry = this.entries[i];
+        const pathBytes = buffer.subarray(entry.pathOffset, entry.pathOffset + entry.pathLen);
+        entry.path = new TextDecoder().decode(pathBytes);
+        console.log(`Read path for entry ${i}: "${entry.path}"`);
+      }
+      this.pathBlobProcessed = true;
+      const leftoverStart = this.pathBlobEndOffset;
+      let leftoverBytes = new Uint8Array(0);
+      if (buffer.length > leftoverStart) {
+        leftoverBytes = buffer.subarray(leftoverStart);
+        console.log(`Leftover bytes after path blob: ${leftoverBytes.length}`);
+      }
+      this.stage = 2 /* DATA_BLOCKS */;
+      await this.startDataRestoration(leftoverBytes);
+    }
+    async startDataRestoration(initialData) {
+      const dirsToCreate = [];
+      for (const entry of this.entries) {
+        if (entry.type === 1) {
+          const fullPath = this.path_join_impl(this.targetDir, entry.path);
+          dirsToCreate.push(fullPath);
+        }
+      }
+      dirsToCreate.sort((a, b) => a.split(this.path_sep).length - b.split(this.path_sep).length);
+      for (const dir of dirsToCreate) {
+        await this.fs_mkdir_impl(dir);
+        console.log(`Created directory: ${dir}`);
+      }
+      if (initialData.length > 0) {
+        this.leftoverDataQueue.push(initialData);
+      }
+      await this.advanceToNextFile();
+    }
+    async advanceToNextFile() {
+      while (this.currentFileIndex < this.entries.length) {
+        const entry = this.entries[this.currentFileIndex];
+        if (entry.type === 1) {
+          this.currentFileIndex++;
+          continue;
+        }
+        const fullPath = this.path_join_impl(this.targetDir, entry.path);
+        const dir = this.path_dirname_impl(fullPath);
+        await this.fs_mkdir_impl(dir);
+        this.dataWriteStream = this.createWriteStream_impl(fullPath, { flags: "w" });
+        this.bytesWrittenForCurrentFile = 0;
+        this.totalBytesForCurrentFile = entry.size;
+        console.log(`Starting to write file: ${fullPath} (${entry.size} bytes)`);
+        return;
+      }
+      console.log("All files restored.");
+      if (this.dataWriteStream) {
+        this.dataWriteStream.end();
+        this.dataWriteStream = null;
+      }
+    }
+    async handleDataChunk(chunk) {
+      this.leftoverDataQueue.push(chunk);
+      while (this.currentFileIndex < this.entries.length && this.dataWriteStream) {
+        const entry = this.entries[this.currentFileIndex];
+        if (entry.type === 1) {
+          this.currentFileIndex++;
+          continue;
+        }
+        const needed = this.totalBytesForCurrentFile - this.bytesWrittenForCurrentFile;
+        if (needed <= 0) {
+          this.dataWriteStream.end();
+          await new Promise((resolve2, reject) => {
+            this.dataWriteStream.on("finish", resolve2).on("error", reject);
+          });
+          const fullPath = this.path_join_impl(this.targetDir, entry.path);
+          await this.fs_utimes_impl(fullPath, /* @__PURE__ */ new Date(), new Date(Number(entry.mtime)));
+          console.log(`Finished writing file: ${fullPath}`);
+          this.dataWriteStream = null;
+          this.currentFileIndex++;
+          await this.advanceToNextFile();
+          continue;
+        }
+        if (this.leftoverDataQueue.length === 0) break;
+        const nextData = this.leftoverDataQueue[0];
+        const toWrite = nextData.subarray(0, Math.min(needed, nextData.length));
+        this.dataWriteStream.write(toWrite);
+        this.bytesWrittenForCurrentFile += toWrite.length;
+        if (toWrite.length === nextData.length) {
+          this.leftoverDataQueue.shift();
+        } else {
+          this.leftoverDataQueue[0] = nextData.subarray(toWrite.length);
+        }
+      }
+    }
+    async restoreFromUrl(snapshotUrl) {
+      const response = await fetch(snapshotUrl, {
+        headers: {
+          accept: "application/octet-stream"
+        }
+      });
+      if (!response.ok || !response.body) {
+        throw new Error(`Failed to fetch snapshot: ${response.status} ${response.statusText}`);
+      }
+      await this.restoreFromStream(response.body);
+    }
+  };
+
+  // src/realfs.ts
+  var S_IFDIR2 = 16384;
+  var S_IFREG2 = 32768;
+  function writeSpec(op, buf, ...args) {
+    spec[op].write(buf, ...args);
+  }
+  var errAsBytes = new TextEncoder().encode("ERR:");
+  function deserializeError(obj) {
+    if (!obj || typeof obj !== "object") {
+      return obj;
+    }
+    const error = new Error(obj.message);
+    error.name = obj.name || "Error";
+    error.stack = obj.stack;
+    for (const key of Object.keys(obj)) {
+      if (!["name", "message", "stack"].includes(key)) {
+        error[key] = obj[key];
+      }
+    }
+    return error;
+  }
+  var RealFSClient = class {
+    socket;
+    // private emitter: EventEmitter;
+    pendingRequests = /* @__PURE__ */ new Map();
+    ready;
+    nextId;
+    constructor(url) {
+      this.socket = new WebSocket(`ws://${url}`);
+      this.socket.binaryType = "arraybuffer";
+      this.socket.onmessage = async (event) => {
+        const data = event.data instanceof Blob ? new Uint8Array(await event.data.arrayBuffer()) : event.data;
+        const buf = new SpecBuffer(data);
+        const head = control_message.read(buf);
+        console.log("Received head", head);
+        const callback = this.pendingRequests.get(head.id);
+        if (!callback) throw new Error("Orphaned request");
+        this.pendingRequests.delete(head.id);
+        callback(buf);
+      };
+      this.ready = new Promise((resolve2) => {
+        this.socket.onopen = () => resolve2();
+      });
+      this.nextId = 1;
+    }
+    send_request(operation, ...params) {
+      const buffer = new SpecBuffer();
+      const id = this.nextId++;
+      control_message.write(buffer, operation, id);
+      writeSpec(operation, buffer, ...params);
+      return new Promise((resolve2, reject) => {
+        this.pendingRequests.set(id, (buf) => {
+          try {
+            console.log("Got response for", id);
+            const oldOffset = buf.getOffset();
+            const nextFourBytes = buf.read(4);
+            if (nextFourBytes.every((x, index) => {
+              return x === errAsBytes[index];
+            })) {
+              const decoded = new TextDecoder().decode(buf.read(buf.remaining()));
+              const errorRaw = JSON.parse(decoded.split("\0")[0]);
+              throw deserializeError(errorRaw);
+            }
+            buf.setOffset(oldOffset);
+            const res = response_spec[operation].read(buf);
+            resolve2(res);
+          } catch (err2) {
+            reject(err2);
+          }
+        });
+        this.socket.send(buffer.getBuffer());
+        console.log("Sent", operation, params, id);
+      });
+    }
+    reattach() {
+      const url = this.socket.url;
+      if (this.socket.readyState != WebSocket.OPEN) {
+        const originalMessageHandler = this.socket.onmessage;
+        this.socket.close();
+        this.socket = new WebSocket(url);
+        this.socket.binaryType = "arraybuffer";
+        this.socket.onmessage = originalMessageHandler;
+      }
+    }
+    getSnapshotPathname() {
+      return this.socket.url.replace(/^ws/, "http").replace("/ws", "/snapshot");
+    }
+  };
+  var makeFakeWriteStream = (sync2, path, options) => {
+    if (!sync2.existsSync(path)) {
+      sync2.createFileSync(path, {
+        mode: S_IFREG2 | 511,
+        gid: 0,
+        uid: 0
+      });
+    }
+    const streamWrite = sync2.streamWrite(path, options);
+    const writer = streamWrite.getWriter();
+    const listeners = /* @__PURE__ */ new Map();
+    const state = {
+      _closing: false
+    };
+    return {
+      end() {
+        if (state._closing) return;
+        state._closing = true;
+        const promise = writer.close();
+        promise.then(() => {
+          listeners.get("finish")?.forEach((listener) => listener());
+          listeners.clear();
+        });
+      },
+      close() {
+        this.end();
+      },
+      on(event, listener) {
+        if (listeners.has(event))
+          listeners.get(event)?.push(listener);
+        else
+          listeners.set(event, [listener]);
+        return this;
+      },
+      async write(chunk) {
+        await writer.write(chunk);
+      }
+    };
+  };
+  var syncBoundMkdir = (sync2, path, options = { recursive: false }) => {
+    if (options.recursive === true) {
+      const split = path.split(sep).filter(Boolean);
+      for (let i = 1; i < split.length - 1; ++i) {
+        const subpath = split.slice(0, i + 1).join("/");
+        if (sync2.existsSync(subpath)) continue;
+        sync2.mkdirSync(subpath, {
+          mode: S_IFDIR2 | 511,
+          gid: 0,
+          uid: 0
+        });
+      }
+    }
+    if (sync2.existsSync(path)) {
+      return;
+    }
+    sync2.mkdirSync(path, {
+      mode: S_IFDIR2 | 511,
+      gid: 0,
+      uid: 0
+    });
+  };
+  var syncBoundUtimes = (sync2, path, atime, mtime, cb) => {
+    sync2.touchSync(path, {
+      atimeMs: atime instanceof Date ? atime.getTime() : atime,
+      mtimeMs: mtime instanceof Date ? mtime.getTime() : mtime
+    });
+    if (cb)
+      cb(null);
+  };
+  var RealFS = class extends Async(FileSystem) {
+    _sync;
+    client;
+    snapshotRestorer;
+    constructor(client, sync2) {
+      super(1919246700, "realfs");
+      this.attributes.set("no_async_preload", true);
+      this.client = client;
+      this._sync = sync2;
+      this.snapshotRestorer = new SnapshotRestorer(
+        "/",
+        join,
+        makeFakeWriteStream.bind(null, this._sync),
+        sep,
+        dirname,
+        syncBoundMkdir.bind(null, this._sync),
+        syncBoundUtimes.bind(null, this._sync)
+      );
+    }
+    async ready() {
+      await this._sync?.ready();
+      await this.snapshotRestorer.restoreFromUrl(this.client.getSnapshotPathname());
+      await super.ready();
+      this.attributes.delete("no_async_preload");
+    }
+    async readdir(path) {
+      return (await this.client.send_request("ls", path)).entries;
+    }
+    async rename(oldPath, newPath) {
+      if (oldPath == newPath) return;
+      await this.client.send_request("move", oldPath, newPath);
+    }
+    async stat(path) {
+      const res = await this.client.send_request("stat", path);
+      return new Inode({
+        atimeMs: Number(res.stat.atime),
+        ctimeMs: Number(res.stat.ctime),
+        mtimeMs: Number(res.stat.mtime),
+        size: res.stat.size,
+        mode: res.stat.mode
+      });
+    }
+    async touch(path, metadata) {
+      await this.client.send_request("touch", path, {
+        atime: BigInt(metadata.atimeMs ?? 0),
+        ctime: BigInt(metadata.ctimeMs ?? 0),
+        mtime: BigInt(metadata.mtimeMs ?? 0),
+        size: metadata.size ?? 0,
+        mode: metadata.mode ?? 0
+      });
+    }
+    async createFile(path, options) {
+      const res = await this.client.send_request("new", path, {
+        mode: options.mode | S_IFREG2
+      });
+      return new Inode({
+        atimeMs: Number(res.result.atime),
+        ctimeMs: Number(res.result.ctime),
+        mtimeMs: Number(res.result.mtime),
+        size: res.result.size,
+        mode: res.result.mode
+      });
+    }
+    async unlink(path) {
+      await this.client.send_request("unlink", path);
+    }
+    async rmdir(path) {
+      await this.client.send_request("rmdir", path);
+    }
+    async mkdir(path, options) {
+      const res = await this.client.send_request("new", path, {
+        mode: options.mode | S_IFDIR2
+      });
+      return new Inode({
+        atimeMs: Number(res.result.atime),
+        ctimeMs: Number(res.result.ctime),
+        mtimeMs: Number(res.result.mtime),
+        size: res.result.size,
+        mode: res.result.mode
+      });
+    }
+    link(target, link3) {
+      console.log("link", ...arguments);
+      throw new Error("Method not implemented.");
+    }
+    async read(path, buffer, start, end) {
+      const res = await this.client.send_request("read", path, start, end);
+      buffer.set(res.data, 0);
+    }
+    async write(path, buffer, offset) {
+      await this.client.send_request("write", path, buffer, offset);
+    }
+  };
+  var _RealFS = {
+    name: "RealFS",
+    options: {
+      client: { type: "object", required: true },
+      sync: { type: "object", required: true }
+    },
+    isAvailable() {
+      return true;
+    },
+    create(options) {
+      return new RealFS(options.client, options.sync);
+    }
+  };
+  var RealFs = _RealFS;
+
   // src/main.js
   function main() {
-    return { zenfs: dist_exports, zenfs_dom: dist_exports2 };
+    return { zenfs: dist_exports, zenfs_dom: dist_exports2, RealFs, RealFSClient };
   }
   globalThis.ZenFS_Aquire = main;
 })();
